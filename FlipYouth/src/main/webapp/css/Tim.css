@@ -1,0 +1,29 @@
+.nav-tabs {
+	border-bottom: 5px solid #ddd;
+	border-color: #4f46ff;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
+	{
+	color: #ffffff;
+	cursor: default;
+	background-color: #4f46ff;
+	border: 1px solid #4f46ff;
+	border-bottom-color: transparent;
+	font-family: Microsoft JhengHei;
+}
+
+a {
+    color: #4f46ff;
+    text-decoration: none;
+    font-family: Microsoft JhengHei;
+}
+.nav>li>a {
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+}
+
+h1 {
+	font-family: Microsoft JhengHei;
+}
