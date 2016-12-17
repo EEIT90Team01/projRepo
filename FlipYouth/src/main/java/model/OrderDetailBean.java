@@ -6,22 +6,15 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-@SuppressWarnings("serial")
 @Entity
-//@IdClass(OrderDetailPK.class)
 @Table(name = "OrderDetail")
-@Component(value="OrderDetailBean")
 public class OrderDetailBean implements Serializable {
-
+	private static final long serialVersionUID = 1L;
 	@EmbeddedId
 	private OrderDetailPK PK;
-	private Integer Quantity;// 數量
-//	@ManyToOne(cascade=CascadeType.ALL)
-//	private ShopBean shopBean;
-	
-	
-	
+	// @ManyToOne(cascade=CascadeType.ALL)
+	// private ShopBean shopBean;
+
 	public OrderDetailPK getPK() {
 		return PK;
 	}
@@ -29,6 +22,8 @@ public class OrderDetailBean implements Serializable {
 	public void setPK(OrderDetailPK pK) {
 		PK = pK;
 	}
+
+	private Integer Quantity;// 數量
 
 	public Integer getQuantity() {
 		return Quantity;
@@ -42,5 +37,5 @@ public class OrderDetailBean implements Serializable {
 	public String toString() {
 		return "OrderDetailBean [PK=" + PK + ", Quantity=" + Quantity + "]";
 	}
-
+	
 }

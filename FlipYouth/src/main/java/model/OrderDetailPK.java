@@ -3,57 +3,82 @@ package model;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@SuppressWarnings("serial")
 @Embeddable
 public class OrderDetailPK implements Serializable {
 
-	// @OneToMany
+	private static final long serialVersionUID = 1L;
 
 	// @GeneratedValue(strategy = GenerationType.TABLE)
-	private Integer OrderSN;
-	// @OneToOne
+	@ManyToOne
+	@JoinColumn(name = "orderSN")
+	private OrderBean orderSN;
 
-	// @ManyToOne(cascade = CascadeType.ALL, targetEntity = ShopBean.class)
-	// @ManyToOne(cascade = CascadeType.ALL)
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "GameSN")
-	private ShopBean shopBean;
+	@ManyToOne
+	@JoinColumn(name = "gameSN")
+	private ShopBean gameSN;
 
-	public Integer getOrderSN() {
-		return OrderSN;
+	public OrderDetailPK(){}
+	
+	public OrderDetailPK(OrderBean orderSN, ShopBean gameSN) {
+		this.orderSN = orderSN;
+		this.gameSN = gameSN;
 	}
 
-	public void setOrderSN(Integer orderSN) {
-		OrderSN = orderSN;
+	public OrderBean getOrderSN() {
+		return orderSN;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "GameSN")
-	public ShopBean getShopBean() {
-		return shopBean;
+	public void setOrderSN(OrderBean orderSN) {
+		this.orderSN = orderSN;
 	}
 
-	public void setShopBean(ShopBean shopBean) {
-		this.shopBean = shopBean;
+	public ShopBean getGameSN() {
+		return gameSN;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderDetailPK [OrderSN=" + OrderSN + ", shopBean=" + shopBean + "]";
+	public void setGameSN(ShopBean gameSN) {
+		this.gameSN = gameSN;
 	}
 
 	@Override
 	public int hashCode() {
-		return super.hashCode();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((gameSN == null) ? 0 : gameSN.hashCode());
+		result = prime * result + ((orderSN == null) ? 0 : orderSN.hashCode());
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return super.equals(obj);
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof OrderDetailPK))
+			return false;
+		OrderDetailPK other = (OrderDetailPK) obj;
+		if (gameSN == null) {
+			if (other.gameSN != null)
+				return false;
+		} else if (!gameSN.equals(other.gameSN))
+			return false;
+		if (orderSN == null) {
+			if (other.orderSN != null)
+				return false;
+		} else if (!orderSN.equals(other.orderSN))
+			return false;
+		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderDetailPK [orderSN=" + orderSN + ", gameSN=" + gameSN + "]";
+	}
+
+	
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import model.MemberBean;
+import model.OrderBean;
 import model.OrderDetailBean;
 import model.OrderDetailPK;
 import model.ShopBean;
@@ -35,8 +36,18 @@ public class ShopController {
 	@Resource(name = "shopServices")
 	ShopServices shopServices;
 
+	// WriteOrder.controller
+
+	@RequestMapping(path = "/writeOrder.controller")
+	public String WriteOrder(HttpSession session,String mbrSN, String orderAmount,String name,String tel,String phone,String email,String address) throws ParseException {// 寫入訂單的controller
+		OrderBean orderBean = new OrderBean(email,address,name,tel,phone);
+		OrderBean OrderBean=shopServices.newOrderAndDetail(orderBean,mbrSN,orderAmount,car);
+		session.setAttribute("order", OrderBean);
+		return "orderOver";
+	}
+
 	// shop controller
-	@RequestMapping(path = "/Shop.controllor")
+	@RequestMapping(path = "/Shop.controller")
 	public String Shop(Model model, HttpServletResponse response, HttpSession session, String gameClass, String ID,
 			String user, String pass, String name, Integer price, String clearCar) throws IOException {
 		if (session.isNew() || count == 0 || clearCar != null) {
@@ -55,25 +66,25 @@ public class ShopController {
 			// name==我放入購物車的商品的編號
 
 			count++;
-			
-			if (car.get(name) == null) {//先進去購物車找 
-				OrderDetailPK PK=new OrderDetailPK();
-				OrderDetailBean orderDetailBean=new OrderDetailBean();
-				PK.setShopBean(shopServices.select(Integer.parseInt(name)));
+
+			if (car.get(name) == null) {// 先進去購物車找
+				OrderDetailPK PK = new OrderDetailPK();
+				OrderDetailBean orderDetailBean = new OrderDetailBean();
+				PK.setGameSN(shopServices.select(Integer.parseInt(name)));
 				orderDetailBean.setPK(PK);
 				orderDetailBean.setQuantity(1);
 				car.put(name, orderDetailBean);
-				
-				System.out.println("第一次加入"+name+"商品 比數="+orderDetailBean.getQuantity());
+
+				System.out.println("第一次加入" + name + "商品 比數=" + orderDetailBean.getQuantity());
 			} else {
 				OrderDetailBean a = car.get(name);
-				a.setQuantity(a.getQuantity().intValue()+1);
+				a.setQuantity(a.getQuantity().intValue() + 1);
 				car.put(name, a);
-				System.out.println("更新"+name+"商品"+car.get(name).getQuantity());
+				System.out.println("更新" + name + "商品" + car.get(name).getQuantity());
 			}
-			
+
 			session.setAttribute("cars", car);
-			
+
 			session.setAttribute("count", count);
 			all = (int) session.getAttribute("ALL");
 
@@ -111,31 +122,47 @@ public class ShopController {
 	}
 
 	// order controller
+	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/order.controllor")
-	public String Order(String goOrder, HttpSession session,String change,String value,String GameSN) throws ParseException {
-		if(change!=null){
-			
-			
-			all=0;
-			count=0;
-			car=(Map<String, OrderDetailBean>) session.getAttribute("cars");
+	@RequestMapping(path = "/order.controller")
+	public String Order(String delectCar, String goOrder, HttpSession session, String change, String value,
+			String GameSN) throws ParseException {
+
+		if (delectCar != null) {// 按下取消
+			car.remove(delectCar);
+			all = 0;
+			count = 0;
+
+			for (String a : car.keySet()) {
+				int b = car.get(a).getQuantity();
+				int c = car.get(a).getPK().getGameSN().getPrice();
+				all += (b * c);
+				count += b;
+
+			}
+			session.setAttribute("count", count);
+			session.setAttribute("ALL", all);
+			return "checkOut";
+		}
+		if (change != null) {
+			all = 0;
+			count = 0;
+			car = (Map<String, OrderDetailBean>) session.getAttribute("cars");
 			OrderDetailBean orderDetailBean = car.get(GameSN);
-			if(Integer.parseInt(value)>(orderDetailBean.getPK().getShopBean().getStockQuantity().intValue())){
+			if (Integer.parseInt(value) > (orderDetailBean.getPK().getGameSN().getStockQuantity().intValue())) {
 				System.out.println("庫存不足");
 				return "index";
-				
-			};
+			}
+			;
 			orderDetailBean.setQuantity(Integer.parseInt(value));
 			car.put(GameSN, orderDetailBean);
-			
-			
-			for(String a:car.keySet()){
-				int b=car.get(a).getQuantity();
-				int c=car.get(a).getPK().getShopBean().getPrice();
-				all+=(b*c);
-				count+=b;
-				
+
+			for (String a : car.keySet()) {
+				int b = car.get(a).getQuantity();
+				int c = car.get(a).getPK().getGameSN().getPrice();
+				all += (b * c);
+				count += b;
+
 			}
 			session.setAttribute("count", count);
 			session.setAttribute("ALL", all);
@@ -146,7 +173,7 @@ public class ShopController {
 	}
 
 	// login controller
-	@RequestMapping(path = "/login.controllor")
+	@RequestMapping(path = "/login.controller")
 	public String login(HttpServletResponse response, HttpSession session, String user, String pass)
 			throws IOException, ParseException {
 
@@ -164,6 +191,7 @@ public class ShopController {
 				session.setAttribute("car", car);
 				return (String) session.getAttribute("url");
 			} else {// 密碼錯誤
+				System.out.println("帳號或密碼輸入錯誤或密碼整個錯誤");
 				return null;
 			}
 		}

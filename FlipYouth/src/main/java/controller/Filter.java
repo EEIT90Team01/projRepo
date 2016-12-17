@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/order.controllor")
+@WebFilter("/order.controller")
 public class Filter implements javax.servlet.Filter {
 
 	@Override
@@ -27,7 +27,7 @@ public class Filter implements javax.servlet.Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
-
+		
 		// session.setAttribute("loginOK", "OK");
 		// session.removeAttribute("loginOK");
 		System.out.println(session.getAttribute("loginOK"));

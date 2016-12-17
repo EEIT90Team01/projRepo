@@ -161,7 +161,8 @@ a:link {
 a:visited {
 	font-family: Microsoft JhengHei;;
 	color: black;
-	　font-weight: 900;
+	font-size: 900;
+	font-weight: 900;
 	//
 	設定已經瀏覽過的連結樣式
 }
@@ -210,6 +211,12 @@ a {
 	width: 100%;
 }
 
+#cars,#span {
+	font-size: 17px;
+	line-height: 2.0;
+	font-weight: 600;
+	font-family: Microsoft JhengHei;
+}
 </style>
 </head>
 
@@ -235,70 +242,69 @@ a {
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img src="image/icon/1.png"> <a
-												href="<c:url value="/Shop.controllor?gameClass=1"/>">全部</a>
+												href="<c:url value="/Shop.controller?gameClass=1"/>">全部</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img src="image/icon/2.png"> <a
-												href="<c:url value="/Shop.controllor?gameClass=2"/>">自有商品</a>
+												href="<c:url value="/Shop.controller?gameClass=2"/>">自有商品</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img src="image/icon/3.png"> <a
-												href="<c:url value="/Shop.controllor?gameClass=3"/>">派對遊戲</a>
+												href="<c:url value="/Shop.controller?gameClass=3"/>">派對遊戲</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img src="image/icon/4.png"> <a
-												href="<c:url value="/Shop.controllor?gameClass=4"/>">親子桌遊</a>
+												href="<c:url value="/Shop.controller?gameClass=4"/>">親子桌遊</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img src="image/icon/5.png"> <a
-												href="<c:url value="/Shop.controllor?gameClass=5"/>">輕度策略</a>
+												href="<c:url value="/Shop.controller?gameClass=5"/>">輕度策略</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img src="image/icon/6.png"> <a
-												href="<c:url value="/Shop.controllor?gameClass=6"/>">重度策略</a>
+												href="<c:url value="/Shop.controller?gameClass=6"/>">重度策略</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img src="image/icon/7.png"> <a
-												href="<c:url value="/Shop.controllor?gameClass=7"/>">台灣原創</a>
+												href="<c:url value="/Shop.controller?gameClass=7"/>">台灣原創</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img src="image/icon/8.png"> <a
-												href="<c:url value="/Shop.controllor?gameClass=8"/>">麥卡貝推</a>
+												href="<c:url value="/Shop.controller?gameClass=8"/>">麥卡貝推</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img src="image/icon/9.png"> <a
-												href="<c:url value="/Shop.controllor?gameClass=9"/>">卡套</a>
+												href="<c:url value="/Shop.controller?gameClass=9"/>">卡套</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img style="height: 40px; width: 40px"
-												src="image/icon/buy.jpg"><a id="cars"
-												href="<c:url value="/Shop.controllor?gameClass=9"/>">購物車<br>
+												src="image/icon/buy.jpg"><span id="cars">購物車</span><br>
 												<span id="span"><font style="color: red">目前金額${ALL}<br>目前件數${count}
 												</font></span>
 											</a><br>
 											<!-- 											 -->
 											<a style="color: #ffffff"
-												href="<c:url value="/order.controllor?goOrder=1&url=checkOut"/>"
+												href="<c:url value="/order.controller?goOrder=1&url=checkOut"/>"
 												id="checkout" class="btn btn-primary fluid" role="button">前往結帳</a>
-											<a href="<c:url value="/Shop.controllor?clearCar=1"/>"
+											<a href="<c:url value="/Shop.controller?clearCar=1"/>"
 												style="color: #ffffff" class="btn btn-primary fluid"
 												role="button">清除購物車</a>
 										</div>
@@ -383,13 +389,13 @@ a {
 							<c:forEach items="${shopBean}" var="data">
 								<div class="col-sm-6 col-md-4">
 									<div class="thumbnail ">
-										<a href="<c:url value="/Shop.controllor?ID=${data.gameSN}"/>"><img
+										<a href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"><img
 											class="img-rounded" style="height: 200px"
 											src="<c:url value="${data.smallImage}"/>"></a>
 										<div style="height: 200px;" class="caption">
 											<h3 style="text-overflow: ellipsis;">
 												<a style="line-height: 1.5;"
-													href="<c:url value="/Shop.controllor?ID=${data.gameSN}"/>"><nobr>${data.gameName}</nobr></a>
+													href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"><nobr>${data.gameName}</nobr></a>
 											</h3>
 											<p style="height: 60px">${data.introduction}</p>
 											<h4 style="float: right; position: absolute; bottom: 70px;">
@@ -400,7 +406,7 @@ a {
 												<a style="color: #ffffff" class="btn btn-primary fluid"
 													role="button" id="ShoppingCar"
 													onclick="car(${data.gameSN},${data.price})">放入購物車</a> <a
-													href="<c:url value="/Shop.controllor?ID=${data.gameSN}"/>"
+													href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"
 													class="btn btn-default fluid" role="button">查看詳情 </a>
 											</p>
 										</div>
@@ -418,11 +424,25 @@ a {
 		</div>
 	</div>
 	<script type="text/javascript">
-	function car(gameSN,price){
+	window.onload = refreshParent;
+    function refreshParent() {
+    	$.ajax({	
+			url: window.location.href,
+			type:"POST",
+			async: false,
+			xhrFields: {
+				withCredentials: false },
+			success:function(res) {
+				$('body').html(res);
+			},
+		})
+    	
+    }
+    function car(gameSN,price){
 		var b = price;
 		var a= gameSN;
 		$.ajax({	
-			url: "Shop.controllor",
+			url: "Shop.controller",
 			type:"POST",
 			data:{name:gameSN,price:price},
 			async: false,
@@ -431,15 +451,14 @@ a {
 			success:function(res) {
 				$('#span').html(res);
 			},
-			 
 		})
 	}
 	
 	$('#checkout').click(function(event) {
 		event.preventDefault();
 		$.post(this.href, function(html) {
-			<%if (session.getAttribute("loginOK") != null) {%>
-			$('body').html(html);
+			<%if (session.getAttribute("loginOK") != null) {%> 
+			window.location="checkOut.jsp";
 			<%} else {%>
 			$(html).appendTo('#body');
 			<%}%>

@@ -176,7 +176,7 @@
 	<script type="text/javascript">
 	function gologin() {
 		$.ajax({
-			url : "login.controllor",
+			url : "login.controller",
 			type : "POST",
 			async:true,
 			xhrFields : {
@@ -187,13 +187,15 @@
 				pass : $('#pass').val()
 			},
 			success : function(res) {
-				if(res!=""){
-				$('body').html(res);
-				}else if(res){
-				$('#loginError').html("<font color='red'>請檢查帳號或密碼</font>");}
-				},
-		})
-	}
+				if(res==""){
+					$('#loginError').html("<font color='red'>請檢查帳號或密碼</font>");
+				}else{
+					window.location="checkOut.jsp";
+				}},
+				
+			})
+		}
+	
 	
 	
 	function closeLogin(){

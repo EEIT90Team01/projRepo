@@ -7,11 +7,13 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import model.MemberBean;
 
+@Lazy(value=false)
 @Repository(value = "memberDao")
 public class MemberDao {
 	@Autowired
@@ -39,7 +41,7 @@ public class MemberDao {
 	public MemberBean select(String user) {
 			Query query = this.getSession().createQuery(("from MemberBean where MbrId = '"+user+"'"));
 			
-			@SuppressWarnings("rawtypes")
+			
 			List results=query.getResultList();
 			if(!results.isEmpty()){
 				return (MemberBean)results.get(0);

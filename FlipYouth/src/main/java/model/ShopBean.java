@@ -10,12 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.context.annotation.Lazy;
-@SuppressWarnings("serial")
-@Lazy(value=false)
 @Entity
 @Table(name = "Game")
 public class ShopBean implements Serializable {
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name="GameSN")
 	private Integer GameSN;
@@ -51,7 +49,7 @@ public class ShopBean implements Serializable {
 				+ getSmallImage() + ", getStockQuantity()=" + getStockQuantity() + ", getGameclass()=" + getGameclass()
 				+ ", getAges()=" + getAges() + ", getStrGameTheme()=" + getStrGameTheme() + ", getStrGameMechanics()="
 				+ getStrGameMechanics() + ", getStrLanguage()=" + getStrLanguage() + ", getPrice()=" + getPrice()
-				+ ", getDiscount()=" + getDiscount() + ", getFreight()=" + getFreight() + ", getDiv1()=" + getDiv1()
+				+ ", getDiscount()=" + getDiscount() + ", getFreight()=" + getFreight() + ", getDiv1()=" + "很長你會怕"
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}

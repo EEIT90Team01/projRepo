@@ -1,16 +1,16 @@
 package model;
 
+import java.util.Arrays;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 @Entity
 @Table(name="Member")
 public class MemberBean {
-	
 	private Integer mbrSN;
 	private String nickName;
 	private String mbrId;
@@ -21,11 +21,14 @@ public class MemberBean {
 	private String phone;
 	private String address;
 	private String mbrEmail;
+	@Column(name="image")
 	private byte[] image;
 	private Integer mbrState;
 	private Integer energy;
 	private Integer rptCounter;
-	
+	@Column(name="activatedCode")
+	private byte[] activatedCode;
+	 
 	@Id
 	@Column(name="mbrSN")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -113,8 +116,10 @@ public class MemberBean {
 	public void setRptCounter(Integer rptCounter) {
 		this.rptCounter = rptCounter;
 	}
-	
-	
-	
-
+	public byte[] getActivatedCode() {
+		return activatedCode;
+	}
+	public void setActivatedCode(byte[] activatedCode) {
+		this.activatedCode = activatedCode;
+	}
 }

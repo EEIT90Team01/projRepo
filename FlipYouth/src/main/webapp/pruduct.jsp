@@ -51,7 +51,6 @@ font {
 }
 
 body {
-	
 	width: 90%;
 }
 
@@ -94,8 +93,8 @@ iframe {
 </style>
 </head>
 <body>
-	<div style="padding: 0% 5% 0% 20%;" >
-
+	<div style="padding: 0% 5% 0% 20%;">
+		
 
 		<div class="container-fluid">
 			<div class="row">
@@ -157,18 +156,18 @@ iframe {
 										<div class="row">
 
 											<div class="col-md-9  ">
-												<font>　運送方式：${pruduct.freight}</font>
+												<font> 運送方式：${pruduct.freight}</font>
 											</div>
 											<a style="color: #ffffff" class="btn btn-primary fluid"
-													role="button" id="ShoppingCar"
-													onclick="car(${pruduct.gameSN},${pruduct.price})">放入購物車</a>
+												role="button" id="ShoppingCar"
+												onclick="car(${pruduct.gameSN},${pruduct.price})">放入購物車</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 
 
@@ -187,14 +186,9 @@ iframe {
 							<div class="tab-content">
 								<div style="width: 80%; padding: 0% 10% 0% 10%" role="tabpanel"
 									class="tab-pane active" id="home">${pruduct.div1}</div>
-									
-									
-								<div role="tabpanel" class="tab-pane" id="profile">碩延專區
 
 
-
-
-								</div>
+								<div role="tabpanel" class="tab-pane" id="profile"><h1>${pruduct.gameSN}</h1></div>
 
 							</div>
 
@@ -213,7 +207,7 @@ iframe {
 		var b = price;
 		var a= gameSN;
 		$.ajax({	
-			url: "Shop.controllor",
+			url: "Shop.controller",
 			type:"POST",
 			data:{name:gameSN,price:price},
 			async: false,

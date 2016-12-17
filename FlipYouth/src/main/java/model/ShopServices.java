@@ -1,6 +1,9 @@
 package model;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +17,9 @@ import model.dao.MemberDao;
 import model.dao.OrderDao;
 import model.dao.ShopDao;
 
-@Transactional(transactionManager = "transactionManager")
-@Service(value = "shopServices")
 
+@Service(value = "shopServices")
+@Transactional
 public class ShopServices {
 	@Autowired
 	@Resource(name = "shopDao")
@@ -27,41 +30,34 @@ public class ShopServices {
 	MemberDao memberDao;
 
 	@Autowired
+	@Resource(name = "OrderDao")
 	OrderDao orderDao;
-	public void selectCar(Map<String, Integer> cars) throws ParseException {
-		
 	
-//		DateFormat df=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX"); 
-//		Calendar cal = Calendar.getInstance();
-//		 cal.add(Calendar.DAY_OF_MONTH, +3);
-//		
-//		//馬上建立一筆訂單
-//		OrderBean orderBean=new OrderBean();
-//		orderBean.setMbrSN(memberBean.getMbrSN());
-//		orderBean.setOrderDate(new java.util.Date(System.currentTimeMillis()));
-//		orderBean.setStrOrderState("未付款");
-//		orderBean.setStrPaymentMethod("未選擇");
-//		orderBean.setShippedDate(df.parse(df.format(cal.getTime())));
+	
+	public OrderBean newOrderAndDetail(OrderBean orderBean,String mbrSN, String orderAmount,Map<String, OrderDetailBean> car) throws ParseException {
+
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, +3);
 		
 		
-		
-		
-		
-		
-		System.out.println(orderDao);
-//		orderDao.selectCar(memberBean,orderBean);
-		
-		for(String car :cars.keySet()){
-			System.out.println("商品"+car+"數量="+cars.get(car));
-		}
-		
-		
+		orderBean.setMbrSN(Integer.parseInt(mbrSN));
+		orderBean.setOrderAmount(Integer.parseInt(orderAmount));
+		orderBean.setOrderDate(new java.util.Date(System.currentTimeMillis()));
+		orderBean.setOrderState("未付款");
+		orderBean.setPaymentMethod("超商取貨付款");
+		orderBean.setFreight(100);
+		orderBean.setProductDelivery(df.parse(df.format(cal.getTime())).toString());
+		orderBean.setShippedDate(df.parse(df.format(cal.getTime())));
+		return orderDao.save(orderBean,car);
 	}
 
+	
+	
 	public ShopBean select(int id) {
 		return shopDao.select(id);
 	}
-
+	
 	public MemberBean checkMember(String user, String pass) {
 		MemberBean memberBean = memberDao.select(user);
 		if (memberBean == null) {
@@ -73,7 +69,7 @@ public class ShopServices {
 			return null;
 		}
 	}
-
+	
 	public List<ShopBean> selectAll(String id) {// 進行比對
 		switch (id) {
 		case "1":

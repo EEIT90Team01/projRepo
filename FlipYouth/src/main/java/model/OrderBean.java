@@ -11,98 +11,124 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Order1")
 public class OrderBean {
-	
-	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	private Integer OrderSN;
-	private Integer MbrSN;
-	private Integer OrderAmount;//訂單金額
-	private Date ShippedDate;//出貨日期
-	private Date OrderDate;//下訂日
-	private String StrProductDelivery;//到貨日期
-	private Integer Freight;//運費
-	private String	StrPaymentMethod;//付費方式
-	private String StrOrderState;//訂單狀態
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer orderSN;
+	private Integer mbrSN;
+	private Integer orderAmount;//訂單金額
+	private Date shippedDate;//出貨日期
+	private Date orderDate;//下訂日
+	private String productDelivery;//到貨日期
+	private Integer freight;//運費
+	private String	paymentMethod;//付費方式
+	private String orderState;//訂單狀態
+	private String email;//連絡資訊
+	private String address;
+	private String name;
+	private String tel;
+	private String phone;
 	
 	
-
 	
+	public OrderBean(String email, String address, String name, String tel, String phone) {
+		this.email = email;
+		this.address = address;
+		this.name = name;
+		this.tel = tel;
+		this.phone = phone;
+	}
 	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public Integer getOrderSN() {
-		return OrderSN;
+		return orderSN;
 	}
-
 	public void setOrderSN(Integer orderSN) {
-		OrderSN = orderSN;
+		this.orderSN = orderSN;
 	}
-
 	public Integer getMbrSN() {
-		return MbrSN;
+		return mbrSN;
 	}
-
 	public void setMbrSN(Integer mbrSN) {
-		MbrSN = mbrSN;
+		this.mbrSN = mbrSN;
 	}
-
 	public Integer getOrderAmount() {
-		return OrderAmount;
+		return orderAmount;
 	}
-
 	public void setOrderAmount(Integer orderAmount) {
-		OrderAmount = orderAmount;
+		this.orderAmount = orderAmount;
 	}
-
 	public Date getShippedDate() {
-		return ShippedDate;
+		return shippedDate;
 	}
-
 	public void setShippedDate(Date shippedDate) {
-		ShippedDate = shippedDate;
+		this.shippedDate = shippedDate;
 	}
-
 	public Date getOrderDate() {
-		return OrderDate;
+		return orderDate;
 	}
-
 	public void setOrderDate(Date orderDate) {
-		OrderDate = orderDate;
+		this.orderDate = orderDate;
 	}
-
-	public String getStrProductDelivery() {
-		return StrProductDelivery;
+	public String getProductDelivery() {
+		return productDelivery;
 	}
-
-	public void setStrProductDelivery(String strProductDelivery) {
-		StrProductDelivery = strProductDelivery;
+	public void setProductDelivery(String productDelivery) {
+		this.productDelivery = productDelivery;
 	}
-
 	public Integer getFreight() {
-		return Freight;
+		return freight;
 	}
-
 	public void setFreight(Integer freight) {
-		Freight = freight;
+		this.freight = freight;
 	}
-
-	public String getStrPaymentMethod() {
-		return StrPaymentMethod;
+	public String getPaymentMethod() {
+		return paymentMethod;
 	}
-
-	public void setStrPaymentMethod(String strPaymentMethod) {
-		StrPaymentMethod = strPaymentMethod;
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
-
-	public String getStrOrderState() {
-		return StrOrderState;
+	public String getOrderState() {
+		return orderState;
 	}
-
-	public void setStrOrderState(String strOrderState) {
-		StrOrderState = strOrderState;
+	public void setOrderState(String orderState) {
+		this.orderState = orderState;
 	}
-
-	
-	
+	@Override
+	public String toString() {
+		return "OrderBean [orderSN=" + orderSN + ", mbrSN=" + mbrSN + ", orderAmount=" + orderAmount + ", shippedDate="
+				+ shippedDate + ", orderDate=" + orderDate + ", productDelivery=" + productDelivery + ", freight="
+				+ freight + ", paymentMethod=" + paymentMethod + ", orderState=" + orderState + ", email=" + email
+				+ ", address=" + address + ", name=" + name + ", tel=" + tel + ", phone=" + phone + "]";
+	}
 	
 	
 	
