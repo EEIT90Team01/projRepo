@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/order.controller")
+@WebFilter({ "/order.controller", "/writeOrder.controller" })
 public class Filter implements javax.servlet.Filter {
 
 	@Override
@@ -27,18 +27,21 @@ public class Filter implements javax.servlet.Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
-		
-		// session.setAttribute("loginOK", "OK");
+
+		System.out.println("filter");
 		// session.removeAttribute("loginOK");
 		System.out.println(session.getAttribute("loginOK"));
 		if (session.getAttribute("loginOK") != null) {// 有登入的話
-//			resp.sendRedirect(req.getParameter("url"));
+			// resp.sendRedirect(req.getParameter("url"));
 			chain.doFilter(request, response);
 
 		}
 		if (session.getAttribute("loginOK") == null) {
-			session.setAttribute("url", req.getParameter("url"));
-			System.out.println("請求的url="+req.getParameter("url"));
+			String url = req.getParameter("url");
+			System.out.println("請求的url=" + req.getParameter("url"));
+			if (url != null) {
+				session.setAttribute("url", url.substring(0, url.indexOf('.')));
+			}
 			resp.sendRedirect("login.jsp");
 		}
 

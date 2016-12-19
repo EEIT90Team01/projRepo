@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商城系統</title>
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -27,6 +28,7 @@
 	crossorigin="anonymous">
 <!-- <link rel="stylesheet" type="text/css" href="css/Tim.css"> -->
 <!-- Latest compiled and minified JavaScript -->
+<script type="text/javascript" src="js/html2canvas.js"></script>
 
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -92,18 +94,37 @@ b {
 }
 </style>
 </head>
+<script type="text/javascript">
+<%if (session.getAttribute("loginOK") != null) {%>
+// alert('準備做動畫');
+<%} else {%>
+alert('連線已過期請從登入');
+$.ajax({
+	  type: 'POST',
+	  url: "order.controller",
+	  data:{url:'list.jsp'},
+	  success : function(res) {
+		  <%if (session.getAttribute("loginOK") == null) {%>
+			$(res).appendTo('body');
+		<%}%>
+	  },
+	  async:true,
+});
+<%}%>
+</script>
 <body>
+
 	<font size="99">${loginOK.mbrName}你好歡迎來到翻桌唷商城</font>
 
 
 
-	<div style="border-bottom: 1px solid;" class="container">
+	<div id="setDiv" style="border-bottom: 1px solid;" class="container">
 		<div class="col-xs-12">
 
 			<div class="row container">
-				<div class="col-xs-3"></div>
-				<div class="col-xs-3">
-					<img alt="Bootstrap Image Preview" src="image/icon/step01_c.png" />
+				<div class="col-xs-6">
+					<img style="float: right;" alt="Bootstrap Image Preview"
+						src="image/icon/step01_c.png" />
 				</div>
 				<div class="col-xs-6">
 					<img alt="Bootstrap Image Preview" src="image/icon/step02.png" />
@@ -253,9 +274,9 @@ b {
 
 													<a class="btn btn-danger"
 														href='<c:url value="/Shop.controller"/>'>繼續購物</a> <a
-														style="cursor: pointer;"
-														onclick="submit_btn(${loginOK.mbrSN},${ALL+100});"
-														class="btn btn-danger">訂單送出</a>
+														onclick="submit_btn(${loginOK.mbrSN},${ALL+100},'orderOver.jsp')"
+														class="btn btn-danger" style="cursor: pointer"
+														href="javascript: void(0)">訂單送出</a>
 												</div>
 										</form>
 									</div>
@@ -323,20 +344,29 @@ b {
 				},
 		})
 	}
-	function submit_btn(mbrSN,orderAmount) {
-	        $('body').fadeOut(400, function(){
-	           
-	        });
-	    
-	    
-		$.ajax({
-			url:"writeOrder.controller",
+	function submit_btn(mbrSN,orderAmount,link_name) {
+		alert('要去的連結為'+link_name);
+		
+// 		 html2canvas($("#setDiv"), {
+// 		        onrendered: function(canvas) {
+// 		            var myImage = canvas.toDataURL("image/png");
+// 		            window.open(myImage);
+// 		        }
+// 		    });
+		
+		
+<%-- 		<%if (session.getAttribute("loginOK") != null) {%> --%>
+// 		$('body').fadeOut(400, function(){});
+<%-- 		<%}%> --%>
+	    $.ajax({
 			type:"POST",
+			url:"writeOrder.controller",
 			data:{
+			url:link_name,
 			mbrSN:mbrSN,
 			orderAmount:orderAmount,
 			name:$('#name').val(),
-			tel:$('#tel').val(),
+			tel:$('#tel').val(),     
 			phone:$('#phone').val(),
 			email:$('#email').val(),
 			address:$('#address').val(),
@@ -345,8 +375,19 @@ b {
 			xhrFields: {
 				withCredentials: false },
 			success:function(res) {
-				window.location="orderOver.jsp"
-				},
+			<%if (session.getAttribute("loginOK") != null) {%>
+			
+			
+			
+			
+			
+			
+			
+			window.location=link_name;
+			<%} else {%>
+			$(res).appendTo('body');
+			<%}%>
+			},
 		})
 	}
 		

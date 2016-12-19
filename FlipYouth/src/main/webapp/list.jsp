@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商城系統</title>
+<jsp:include page="LoginCheck.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -32,105 +33,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-<style type="text/css">
-@import url(http://fonts.googleapis.com/css?family=Roboto);
 
-/****** LOGIN MODAL ******/
-.loginmodal-container {
-	padding: 30px;
-	max-width: 350px;
-	width: 100% !important;
-	background-color: #F7F7F7;
-	margin: 0 auto;
-	border-radius: 2px;
-	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-	overflow: hidden;
-	font-family: roboto;
-}
 
-.loginmodal-container h1 {
-	text-align: center;
-	font-size: 1.8em;
-	font-family: roboto;
-}
-
-.loginmodal-container input[type=submit] {
-	width: 100%;
-	display: block;
-	margin-bottom: 10px;
-	position: relative;
-}
-
-.loginmodal-container input[type=text], input[type=password] {
-	height: 44px;
-	font-size: 16px;
-	width: 100%;
-	margin-bottom: 10px;
-	-webkit-appearance: none;
-	background: #fff;
-	border: 1px solid #d9d9d9;
-	border-top: 1px solid #c0c0c0;
-	/* border-radius: 2px; */
-	padding: 0 8px;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-}
-
-.loginmodal-container input[type=text]:hover, input[type=password]:hover
-	{
-	border: 1px solid #b9b9b9;
-	border-top: 1px solid #a0a0a0;
-	-moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.loginmodal {
-	text-align: center;
-	font-size: 14px;
-	font-family: 'Arial', sans-serif;
-	font-weight: 700;
-	height: 36px;
-	padding: 0 8px;
-	/* border-radius: 3px; */
-	/* -webkit-user-select: none;
-  user-select: none; */
-}
-
-.loginmodal-submit {
-	/* border: 1px solid #3079ed; */
-	border: 0px;
-	color: #fff;
-	text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-	background-color: #4d90fe;
-	padding: 17px 0px;
-	font-family: roboto;
-	font-size: 14px;
-	/* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
-}
-
-.loginmodal-submit:hover {
-	/* border: 1px solid #2f5bb7; */
-	border: 0px;
-	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-	background-color: #357ae8;
-	/* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
-}
-
-.loginmodal-container a {
-	text-decoration: none;
-	color: #666;
-	font-weight: 400;
-	text-align: center;
-	display: inline-block;
-	opacity: 0.6;
-	transition: opacity ease 0.5s;
-}
-
-.login-help {
-	font-size: 12px;
-}
-</style>
 <style type="text/css">
 /* div { */
 /* 	border-style: solid; */
@@ -142,7 +46,6 @@ p, h3 {
 }
 
 body {
-	height: 1900px;
 	width: 100%;
 }
 
@@ -211,7 +114,7 @@ a {
 	width: 100%;
 }
 
-#cars,#span {
+#cars, #span {
 	font-size: 17px;
 	line-height: 2.0;
 	font-weight: 600;
@@ -219,7 +122,22 @@ a {
 }
 </style>
 </head>
+<script type="text/javascript">
+<%if (session.getAttribute("shopBean") == null) {%>
+$.ajax({	
+	url: "Shop.controller?gameClass=1",
+	type:"POST",
+	async: false,
+	xhrFields: {
+		withCredentials: false },
+	success:function(res) {
+		$('body').html(res);
+	},
+})
 
+<%}%>
+
+</script>
 <body id="body">
 
 
@@ -297,16 +215,14 @@ a {
 										<div class="col-md-12 border_bottom">
 											<img style="height: 40px; width: 40px"
 												src="image/icon/buy.jpg"><span id="cars">購物車</span><br>
-												<span id="span"><font style="color: red">目前金額${ALL}<br>目前件數${count}
-												</font></span>
-											</a><br>
+											<span id="span"><font style="color: red">目前金額${ALL}<br>目前件數${count}
+											</font></span> </a><br>
 											<!-- 											 -->
-											<a style="color: #ffffff"
-												href="<c:url value="/order.controller?goOrder=1&url=checkOut"/>"
-												id="checkout" class="btn btn-primary fluid" role="button">前往結帳</a>
-											<a href="<c:url value="/Shop.controller?clearCar=1"/>"
-												style="color: #ffffff" class="btn btn-primary fluid"
-												role="button">清除購物車</a>
+											<a style="color: #ffffff" name="checkOut.jsp"
+												href="<c:url value="/order.controller?goOrder=1"/>"
+												class="btn btn-primary fluid login" role="button">前往結帳</a> <a
+												onclick="clearCar()" style="color: #ffffff"
+												class="btn btn-primary fluid" role="button">清除購物車</a>
 										</div>
 									</div>
 								</div>
@@ -369,24 +285,7 @@ a {
 							</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-							<c:forEach items="${shopBean}" var="data">
+							<c:forEach items="${shopBean.shopBean}" var="data">
 								<div class="col-sm-6 col-md-4">
 									<div class="thumbnail ">
 										<a href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"><img
@@ -410,8 +309,6 @@ a {
 													class="btn btn-default fluid" role="button">查看詳情 </a>
 											</p>
 										</div>
-
-
 
 
 									</div>
@@ -438,6 +335,20 @@ a {
 		})
     	
     }
+    function clearCar(){
+    			$.ajax({	
+    				url: "Shop.controller",
+    				type:"POST",
+    				data:{clearCar:1},
+    				async: false,
+    				xhrFields: {
+    					withCredentials: false },
+    				success:function(res) {
+    					window.location=window.location.href;
+    				},
+    			})
+    	
+    }
     function car(gameSN,price){
 		var b = price;
 		var a= gameSN;
@@ -453,17 +364,6 @@ a {
 			},
 		})
 	}
-	
-	$('#checkout').click(function(event) {
-		event.preventDefault();
-		$.post(this.href, function(html) {
-			<%if (session.getAttribute("loginOK") != null) {%> 
-			window.location="checkOut.jsp";
-			<%} else {%>
-			$(html).appendTo('#body');
-			<%}%>
-		})
-	})
 	</script>
 </body>
 </html>

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.MemberBean;
 import model.OrderBean;
@@ -40,9 +41,11 @@ public class ShopController {
 
 	@RequestMapping(path = "/writeOrder.controller")
 	public String WriteOrder(HttpSession session,String mbrSN, String orderAmount,String name,String tel,String phone,String email,String address) throws ParseException {// 寫入訂單的controller
+		
 		OrderBean orderBean = new OrderBean(email,address,name,tel,phone);
 		OrderBean OrderBean=shopServices.newOrderAndDetail(orderBean,mbrSN,orderAmount,car);
 		session.setAttribute("order", OrderBean);
+		
 		return "orderOver";
 	}
 
@@ -86,7 +89,13 @@ public class ShopController {
 			session.setAttribute("cars", car);
 
 			session.setAttribute("count", count);
-			all = (int) session.getAttribute("ALL");
+			try {
+				all = (int) session.getAttribute("ALL");
+			} catch (Exception e) {
+				 session.setAttribute("ALL",0);
+				all=0;
+				count=0;
+			}
 
 			session.setAttribute("ALL", all + price);
 			// &#x76EE;&#x524D;&#x4EF6;&#x6578 == 目前件數
@@ -112,7 +121,7 @@ public class ShopController {
 			List<ShopBean> ShopBean = shopServices.selectAll(gameClass);
 			// 放入拿到的資料
 			shopBean.put("shopBean", ShopBean);
-			model.addAllAttributes(shopBean);
+			session.setAttribute("shopBean",shopBean);
 			return "list";
 		} else {// 第幾筆商品
 			pruduct.put("pruduct", shopServices.select(Integer.parseInt(ID)));
@@ -123,11 +132,10 @@ public class ShopController {
 
 	// order controller
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/order.controller")
 	public String Order(String delectCar, String goOrder, HttpSession session, String change, String value,
 			String GameSN) throws ParseException {
-
+		
 		if (delectCar != null) {// 按下取消
 			car.remove(delectCar);
 			all = 0;
@@ -173,12 +181,11 @@ public class ShopController {
 	}
 
 	// login controller
-	@RequestMapping(path = "/login.controller")
+	@RequestMapping(path = "/login.controller")	
 	public String login(HttpServletResponse response, HttpSession session, String user, String pass)
 			throws IOException, ParseException {
 
 		if (pass == null || pass.trim().equals("") || user == null || user.trim().equals("")) {
-			// 帳或密是空
 			return null;
 		}
 		if (user != null && pass != null) {
@@ -186,12 +193,11 @@ public class ShopController {
 			MemberBean memberBean = shopServices.checkMember(user, pass);
 
 			if (memberBean != null) {
-				System.out.println(memberBean.getMbrName());
 				session.setAttribute("loginOK", memberBean);
 				session.setAttribute("car", car);
 				return (String) session.getAttribute("url");
 			} else {// 密碼錯誤
-				System.out.println("帳號或密碼輸入錯誤或密碼整個錯誤");
+				
 				return null;
 			}
 		}

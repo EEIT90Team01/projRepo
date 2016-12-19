@@ -40,7 +40,7 @@ public class ShopServices {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, +3);
 		
-		
+		System.err.println("mbrSN =  "+mbrSN);
 		orderBean.setMbrSN(Integer.parseInt(mbrSN));
 		orderBean.setOrderAmount(Integer.parseInt(orderAmount));
 		orderBean.setOrderDate(new java.util.Date(System.currentTimeMillis()));
