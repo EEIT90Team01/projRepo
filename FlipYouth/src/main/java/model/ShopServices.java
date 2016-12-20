@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import model.dao.MemberDao;
+import model.dao.MemberDAO;
 import model.dao.OrderDao;
 import model.dao.ShopDao;
 
@@ -27,7 +27,7 @@ public class ShopServices {
 
 	@Autowired
 	@Resource(name = "memberDao")
-	MemberDao memberDao;
+	MemberDAO memberDao;
 
 	@Autowired
 	@Resource(name = "OrderDao")
