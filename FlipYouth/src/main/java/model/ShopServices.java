@@ -16,7 +16,13 @@ import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
-import javax.mail.*;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -41,7 +47,7 @@ public class ShopServices {
 
 	@Autowired
 	@Resource(name = "memberDao")
-	MemberDao memberDao;
+	MemberDAO memberDao;
 
 	@Autowired
 	@Resource(name = "OrderDao")
