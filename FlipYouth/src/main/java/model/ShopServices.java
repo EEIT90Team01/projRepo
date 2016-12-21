@@ -33,7 +33,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
 import model.dao.MemberDAO;
 import model.dao.OrderDao;
 import model.dao.ShopDao;
@@ -121,7 +120,6 @@ public class ShopServices {
 		return shopDao.select("1");
 	}
 
-
 	public void sendMain(String name, String image, String OrderEmail) throws MessagingException, IOException {
 		int port = 587;
 		final String username = "flipyoutheeit90@gmail.com";
@@ -134,7 +132,7 @@ public class ShopServices {
 		MimeBodyPart textPart = new MimeBodyPart();
 		StringBuffer html = new StringBuffer();
 		MimeBodyPart picturePart = new MimeBodyPart();
-		addMsg(image,name,html, picturePart);
+		addMsg(image, name, html, picturePart);
 
 		Session session = Session.getInstance(props, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -157,16 +155,17 @@ public class ShopServices {
 		System.out.println("寄送email結束.");
 	}
 
-	public static void addMsg(String image,String name,StringBuffer html, MimeBodyPart picturePart) throws MessagingException, IOException {
+	public static void addMsg(String image, String name, StringBuffer html, MimeBodyPart picturePart)
+			throws MessagingException, IOException {
 		html.append("<h4>親愛的 " + name + "您好：</h4>");
 		html.append("<h4>期望您有美好的購物經驗，欲查詢出貨進度，請使用訂單查詢功能</h4>");
 		html.append("<h4>如有其他問題，歡迎來電客服，我們有專人為您服務。</h4>");
 		html.append("<img style='width:500px' src='cid:image'/><br>");
 		FileDataSource fds = new FileDataSource("C:\\1.jpg");
-		//image
-		
+		// image
+
 		byte[] bytearray = Base64.decode(image);
-		
+
 		BufferedImage imag = ImageIO.read(new ByteArrayInputStream(bytearray));
 		ImageIO.write(imag, "PNG", new File("C:\\mailImage.jpg"));
 
