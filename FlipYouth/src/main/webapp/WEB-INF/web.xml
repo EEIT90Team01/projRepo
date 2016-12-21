@@ -4,44 +4,73 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<display-name>FlipYouth</display-name>
-	 <welcome-file-list>
-    <welcome-file>hi.jsp</welcome-file>
-  </welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>hi.jsp</welcome-file>
+	</welcome-file-list>
+	<!-- 產生sessionFactory -->
 	<filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
-		<filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter
-		</filter-class>
+		<filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>OpenSessionInViewFilter</filter-name>
-		<url-pattern>*.controller</url-pattern>
+		<!-- <url-pattern>/*</url-pattern> -->
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	
-	
-	
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/beans.config.xml</param-value>
-	</context-param>
+
+<!-- Spring Filter 強制將頁面轉成 UTF-8 編碼 -->
+<filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+        <param-name>forceEncoding</param-name>
+        <param-value>true</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+
+	<!-- 各種需要new的映射檔設定 減少IoC的干擾 -->
+	<!-- 檔名若是設spring預設的"applicationContext" 則不用寫以下三行 -->
+	<!-- <context-param> -->
+	<!-- <param-name>contextConfigLocation</param-name> -->
+	<!-- <param-value>/WEB-INF/beans.config.xml</param-value> -->
+	<!-- </context-param> -->
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
-		</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
+	<!-- mvc-servlet.xml 映射檔的設定 -->
 	<servlet>
-			<servlet-name>dispatcherServlet</servlet-name>
-			<servlet-class>org.springframework.web.servlet.DispatcherServlet
-			</servlet-class>
-			<init-param>
-				<param-name>contextConfigLocation</param-name>
-				<param-value>/WEB-INF/mvc-config.xml</param-value>
-			</init-param>
-			<load-on-startup>1</load-on-startup>
-		</servlet>
-		
-		<servlet-mapping>
-			<servlet-name>dispatcherServlet</servlet-name>
-			<url-pattern>*.controller</url-pattern>
-		</servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/mvc-config.xml,/WEB-INF/mvc-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>*.controller</url-pattern>
+	</servlet-mapping>
+	<!-- ****馬老師的***mvc-servlet.xml 映射檔的設定參考 -->
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>mvc</servlet-name> -->
+<!-- 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> -->
+<!-- 		<load-on-startup>1</load-on-startup> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>mvc</servlet-name> -->
+<!-- 		<url-pattern>*.controller</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+
 </web-app>

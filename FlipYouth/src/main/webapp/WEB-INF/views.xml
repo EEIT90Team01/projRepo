@@ -1,22 +1,40 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?> -->
-<!-- <beans xmlns="http://www.springframework.org/schema/beans" -->
-<!-- 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" -->
-<!-- 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"> -->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<!-- <bean id="adminLogin.error" class="org.springframework.web.servlet.view.InternalResourceView"> -->
-<!-- 	<property name="url" value="/admin/secure/login.jsp" /> -->
-<!-- </bean> -->
-<!-- <bean id="adminLogin.ok" class="org.springframework.web.servlet.view.RedirectView"> -->
-<!-- 	<property name="url" value="/admin/index.jsp" /> -->
-<!-- 	<property name="contextRelative" value="true" /> -->
-<!-- </bean> -->
+	<bean id="adminLogin.error"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/admin/secure/login.jsp" />
+	</bean>
+	<bean id="adminLogin.ok" class="org.springframework.web.servlet.view.RedirectView">
+		<property name="url" value="/admin/index.jsp" />
+		<property name="contextRelative" value="true" />
+	</bean>
 
-<!-- <bean id="stringMapping.same" class="org.springframework.web.servlet.view.InternalResourceView"> -->
-<!-- 	<property name="url" value="/admin/pages/stringMapping.jsp" /> -->
-<!-- </bean> -->
-<!-- <bean id="stringMapping.select" class="org.springframework.web.servlet.view.RedirectView"> -->
-<!-- 	<property name="url" value="/admin/pages/display.jsp" /> -->
-<!-- 	<property name="contextRelative" value="true" /> -->
-<!-- </bean> -->
+	<bean id="stringMapping.same"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/admin/pages/stringMapping.jsp" />
+	</bean>
+	<bean id="stringMapping.select" class="org.springframework.web.servlet.view.RedirectView">
+		<property name="url" value="/admin/pages/display.jsp" />
+		<property name="contextRelative" value="true" />
+	</bean>
 
-<!-- </beans> -->
+
+<!-- ************  Kelsey的設定  開始 *************** -->
+	<!-- 網址會整個改變 -->
+		<bean id="editMemberSuccess" class="org.springframework.web.servlet.view.RedirectView">
+		<property name="contextRelative" value="true"></property>
+		<property name="url" value="/pages/editMemberSuccess.jsp"></property>
+	</bean>
+
+	<!-- 網址不會改變 ,若是沒有特別設定即用此種 -->
+	<bean id="editMember"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/pages/editMember.jsp" />
+	</bean>
+	
+<!-- ************  Kelsey的設定  結束 *************** -->
+
+</beans>

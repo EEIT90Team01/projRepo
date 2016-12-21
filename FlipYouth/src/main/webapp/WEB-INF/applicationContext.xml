@@ -23,17 +23,24 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
 				<prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+				<prop key="hibernate.show_sql">true</prop>
 				<!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
 			</props>
 		</property>
 		<property name="annotatedClasses">
 			<array>
-				<value>model.AdministratorBean</value>
-				<value>model.AuthorityBean</value>
+<!-- 				<value>model.AdministratorBean</value> -->
+<!-- 				<value>model.AuthorityBean</value> -->
+				<value>model.MemberBean</value>
+				<value>model.RelationBean</value>
+				<value>model.ShopBean</value>
+				<value>model.OrderDetailBean</value>
+				<value>model.OrderDetailPK</value>
+				<value>model.OrderBean</value>
 			</array>
 		</property>
 	</bean>
-
+	<!-- 在程式即不用寫new simpleDateFormate -->
 	<bean id="sdFormat" class="java.text.SimpleDateFormat">
 		<constructor-arg name="pattern" value="YYYY-MM-dd" />
 	</bean>
