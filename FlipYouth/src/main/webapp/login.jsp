@@ -190,8 +190,7 @@
 				if(res==""){
 					$('#loginError').html("<font color='red'>請檢查帳號或密碼</font>");
 				}else{
-					$('body').empty();
-					$('body').html(res);
+					window.location="checkOut.jsp";
 				}},
 				
 			})

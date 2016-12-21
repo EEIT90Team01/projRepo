@@ -16,9 +16,20 @@
 
 	<dependencies>
 
+		<!-- https://mvnrepository.com/artifact/com.sun.org.apache/jaxp-ri -->
+		<dependency>
+			<groupId>com.sun.org.apache</groupId>
+			<artifactId>jaxp-ri</artifactId>
+			<version>1.4</version>
+		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
 			<groupId>org.json</groupId>

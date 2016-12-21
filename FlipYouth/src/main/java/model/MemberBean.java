@@ -8,8 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
 @Entity
 @Table(name="Member")
+@Component(value="memberBean")
 public class MemberBean {
 	private Integer mbrSN;
 	private String nickName;
@@ -28,6 +31,11 @@ public class MemberBean {
 	private Integer rptCounter;
 	@Column(name="activatedCode")
 	private byte[] activatedCode;
+	
+	public MemberBean(){
+		
+	}
+	
 	 
 	@Id
 	@Column(name="mbrSN")
