@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
-import model.dao.MemberDao;
+import model.dao.MemberDAO;
 import model.dao.OrderDao;
 import model.dao.ShopDao;
 
