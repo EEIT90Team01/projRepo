@@ -27,10 +27,20 @@ public class OrderBean {
 	private String name;
 	private String tel;
 	private String phone;
+	private String image;
 	
 	
-	
-	public OrderBean(String email, String address, String name, String tel, String phone) {
+	public  OrderBean(Integer orderAmount, String email, String address, String name, String tel, String phone) {
+		this.orderAmount = orderAmount;
+		this.email = email;
+		this.address = address;
+		this.name = name;
+		this.tel = tel;
+		this.phone = phone;
+	}
+
+	public OrderBean(String image,String email, String address, String name, String tel, String phone) {
+		this.image=image;
 		this.email = email;
 		this.address = address;
 		this.name = name;
@@ -38,6 +48,14 @@ public class OrderBean {
 		this.phone = phone;
 	}
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public String getEmail() {
 		return email;
 	}

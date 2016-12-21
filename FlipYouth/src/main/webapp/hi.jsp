@@ -11,7 +11,6 @@
 		<title>Welcome</title>
 	</head> 
 	<body>
-		
 		<a href="<c:url value="/Shop.controller"/>">商品列表</a>
 		<a href="login.jsp#login-modal" data-toggle="modal" data-target="login.jsp#login-modal">Login</a>
 		<a href=""></a>

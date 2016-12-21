@@ -34,13 +34,14 @@
 
 <link rel="stylesheet" type="text/css" href="css/Tim.css">
 <style type="text/css">
-/*  div {  */
-/*  	border-style: solid;  */
-/*  	border-width: 1px;  */
-/*  }  */
+/* div {   */
+/*   	border-style: solid;   */
+/*   	border-width: 1px;   */
+/*  }   */
 p {
 	text-overflow: ellipsis;
 	overflow: hidden;
+	
 }
 
 font {

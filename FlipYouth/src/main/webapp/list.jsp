@@ -36,13 +36,14 @@
 
 
 <style type="text/css">
-/* div { */
-/* 	border-style: solid; */
-/* 	border-width: 1px; */
-/* } */
+/*  div {  */
+/*  	border-style: solid;  */
+/*  	border-width: 1px;  */
+/*  }  */
 p, h3 {
 	text-overflow: ellipsis;
 	overflow: hidden;
+	
 }
 
 body {

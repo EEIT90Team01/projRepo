@@ -35,10 +35,10 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-/* div { */
-/* 	border-style: solid; */
-/* 	border-width: 1px; */
-/* } */
+/*  div {  */
+/*  	border-style: solid;  */
+/*  	border-width: 1px;  */
+/*  }  */
 .center {
 	text-align: center;
 	color: white;
@@ -177,30 +177,31 @@ strong {
 </script>
 <body>
 	<font size="99">${loginOK.mbrName}購買成功</font>
-	<div id="setDiv">
-	<div style="border-bottom: 1px solid;" class="container"><!-- container -->
-		<div class="col-xs-12">
-			<h2 class="orderStatus">
-				<em>Complete</em><strong>訂購完成</strong>
-			</h2>
-			<div class="row container">
-				<div class="col-xs-6">
-					<img style="float: right;" alt="Bootstrap Image Preview"
-						src="image/icon/step01.png" />
+	<div id="setDiv" style="background-color: white;">
+		<div style="border-bottom: 1px solid;" class="container">
+			<!-- container -->
+			<div class="col-xs-12">
+				<h2 class="orderStatus">
+					<em>Complete</em><strong>訂購完成</strong>
+				</h2>
+				<div class="row container">
+					<div class="col-xs-6">
+						<img style="float: right;" alt="Bootstrap Image Preview"
+							src="image/icon/step01.png" />
+					</div>
+					<div class="col-xs-6">
+						<img alt="Bootstrap Image Preview" src="image/icon/step02_c.png" />
+					</div>
 				</div>
-				<div class="col-xs-6">
-					<img alt="Bootstrap Image Preview" src="image/icon/step02_c.png" />
+				<div class="col-xs-12" style="height: 30px"></div>
+				<div class="col-xs-12 orderStatus">
+					親愛的 ${loginOK.mbrName}先生，感謝您於本商店購物。您的訂單明細已同步發送至您的信箱。 <br>
+					歡迎使用「訂單查詢」功能查詢目前訂單狀態，謝謝。 <br> 訂單編號：<b>${order.orderSN}</b> 狀態：<b>新單
+					</b><br>
 				</div>
-			</div>
-			<div class="col-xs-12" style="height: 30px"></div>
-			<div class="col-xs-12 orderStatus">
-				親愛的 ${loginOK.mbrName}先生，感謝您於本商店購物。您的訂單明細已同步發送至您的信箱。 <br>
-				歡迎使用「訂單查詢」功能查詢目前訂單狀態，謝謝。 <br> 訂單編號：<b>${order.orderSN}</b> 狀態：<b>新單
-				</b><br>
+
 			</div>
 
-		</div>
-		
 			<div class="col-xs-12">
 				<h3 class="Ordertotal">選購清單</h3>
 			</div>
@@ -215,6 +216,8 @@ strong {
 			</div>
 
 			<div class="col-xs-12">
+			
+			
 				<c:forEach items="${cars}" var="data">
 					<div class="col-xs-12" style="border-bottom: solid 1px #d9cdcd;">
 						<div class="col-xs-4" style="padding: 10px">
@@ -240,6 +243,10 @@ strong {
 							\$${data.value.PK.gameSN.price*data.value.quantity}</div>
 					</div>
 				</c:forEach>
+				
+				
+				
+				
 			</div>
 			<div class="col-md-12" style="height: 50px"></div>
 			<div class="col-xs-12"
@@ -328,42 +335,102 @@ strong {
 					</div>
 				</div>
 
-				<div class="col-md-12" style="height: 30px"></div>
+				
 			</div>
-		</div><!-- end setDiv -->
-		
-
-
+		</div>
+		<!-- end setDiv -->
 	</div>
+	<div class="col-md-12" style="height: 30px"></div>
+	<!-- 	<div class="col-md-12" style="height: 2000px"></div> -->
 	<div class="center col-md-12">
 		<div class="col-md-12" style="height: 50px">
 			<a class="btn btn-danger" href='<c:url value="/Shop.controller"/>'>繼續購物</a>
-			<a style="cursor: pointer;" class="btn btn-danger" onclick="print()">列印訂單</a>  
+			<a style="cursor: pointer;" class="btn btn-danger" onclick="print()">列印訂單</a>
 		</div>
+		
 	</div>
 </body>
+
 <script type="text/javascript">
+	var img = 0;
+	var dataURL = 0;
+	var name=sessionStorage.getItem("name");
+	var tel=sessionStorage.getItem("tel");
+	var phone=sessionStorage.getItem("phone");
+	var email=sessionStorage.getItem("email");
+	var address=sessionStorage.getItem("address");
+	var orderAmount=sessionStorage.getItem("orderAmount");
+	var mbrSN=sessionStorage.getItem("mbrSN");
+	var link_name=sessionStorage.getItem("link_name");
+	var setDiv = document.getElementById("setDiv");
+	var width = setDiv.offsetWidth;
+	var height = setDiv.offsetHeight;
+	var canvas = document.createElement("canvas");
+	var scale = 1.2;
+	canvas.width = width * scale;
+	canvas.height = height * scale;
+	canvas.getContext("2d").scale(scale, scale);
+	var opts = {
+		scale : scale,
+		canvas : canvas,
+		width : width,
+		height : height
+	};
+	
+	function toImage() {
+		html2canvas(setDiv, opts).then(
+				function(canvas) {
+					// 		     Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height);
+					img = Canvas2Image.convertToJPEG(canvas,canvas.width, canvas.height);
+					
+					dataURL = canvas.toDataURL(img);
+//						window.open(dataURL);
+//						console.log(img);
+//						console.log(dataURL);
+// 					sessionStorage.setItem("image", dataURL);
+					// 				console.log(sessionStorage.getItem("image"));
+//						window.open(dataURL, '訂單',
+//								config = 'height=750,width=1000');
+					ajax();
+				})
+	}
+	function ajax(){
+		alert(dataURL);
+		alert('訂單送出');
+		$.ajax({
+			type:"POST",
+			url:"writeOrder.controller",
+			data:{
+			url:link_name,
+			mbrSN:mbrSN,
+			orderAmount:orderAmount,
+			name:name,
+			tel:tel,     
+			phone:phone,
+			email:email,
+			address:address,
+			image:dataURL,
+			},
+			async: false,
+			xhrFields: {
+				withCredentials: false },
+			success:function(res) {
+			<%if (session.getAttribute("loginOK") != null) {%>
+			alert('訂單新增成功');
+			<%} else {%>
+			alert('請登入');
+			window.location='list.jsp';
+			<%}%>
+			},
+		})//end ajax
+	};
+	window.onload=function() {
+		toImage();
+	};
+	
+	
 	function print() {
-		var setDiv = document.getElementById("setDiv");
-		var width = setDiv.offsetWidth; 
-		var height = setDiv.offsetHeight;
-		var canvas = document.createElement("canvas"); 
-		var scale = 4.5; 
-		canvas.width = width*scale;
-		canvas.height = height*scale;    
-		canvas.getContext("2d").scale(scale,scale); 
-		var opts = {
-		    scale:scale, 	
-		    canvas:canvas,
-		    width:width, 
-		    height:height
-		};
-		html2canvas(setDiv, opts).then(function (canvas) {
-// 		     Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height);
-			var img = Canvas2Image.convertToImage(canvas, canvas.width, canvas.height);
-		    var dataURL = canvas.toDataURL(img);
-		    window.open(dataURL,'訂單',config='height=750,width=1000');
-		});
+		window.open(dataURL, '訂單', config = 'height=750,width=1000');
 	}
 </script>
 </html>

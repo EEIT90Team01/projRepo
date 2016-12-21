@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import model.MemberBean;
 import model.OrderBean;
@@ -38,13 +40,44 @@ public class ShopController {
 	ShopServices shopServices;
 
 	// WriteOrder.controller
-
 	@RequestMapping(path = "/writeOrder.controller")
-	public String WriteOrder(HttpSession session,String mbrSN, String orderAmount,String name,String tel,String phone,String email,String address) throws ParseException {// 寫入訂單的controller
+	public String WriteOrder(String insert, HttpServletRequest req, HttpSession session,String mbrSN, String orderAmount,String name,String tel,String phone,String email,String address) throws ParseException, MessagingException, IOException {// 寫入訂單的controller
+		if(insert!=null){
+			OrderBean orderBean = new OrderBean(Integer.parseInt(orderAmount),email,address,name,tel,phone);
+			session.setAttribute("order", orderBean);
+			
+			return "orderOver";
+		}
 		
-		OrderBean orderBean = new OrderBean(email,address,name,tel,phone);
-		OrderBean OrderBean=shopServices.newOrderAndDetail(orderBean,mbrSN,orderAmount,car);
-		session.setAttribute("order", OrderBean);
+		
+		
+		
+		String image = req.getParameter("image").substring(22);
+		Thread thread = new Thread(new Runnable(){
+	    	public void run() { 
+	    		try {
+	    			System.out.println("寄信中");
+					shopServices.sendMain(name,image,email);
+				} catch (MessagingException | IOException e) {
+					System.out.println("寄信錯誤");
+					e.printStackTrace();
+				}
+             } 
+	    });
+	    thread.start();
+	    Thread thread1 = new Thread(new Runnable(){
+	    	OrderBean OrderBean;
+	    	public void run() { 
+				try {
+					OrderBean = shopServices.newOrderAndDetail(new OrderBean(image,email,address,name,tel,phone),mbrSN,orderAmount,car);
+				} catch (ParseException e) {
+					System.out.println("NEW訂單失敗");
+					e.printStackTrace();
+				}
+	    		session.setAttribute("order", OrderBean);
+             } 
+	    });
+	    thread1.start();
 		
 		return "orderOver";
 	}
@@ -69,7 +102,6 @@ public class ShopController {
 			// name==我放入購物車的商品的編號
 
 			count++;
-
 			if (car.get(name) == null) {// 先進去購物車找
 				OrderDetailPK PK = new OrderDetailPK();
 				OrderDetailBean orderDetailBean = new OrderDetailBean();

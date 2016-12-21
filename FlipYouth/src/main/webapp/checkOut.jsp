@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="BIG5"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@page import="java.util.*"%>
 <%@page import="javax.servlet.*"%>
 <%@page import="javax.servlet.http.HttpSession"%>
@@ -29,7 +31,7 @@
 <!-- <link rel="stylesheet" type="text/css" href="css/Tim.css"> -->
 <!-- Latest compiled and minified JavaScript -->
 <script type="text/javascript" src="js/html2canvas.js"></script>
-
+<script type="text/javascript" src="js/canvas2image.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -111,14 +113,14 @@ $.ajax({
 	  async:true,
 });
 <%}%>
+
 </script>
 <body>
-
 	<font size="99">${loginOK.mbrName}你好歡迎來到翻桌唷商城</font>
 
 
 
-	<div id="setDiv" style="border-bottom: 1px solid;" class="container">
+	<div style="border-bottom: 1px solid;" class="container">
 		<div class="col-xs-12">
 
 			<div class="row container">
@@ -268,16 +270,17 @@ $.ajax({
 													<label> <input type="checkbox" /> 同意運費規則
 													</label>
 												</div>
+											</div>
 
-												<div class="center">
+											<div class="center">
 
 
-													<a class="btn btn-danger"
-														href='<c:url value="/Shop.controller"/>'>繼續購物</a> <a
-														onclick="submit_btn(${loginOK.mbrSN},${ALL+100},'orderOver.jsp')"
-														class="btn btn-danger" style="cursor: pointer"
-														href="javascript: void(0)">訂單送出</a>
-												</div>
+												<a class="btn btn-danger"
+													href='<c:url value="/Shop.controller"/>'>繼續購物</a> <a
+													onclick="submit_btn(${loginOK.mbrSN},${ALL+100},'orderOver.jsp')"
+													class="btn btn-danger" style="cursor: pointer"
+													href="javascript: void(0)">訂單送出</a>
+											</div>
 										</form>
 									</div>
 								</div>
@@ -295,7 +298,6 @@ $.ajax({
 			</div>
 		</div>
 	</div>
-
 
 
 
@@ -344,56 +346,56 @@ $.ajax({
 				},
 		})
 	}
+	
+	
+	
 	function submit_btn(mbrSN,orderAmount,link_name) {
-		alert('要去的連結為'+link_name);
-		
-// 		 html2canvas($("#setDiv"), {
-// 		        onrendered: function(canvas) {
-// 		            var myImage = canvas.toDataURL("image/png");
-// 		            window.open(myImage);
-// 		        }
-// 		    });
-		
-		
-<%-- 		<%if (session.getAttribute("loginOK") != null) {%> --%>
-// 		$('body').fadeOut(400, function(){});
-<%-- 		<%}%> --%>
-	    $.ajax({
-			type:"POST",
-			url:"writeOrder.controller",
-			data:{
-			url:link_name,
-			mbrSN:mbrSN,
-			orderAmount:orderAmount,
-			name:$('#name').val(),
-			tel:$('#tel').val(),     
-			phone:$('#phone').val(),
-			email:$('#email').val(),
-			address:$('#address').val(),
-			},
-			async: true,
-			xhrFields: {
-				withCredentials: false },
-			success:function(res) {
-			<%if (session.getAttribute("loginOK") != null) {%>
+		 sessionStorage.setItem("name",$('#name').val());
+		 sessionStorage.setItem("tel",$('#tel').val());
+		 sessionStorage.setItem("phone",$('#phone').val());
+		 sessionStorage.setItem("email",$('#email').val());
+		 sessionStorage.setItem("address",$('#address').val());
+		 sessionStorage.setItem("orderAmount",orderAmount);
+		 sessionStorage.setItem("mbrSN",mbrSN);
+		 sessionStorage.setItem("link_name",link_name);
+		 
+		 
+		 
+		 $.ajax({
+				type:"POST",
+				url:"writeOrder.controller?insert=1",
+				data:{
+				url:link_name,
+				mbrSN:mbrSN,
+				orderAmount:orderAmount,
+				name:$('#name').val(),
+				tel:$('#tel').val(),     
+				phone:$('#phone').val(),
+				email:$('#email').val(),
+				address:$('#address').val(),
+				},
+				async: false,
+				xhrFields: {
+					withCredentials: false },
+				success:function(res) {
+					window.location="orderOver.jsp";
+				},
+			})//end ajax
+		 
+		 
 			
-			
-			
-			
-			
-			
-			
-			window.location=link_name;
-			<%} else {%>
-			$(res).appendTo('body');
-			<%}%>
-			},
-		})
 	}
-		
-		
+<%-- 		<%if (session.getAttribute("loginOK") != null) {%> --%>
+//		$('body').fadeOut(4000, function(){});
+<%-- 		<%}%> --%>
+		    
 	</script>
 
 
 </body>
+
 </html>
+
+
+
+
