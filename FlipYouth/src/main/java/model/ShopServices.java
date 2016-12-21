@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -28,11 +31,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 import model.dao.MemberDAO;
 import model.dao.OrderDao;
 import model.dao.ShopDao;
@@ -40,7 +45,7 @@ import model.dao.ShopDao;
 @Service(value = "shopServices")
 @Transactional
 public class ShopServices {
-	@Autowired 
+	@Autowired
 	@Resource(name = "shopDao")
 	ShopDao shopDao;
 
@@ -165,7 +170,7 @@ public class ShopServices {
 		// image
 
 		byte[] bytearray = Base64.decode(image);
-
+		System.out.println();
 		BufferedImage imag = ImageIO.read(new ByteArrayInputStream(bytearray));
 		ImageIO.write(imag, "PNG", new File("C:\\mailImage.jpg"));
 
@@ -173,5 +178,28 @@ public class ShopServices {
 		picturePart.setFileName(fds.getName());
 		picturePart.setHeader("Content-ID", "<image>");
 
+	}
+	public static int recordsTotal;
+	public static void setRecordsTotal(int recordsTotal) {
+		ShopServices.recordsTotal = recordsTotal;
+	}
+
+	public JSONObject PageList(Integer MbrSN, String length, String start, String draw, String orderCol, String dir, String search) {
+		List<OrderBean> list= orderDao.PageList(MbrSN,length,start,draw,orderCol,dir,search);
+		List<JSONObject> jsons = new ArrayList<JSONObject>();
+		for(OrderBean json:list){
+			jsons.add(new JSONObject(json));
+		}
+		
+		
+		
+		Map<String,Object> jsonAll =new HashMap<String,Object>();
+		jsonAll.put("draw", Integer.parseInt(draw));
+		jsonAll.put("recordsTotal", recordsTotal);
+		jsonAll.put("recordsFiltered", recordsTotal);
+		jsonAll.put("data", jsons);
+		
+		System.out.println(jsonAll);
+		return new JSONObject(jsonAll);
 	}
 }

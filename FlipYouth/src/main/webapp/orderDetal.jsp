@@ -66,18 +66,18 @@ tr, th, thead {
 		var dt = $('#example').DataTable({
 			"processing" : true,
 			"serverSide" : true,
-			"ajax" : "ajax.txt",
+			"autoWidth": true,
+			"ajax" : "DataTable.controller",
 			"columns" : [ {
 				"class" : "details-control",
 				"orderable" : false,
-				"data" : null,
-				"defaultContent" : ""}, 
-				{"data" : "first_name"}, 
-				{"data" : "last_name"}, 
-				{"data" : "position"}, 
-				{"data" : "office"} ,
-				{"data" : "office"} ,
-				{"data" : "office"}
+				}, 
+				{"data" : "address"}, 
+				{"data" : "orderState"}, 
+				{"data" : "orderAmount"}, 
+				{"data" : "tel"} ,
+				{"data" : "shippedDate"} ,
+				{"data" : "paymentMethod"}
 				],
 				
 			"order" : [ [ 1, 'asc' ] ]
@@ -121,22 +121,24 @@ tr, th, thead {
 		<thead>
 			<tr>
 				<th></th>
-				<th>訂單編號</th>
-				<th>訂單日期</th>
-				<th>商品名稱</th>
-				<th>訂單金額</th>
+				<th>address</th>
+				<th>address</th>
 				<th>訂單狀態</th>
+				<th>名子</th>
+				<th>tel</th>
+				<th>email</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
 				<th></th>
-				<th>訂單編號</th>
-				<th>訂單日期</th>
-				<th>商品名稱</th>
-				<th>訂單金額</th>
+				<th>address</th>
+				<th>address</th>
 				<th>訂單狀態</th>
+				<th>名子</th>
+				<th>tel</th>
+				<th>email</th>
 				<th>操作</th>
 			</tr>
 		</tfoot>

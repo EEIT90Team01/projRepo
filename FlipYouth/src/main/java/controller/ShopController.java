@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.MemberBean;
 import model.OrderBean;
@@ -38,6 +40,42 @@ public class ShopController {
 	@Resource(name = "shopServices")
 	ShopServices shopServices;
 
+	
+	@RequestMapping(path="/DataTable.controller",produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String DataTable(HttpSession session,String draw,String start,String length,
+			@RequestParam(name = "search[value]") String search,
+			@RequestParam(name = "order[0][column]") String orderCol,
+			@RequestParam(name = "order[0][dir]") String dir){
+		System.out.println("length = "+length);//每頁顯示的比數
+		System.out.println("start = "+start);
+		System.out.println("draw = "+draw);
+		System.out.println("search = "+search);
+		System.out.println("orderCol = "+orderCol);
+		System.out.println("dir = "+dir);//orderby
+		System.out.println("DataTable.controller");
+//		MemberBean  MemberBean= (model.MemberBean) session.getAttribute("loginOK");
+		
+		
+		
+		
+		
+		
+		
+		return shopServices.PageList(1,length,start,draw,orderCol,dir,search).toString();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// WriteOrder.controller
 	@RequestMapping(path = "/writeOrder.controller")
 	public String WriteOrder(String insert, HttpServletRequest req, HttpSession session,String mbrSN, String orderAmount,String name,String tel,String phone,String email,String address) throws ParseException, MessagingException, IOException {// 寫入訂單的controller

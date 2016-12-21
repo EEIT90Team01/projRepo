@@ -30,6 +30,10 @@ public class OrderBean {
 	private String image;
 	
 	
+	public OrderBean() {
+		super();
+	}
+
 	public  OrderBean(Integer orderAmount, String email, String address, String name, String tel, String phone) {
 		this.orderAmount = orderAmount;
 		this.email = email;
