@@ -28,8 +28,8 @@
 	crossorigin="anonymous">
 <!-- <link rel="stylesheet" type="text/css" href="css/Tim.css"> -->
 <!-- Latest compiled and minified JavaScript -->
-<script type="text/javascript" src="js/html2canvas.js"></script>
-<script type="text/javascript" src="js/canvas2image.js"></script>
+<script type="text/javascript" src="js_Tim/html2canvas.js"></script>
+<script type="text/javascript" src="js_Tim/canvas2image.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -395,8 +395,6 @@ strong {
 				})
 	}
 	function ajax(){
-		alert(dataURL);
-		alert('­q³æ°e¥X');
 		$.ajax({
 			type:"POST",
 			url:"writeOrder.controller",

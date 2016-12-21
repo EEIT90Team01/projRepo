@@ -40,7 +40,7 @@ import model.dao.ShopDao;
 @Service(value = "shopServices")
 @Transactional
 public class ShopServices {
-	@Autowired
+	@Autowired 
 	@Resource(name = "shopDao")
 	ShopDao shopDao;
 

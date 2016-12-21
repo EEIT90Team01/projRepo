@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import model.MemberBean;
 import model.OrderBean;
@@ -42,15 +41,12 @@ public class ShopController {
 	// WriteOrder.controller
 	@RequestMapping(path = "/writeOrder.controller")
 	public String WriteOrder(String insert, HttpServletRequest req, HttpSession session,String mbrSN, String orderAmount,String name,String tel,String phone,String email,String address) throws ParseException, MessagingException, IOException {// 寫入訂單的controller
+		System.out.println("writeOrder.controller");
 		if(insert!=null){
 			OrderBean orderBean = new OrderBean(Integer.parseInt(orderAmount),email,address,name,tel,phone);
 			session.setAttribute("order", orderBean);
-			
 			return "orderOver";
 		}
-		
-		
-		
 		
 		String image = req.getParameter("image").substring(22);
 		Thread thread = new Thread(new Runnable(){
