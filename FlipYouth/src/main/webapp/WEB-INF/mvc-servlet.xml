@@ -8,12 +8,18 @@
 	<context:component-scan base-package="controller" />
 	<mvc:annotation-driven />
 
-	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
-		<property name="order" value="2" />
-	</bean>
 
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="order" value="10" />
+<!-- 	XML設定  會轉到 value="/WEB-INF/views.xml"-->
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="location" value="/WEB-INF/views.xml"></property>
+		<property name="order" value="10"></property>
+	</bean>
+	<bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	<property name="order" value="15"></property>
+	</bean>
+<!--  jsp(預設的) 如果有用其他設定時 ,一定要寫這行程式才不會出錯 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"></property>
+		<property name="order" value="20"></property>
 	</bean>
 </beans>
