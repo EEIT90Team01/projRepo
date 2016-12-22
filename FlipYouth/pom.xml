@@ -16,6 +16,7 @@
 
 	<dependencies>
 
+
 		<!-- https://mvnrepository.com/artifact/com.sun.org.apache/jaxp-ri -->
 		<dependency>
 			<groupId>com.sun.org.apache</groupId>
@@ -108,7 +109,6 @@
 			<version>2.4</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/javax.servlet.jsp.jstl-api -->
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
