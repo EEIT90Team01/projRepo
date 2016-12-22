@@ -49,7 +49,7 @@
 							<!-- 								  <h4>Error!</h4> -->
 							<!-- 								   Your Error Message goes here -->
 						</div>
-						<form action="login.controller" id="LoginForm" method="post">
+						<form action="<c:out value="/FlipYouth/login/login.controller"/>" id="LoginForm" method="post">
 							<input class="required" type="text" name="user"
 								placeholder="請輸入帳號" required /> <input type="password"
 								name="pass" placeholder="請輸入密碼" required />

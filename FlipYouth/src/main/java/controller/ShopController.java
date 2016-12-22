@@ -2,9 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import model.CommentBean;
-import model.CommentDao;
 import model.MemberBean;
 import model.OrderBean;
 import model.OrderDetailBean;
@@ -243,9 +238,10 @@ public class ShopController {
 	}
 
 	// login controller
-	@RequestMapping(path = "/login.controller")
+	@RequestMapping(path = "/login/login.controller")
 	public String login(HttpSession session, HttpServletResponse response, String user, String pass)
 			throws IOException, ParseException {
+		if(session.getAttribute("loginOK")!=null){return "list";}
 		if (pass == null || pass.trim().equals("") || user == null || user.trim().equals("")) {
 			session.setAttribute("loginError", "帳號或密碼輸入錯誤");
 			return "login";
@@ -254,6 +250,7 @@ public class ShopController {
 			System.out.println("checkMember");
 			MemberBean memberBean = shopServices.checkMember(user, pass);
 			if (memberBean != null) {
+				session.setAttribute("count",1);
 				session.setAttribute("loginOK", memberBean);
 				session.setAttribute("car", car);
 				session.removeAttribute("loginError");
@@ -263,6 +260,7 @@ public class ShopController {
 				}
 				return url;
 			} else {// 密碼錯誤
+				session.setAttribute("count_Filter",0);
 				session.setAttribute("loginError", "帳號或密碼輸入錯誤");
 				return "login";
 			}
@@ -277,7 +275,7 @@ public class ShopController {
 		session.removeAttribute("loginOK");
 		car.clear();
 		count = 0;
-		return "list";
+		return "home";
 	}
 
 }

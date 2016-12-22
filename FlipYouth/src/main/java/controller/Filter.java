@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.MemberBean;
 
-//@WebFilter({ "/order.controller", "/writeOrder.controller", "/order/*","/login.jsp" })
+@WebFilter({ "/order.controller", "/writeOrder.controller", "/order/*" ,"/pages/editMember.jsp"})
 public class Filter implements javax.servlet.Filter {
 
 	@Override
@@ -24,36 +25,27 @@ public class Filter implements javax.servlet.Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 		MemberBean loginOK = (MemberBean) session.getAttribute("loginOK");
-		System.out.println("filter");
 
 		if (loginOK != null) {// 有登入的話
-			// resp.sendRedirect(req.getParameter("url"));
+			session.setAttribute("url", req.getServletPath().substring(0, req.getServletPath().indexOf(".")));
 			chain.doFilter(request, response);
-
+			return;
 		}
-		
+
 		String url = "";
 		if (req.getPathInfo() != null) {
 			url = req.getPathInfo();
 		}
-
-		System.out.println(req.getServletPath().indexOf("login.jsp"));
-		
-		if (loginOK != null &&(req.getServletPath().indexOf("login.jsp")!=-1||req.getServletPath().indexOf("login.controller")!=-1)) {
-			request.getRequestDispatcher("/list").forward(request, response);
-			System.out.println("重登入");
-		}
-		
-		if (loginOK == null && req.getServletPath().indexOf("login.jsp")== -1) {
+		if (loginOK == null) {
 			session.setAttribute("url", req.getServletPath() + url);
-			System.out.println("請求的url=" + req.getParameter("url"));
-			request.getRequestDispatcher("/login.controller").forward(request, response);
+			req.getRequestDispatcher("/login/login.jsp").forward(request, response);
 		}
-
+			
 	}
 
 	@Override
