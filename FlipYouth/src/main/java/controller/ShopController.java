@@ -43,12 +43,11 @@ public class ShopController {
 	
 	@RequestMapping(path="/DataTable.controller",produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String DataTable(HttpSession session,String draw,String start,String length,
+	public String DataTable(HttpSession session,Integer draw,Integer start,Integer length,
 			@RequestParam(name = "search[value]") String search,
 			@RequestParam(name = "order[0][column]") String orderCol,
 			@RequestParam(name = "order[0][dir]") String dir
-			,HttpServletRequest req
-			){
+			,HttpServletRequest req){
 		
 		
 		String OrderColNam = req.getParameter(("columns["+orderCol+"][data]"));
@@ -59,7 +58,6 @@ public class ShopController {
 		System.out.println("orderCol = "+orderCol);
 		System.out.println("dir = "+dir);//orderby
 		System.out.println("OrderColNam = "+ OrderColNam);
-			
 		System.out.println("DataTable.controller");
 //		MemberBean  MemberBean= (model.MemberBean) session.getAttribute("loginOK");
 		
@@ -69,7 +67,8 @@ public class ShopController {
 		
 		
 		
-		return shopServices.PageList(1,length,start,draw,orderCol,dir,search).toString();
+		return shopServices.PageList(1,length,start,draw,orderCol,dir,search,OrderColNam).toString();
+		
 	}
 	
 	
@@ -257,7 +256,6 @@ public class ShopController {
 	@RequestMapping(path = "/login.controller")	
 	public String login(HttpServletResponse response, HttpSession session, String user, String pass)
 			throws IOException, ParseException {
-
 		if (pass == null || pass.trim().equals("") || user == null || user.trim().equals("")) {
 			return null;
 		}
@@ -270,7 +268,6 @@ public class ShopController {
 				session.setAttribute("car", car);
 				return (String) session.getAttribute("url");
 			} else {// 密碼錯誤
-				
 				return null;
 			}
 		}

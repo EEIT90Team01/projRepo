@@ -17,8 +17,6 @@ public class Filter implements javax.servlet.Filter {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

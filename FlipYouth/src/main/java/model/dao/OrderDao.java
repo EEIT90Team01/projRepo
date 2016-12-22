@@ -47,10 +47,11 @@ public class OrderDao {
 	
 	
 	
-	public List<OrderBean> PageList(Integer mbrSN, String length, String start, String draw, String orderCol, String dir, String search) {
+	public List<OrderBean> PageList(Integer mbrSN, Integer length, Integer start, Integer draw, String orderCol, String dir, String search,String OrderColNam) {
 		List<OrderBean> list;
-		Query<OrderBean> order = this.getSession().createQuery("from OrderBean where mbrSN = "+1).setFirstResult(Integer.parseInt(start)).setMaxResults(Integer.parseInt(length));
-		  int total= (int) this.getSession().createNativeQuery("SELECT COUNT(*) FROM order1 where mbrSN = "+1).getSingleResult();
+		String from = "from OrderBean";
+		Query<OrderBean> order = this.getSession().createQuery(from+" where mbrSN = "+1 +"order by " + OrderColNam +" "+dir).setFirstResult(start).setMaxResults(length);
+		int total= (int) this.getSession().createNativeQuery("SELECT COUNT(*) FROM order1 where mbrSN = "+1).getSingleResult();
 		System.out.println(total);
 		ShopServices.setRecordsTotal(total);
 		
@@ -58,6 +59,8 @@ public class OrderDao {
 //		ShopServices.setRecordsTotal(Total);;
 		return list;
 	}
+
+
 
 	
 }
