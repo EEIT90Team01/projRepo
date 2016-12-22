@@ -29,7 +29,6 @@ public class OrderBean {
 	private String phone;
 	private String image;
 	
-	
 	public OrderBean() {
 		super();
 	}

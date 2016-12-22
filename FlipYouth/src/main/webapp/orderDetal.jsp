@@ -49,7 +49,21 @@ tr, th, thead {
 }
 </style>
 </head>
+<style>
+td.details-control {
+    background: url('image/icon/open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.details td.details-control {
+    background: url('image/icon/close.png') no-repeat center center;
+}
+</style>
 <script type="text/javascript">
+
+	
+	
+
+
 	function format(d) {
 		return 'Full name: '
 				+ d.first_name
@@ -69,17 +83,18 @@ tr, th, thead {
 			"autoWidth": true,
 			"ajax" : "DataTable.controller",
 			"columns" : [ {
-				"class" : "details-control",
-				"orderable" : false,
-				}, 
-				{"data" : "address"}, 
-				{"data" : "orderState"}, 
+				"class":          "details-control",
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ""
+                }, 
+				{"data" : "orderSN"}, 
+				{"data" : "orderDate"}, 
 				{"data" : "orderAmount"}, 
-				{"data" : "tel"} ,
-				{"data" : "shippedDate"} ,
-				{"data" : "paymentMethod"}
+				{"data" : "email"} ,
+				{"data" : "name"} ,
+// 				{"data" : ""}
 				],
-				
 			"order" : [ [ 1, 'asc' ] ]
 		});
 
@@ -121,25 +136,23 @@ tr, th, thead {
 		<thead>
 			<tr>
 				<th></th>
-				<th>address</th>
-				<th>address</th>
-				<th>訂單狀態</th>
-				<th>名子</th>
-				<th>tel</th>
-				<th>email</th>
-				<th>操作</th>
+				<th>訂單編號</th>
+				<th>下訂日期</th>
+				<th>訂單金額</th>
+				<th>連絡email</th>
+				<th>連絡性名</th>
+<!-- 				<th></th> -->
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
 				<th></th>
-				<th>address</th>
-				<th>address</th>
-				<th>訂單狀態</th>
-				<th>名子</th>
-				<th>tel</th>
-				<th>email</th>
-				<th>操作</th>
+				<th>訂單編號</th>
+				<th>下訂日期</th>
+				<th>訂單金額</th>
+				<th>連絡email</th>
+				<th>連絡性名</th>
+<!-- 				<th></th> -->
 			</tr>
 		</tfoot>
 	</table>

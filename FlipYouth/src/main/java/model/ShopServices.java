@@ -198,8 +198,6 @@ public class ShopServices {
 		jsonAll.put("recordsTotal", recordsTotal);
 		jsonAll.put("recordsFiltered", recordsTotal);
 		jsonAll.put("data", jsons);
-		
-		System.out.println(jsonAll);
 		return new JSONObject(jsonAll);
 	}
 }

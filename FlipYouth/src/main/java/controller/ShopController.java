@@ -46,13 +46,20 @@ public class ShopController {
 	public String DataTable(HttpSession session,String draw,String start,String length,
 			@RequestParam(name = "search[value]") String search,
 			@RequestParam(name = "order[0][column]") String orderCol,
-			@RequestParam(name = "order[0][dir]") String dir){
-		System.out.println("length = "+length);//每頁顯示的比數
+			@RequestParam(name = "order[0][dir]") String dir
+			,HttpServletRequest req
+			){
+		
+		
+		String OrderColNam = req.getParameter(("columns["+orderCol+"][data]"));
+		System.out.println("length = "+length);
 		System.out.println("start = "+start);
 		System.out.println("draw = "+draw);
 		System.out.println("search = "+search);
 		System.out.println("orderCol = "+orderCol);
 		System.out.println("dir = "+dir);//orderby
+		System.out.println("OrderColNam = "+ OrderColNam);
+			
 		System.out.println("DataTable.controller");
 //		MemberBean  MemberBean= (model.MemberBean) session.getAttribute("loginOK");
 		
