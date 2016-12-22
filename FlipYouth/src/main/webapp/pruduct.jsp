@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -189,7 +189,34 @@ iframe {
 									class="tab-pane active" id="home">${pruduct.div1}</div>
 
 
-								<div role="tabpanel" class="tab-pane" id="profile"><h1>${pruduct.gameSN}</h1></div>
+								<div role="tabpanel" class="tab-pane" id="profile"><h1>${pruduct.gameSN},${loginOK.mbrSN}</h1>
+<!-- ================================================================================================================================ -->
+
+								
+								<c:if test="${not empty Comment}">
+									<c:forEach var="element" items="${Comment}" >
+										<div style="width: 600px; background-color:#D1E9E9; margin: 10px">
+											<img style="width:50px;height:50px" src='data:image/png;base64,${element.img}'/>
+											<input type="hidden" id="${element.CommentBean.mbrSN.mbrSN}" value="${element.CommentBean.mbrSN.image}" />
+											<span style="color: blue;">${element.CommentBean.mbrSN.nickName}</span><br>
+											<span >${element.CommentBean.text}</span> <span>${element.CommentBean.cmtTime }</span>
+											<c:if test="${element.CommentBean.mbrSN.mbrSN == loginOK.mbrSN}">
+												<button class="btn" type="submit">delete</button>
+											</c:if>
+											<input type="hidden" name="cmtSN" value="${element.CommentBean.cmtSN }">		
+										</div>
+									</c:forEach>
+								</c:if>
+								
+								<div id="insertComment">
+								
+								</div>
+								<c:if test="${not empty loginOK}">
+									<input type="text"  id = "comment" size="70"/>
+									<button type="submit" id="submit" class="btn" onclick="sendComment(${loginOK.mbrSN},${pruduct.gameSN})" >送出</button>
+								</c:if>
+								</div>
+
 
 							</div>
 

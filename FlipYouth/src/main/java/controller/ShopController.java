@@ -2,6 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import model.CommentBean;
+import model.CommentDao;
 import model.MemberBean;
 import model.OrderBean;
 import model.OrderDetailBean;

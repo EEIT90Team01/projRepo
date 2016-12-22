@@ -1,6 +1,7 @@
 package model;
 
-import java.util.Arrays;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="Member")
 @Component(value="memberBean")
-public class MemberBean {
+public class MemberBean implements Serializable{
 	private Integer mbrSN;
 	private String nickName;
 	private String mbrId;
@@ -32,7 +33,7 @@ public class MemberBean {
 	@Column(name="activatedCode")
 	private byte[] activatedCode;
 	
-	public MemberBean(){
+	public MemberBean() {
 		
 	}
 	

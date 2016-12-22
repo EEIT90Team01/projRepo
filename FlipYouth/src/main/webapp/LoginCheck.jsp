@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+	pageEncoding="BIG5"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.*"%>
+<%@page import="javax.servlet.*"%>
+<%@page import="javax.servlet.http.HttpSession"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商城系統</title>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -30,11 +29,41 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-<title>訂單</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 </head>
-
-
 <body>
-
+	<script type="text/javascript">
+$('.login').click(function(event) {
+// 	event.stopPropagation();
+	event.preventDefault();
+	var link_name = $(this).attr('name');
+	$.ajax({
+		  type: 'POST',
+		  url: this.href,
+		  data:{url:this.name},
+		  success : function(res) {
+			  <%if (session.getAttribute("loginOK") != null) {%>
+				window.location=link_name;
+				<%} else {%>
+				event.stopPropagation();
+				$(res).appendTo('#body');
+				<%}%>
+		  },
+		  async:false,
+	});
+	
+	
+// 	$.post(this.href, function(html){
+	<%-- 		<%if (session.getAttribute("loginOK") != null) {%> --%>
+//	 		window.location="checkOut.jsp";
+	<%-- 		<%} else {%> --%>
+//	 		$(html).appendTo('#body');
+	<%-- 		<%}%> --%>
+//	 	})
+	
+	
+})
+</script>
 </body>
 </html>

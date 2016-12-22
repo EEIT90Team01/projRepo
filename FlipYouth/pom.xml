@@ -16,7 +16,12 @@
 
 	<dependencies>
 
-
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<scope>provided</scope>
+			<version>1.1</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.sun.org.apache/jaxp-ri -->
 		<dependency>
 			<groupId>com.sun.org.apache</groupId>
@@ -44,7 +49,6 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>com.sun.mail</groupId>
