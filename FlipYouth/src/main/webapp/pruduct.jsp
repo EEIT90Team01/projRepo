@@ -32,7 +32,7 @@
 	crossorigin="anonymous"></script>
 
 
-<link rel="stylesheet" type="text/css" href="css/Tim.css">
+<link rel="stylesheet" type="text/css" href="css_Tim/Tim.css">
 <style type="text/css">
 /* div {   */
 /*   	border-style: solid;   */

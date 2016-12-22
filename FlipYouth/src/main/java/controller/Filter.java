@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter({ "/order.controller", "/writeOrder.controller" })
+import model.MemberBean;
+
+//@WebFilter({ "/order.controller", "/writeOrder.controller", "/order/*","/login.jsp" })
 public class Filter implements javax.servlet.Filter {
 
 	@Override
@@ -25,22 +27,31 @@ public class Filter implements javax.servlet.Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
-
+		MemberBean loginOK = (MemberBean) session.getAttribute("loginOK");
 		System.out.println("filter");
-		// session.removeAttribute("loginOK");
-		System.out.println(session.getAttribute("loginOK"));
-		if (session.getAttribute("loginOK") != null) {// 有登入的話
+
+		if (loginOK != null) {// 有登入的話
 			// resp.sendRedirect(req.getParameter("url"));
 			chain.doFilter(request, response);
 
 		}
-		if (session.getAttribute("loginOK") == null) {
-			String url = req.getParameter("url");
+		
+		String url = "";
+		if (req.getPathInfo() != null) {
+			url = req.getPathInfo();
+		}
+
+		System.out.println(req.getServletPath().indexOf("login.jsp"));
+		
+		if (loginOK != null &&(req.getServletPath().indexOf("login.jsp")!=-1||req.getServletPath().indexOf("login.controller")!=-1)) {
+			request.getRequestDispatcher("/list").forward(request, response);
+			System.out.println("重登入");
+		}
+		
+		if (loginOK == null && req.getServletPath().indexOf("login.jsp")== -1) {
+			session.setAttribute("url", req.getServletPath() + url);
 			System.out.println("請求的url=" + req.getParameter("url"));
-			if (url != null) {
-				session.setAttribute("url", url.substring(0, url.indexOf('.')));
-			}
-			resp.sendRedirect("login.jsp");
+			request.getRequestDispatcher("/login.controller").forward(request, response);
 		}
 
 	}

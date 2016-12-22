@@ -30,8 +30,8 @@
 	crossorigin="anonymous">
 <!-- <link rel="stylesheet" type="text/css" href="css/Tim.css"> -->
 <!-- Latest compiled and minified JavaScript -->
-<script type="text/javascript" src="js/html2canvas.js"></script>
-<script type="text/javascript" src="js/canvas2image.js"></script>
+<script type="text/javascript" src="../js_Tim/html2canvas.js"></script>
+<script type="text/javascript" src="../js_Tim/canvas2image.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -97,22 +97,7 @@ b {
 </style>
 </head>
 <script type="text/javascript">
-<%if (session.getAttribute("loginOK") != null) {%>
-// alert('準備做動畫');
-<%} else {%>
-alert('連線已過期請從登入');
-$.ajax({
-	  type: 'POST',
-	  url: "order.controller",
-	  data:{url:'list.jsp'},
-	  success : function(res) {
-		  <%if (session.getAttribute("loginOK") == null) {%>
-			$(res).appendTo('body');
-		<%}%>
-	  },
-	  async:true,
-});
-<%}%>
+
 
 </script>
 <body>
@@ -126,10 +111,10 @@ $.ajax({
 			<div class="row container">
 				<div class="col-xs-6">
 					<img style="float: right;" alt="Bootstrap Image Preview"
-						src="image/icon/step01_c.png" />
+						src="../image/icon/step01_c.png" />
 				</div>
 				<div class="col-xs-6">
-					<img alt="Bootstrap Image Preview" src="image/icon/step02.png" />
+					<img alt="Bootstrap Image Preview" src="../image/icon/step02.png" />
 				</div>
 			</div>
 		</div>
@@ -156,11 +141,11 @@ $.ajax({
 						<hr>
 						<div class="col-xs-2" style="margin-top: 20px">
 							<a target="_blank"
-								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.gameName}</a>
+								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.gameName}</a>
 						</div>
 						<div style="margin-top: 5px" class="col-xs-2 px-100">
 							<a target="_blank"
-								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">
+								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">
 								<img style="height: 120px; width: 110px"
 								src="<c:url value="${data.value.PK.gameSN.smallImage}"/>"
 								class="img-rounded" />
@@ -169,7 +154,7 @@ $.ajax({
 						</div>
 						<div style="height: 200px margin-top: 20px;" class="col-xs-3 ">
 							<a target="_blank"
-								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.introduction}
+								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.introduction}
 							</a>
 						</div>
 						<div class="col-xs-1 px-100">${data.value.PK.gameSN.price}</div>
@@ -276,7 +261,7 @@ $.ajax({
 
 
 												<a class="btn btn-danger"
-													href='<c:url value="/Shop.controller"/>'>繼續購物</a> <a
+													href='<c:url value="../Shop.controller"/>'>繼續購物</a> <a
 													onclick="submit_btn(${loginOK.mbrSN},${ALL+100},'orderOver.jsp')"
 													class="btn btn-danger" style="cursor: pointer"
 													href="javascript: void(0)">訂單送出</a>
@@ -308,7 +293,7 @@ $.ajax({
 	var a;
 	function changeCar(gameSN,value){
 		$.ajax({
-			url: "order.controller?change=1",
+			url: "../order.controller?change=1",
 			type:"POST", 
 			data:{value:value,
 				  GameSN:gameSN,
@@ -336,7 +321,7 @@ $.ajax({
 		})
 	function delectCar(gameSN){
 		$.ajax({
-			url:"order.controller?delectCar="+gameSN,
+			url:"../order.controller?delectCar="+gameSN,
 			type:"POST",
 			async: true,
 			xhrFields: {
@@ -363,7 +348,7 @@ $.ajax({
 		 
 		 $.ajax({
 				type:"POST",
-				url:"writeOrder.controller?insert=1",
+				url:"../writeOrder.controller?insert=1",
 				data:{
 				url:link_name,
 				mbrSN:mbrSN,

@@ -10,7 +10,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>°Ó«°¨t²Î</title>
-<jsp:include page="LoginCheck.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -322,7 +321,7 @@ $.ajax({
 		</div>
 	</div>
 	<script type="text/javascript">
-	window.onload = refreshParent;
+// 	window.onload = refreshParent;
     function refreshParent() {
     	$.ajax({	
 			url: window.location.href,

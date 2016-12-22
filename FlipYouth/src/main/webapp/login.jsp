@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="utf-8">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
 	content="fresh Gray Bootstrap 3.0 Responsive Theme " />
@@ -17,12 +17,11 @@
 
 <title>翻桌唷登入</title>
 <!-- Bootstrap core CSS -->
-<link href="css_Tim/bootstrap.css" rel="stylesheet">
-
+<link href="<c:url value="/css_Tim/bootstrap.css"/>" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css_Tim/login.css" rel="stylesheet">
-<link href="css_Tim/animate-custom.css" rel="stylesheet">
-<script src="js_Tim/custom.js" type="text/javascript"></script>
+<link href="<c:url value="/css_Tim/login.css"/>" rel="stylesheet">
+<link href=<c:url value="/css_Tim/animate-custom.css"/> rel="stylesheet">
+<script src="<c:url value="/js_Tim/custom.js"/>" type="text/javascript"></script>
 <style type="text/css">
 .login-logo {
 	text-align: center;
@@ -38,9 +37,11 @@
 				<h3 class="animated bounceInDown">Login</h3>
 				<div class="login-box clearfix animated flipInY">
 					<div class="login-logo">
-						<a href="#"><img style="height: 150px; width: 200px"
-							src="images/logo/logo02.png" /></a>
+						<a href="#"><img style="height: 100px; width: 100px"
+							src="<c:url value="/image/icon/apple.png"/>" /></a>
 					</div>
+					<div class="col-sm-12 "
+						style="font-family: Microsoft JhengHei; color: red; text-align: center;">${loginError}</div>
 					<hr />
 					<div class="login-form">
 						<div class="alert alert-error hide">
@@ -48,10 +49,11 @@
 							<!-- 								  <h4>Error!</h4> -->
 							<!-- 								   Your Error Message goes here -->
 						</div>
-						<form  method="post">
-							<input type="text" id="user" placeholder="請輸入帳號" required /> <input
-								type="password" id="password" placeholder="請輸入密碼" required />
-							<button type="button" id="loginBtn" class="btn btn-red">登入</button>
+						<form action="login.controller" id="LoginForm" method="post">
+							<input class="required" type="text" name="user"
+								placeholder="請輸入帳號" required /> <input type="password"
+								name="pass" placeholder="請輸入密碼" required />
+							<button type="submit" id="loginBtn" class="btn btn-red">登入</button>
 						</form>
 						<div class="login-links">
 							<a href="#"> 忘記密碼? </a> <br /> <a href="#"> 還沒有帳號?<strong>註冊</strong>
@@ -72,39 +74,10 @@
 	</div>
 
 	<!-- End Login box -->
-	<script src="js_Tim/bootstrap.min.js"></script>
-	<script src="js_Tim/placeholder-shim.min.js"></script>
-	<script src="js_Tim/custom.js"></script>
-<script type="text/javascript">
-$("#loginBtn").on('click',function(){
-	
-	$.ajax({	
-		url: "login.controller",
-		type:"POST",
-		data:{
-			user:$('#user').val(),
-			password:$('#password').val()	
+	<script src="<c:url value="/js_Tim/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/js_Tim/placeholder-shim.min.js"/>"></script>
+	<script src="<c:url value="/js_Tim/custom.js"/>"></script>
+	<script type="text/javascript">
 		
-		},
-		async: false,
-		xhrFields: {
-			withCredentials: false },
-		success:function(res) {
-		},
-	})
-	
-	
-	
-})
-
-
-function formLogin() {
-	
-}
-
-
-</script>
-
-
-
+	</script>
 </html>
