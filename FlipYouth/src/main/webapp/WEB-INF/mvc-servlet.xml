@@ -22,12 +22,12 @@
 		<property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"></property>
 		<property name="order" value="20"></property>
 	</bean>
+
 	
 <!-- 	multipartFile需要用到     	-->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- setting maximum upload size -->
 		<property name="maxUploadSize" value="10000000" />
 	</bean>
-	
 	
 </beans>

@@ -1,6 +1,7 @@
 package model;
 
-import java.io.Serializable;
+
+import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +14,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="Member")
 @Component(value="memberBean")
-public class MemberBean implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class MemberBean {
 	private Integer mbrSN;
 	private String nickName;
 	private String mbrId;
