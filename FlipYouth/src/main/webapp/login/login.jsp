@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -49,14 +49,16 @@
 							<!-- 								  <h4>Error!</h4> -->
 							<!-- 								   Your Error Message goes here -->
 						</div>
-						<form action="<c:out value="/FlipYouth/login/login.controller"/>" id="LoginForm" method="post">
+						<form action="<c:out value="/FlipYouth/login/login.controller"/>"
+							id="LoginForm" method="post">
 							<input class="required" type="text" name="user"
 								placeholder="請輸入帳號" required /> <input type="password"
 								name="pass" placeholder="請輸入密碼" required />
 							<button type="submit" id="loginBtn" class="btn btn-red">登入</button>
 						</form>
 						<div class="login-links">
-							<a href="#"> 忘記密碼? </a> <br /> <a href="#"> 還沒有帳號?<strong>註冊</strong>
+							<a href="#"> 忘記密碼? </a> <br /> <a
+								href="<c:url value="/index.jsp"/>"> 還沒有帳號?<strong>註冊</strong>
 							</a>
 						</div>
 					</div>

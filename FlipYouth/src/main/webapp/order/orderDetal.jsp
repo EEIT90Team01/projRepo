@@ -50,19 +50,17 @@ tr, th, thead {
 </head>
 <style>
 td.details-control {
-    background: url('image/icon/open.png') no-repeat center center;
-    cursor: pointer;
+	background: url('/FlipYouth/image/icon/open.png') no-repeat center
+		center;
+	cursor: pointer;
 }
+
 tr.details td.details-control {
-    background: url('image/icon/close.png') no-repeat center center;
+	background: url('/FlipYouth/image/icon/close.png') no-repeat center
+		center;
 }
 </style>
 <script type="text/javascript">
-
-	
-	
-
-
 	function format(d) {
 		return 'Full name: '
 				+ d.first_name
@@ -79,21 +77,26 @@ tr.details td.details-control {
 		var dt = $('#example').DataTable({
 			"processing" : true,
 			"serverSide" : true,
-			"autoWidth": true,
+			"autoWidth" : true,
 			"ajax" : "../DataTable.controller",
 			"columns" : [ {
-				"class":          "details-control",
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ""
-                }, 
-				{"data" : "orderSN"}, 
-				{"data" : "orderDate"}, 
-				{"data" : "orderAmount"}, 
-				{"data" : "email"} ,
-				{"data" : "name"} ,
-// 				{"data" : ""}
-				],
+				"class" : "details-control",
+				"orderable" : false,
+				"data" : null,
+				"defaultContent" : ""
+			}, {
+				"data" : "orderSN"
+			}, {
+				"data" : "orderDate"
+			}, {
+				"data" : "orderAmount"
+			}, {
+				"data" : "email"
+			}, {
+				"data" : "name"
+			},
+			// 				{"data" : ""}
+			],
 			"order" : [ [ 1, 'asc' ] ]
 		});
 
@@ -122,7 +125,6 @@ tr.details td.details-control {
 			}
 		});
 
-		
 		dt.on('draw', function() {
 			$.each(detailRows, function(i, id) {
 				$('#' + id + ' td.details-control').trigger('click');
@@ -130,32 +132,38 @@ tr.details td.details-control {
 		});
 	});
 </script>
-<body>
-	<table id="example" class="display" cellspacing="0" width="100%">
-		<thead>
-			<tr>
-				<th></th>
-				<th>訂單編號</th>
-				<th>下訂日期</th>
-				<th>訂單金額</th>
-				<th>連絡email</th>
-				<th>連絡性名</th>
-<!-- 				<th></th> -->
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<th></th>
-				<th>訂單編號</th>
-				<th>下訂日期</th>
-				<th>訂單金額</th>
-				<th>連絡email</th>
-				<th>連絡性名</th>
-<!-- 				<th></th> -->
-			</tr>
-		</tfoot>
-	</table>
 
+<div class="container">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-10">
+			<table id="example" class="display" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th></th>
+						<th>訂單編號</th>
+						<th>下訂日期</th>
+						<th>訂單金額</th>
+						<th>連絡email</th>
+						<th>連絡性名</th>
+						<!-- 				<th></th> -->
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th></th>
+						<th>訂單編號</th>
+						<th>下訂日期</th>
+						<th>訂單金額</th>
+						<th>連絡email</th>
+						<th>連絡性名</th>
+						<!-- 				<th></th> -->
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
 
 
 

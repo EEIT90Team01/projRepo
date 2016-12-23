@@ -59,8 +59,4 @@ public class OrderDao {
 //		ShopServices.setRecordsTotal(Total);;
 		return list;
 	}
-
-
-
-	
 }

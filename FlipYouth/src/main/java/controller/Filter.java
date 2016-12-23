@@ -30,19 +30,20 @@ public class Filter implements javax.servlet.Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 		MemberBean loginOK = (MemberBean) session.getAttribute("loginOK");
-
+		String ServletPath =req.getServletPath();
 		if (loginOK != null) {// 有登入的話
-			session.setAttribute("url", req.getServletPath().substring(0, req.getServletPath().indexOf(".")));
 			chain.doFilter(request, response);
 			return;
 		}
-
 		String url = "";
 		if (req.getPathInfo() != null) {
 			url = req.getPathInfo();
 		}
 		if (loginOK == null) {
-			session.setAttribute("url", req.getServletPath() + url);
+			int last=ServletPath.indexOf(".");
+			int first=ServletPath.lastIndexOf("/")+1;
+			url = ServletPath.substring(first, last);
+			session.setAttribute("url", url);
 			req.getRequestDispatcher("/login/login.jsp").forward(request, response);
 		}
 			

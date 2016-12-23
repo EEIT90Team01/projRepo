@@ -31,6 +31,7 @@
 </head>
 
 <body>
+	<div style="text-align: center;"><h3 >${loginOK.mbrName}</h3></div>
 	<div class="row" >
 	<div style="height: 50px ;" class="col-md-12">
 		<a href="<c:url value="login/login.jsp"/>" data-toggle="modal"

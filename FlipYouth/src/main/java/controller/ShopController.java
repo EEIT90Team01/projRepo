@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import model.MemberBean;
 import model.OrderBean;
 import model.OrderDetailBean;
@@ -249,18 +250,17 @@ public class ShopController {
 		if (user != null && pass != null) {
 			System.out.println("checkMember");
 			MemberBean memberBean = shopServices.checkMember(user, pass);
+			String url = (String) session.getAttribute("url");
 			if (memberBean != null) {
 				session.setAttribute("count",1);
 				session.setAttribute("loginOK", memberBean);
 				session.setAttribute("car", car);
 				session.removeAttribute("loginError");
-				String url = (String) session.getAttribute("url");
 				if (url == null || url.trim().length() == 0) {
 					url = "list";
 				}
 				return url;
 			} else {// 密碼錯誤
-				session.setAttribute("count_Filter",0);
 				session.setAttribute("loginError", "帳號或密碼輸入錯誤");
 				return "login";
 			}
