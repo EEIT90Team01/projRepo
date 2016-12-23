@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import model.CommentBean;
-import model.CommentDao;
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import model.MemberBean;
 import model.OrderBean;
 import model.OrderDetailBean;
@@ -43,88 +40,65 @@ public class ShopController {
 	@Autowired
 	@Resource(name = "shopServices")
 	ShopServices shopServices;
-	@Autowired
-	@Resource(name="commentDao")
-	CommentDao cmtDao;
-	
-	@RequestMapping(path="/DataTable.controller",produces = "application/json; charset=utf-8")
+	// @RequestMapping(path = "/DataTable.controller", produces =
+	// "application/json; charset=utf-8")
+	// public String delectOrder(HttpSession session) {
+	// }
+
+	@RequestMapping(path = "/DataTable.controller", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String DataTable(HttpSession session,Integer draw,Integer start,Integer length,
+	public String DataTable(HttpSession session, Integer draw, Integer start, Integer length,
 			@RequestParam(name = "search[value]") String search,
-			@RequestParam(name = "order[0][column]") String orderCol,
-			@RequestParam(name = "order[0][dir]") String dir
-			,HttpServletRequest req){
-		
-		
-		String OrderColNam = req.getParameter(("columns["+orderCol+"][data]"));
-		System.out.println("length = "+length);
-		System.out.println("start = "+start);
-		System.out.println("draw = "+draw);
-		System.out.println("search = "+search);
-		System.out.println("orderCol = "+orderCol);
-		System.out.println("dir = "+dir);//orderby
-		System.out.println("OrderColNam = "+ OrderColNam);
-		System.out.println("DataTable.controller");
-//		MemberBean  MemberBean= (model.MemberBean) session.getAttribute("loginOK");
-		
-		
-		
-		
-		
-		
-		
-		return shopServices.PageList(1,length,start,draw,orderCol,dir,search,OrderColNam).toString();
-		
+			@RequestParam(name = "order[0][column]") String orderCol, @RequestParam(name = "order[0][dir]") String dir,
+			HttpServletRequest req) {
+
+		String OrderColNam = req.getParameter(("columns[" + orderCol + "][data]"));
+
+		return shopServices.PageList(1, length, start, draw, orderCol, dir, search, OrderColNam).toString();
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// WriteOrder.controller
 	@RequestMapping(path = "/writeOrder.controller")
-	public String WriteOrder(String insert, HttpServletRequest req, HttpSession session,String mbrSN, String orderAmount,String name,String tel,String phone,String email,String address) throws ParseException, MessagingException, IOException {// 寫入訂單的controller
+	public String WriteOrder(String insert, HttpServletRequest req, HttpSession session, String mbrSN,
+			String orderAmount, String name, String tel, String phone, String email, String address)
+			throws ParseException, MessagingException, IOException {// 寫入訂單的controller
 		System.out.println("writeOrder.controller");
-		if(insert!=null){
-			OrderBean orderBean = new OrderBean(Integer.parseInt(orderAmount),email,address,name,tel,phone);
+		if (insert != null) {
+			OrderBean orderBean = new OrderBean(Integer.parseInt(orderAmount), email, address, name, tel, phone);
 			session.setAttribute("order", orderBean);
 			return "orderOver";
 		}
-		
+
 		String image = req.getParameter("image").substring(22);
-		Thread thread = new Thread(new Runnable(){
-	    	public void run() { 
-	    		try {
-	    			System.out.println("寄信中");
-					shopServices.sendMain(name,image,email);
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				try {
+					System.out.println("寄信中");
+					shopServices.sendMain(name, image, email);
 				} catch (MessagingException | IOException e) {
 					System.out.println("寄信錯誤");
 					e.printStackTrace();
 				}
-             } 
-	    });
-	    thread.start();
-	    Thread thread1 = new Thread(new Runnable(){
-	    	OrderBean OrderBean;
-	    	public void run() { 
+			}
+		});
+		thread.start();
+		Thread thread1 = new Thread(new Runnable() {
+			OrderBean OrderBean;
+
+			public void run() {
 				try {
-					OrderBean = shopServices.newOrderAndDetail(new OrderBean(image,email,address,name,tel,phone),mbrSN,orderAmount,car);
+					OrderBean = shopServices.newOrderAndDetail(new OrderBean(image, email, address, name, tel, phone),
+							mbrSN, orderAmount, car);
 				} catch (ParseException e) {
 					System.out.println("NEW訂單失敗");
 					e.printStackTrace();
 				}
-	    		session.setAttribute("order", OrderBean);
-             } 
-	    });
-	    thread1.start();
-		
+				session.setAttribute("order", OrderBean);
+			}
+		});
+		thread1.start();
+
 		return "orderOver";
 	}
 
@@ -170,9 +144,9 @@ public class ShopController {
 			try {
 				all = (int) session.getAttribute("ALL");
 			} catch (Exception e) {
-				 session.setAttribute("ALL",0);
-				all=0;
-				count=0;
+				session.setAttribute("ALL", 0);
+				all = 0;
+				count = 0;
 			}
 
 			session.setAttribute("ALL", all + price);
@@ -199,34 +173,21 @@ public class ShopController {
 			List<ShopBean> ShopBean = shopServices.selectAll(gameClass);
 			// 放入拿到的資料
 			shopBean.put("shopBean", ShopBean);
-			session.setAttribute("shopBean",shopBean);
+			session.setAttribute("shopBean", shopBean);
 			return "list";
 		} else {// 第幾筆商品
 			pruduct.put("pruduct", shopServices.select(Integer.parseInt(ID)));
 			model.addAllAttributes(pruduct);
-			
-			//================================================================================================Comment
-			
-			int gameSN = Integer.parseInt(ID);
-			List<CommentBean> result = cmtDao.select(gameSN);		//result為一個 List<CommentBean>
-			List<Map> img64  = new ArrayList<Map>();				//設定一個List<Map>
-			for(int i = 0 ; i < result.size();i++){					//用迴圈取出result的值(CommentBean)
-				Map<String,Object> ob = new HashMap<String,Object>();
-				ob.put("CommentBean", result.get(i));				//將第i個CommentBean放進 Map 的"CommentBean"
-				ob.put("img",Base64.getEncoder().encodeToString(result.get(i).getMbrSN().getImage()));	//將第i個 轉為base64格式的CommentBean的MemberBean的image(byte[])放入Map的 img
-				img64.add(ob);					//將這Map放入 List<Map> img64
-			}
-			session.setAttribute("Comment", img64);
 			return "pruduct";
 		}
 	}
 
 	// order controller
-	
+
 	@RequestMapping(path = "/order.controller")
 	public String Order(String delectCar, String goOrder, HttpSession session, String change, String value,
 			String GameSN) throws ParseException {
-		
+
 		if (delectCar != null) {// 按下取消
 			car.remove(delectCar);
 			all = 0;
@@ -272,25 +233,45 @@ public class ShopController {
 	}
 
 	// login controller
-	@RequestMapping(path = "/login.controller")	
-	public String login(HttpServletResponse response, HttpSession session, String user, String pass)
+	@RequestMapping(path = "/login/login.controller")
+	public String login(HttpSession session, HttpServletResponse response, String user, String pass)
 			throws IOException, ParseException {
+		if (session.getAttribute("loginOK") != null) {
+			return "list";
+		}
 		if (pass == null || pass.trim().equals("") || user == null || user.trim().equals("")) {
-			return null;
+			session.setAttribute("loginError", "帳號或密碼輸入錯誤");
+			return "login";
 		}
 		if (user != null && pass != null) {
 			System.out.println("checkMember");
 			MemberBean memberBean = shopServices.checkMember(user, pass);
-
+			String url = (String) session.getAttribute("url");
 			if (memberBean != null) {
+				session.setAttribute("count", 1);
 				session.setAttribute("loginOK", memberBean);
 				session.setAttribute("car", car);
-				return (String) session.getAttribute("url");
+				session.removeAttribute("loginError");
+				if (url == null || url.trim().length() == 0) {
+					url = "list";
+				}
+				return url;
 			} else {// 密碼錯誤
-				return null;
+				session.setAttribute("loginError", "帳號或密碼輸入錯誤");
+				return "login";
 			}
 		}
 		return null;
+	}
+
+	@RequestMapping(path = "/logout.controller")
+	public String logout(HttpSession session, HttpServletResponse response) {
+		session.setAttribute("ALL", 0);
+		session.setAttribute("count", 0);
+		session.removeAttribute("loginOK");
+		car.clear();
+		count = 0;
+		return "home";
 	}
 
 }

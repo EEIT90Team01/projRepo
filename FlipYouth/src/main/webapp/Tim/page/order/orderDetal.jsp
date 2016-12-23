@@ -5,12 +5,11 @@
 <%@page import="java.util.*"%>
 <%@page import="javax.servlet.*"%>
 <%@page import="javax.servlet.http.HttpSession"%>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商城系統</title>
-<jsp:include page="LoginCheck.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -51,50 +50,65 @@ tr, th, thead {
 </head>
 <style>
 td.details-control {
-    background: url('image/icon/open.png') no-repeat center center;
-    cursor: pointer;
+	background: url('/FlipYouth/image/icon/open.png') no-repeat center
+		center;
+	cursor: pointer;
 }
+
 tr.details td.details-control {
-    background: url('image/icon/close.png') no-repeat center center;
+	background: url('/FlipYouth/image/icon/close.png') no-repeat center
+		center;
 }
 </style>
 <script type="text/javascript">
-
-	
-	
-
-
 	function format(d) {
-		return 'Full name: '
-				+ d.first_name
-				+ ' '
-				+ d.last_name
-				+ '<br>'
-				+ 'Salary: '
-				+ d.salary
-				+ '<br>'
-				+ 'The child row can contain any data you wish, including links, images, inner tables etc.';
+		var image = "open2('data:image/png;base64," + d.image + "');";
+		return '<button class="btn btn-danger" onclick="'+image+'">開啟明細</button><br>'
+				+ '<button class="btn btn-info" onclick="delectOrder('
+				+ d.orderSN + d.mbrSN + ')">取消訂單</button>';
+	}
+	// 	function delectOrder(orderSN,mbrSN) {
+	// 		$.ajax({
+	// 			url : ,
+	// 			type : "post",
+	// 			data : {
+	// 				orderSN : orderSN,
+	// 				mbrSN:mbrSN
+	// 			},
+	// 			success : function(res) {
+	// 				alert('removeOK');
+	// 			},
+	// 		})//endAjax
+
+	// 	}//endfunction
+	function open2(a) {
+		window.open(a, '訂單明細', "height=1515,width=1000");
 	}
 
 	$(document).ready(function() {
 		var dt = $('#example').DataTable({
 			"processing" : true,
 			"serverSide" : true,
-			"autoWidth": true,
-			"ajax" : "DataTable.controller",
+			"autoWidth" : true,
+			"ajax" : "/FlipYouth/DataTable.controller",
 			"columns" : [ {
-				"class":          "details-control",
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ""
-                }, 
-				{"data" : "orderSN"}, 
-				{"data" : "orderDate"}, 
-				{"data" : "orderAmount"}, 
-				{"data" : "email"} ,
-				{"data" : "name"} ,
-// 				{"data" : ""}
-				],
+				"class" : "details-control",
+				"orderable" : false,
+				"data" : null,
+				"defaultContent" : ""
+			}, {
+				"data" : "orderSN"
+			}, {
+				"data" : "orderDate"
+			}, {
+				"data" : "orderAmount"
+			}, {
+				"data" : "orderState"
+			}, {
+				"data" : "name"
+			},
+			// 				{"data" : ""}
+			],
 			"order" : [ [ 1, 'asc' ] ]
 		});
 
@@ -123,7 +137,6 @@ tr.details td.details-control {
 			}
 		});
 
-		
 		dt.on('draw', function() {
 			$.each(detailRows, function(i, id) {
 				$('#' + id + ' td.details-control').trigger('click');
@@ -131,32 +144,27 @@ tr.details td.details-control {
 		});
 	});
 </script>
-<body>
-	<table id="example" class="display" cellspacing="0" width="100%">
-		<thead>
-			<tr>
-				<th></th>
-				<th>訂單編號</th>
-				<th>下訂日期</th>
-				<th>訂單金額</th>
-				<th>連絡email</th>
-				<th>連絡性名</th>
-<!-- 				<th></th> -->
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<th></th>
-				<th>訂單編號</th>
-				<th>下訂日期</th>
-				<th>訂單金額</th>
-				<th>連絡email</th>
-				<th>連絡性名</th>
-<!-- 				<th></th> -->
-			</tr>
-		</tfoot>
-	</table>
 
+<div class="container">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-10">
+			<table id="example" class="display" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th></th>
+						<th>訂單編號</th>
+						<th>下訂日期</th>
+						<th>訂單金額</th>
+						<th>訂單狀態</th>
+						<th>連絡人</th>
+						<!-- 				<th></th> -->
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+</div>
 
 
 

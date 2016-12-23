@@ -30,8 +30,8 @@
 	crossorigin="anonymous">
 <!-- <link rel="stylesheet" type="text/css" href="css/Tim.css"> -->
 <!-- Latest compiled and minified JavaScript -->
-<script type="text/javascript" src="../js_Tim/html2canvas.js"></script>
-<script type="text/javascript" src="../js_Tim/canvas2image.js"></script>
+<script type="text/javascript" src="../../js_Tim/html2canvas.js"></script>
+<script type="text/javascript" src="../../js_Tim/canvas2image.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -111,10 +111,10 @@ b {
 			<div class="row container">
 				<div class="col-xs-6">
 					<img style="float: right;" alt="Bootstrap Image Preview"
-						src="../image/icon/step01_c.png" />
+						src="<c:url value="/Tim/image/icon/step01_c.png"/>" />
 				</div>
 				<div class="col-xs-6">
-					<img alt="Bootstrap Image Preview" src="../image/icon/step02.png" />
+					<img alt="Bootstrap Image Preview" src="<c:url value="/Tim/image/icon/step02.png"/>" />
 				</div>
 			</div>
 		</div>

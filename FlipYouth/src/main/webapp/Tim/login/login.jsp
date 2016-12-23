@@ -13,15 +13,17 @@
 <meta name="keywords"
 	content="Template, Theme, web, html5, css3, Bootstrap,Bootstrap 3.0 Responsive Theme" />
 <meta name="author" content="Mindfreakerstuff" />
-<link rel="shortcut icon" href="favicon.png">
 
 <title>翻桌唷登入</title>
 <!-- Bootstrap core CSS -->
-<link href="<c:url value="/css_Tim/bootstrap.css"/>" rel="stylesheet">
+<link href="<c:url value="/Tim/css_Tim/bootstrap.css"/>"
+	rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="<c:url value="/css_Tim/login.css"/>" rel="stylesheet">
-<link href=<c:url value="/css_Tim/animate-custom.css"/> rel="stylesheet">
-<script src="<c:url value="/js_Tim/custom.js"/>" type="text/javascript"></script>
+<link href="<c:url value="/Tim/css_Tim/login.css"/>" rel="stylesheet">
+<link href=<c:url value="/Tim/css_Tim/animate-custom.css"/>
+	rel="stylesheet">
+<script src="<c:url value="/Tim/js_Tim/custom.js"/>"
+	type="text/javascript"></script>
 <style type="text/css">
 .login-logo {
 	text-align: center;
@@ -38,7 +40,7 @@
 				<div class="login-box clearfix animated flipInY">
 					<div class="login-logo">
 						<a href="#"><img style="height: 100px; width: 100px"
-							src="<c:url value="/image/icon/apple.png"/>" /></a>
+							src="<c:url value="/Tim/image/icon/apple.png"/>" /></a>
 					</div>
 					<div class="col-sm-12 "
 						style="font-family: Microsoft JhengHei; color: red; text-align: center;">${loginError}</div>
@@ -76,9 +78,9 @@
 	</div>
 
 	<!-- End Login box -->
-	<script src="<c:url value="/js_Tim/bootstrap.min.js"/>"></script>
-	<script src="<c:url value="/js_Tim/placeholder-shim.min.js"/>"></script>
-	<script src="<c:url value="/js_Tim/custom.js"/>"></script>
+	<script src="<c:url value="/Tim/js_Tim/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/Tim/js_Tim/placeholder-shim.min.js"/>"></script>
+	<script src="<c:url value="/Tim/js_Tim/custom.js"/>"></script>
 	<script type="text/javascript">
 		
 	</script>

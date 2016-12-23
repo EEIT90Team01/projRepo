@@ -31,45 +31,56 @@
 </head>
 
 <body>
-	<div style="text-align: center;"><h3 >${loginOK.mbrName}</h3></div>
-	<div class="row" >
-	<div style="height: 50px ;" class="col-md-12">
-		<a href="<c:url value="login/login.jsp"/>" data-toggle="modal"
-			data-target="login.jsp#login-modal"><h1 style="text-align: center;">登入</h1></a>
+	<div style="text-align: center;">
+		<h3>${loginOK.mbrName}</h3>
 	</div>
-	<div style="height: 50px;style:text-align: center;" class="col-md-12">
-		<a href="<c:url value="/logout.controller"/>"><h1 style="text-align: center;">登出</h1></a>
-	</div></div>
+	<div class="row">
+		<div style="height: 50px;" class="col-xs-12">
+			<a href="<c:url value="login/login.jsp"/>" data-toggle="modal"
+				data-target="login.jsp#login-modal"><h1
+					style="text-align: center;">登入</h1></a>
+		</div>
+		<div style="height: 50px; style: text-align: center;"
+			class="col-xs-12">
+			<a href="<c:url value="/logout.controller"/>"><h1
+					style="text-align: center;">登出</h1></a>
+		</div>
+	</div>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="row">
 					<div class="col-xs-2"></div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<h5>碩延功能</h5>
 						<!-- 已下加入 -->
-
+						<a href="<c:url value="/index.jsp"/>">註冊</a><BR> 
+						<a href="<c:url value="/Shop.controller?ID=1"/>">商品留言板</a><BR>
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<h5>心惠功能</h5>
 						<!-- 已下加入 -->
-
 						<a href="<c:url value="pages/editMember.jsp"/>">修改會員</a>
-
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<h5>德樂功能</h5>
 						<!-- 已下加入 -->
 
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<h5>冠霆功能</h5>
 						<!-- 已下加入 -->
-
-						<a href="<c:url value="/Shop.controller"/>">商品列表</a>
+						<a href="<c:url value="/Tim/login/login.jsp"/>">登入</a><BR> <a
+							href="<c:url value="/logout.controller"/>">登出</a><BR> <a
+							href="<c:url value="/Shop.controller"/>">商品列表</a><BR> <a
+							href="<c:url value="/Tim/page/order/checkOut.jsp"/>">檢查訂單</a><BR>
+						<a href="<c:url value="/Tim/page/order/orderDetal.jsp"/>">訂單明細</a><BR>
+						<a href="<c:url value="/Tim/page/order/orderOver.jsp"/>">訂單成功</a><BR>
+						<a href="<c:url value="/Tim/page/Shop/list.jsp"/>">商品列表</a><BR>
+						<a href="<c:url value="/Shop.controller?ID=1"/>">單件商品</a><BR>
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<h5>巫迪功能</h5>
 						<!-- 已下加入 -->
 

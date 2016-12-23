@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import model.MemberBean;
 
-@WebFilter({ "/order.controller", "/writeOrder.controller", "/order/*" ,"/pages/editMember.jsp"})
+@WebFilter({ "/order.controller", "/writeOrder.controller", "/Tim/page/order/*" ,"/pages/editMember.jsp"})
 public class Filter implements javax.servlet.Filter {
 
 	@Override
@@ -45,7 +45,7 @@ public class Filter implements javax.servlet.Filter {
 			int first=ServletPath.lastIndexOf("/")+1;
 			url = ServletPath.substring(first, last);
 			session.setAttribute("url", url);
-			req.getRequestDispatcher("/login/login.jsp").forward(request, response);
+			req.getRequestDispatcher("/Tim/login/login.jsp").forward(request, response);
 		}
 			
 	}

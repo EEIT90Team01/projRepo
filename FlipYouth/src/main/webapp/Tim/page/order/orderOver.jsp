@@ -5,12 +5,11 @@
 <%@page import="java.util.*"%>
 <%@page import="javax.servlet.*"%>
 <%@page import="javax.servlet.http.HttpSession"%>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商城系統</title>
-<jsp:include page="LoginCheck.jsp"></jsp:include>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -28,8 +27,8 @@
 	crossorigin="anonymous">
 <!-- <link rel="stylesheet" type="text/css" href="css/Tim.css"> -->
 <!-- Latest compiled and minified JavaScript -->
-<script type="text/javascript" src="js_Tim/html2canvas.js"></script>
-<script type="text/javascript" src="js_Tim/canvas2image.js"></script>
+<script type="text/javascript" src="../../js_Tim/html2canvas.js"></script>
+<script type="text/javascript" src="../../js_Tim/canvas2image.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -154,25 +153,7 @@ strong {
 
 <script type="text/javascript">
 	
-<%if (session.getAttribute("loginOK") != null) {%>
-	// alert('準備做動畫');
-<%} else {%>
-	alert('連線已過期請從登入');
-	$('body').empty();
-	$.ajax({
-		type : 'POST',
-		url : "order.controller",
-		data : {
-			url : 'list.jsp'
-		},
-		success : function(res) {
-<%if (session.getAttribute("loginOK") == null) {%>
-	$(res).appendTo('body');
-<%}%>
-	},
-		async : true,
-	});
-<%}%>
+
 	
 </script>
 <body>
@@ -187,10 +168,10 @@ strong {
 				<div class="row container">
 					<div class="col-xs-6">
 						<img style="float: right;" alt="Bootstrap Image Preview"
-							src="image/icon/step01.png" />
+							src='<c:url value="/Tim/image/icon/step01.png"/>'/>
 					</div>
 					<div class="col-xs-6">
-						<img alt="Bootstrap Image Preview" src="image/icon/step02_c.png" />
+						<img alt="Bootstrap Image Preview" src="<c:url value="/Tim/image/icon/step02_c.png"/>" />
 					</div>
 				</div>
 				<div class="col-xs-12" style="height: 30px"></div>
@@ -222,7 +203,7 @@ strong {
 					<div class="col-xs-12" style="border-bottom: solid 1px #d9cdcd;">
 						<div class="col-xs-4" style="padding: 10px">
 							<a target="_blank"
-								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">
+								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">
 								<img style="margin-left: 20px; height: 40px; width: 50px"
 								src="<c:url value="${data.value.PK.gameSN.smallImage}"/>"
 								class="img-rounded" /><font>${data.value.PK.gameSN.gameName}</font>
@@ -233,7 +214,7 @@ strong {
 							style="height: 200px margin-top: 20px; text-overflow: ellipsis; overflow: hidden; /* 超過範圍隱藏 */ white-space: nowrap;"
 							class="col-xs-4 px-100">
 							<a target="_blank"
-								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.introduction}
+								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.introduction}
 							</a>
 						</div>
 						<div class="col-xs-1 px-100">NT
@@ -344,7 +325,7 @@ strong {
 	<!-- 	<div class="col-md-12" style="height: 2000px"></div> -->
 	<div class="center col-md-12">
 		<div class="col-md-12" style="height: 50px">
-			<a class="btn btn-danger" href='<c:url value="/Shop.controller"/>'>繼續購物</a>
+			<a class="btn btn-danger" href='<c:url value="../Shop.controller"/>'>繼續購物</a>
 			<a style="cursor: pointer;" class="btn btn-danger" onclick="print()">列印訂單</a>
 		</div>
 		
@@ -397,7 +378,7 @@ strong {
 	function ajax(){
 		$.ajax({
 			type:"POST",
-			url:"writeOrder.controller",
+			url:"../writeOrder.controller",
 			data:{
 			url:link_name,
 			mbrSN:mbrSN,
@@ -413,12 +394,7 @@ strong {
 			xhrFields: {
 				withCredentials: false },
 			success:function(res) {
-			<%if (session.getAttribute("loginOK") != null) {%>
 			alert('訂單新增成功');
-			<%} else {%>
-			alert('請登入');
-			window.location='list.jsp';
-			<%}%>
 			},
 		})//end ajax
 	};

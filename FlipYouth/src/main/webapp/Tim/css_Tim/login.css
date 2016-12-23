@@ -4,11 +4,11 @@
   
 /*Change Backgound image here */
 html{	
-	background: #000 url(../img/101.jpg) top center;
+	background: #000 url(../image/login/102.jpg) top center;
 	height:100%; 
 }
 body{
-	background: transparent url(../img/login-bg-overlay.png) repeat;
+	background: transparent url(../image/login/login-bg-overlay.png) repeat;
 	min-height:100%; 
 }
 .alert{
@@ -31,7 +31,7 @@ body{
 
 .login-box{
 	max-width:480px;	
-	background: transparent url(../img/login-bg.png) repeat;
+	background: transparent url(../image/login/login-bg.png) repeat;
 	border:7px solid rgba(255, 255, 255, 0.31);
 	-webkit-background-clip: padding-box; /* for Safari */
 	-moz-background-clip: padding-box; /* for old Firefox */
