@@ -36,8 +36,8 @@
 	</div>
 	<div class="row">
 		<div style="height: 50px;" class="col-xs-12">
-			<a href="<c:url value="login/login.jsp"/>" data-toggle="modal"
-				data-target="login.jsp#login-modal"><h1
+				<a href="<c:url value="/Tim/login/login.jsp"/>">
+					<h1
 					style="text-align: center;">登入</h1></a>
 		</div>
 		<div style="height: 50px; style: text-align: center;"
@@ -71,10 +71,10 @@
 					<div class="col-xs-2">
 						<h5>冠霆功能</h5>
 						<!-- 已下加入 -->
-						<a href="<c:url value="/Tim/login/login.jsp"/>">登入</a><BR> <a
-							href="<c:url value="/logout.controller"/>">登出</a><BR> <a
-							href="<c:url value="/Shop.controller"/>">商品列表</a><BR> <a
-							href="<c:url value="/Tim/page/order/checkOut.jsp"/>">檢查訂單</a><BR>
+						<a href="<c:url value="/Tim/login/login.jsp"/>">登入</a><BR>
+						<a href="<c:url value="/logout.controller"/>">登出</a><BR>
+						<a href="<c:url value="/Shop.controller"/>">商品列表</a><BR>
+						<a href="<c:url value="/Tim/page/order/checkOut.jsp"/>">檢查訂單</a><BR>
 						<a href="<c:url value="/Tim/page/order/orderDetal.jsp"/>">訂單明細</a><BR>
 						<a href="<c:url value="/Tim/page/order/orderOver.jsp"/>">訂單成功</a><BR>
 						<a href="<c:url value="/Tim/page/Shop/list.jsp"/>">商品列表</a><BR>
