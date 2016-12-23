@@ -89,5 +89,4 @@ public class MemberInsertDaoH implements MemberInsertDao {
 	//=========================================		Comment拿取會員大頭貼  	==================================================
 
 	
-	
 }

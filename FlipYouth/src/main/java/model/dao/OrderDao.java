@@ -25,42 +25,47 @@ public class OrderDao {
 	}
 
 	public OrderDetailBean select(MemberBean memberBean, OrderBean orderBean) {
-		
+
+
 		return null;
 	}
-	
 
 	public OrderBean save(OrderBean orderBean, Map<String, OrderDetailBean> cars) {
 		Session session = this.getSession();
 		int a = (int) session.save(orderBean);
 		System.out.println("新建立的訂單編號為 = " + a);
-		
-		for(String key:cars.keySet()){
-			ShopBean GameSN=session.get(ShopBean.class, Integer.parseInt(key));
+
+		for (String key : cars.keySet()) {
+			ShopBean GameSN = session.get(ShopBean.class, Integer.parseInt(key));
 			cars.get(key).getPK().setGameSN(GameSN);
 			cars.get(key).getPK().setOrderSN(orderBean);
 			session.save(cars.get(key));
 		}
 		return orderBean;
 	}
-	
-	
-	
-	
-	public List<OrderBean> PageList(Integer mbrSN, Integer length, Integer start, Integer draw, String orderCol, String dir, String search,String OrderColNam) {
+
+	public List<OrderBean> PageList(Integer mbrSN, Integer length, Integer start, Integer draw, String orderCol,
+			String dir, String search, String OrderColNam) {
 		List<OrderBean> list;
-		String from = "from OrderBean";
-		Query<OrderBean> order = this.getSession().createQuery(from+" where mbrSN = "+1 +"order by " + OrderColNam +" "+dir).setFirstResult(start).setMaxResults(length);
-		int total= (int) this.getSession().createNativeQuery("SELECT COUNT(*) FROM order1 where mbrSN = "+1).getSingleResult();
-		System.out.println(total);
+		StringBuffer from = new StringBuffer("from OrderBean");
+		StringBuffer  and = new StringBuffer();
+		String[] colDB = { "orderSN", "orderDate", "orderAmount", "orderState", "name" };
+		if (search.trim().length() != 0) {
+			and.append("and ");
+			for (int i = 0; i < colDB.length; i++) {
+				and.append(colDB[i]);
+				and.append(" like ");
+				and.append("'%"+search+"%'");
+				if(i!=colDB.length-1){and.append(" or ");}
+			}
+			System.out.println("and =  " + and);
+		}
+		Query<OrderBean> order = this.getSession()
+				.createQuery(from.append(" where mbrSN = ").append(1).append(and).append("order by ").append(OrderColNam).append(" ").append(dir)+"").setFirstResult(start).setMaxResults(length);
+		int total = (int) this.getSession().createNativeQuery("SELECT COUNT(*) FROM order1 where mbrSN = " + 1)
+				.getSingleResult();
 		ShopServices.setRecordsTotal(total);
-		
 		list = order.getResultList();
-//		ShopServices.setRecordsTotal(Total);;
 		return list;
 	}
-
-
-
-	
 }

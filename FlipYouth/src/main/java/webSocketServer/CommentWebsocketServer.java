@@ -32,6 +32,7 @@ public class CommentWebsocketServer {
 	@OnMessage
 	public void handleMessage(String message, Session user) throws IOException, EncodeException {
 		System.out.println("websocket 傳送資料成功"+message);
+
 		Iterator<Session> iteratorUsers = users.iterator();
 		JsonObject jMessage = new JsonParser().parse(message).getAsJsonObject();	//將message轉為JsonObject
 

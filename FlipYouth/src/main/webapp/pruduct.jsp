@@ -41,7 +41,6 @@
 p {
 	text-overflow: ellipsis;
 	overflow: hidden;
-	
 }
 
 font {
@@ -95,7 +94,7 @@ iframe {
 </head>
 <body>
 	<div style="padding: 0% 5% 0% 20%;">
-		
+
 
 		<div class="container-fluid">
 			<div class="row">
@@ -189,83 +188,89 @@ iframe {
 									class="tab-pane active" id="home">${pruduct.div1}</div>
 
 
-								<div role="tabpanel" class="tab-pane" id="profile"><h1>${pruduct.gameSN},${loginOK.mbrSN}</h1>
-<!-- ================================================================================================================================ -->
+								<div role="tabpanel" class="tab-pane" id="profile">
+									<h1>${pruduct.gameSN},${loginOK.mbrSN}</h1>
+									<!-- ================================================================================================================================ -->
 
-								
-								<c:if test="${not empty Comment}">
-									<c:forEach var="element" items="${Comment}" >
-									<div class="container-fluid">
-									<input type="hidden" id="${element.CommentBean.cmtSN }">
-									<div class="row">
-										<div class="col-md-1"></div>
-											<div class="col-md-10">
-												<div class="panel panel-default">
-													<div class="panel-heading">
-														<h3 class="panel-title">
-															<img style="width:50px;height:50px" src='data:image/png;base64,${element.img}'/>
-															<input type="hidden" id="${element.CommentBean.mbrSN.mbrSN}" value="${element.CommentBean.mbrSN.image}" />
-															<span style="color: blue;">${element.CommentBean.mbrSN.nickName}</span><br>
-														</h3>
-													</div>
-													<div class="panel-body">
-														<span >${element.CommentBean.text}</span> 
-													</div>
-														<div class="panel-footer">
-															<div class="row">
-																<div class="col-md-11">
-																	<span>${element.CommentBean.cmtTime }</span>
-																</div>
-																<div class="col-md-1">
-	<%-- 															<c:if test="${element.CommentBean.mbrSN.mbrSN == loginOK.mbrSN}"> --%>
-																<button class="btn btn-xs btn-link active" type="submit" onclick="deleteComment(${element.CommentBean.cmtSN })" >delete</button>
-	<%-- 															</c:if> --%>
+
+									<c:if test="${not empty Comment}">
+										<c:forEach var="element" items="${Comment}">
+
+											<div class="container-fluid">
+												<input type="hidden" id="${element.CommentBean.cmtSN }">
+												<div class="row">
+													<div class="col-md-1"></div>
+													<div class="col-md-10">
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<h3 class="panel-title">
+																	<img style="width: 50px; height: 50px"
+																		src='data:image/png;base64,${element.img}' /> <input
+																		type="hidden" id="${element.CommentBean.mbrSN.mbrSN}"
+																		value="${element.CommentBean.mbrSN.image}" /> <span
+																		style="color: blue;">${element.CommentBean.mbrSN.nickName}</span><br>
+																</h3>
+															</div>
+															<div class="panel-body">
+																<span>${element.CommentBean.text}</span>
+															</div>
+															<div class="panel-footer">
+																<div class="row">
+																	<div class="col-md-11">
+																		<span>${element.CommentBean.cmtTime }</span>
+																	</div>
+																	<div class="col-md-1">
+																		<%-- 															<c:if test="${element.CommentBean.mbrSN.mbrSN == loginOK.mbrSN}"> --%>
+																		<button class="btn btn-xs btn-link active"
+																			type="submit"
+																			onclick="deleteComment(${element.CommentBean.cmtSN })">delete</button>
+																		<%-- 															</c:if> --%>
+																	</div>
 																</div>
 															</div>
 														</div>
-													</div> 
+													</div>
+													<div class="col-md-1"></div>
 												</div>
-											<div class="col-md-1"></div>
-										</div>
-									</div>
-							</c:forEach>
-						</c:if>		
-									<div id="insertComment" class="container-fluid"> </div>
-<%-- 								<c:if test="${not empty loginOK}"> --%>
-									<input type="text"  id = "comment" size="70"/>
-									<button type="submit" id="button" class="btn" onclick="sendComment(1,${pruduct.gameSN})" >送出</button>
-<!-- 									=============================================================1其實是${loginOK.mbrSN} -->
-<!-- 									===============================================================c -->
-<%-- 								</c:if> 	--%>
-								
-								</div>
-
-
-
-
-
-<!-- ================================================================================================================================ -->
+											</div>
+										</c:forEach>
+									</c:if>
+									<div id="insertComment" class="container-fluid"></div>
+									<%-- 								<c:if test="${not empty loginOK}"> --%>
+									<input type="text" id="comment" size="70" />
+									<button type="submit" id="button" class="btn"
+										onclick="sendComment(1,${pruduct.gameSN})">送出</button>
+									<!-- 									=============================================================1其實是${loginOK.mbrSN} -->
+									<!-- 									===============================================================c -->
+									<%-- 								</c:if> 	--%>
 
 								</div>
+
+
+
+
+
+								<!-- ================================================================================================================================ -->
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	
+	</div>
+
 	<script type="text/javascript">
 	
 	function deleteComment(cmtSN){
 		
-		$('#'+cmtSN).parent().remove();
-		
+		$('#'+cmtSN).parent().remove();			
 		$.ajax({
 				url:"/FlipYouth/CommentDelete.controller",
 				type:"POST",
 				data:"&cmtSN="+cmtSN,
 				success:function(){
-					$('#'+cmtSN).parent().remove();
+					$('#'+cmtSNN).parent().remove();
 				}
 			
 		})
@@ -296,13 +301,13 @@ iframe {
 	}
 	//*****************************************************************留言板區塊*******************
 // 	var commentBlock = "<div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><img style='width:50px;height:50px' src='data:image/png;base64,${element.img}'/><input type='hidden' id='${element.CommentBean.mbrSN.mbrSN}' value='${element.CommentBean.mbrSN.image}' /><span style='color: blue;'>${element.CommentBean.mbrSN.nickName}</span><br></h3></div><div class='panel-body'><span >${element.CommentBean.text}</span></div><div class='panel-footer'><div class='row'><div class='col-md-11'><span>${element.CommentBean.cmtTime }</span></div><div class='col-md-1'><button class='btn btn-xs btn-link active' type='submit'>delete</button><input type='hidden' name='cmtSN' value='${element.CommentBean.cmtSN }'>	</div></div></div></div></div><div class='col-md-1'></div></div>";
-	var commentBlock = "<div class='container-fluid'><input type='hidden' id='${element.CommentBean.cmtSN }'><div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><img style='width:50px;height:50px' src='data:image/png;base64,${element.img}'/><input type='hidden' id='${element.CommentBean.mbrSN.mbrSN}' value='${element.CommentBean.mbrSN.image}' /><span style='color: blue;'>${element.CommentBean.mbrSN.nickName}</span><br></h3></div><div class='panel-body'><span >${element.CommentBean.text}</span></div><div class='panel-footer'><div class='row'><div class='col-md-11'><span>${element.CommentBean.cmtTime }</span></div><div class='col-md-1'><button class='btn btn-xs btn-link active' type='submit' onclick='deleteComment(${element.CommentBean.cmtSN })' >delete</button><input type='hidden' name='cmtSN' value='${element.CommentBean.cmtSN }'>	</div></div></div></div></div><div class='col-md-1'></div></div>";	
+	var commentBlock = "<div class='container-fluid'><input type='hidden' id='${element.CommentBean.cmtSN }'>><div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><img style='width:50px;height:50px' src='data:image/png;base64,${element.img}'/><input type='hidden' id='${element.CommentBean.mbrSN.mbrSN}' value='${element.CommentBean.mbrSN.image}' /><span style='color: blue;'>${element.CommentBean.mbrSN.nickName}</span><br></h3></div><div class='panel-body'><span >${element.CommentBean.text}</span></div><div class='panel-footer'><div class='row'><div class='col-md-11'><span>${element.CommentBean.cmtTime }</span></div><div class='col-md-1'<button class='btn btn-xs btn-link active' type='submit' onclick='deleteComment(${element.CommentBean.cmtSN })' >>delete</button><input type='hidden' name='cmtSN' value='${element.CommentBean.cmtSN }'>	</div></div></div></div></div><div class='col-md-1'></div></div>";	
 	function processMessage(message){
 		var jMessage = JSON.parse(message.data);
 		var nickName = jMessage.nickName;
 		var comment = jMessage.comment;
-		var cmtTime = jMessage.cmtTime;
-		var cmtSN = jMessage.cmtSN;
+		var cmtTime = jMessage.cmtTime
+		var cmtSN = jMessage.cmtSN;;
 		
 		$.ajax({
 			url:"/FlipYouth/commentMemberImage.controller",
@@ -311,7 +316,7 @@ iframe {
 // 			mimeType: "text/plain; charset=x-user-defined",
 			dataType:"text",
 			success:function(data){
-				var commentBlock = "<input type='hidden' id='"+cmtSN+"'><div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><img style='width:50px;height:50px' src='data:image/png;base64,"+data+"'/><span style='color: blue;'>"+nickName+"</span><br></h3></div><div class='panel-body'><span >"+comment+"</span></div><div class='panel-footer'><div class='row'><div class='col-md-11'><span>"+cmtTime+"</span></div><div class='col-md-1'><button class='btn btn-xs btn-link active' type='submit' onclick='deleteComment("+cmtSN+")' >delete</button></div></div></div></div></div><div class='col-md-1'></div></div>";	
+				var commentBlock = "<input type='hidden' id='"+cmtSN+"'>><div class='row'><div class='col-md-1'></div><div class='col-md-10'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'><img style='width:50px;height:50px' src='data:image/png;base64,"+data+"'/><span style='color: blue;'>"+nickName+"</span><br></h3></div><div class='panel-body'><span >"+comment+"</span></div><div class='panel-footer'><div class='row'><div class='col-md-11'><span>"+cmtTime+"</span></div><div class='col-md-1'><button class='btn btn-xs btn-link active' type='submit onclick='deleteComment("+cmtSN+")'  >delete</button></div></div></div></div></div><div class='col-md-1'></div></div>";	
 				console.log(commentBlock);
 				$('#insertComment').append(commentBlock);
 			}
@@ -360,6 +365,7 @@ iframe {
 	
 	
 	
+
 	</script>
 </body>
 </html>

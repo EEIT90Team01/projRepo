@@ -3,21 +3,28 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<html>
 <head>
-  <title>Pusher Test</title>
-  <script src="https://js.pusher.com/3.2/pusher.min.js"></script>
-  <script>
-
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('c6cbd1083aac3a1d2340', {
-      encrypted: true
-    });
-
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-      alert(data.message);
-    });
-  </script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 </head>
+<body>
+<%@ page import="model.*" %>
+<%@ page import="model.dao.*" %>
+<%@page import="org.springframework.web.context.WebApplicationContext"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%
+WebApplicationContext context = (WebApplicationContext)
+		WebApplicationContextUtils.getWebApplicationContext(application);
+
+MemberDAO memberDAO = (MemberDAO) context.getBean("memberDAO"); 
+
+MemberBean bean = memberDAO.select("AA01");
+
+out.println("bean="+bean);
+
+
+
+%>
+</body>
+</html>

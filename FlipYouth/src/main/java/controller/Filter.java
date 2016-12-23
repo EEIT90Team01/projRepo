@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 
+import java.util.Enumeration;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -12,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter({ "/order.controller", "/writeOrder.controller" })
+import model.MemberBean;
+
+@WebFilter({ "/order.controller", "/writeOrder.controller", "/order/*" ,"/pages/editMember.jsp"})
 public class Filter implements javax.servlet.Filter {
 
 	@Override
@@ -22,27 +26,28 @@ public class Filter implements javax.servlet.Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
-
-		System.out.println("filter");
-		// session.removeAttribute("loginOK");
-		System.out.println(session.getAttribute("loginOK"));
-		if (session.getAttribute("loginOK") != null) {// 有登入的話
-			// resp.sendRedirect(req.getParameter("url"));
+		MemberBean loginOK = (MemberBean) session.getAttribute("loginOK");
+		String ServletPath =req.getServletPath();
+		if (loginOK != null) {// 有登入的話
 			chain.doFilter(request, response);
-
+			return;
 		}
-		if (session.getAttribute("loginOK") == null) {
-			String url = req.getParameter("url");
-			System.out.println("請求的url=" + req.getParameter("url"));
-			if (url != null) {
-				session.setAttribute("url", url.substring(0, url.indexOf('.')));
-			}
-			resp.sendRedirect("login.jsp");
+		String url = "";
+		if (req.getPathInfo() != null) {
+			url = req.getPathInfo();
 		}
-
+		if (loginOK == null) {
+			int last=ServletPath.indexOf(".");
+			int first=ServletPath.lastIndexOf("/")+1;
+			url = ServletPath.substring(first, last);
+			session.setAttribute("url", url);
+			req.getRequestDispatcher("/login/login.jsp").forward(request, response);
+		}
+			
 	}
 
 	@Override
