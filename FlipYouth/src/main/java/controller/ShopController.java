@@ -40,6 +40,9 @@ public class ShopController {
 	@Autowired
 	@Resource(name = "shopServices")
 	ShopServices shopServices;
+//	@RequestMapping(path = "/DataTable.controller", produces = "application/json; charset=utf-8")
+//	public String delectOrder(HttpSession session) {
+//	}
 
 	@RequestMapping(path = "/DataTable.controller", produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -49,16 +52,6 @@ public class ShopController {
 			HttpServletRequest req) {
 
 		String OrderColNam = req.getParameter(("columns[" + orderCol + "][data]"));
-		System.out.println("length = " + length);
-		System.out.println("start = " + start);
-		System.out.println("draw = " + draw);
-		System.out.println("search = " + search);
-		System.out.println("orderCol = " + orderCol);
-		System.out.println("dir = " + dir);// orderby
-		System.out.println("OrderColNam = " + OrderColNam);
-		System.out.println("DataTable.controller");
-		// MemberBean MemberBean= (model.MemberBean)
-		// session.getAttribute("loginOK");
 
 		return shopServices.PageList(1, length, start, draw, orderCol, dir, search, OrderColNam).toString();
 
@@ -242,7 +235,9 @@ public class ShopController {
 	@RequestMapping(path = "/login/login.controller")
 	public String login(HttpSession session, HttpServletResponse response, String user, String pass)
 			throws IOException, ParseException {
-		if(session.getAttribute("loginOK")!=null){return "list";}
+		if (session.getAttribute("loginOK") != null) {
+			return "list";
+		}
 		if (pass == null || pass.trim().equals("") || user == null || user.trim().equals("")) {
 			session.setAttribute("loginError", "帳號或密碼輸入錯誤");
 			return "login";
@@ -252,7 +247,7 @@ public class ShopController {
 			MemberBean memberBean = shopServices.checkMember(user, pass);
 			String url = (String) session.getAttribute("url");
 			if (memberBean != null) {
-				session.setAttribute("count",1);
+				session.setAttribute("count", 1);
 				session.setAttribute("loginOK", memberBean);
 				session.setAttribute("car", car);
 				session.removeAttribute("loginError");

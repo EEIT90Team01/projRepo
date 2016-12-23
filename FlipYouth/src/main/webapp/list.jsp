@@ -134,7 +134,8 @@ $.ajax({
 
 </script>
 <body id="body">
-	<c:set var="ShopUrl" scope="session" value="'/FlipYouth/Shop.controller'" />
+	<c:set var="ShopUrl" scope="session"
+		value="'/FlipYouth/Shop.controller'" />
 	<div
 		style="background-image: url(<c:url value="/image/big/bg.png"/>); background-repeat: repeat;">
 		<div class="container-fluid">
@@ -296,8 +297,12 @@ $.ajax({
 											</h4>
 											<p
 												style="position: absolute; bottom: 30px; margin: 0px auto;">
-												<a style="color: #ffffff" class="btn btn-primary fluid" role="button" id="ShoppingCar" onclick="car(${data.gameSN},${data.price},${ShopUrl})">放入購物車</a>
-												<a href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>" class="btn btn-default fluid" role="button">查看詳情 </a>
+												<a style="color: #ffffff" class="btn btn-primary fluid"
+													role="button" id="ShoppingCar"
+													onclick="car(${data.gameSN},${data.price},${ShopUrl})">放入購物車</a>
+												<a
+													href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"
+													class="btn btn-default fluid" role="button">查看詳情 </a>
 											</p>
 										</div>
 
@@ -345,7 +350,10 @@ $.ajax({
 		$.ajax({	
 			url: href,
 			type:"POST",
-			data:{name:gameSN,price:price},
+			data:{
+				name:gameSN,
+				price:price
+			},
 			async: false,
 			xhrFields: {
 				withCredentials: false },

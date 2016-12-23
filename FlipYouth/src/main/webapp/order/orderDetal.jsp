@@ -62,15 +62,27 @@ tr.details td.details-control {
 </style>
 <script type="text/javascript">
 	function format(d) {
-		return 'Full name: '
-				+ d.first_name
-				+ ' '
-				+ d.last_name
-				+ '<br>'
-				+ 'Salary: '
-				+ d.salary
-				+ '<br>'
-				+ 'The child row can contain any data you wish, including links, images, inner tables etc.';
+		var image = "open2('data:image/png;base64," + d.image + "');";
+		return '<button class="btn btn-danger" onclick="'+image+'">開啟明細</button><br>'
+				+ '<button class="btn btn-info" onclick="delectOrder('
+				+ d.orderSN +d.mbrSN +')">取消訂單</button>';
+	}
+	function delectOrder(orderSN,mbrSN) {
+		$.ajax({
+			url : ,
+			type : "post",
+			data : {
+				orderSN : orderSN,
+				mbrSN:mbrSN
+			},
+			success : function(res) {
+				alert('removeOK');
+			},
+		})//endAjax
+
+	}//endfunction
+	function open2(a) {
+		window.open(a, '訂單明細', "height=1515,width=1000");
 	}
 
 	$(document).ready(function() {
@@ -91,7 +103,7 @@ tr.details td.details-control {
 			}, {
 				"data" : "orderAmount"
 			}, {
-				"data" : "email"
+				"data" : "orderState"
 			}, {
 				"data" : "name"
 			},
@@ -144,22 +156,11 @@ tr.details td.details-control {
 						<th>訂單編號</th>
 						<th>下訂日期</th>
 						<th>訂單金額</th>
-						<th>連絡email</th>
-						<th>連絡性名</th>
+						<th>訂單狀態</th>
+						<th>連絡人</th>
 						<!-- 				<th></th> -->
 					</tr>
 				</thead>
-				<tfoot>
-					<tr>
-						<th></th>
-						<th>訂單編號</th>
-						<th>下訂日期</th>
-						<th>訂單金額</th>
-						<th>連絡email</th>
-						<th>連絡性名</th>
-						<!-- 				<th></th> -->
-					</tr>
-				</tfoot>
 			</table>
 		</div>
 	</div>
