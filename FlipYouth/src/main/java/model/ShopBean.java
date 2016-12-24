@@ -10,12 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.context.annotation.Lazy;
+
 @Entity
 @Table(name = "Game")
 public class ShopBean implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@Column(name="GameSN")
+	@Column(name = "GameSN")
 	private Integer GameSN;
 	private String GameName;// 商品名稱
 	private String Introduction;// 簡介
@@ -34,26 +35,6 @@ public class ShopBean implements Serializable {
 	private String Freight;// 運送方式
 	private String div1;// 遊戲介紹
 
-	
-	
-	@Override
-	public String toString() {
-		return "ShopBean [GameSN=" + GameSN + ", GameName=" + GameName + ", Introduction=" + Introduction
-				+ ", PlayingTime=" + PlayingTime + ", PlayerNumber=" + PlayerNumber + ", BigImage=" + BigImage
-				+ ", SmallImage=" + SmallImage + ", StockQuantity=" + StockQuantity + ", Gameclass=" + Gameclass
-				+ ", Ages=" + Ages + ", StrGameTheme=" + StrGameTheme + ", StrGameMechanics=" + StrGameMechanics
-				+ ", StrLanguage=" + StrLanguage + ", Price=" + Price + ", Discount=" + Discount + ", Freight="
-				+ Freight + ", div1=" + div1 + ", getGameSN()=" + getGameSN() + ", getGameName()=" + getGameName()
-				+ ", getIntroduction()=" + getIntroduction() + ", getPlayingTime()=" + getPlayingTime()
-				+ ", getPlayerNumber()=" + getPlayerNumber() + ", getBigImage()=" + getBigImage() + ", getSmallImage()="
-				+ getSmallImage() + ", getStockQuantity()=" + getStockQuantity() + ", getGameclass()=" + getGameclass()
-				+ ", getAges()=" + getAges() + ", getStrGameTheme()=" + getStrGameTheme() + ", getStrGameMechanics()="
-				+ getStrGameMechanics() + ", getStrLanguage()=" + getStrLanguage() + ", getPrice()=" + getPrice()
-				+ ", getDiscount()=" + getDiscount() + ", getFreight()=" + getFreight() + ", getDiv1()=" + "很長你會怕"
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
-	}
-
 	public void setPrice(Integer price) {
 		Price = price;
 	}
@@ -65,8 +46,8 @@ public class ShopBean implements Serializable {
 	public void setGameSN(Integer gameSN) {
 		GameSN = gameSN;
 	}
-	
-	 @Column(name="GameName")
+
+	@Column(name = "GameName")
 	public String getGameName() {
 		return GameName;
 	}

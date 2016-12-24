@@ -33,9 +33,7 @@ public class OrderDetailBean implements Serializable {
 		Quantity = quantity;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderDetailBean [PK=" + PK + ", Quantity=" + Quantity + "]";
-	}
-	
+
+
+
 }

@@ -137,7 +137,7 @@ $.ajax({
 	<c:set var="ShopUrl" scope="session"
 		value="'/FlipYouth/Shop.controller'" />
 	<div
-		style="background-image: url(<c:url value="/image/big/bg.png"/>); background-repeat: repeat;">
+		style="background-image: url(<c:url value="/Tim/image/big/bg.png"/>); background-repeat: repeat;">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
@@ -153,62 +153,62 @@ $.ajax({
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/image/icon/1.png" />"> <a
+											<img src="<c:url value="/Tim/image/icon/1.png" />"> <a
 												href="<c:url value="/Shop.controller?gameClass=1"/>">全部</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/image/icon/2.png" />"> <a
+											<img src="<c:url value="/Tim/image/icon/2.png" />"> <a
 												href="<c:url value="/Shop.controller?gameClass=2"/>">自有商品</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/image/icon/3.png" />"> <a
+											<img src="<c:url value="/Tim/image/icon/3.png" />"> <a
 												href="<c:url value="/Shop.controller?gameClass=3"/>">派對遊戲</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/image/icon/4.png" />"> <a
+											<img src="<c:url value="/Tim/image/icon/4.png" />"> <a
 												href="<c:url value="/Shop.controller?gameClass=4"/>">親子桌遊</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/image/icon/5.png" />"> <a
+											<img src="<c:url value="/Tim/image/icon/5.png" />"> <a
 												href="<c:url value="/Shop.controller?gameClass=5"/>">輕度策略</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/image/icon/6.png" />"> <a
+											<img src="<c:url value="/Tim/image/icon/6.png" />"> <a
 												href="<c:url value="/Shop.controller?gameClass=6"/>">重度策略</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/image/icon/7.png" />"> <a
+											<img src="<c:url value="/Tim/image/icon/7.png" />"> <a
 												href="<c:url value="/Shop.controller?gameClass=7"/>">台灣原創</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/image/icon/8.png" />"> <a
+											<img src="<c:url value="/Tim/image/icon/8.png" />"> <a
 												href="<c:url value="/Shop.controller?gameClass=8"/>">麥卡貝推</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/image/icon/9.png" />"> <a
+											<img src="<c:url value="/Tim/image/icon/9.png" />"> <a
 												href="<c:url value="/Shop.controller?gameClass=9"/>">卡套</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12 border_bottom">
 											<img style="height: 40px; width: 40px"
-												src="<c:url value="/image/icon/buy.jpg" />"><span
+												src="<c:url value="/Tim/image/icon/buy.jpg" />"><span
 												id="cars">購物車</span><br> <span id="span"><font
 												style="color: red">目前金額${ALL}<br>目前件數${count}
 											</font></span> </a><br>
@@ -245,7 +245,7 @@ $.ajax({
 											<div class="carousel-inner">
 												<div class="item">
 													<img alt="Carousel Bootstrap First"
-														src="<c:url value="/image/big/background/3.JPG" />" />
+														src="<c:url value="/Tim/image/big/background/3.JPG" />" />
 													<div class="carousel-caption">
 														<h4>我是廣告</h4>
 														<p>有一種活動，既可以跟一群朋友培養感情默契，又可以動動頭腦為生活增添樂趣，簡直就是室內活動的霸主！沒錯，就是桌上遊戲啦！</p>
@@ -253,7 +253,7 @@ $.ajax({
 												</div>
 												<div class="item active">
 													<img alt="Carousel Bootstrap Second"
-														src="<c:url value="/image/big/background/2.jpg" />" />
+														src="<c:url value="/Tim/image/big/background/2.jpg" />" />
 													<div class="carousel-caption">
 														<h4>我是廣告</h4>
 														<p>桌遊其實在國外相當風行，尤其是德國，桌上遊戲風氣很盛，而台灣大約在七、八年前開始漸漸流行，一開始都是學生圈子互相揪團，後來也漸漸吸引到各個年齡層的玩家！</p>
@@ -261,7 +261,7 @@ $.ajax({
 												</div>
 												<div class="item">
 													<img alt="Carousel Bootstrap Third"
-														src="<c:url value="/image/big/background/1.jpg" />" />
+														src="<c:url value="/Tim/image/big/background/1.jpg" />" />
 													<div class="carousel-caption">
 														<h4>我是廣告</h4>
 														<p>近年來桌遊也越做越精緻，主題越來越多元，包括電影、戲劇、歷史甚至時事的題材都紛紛被製作成桌上遊戲，DailyView網路溫度計今天就來調查網路上討論最熱門</p>
@@ -285,7 +285,7 @@ $.ajax({
 									<div class="thumbnail ">
 										<a href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"><img
 											class="img-rounded" style="height: 200px"
-											src="<c:url value="${data.smallImage}"/>"></a>
+											src="<c:url value="Tim${data.smallImage}"/>"></a>
 										<div style="height: 200px;" class="caption">
 											<h3 style="text-overflow: ellipsis;">
 												<a style="line-height: 1.5;"

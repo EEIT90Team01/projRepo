@@ -2,10 +2,6 @@
 	pageEncoding="BIG5"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="java.util.*"%>
-<%@page import="javax.servlet.*"%>
-<%@page import="javax.servlet.http.HttpSession"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -40,7 +36,8 @@
 	href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 <script
 	src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/dataTable.css"/>">
 <style type="text/css">
 tr, th, thead {
 	border-style: solid;
@@ -50,17 +47,42 @@ tr, th, thead {
 </head>
 <style>
 td.details-control {
-	background: url('/FlipYouth/image/icon/open.png') no-repeat center
+	background: url('/FlipYouth/Tim/image/icon/open.png') no-repeat center
 		center;
 	cursor: pointer;
 }
 
 tr.details td.details-control {
-	background: url('/FlipYouth/image/icon/close.png') no-repeat center
+	background: url('/FlipYouth/Tim/image/icon/close.png') no-repeat center
 		center;
 }
 </style>
 <script type="text/javascript">
+	var lang = {
+		"decimal" : "",
+		"emptyTable" : "No data available in table",
+		"info" : "顯示 _START_ 到 _END_ 的 _TOTAL_ entries",
+		"infoEmpty" : "Showing 0 to 0 of 0 entries",
+		"infoFiltered" : "(filtered from _MAX_ total entries)",
+		"infoPostFix" : "",
+		"thousands" : ",",
+		"lengthMenu" : "Show _MENU_ entries",
+		"loadingRecords" : "Loading...",
+		"processing" : "Processing...",
+		"search" : "查詢:",
+		"zeroRecords" : "No matching records found",
+		"paginate" : {
+			"first" : "First",
+			"last" : "Last",
+			"next" : "Next",
+			"previous" : "Previous"
+		},
+		"aria" : {
+			"sortAscending" : ": activate to sort column ascending",
+			"sortDescending" : ": activate to sort column descending"
+		}
+	}
+
 	function format(d) {
 		var image = "open2('data:image/png;base64," + d.image + "');";
 		return '<button class="btn btn-danger" onclick="'+image+'">開啟明細</button><br>'
@@ -87,6 +109,21 @@ tr.details td.details-control {
 
 	$(document).ready(function() {
 		var dt = $('#example').DataTable({
+			language : {
+				searchPlaceholder : "查詢",
+				loadingRecords : "載入中",
+				info : "找到  _TOTAL_ 比資料   目前顯示   _START_ 到 _END_  資料 ",
+				search : "收尋 :",
+				lengthMenu : "顯示 _MENU_ 資料",
+				"paginate" : {
+					first : "第一頁",
+					last : "最後一頁",
+					next : "下一頁",
+					previous : "上一頁"
+				},
+				processing : "處理中",
+				loadingRecords : "載入中...",
+			},
 			"processing" : true,
 			"serverSide" : true,
 			"autoWidth" : true,

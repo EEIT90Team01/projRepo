@@ -1,3 +1,4 @@
+
 package model;
 
 import java.awt.image.BufferedImage;
@@ -32,11 +33,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import model.dao.MemberDAO;
@@ -126,8 +129,8 @@ public class ShopServices {
 		return shopDao.select("1");
 	}
 
-	
 	static MimeBodyPart picturePart = new MimeBodyPart();
+
 	public void sendMain(String name, String image, String OrderEmail) throws MessagingException, IOException {
 		int port = 587;
 		final String username = "flipyoutheeit90@gmail.com";
@@ -139,7 +142,7 @@ public class ShopServices {
 		props.put("mail.smtp.port", port);
 		MimeBodyPart textPart = new MimeBodyPart();
 		StringBuffer html = new StringBuffer();
-	
+
 		addMsg(image, name, html);
 
 		Session session = Session.getInstance(props, new Authenticator() {
@@ -163,38 +166,37 @@ public class ShopServices {
 		System.out.println("寄送email結束.");
 	}
 
-	public static void addMsg(String image, String name, StringBuffer html)
-			throws MessagingException, IOException {
-				html.append("<h4>親愛的 " + name + "您好：</h4>");
+	public static void addMsg(String image, String name, StringBuffer html) throws MessagingException, IOException {
+		html.append("<h4>親愛的 " + name + "您好：</h4>");
 		html.append("<h4>期望您有美好的購物經驗，欲查詢出貨進度，請使用訂單查詢功能</h4>");
 		html.append("<h4>如有其他問題，歡迎來電客服，我們有專人為您服務。</h4>");
 		html.append("<img style='width:500px' src='cid:image'/><br>");
 		InternetHeaders headers = new InternetHeaders();
 		headers.addHeader("Content-Type", "image/jpeg");
 		headers.addHeader("Content-Transfer-Encoding", "base64");
-		byte[] bytearray =  image.getBytes();
-		picturePart= new MimeBodyPart(headers,bytearray);
+		byte[] bytearray = image.getBytes();
+		picturePart = new MimeBodyPart(headers, bytearray);
 		picturePart.setContentID("<image>");
 		picturePart.setFileName("xxx.jpg");
 
 	}
+
 	public static int recordsTotal;
+
 	public static void setRecordsTotal(int recordsTotal) {
 		ShopServices.recordsTotal = recordsTotal;
 	}
 
-	
-	public JSONObject PageList(Integer MbrSN, Integer length, Integer start, Integer draw, String orderCol, String dir, String search,String OrderColNam) {
-		List<OrderBean> list= orderDao.PageList(MbrSN,length,start,draw,orderCol,dir,search,OrderColNam);
+	public JSONObject PageList(Integer MbrSN, Integer length, Integer start, Integer draw, String orderCol, String dir,
+			String search, String OrderColNam) {
+		List<OrderBean> list = orderDao.PageList(MbrSN, length, start, draw, orderCol, dir, search, OrderColNam);
 		List<JSONObject> jsons = new ArrayList<JSONObject>();
-		for(OrderBean json:list){
+		for (OrderBean json : list) {
 			jsons.add(new JSONObject(json));
 		}
-		
-		
-		
-		Map<String,Object> jsonAll =new HashMap<String,Object>();
-		jsonAll.put("draw",draw);
+
+		Map<String, Object> jsonAll = new HashMap<String, Object>();
+		jsonAll.put("draw", draw);
 		jsonAll.put("recordsTotal", recordsTotal);
 		jsonAll.put("recordsFiltered", recordsTotal);
 		jsonAll.put("data", jsons);

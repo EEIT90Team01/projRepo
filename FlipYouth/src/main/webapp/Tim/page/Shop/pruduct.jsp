@@ -103,7 +103,7 @@ iframe {
 						<div style="padding: 20px 0px 20px 0px" class="col-md-4">
 							<div style="padding: auto 0px;" class="col-md-12">
 								<img alt="Bootstrap Image Preview"
-									src="<c:url value="${pruduct.bigImage}"/>"
+									src="<c:url value="/Tim${pruduct.bigImage}"/>"
 									class="img-thumbnail" />
 							</div>
 						</div>

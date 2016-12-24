@@ -32,13 +32,13 @@
 
 <body>
 	<div style="text-align: center;">
-		<h3>${loginOK.mbrName}</h3>
-	</div>
+	<font style="font-size :40px;font-family: Microsoft JhengHei; color:#00b707; text-align: center;"><h3></h3><c:out value="${empty loginOK.nickName ? '' : loginOK.nickName+='已登入'}" /></h3></div>
+				</font>
 	<div class="row">
 		<div style="height: 50px;" class="col-xs-12">
-				<a href="<c:url value="/Tim/login/login.jsp"/>">
-					<h1
-					style="text-align: center;">登入</h1></a>
+			<a href="<c:url value="/Tim/login/login.jsp"/>">
+				<h1 style="text-align: center;">登入</h1>
+			</a>
 		</div>
 		<div style="height: 50px; style: text-align: center;"
 			class="col-xs-12">
@@ -55,8 +55,8 @@
 					<div class="col-xs-2">
 						<h5>碩延功能</h5>
 						<!-- 已下加入 -->
-						<a href="<c:url value="/index.jsp"/>">註冊</a><BR> 
-						<a href="<c:url value="/Shop.controller?ID=1"/>">商品留言板</a><BR>
+						<a href="<c:url value="/index.jsp"/>">註冊</a><BR> <a
+							href="<c:url value="/Shop.controller?ID=1"/>">商品留言板</a><BR>
 					</div>
 					<div class="col-xs-2">
 						<h5>心惠功能</h5>
@@ -71,10 +71,10 @@
 					<div class="col-xs-2">
 						<h5>冠霆功能</h5>
 						<!-- 已下加入 -->
-						<a href="<c:url value="/Tim/login/login.jsp"/>">登入</a><BR>
-						<a href="<c:url value="/logout.controller"/>">登出</a><BR>
-						<a href="<c:url value="/Shop.controller"/>">商品列表</a><BR>
-						<a href="<c:url value="/Tim/page/order/checkOut.jsp"/>">檢查訂單</a><BR>
+						<a href="<c:url value="/Tim/login/login.jsp"/>">登入</a><BR> <a
+							href="<c:url value="/logout.controller"/>">登出</a><BR> <a
+							href="<c:url value="/Shop.controller"/>">商品列表</a><BR> <a
+							href="<c:url value="/Tim/page/order/checkOut.jsp"/>">檢查訂單</a><BR>
 						<a href="<c:url value="/Tim/page/order/orderDetal.jsp"/>">訂單明細</a><BR>
 						<a href="<c:url value="/Tim/page/order/orderOver.jsp"/>">訂單成功</a><BR>
 						<a href="<c:url value="/Tim/page/Shop/list.jsp"/>">商品列表</a><BR>

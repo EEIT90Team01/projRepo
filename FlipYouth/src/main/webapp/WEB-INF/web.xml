@@ -5,8 +5,9 @@
 	version="3.1">
 	<display-name>FlipYouth</display-name>
 	<welcome-file-list>
-		<welcome-file>hi.jsp</welcome-file>
+		<welcome-file>home.jsp</welcome-file>
 	</welcome-file-list>
+
 	<!-- 產生sessionFactory -->
 	<filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
@@ -18,23 +19,23 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-<!-- Spring Filter 強制將頁面轉成 UTF-8 編碼 -->
-<filter>
-    <filter-name>encodingFilter</filter-name>
-    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-    <init-param>
-        <param-name>encoding</param-name>
-        <param-value>UTF-8</param-value>
-    </init-param>
-    <init-param>
-        <param-name>forceEncoding</param-name>
-        <param-value>true</param-value>
-    </init-param>
-</filter>
-<filter-mapping>
-    <filter-name>encodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-</filter-mapping>
+	<!-- Spring Filter 強制將頁面轉成 UTF-8 編碼 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 
 	<!-- 各種需要new的映射檔設定 減少IoC的干擾 -->
@@ -63,14 +64,14 @@
 		<url-pattern>*.controller</url-pattern>
 	</servlet-mapping>
 	<!-- ****馬老師的***mvc-servlet.xml 映射檔的設定參考 -->
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>mvc</servlet-name> -->
-<!-- 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> -->
-<!-- 		<load-on-startup>1</load-on-startup> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>mvc</servlet-name> -->
-<!-- 		<url-pattern>*.controller</url-pattern> -->
-<!-- 	</servlet-mapping> -->
+	<!-- <servlet> -->
+	<!-- <servlet-name>mvc</servlet-name> -->
+	<!-- <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> -->
+	<!-- <load-on-startup>1</load-on-startup> -->
+	<!-- </servlet> -->
+	<!-- <servlet-mapping> -->
+	<!-- <servlet-name>mvc</servlet-name> -->
+	<!-- <url-pattern>*.controller</url-pattern> -->
+	<!-- </servlet-mapping> -->
 
 </web-app>

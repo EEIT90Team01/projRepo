@@ -29,6 +29,16 @@
 	text-align: center;
 	height: 120px;
 }
+
+.imagefocus {
+	display: block;
+	/*     margin: 0 auto 15px; */
+	width: 50%;
+	background: #d6d6d6;
+	border: 1px solid #bfbfbf;
+	color: #6c6c6c;
+	padding: 8px;
+}
 </style>
 </head>
 <body>
@@ -44,6 +54,8 @@
 					</div>
 					<div class="col-sm-12 "
 						style="font-family: Microsoft JhengHei; color: red; text-align: center;">${loginError}</div>
+					<div class="col-sm-12 "
+						style="font-family: Microsoft JhengHei; color:#00b707; text-align: center;"><c:out value="${empty loginOK.nickName ? '' : loginOK.nickName+='已登入'}" /></div>
 					<hr />
 					<div class="login-form">
 						<div class="alert alert-error hide">
@@ -56,6 +68,24 @@
 							<input class="required" type="text" name="user"
 								placeholder="請輸入帳號" required /> <input type="password"
 								name="pass" placeholder="請輸入密碼" required />
+							<!-- 驗證碼 -->
+										<div class="row">
+											<div class="col-xs-6">
+												<img src="<c:url value="/Image.controller"/>"
+													id="kaptchaImage"
+													style="margin-bottom: -3px; float: right;" />
+											</div>
+											<div class="col-xs-6" style="padding-left: 0px">
+												<label style="padding: 0px"><input class="imagefocus"
+													data-toggle="tooltip" data-placement="left" style="margin: 0px"
+													placeholder="請輸入驗證碼" name="kaptcha" type="text"
+													id="kaptcha" maxlength="4" required class="required" /></label>
+											</div>
+										</div>
+									</div>
+								
+
+							<!-- 驗證碼 -->
 							<button type="submit" id="loginBtn" class="btn btn-red">登入</button>
 						</form>
 						<div class="login-links">
@@ -82,6 +112,30 @@
 	<script src="<c:url value="/Tim/js_Tim/placeholder-shim.min.js"/>"></script>
 	<script src="<c:url value="/Tim/js_Tim/custom.js"/>"></script>
 	<script type="text/javascript">
-		
+		$(function() {
+			$('#kaptchaImage').click(
+					function() {
+						$(this).hide().attr(
+								'src',
+								'/FlipYouth/Image.controller?'
+										+ Math.floor(Math.random() * 100))
+								.fadeIn();
+						event.cancelBubble = true;
+					});
+		});
+
+		window.onbeforeunload = function() {
+			if (event.clientX > 360 && event.clientY < 0 || event.altKey) {
+				alert(parent.document.location);
+			}
+		};
+
+		function changeCode() {
+			$('#kaptchaImage').hide().attr(
+					'src',
+					'/FlipYouth/Image.controller?'
+							+ Math.floor(Math.random() * 100)).fadeIn();
+			event.cancelBubble = true;
+		}
 	</script>
 </html>

@@ -6,6 +6,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.springframework.context.annotation.Lazy;
+@Lazy(false)
 @Embeddable
 public class OrderDetailPK implements Serializable {
 
@@ -14,10 +17,12 @@ public class OrderDetailPK implements Serializable {
 	// @GeneratedValue(strategy = GenerationType.TABLE)
 	@ManyToOne
 	@JoinColumn(name = "orderSN")
+	@JsonBackReference
 	private OrderBean orderSN;
 
 	@ManyToOne
 	@JoinColumn(name = "gameSN")
+	@JsonBackReference
 	private ShopBean gameSN;
 
 	public OrderDetailPK(){}
@@ -74,10 +79,6 @@ public class OrderDetailPK implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderDetailPK [orderSN=" + orderSN + ", gameSN=" + gameSN + "]";
-	}
 
 	
 

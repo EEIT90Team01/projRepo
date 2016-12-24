@@ -1,11 +1,15 @@
 package model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +32,9 @@ public class OrderBean {
 	private String tel;
 	private String phone;
 	private String image;
-	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "PK.orderSN")
+//	private Set<OrderDetailBean> orderDetail;
+
 	public OrderBean() {
 		super();
 	}
@@ -50,7 +56,15 @@ public class OrderBean {
 		this.tel = tel;
 		this.phone = phone;
 	}
-	
+
+//	public Set<OrderDetailBean> getOrderDetail() {
+//		return orderDetail;
+//	}
+//
+//	public void setOrderDetail(Set<OrderDetailBean> orderDetail) {
+//		this.orderDetail = orderDetail;
+//	}
+
 	public String getImage() {
 		return image;
 	}
@@ -143,14 +157,16 @@ public class OrderBean {
 	public void setOrderState(String orderState) {
 		this.orderState = orderState;
 	}
+
 	@Override
 	public String toString() {
 		return "OrderBean [orderSN=" + orderSN + ", mbrSN=" + mbrSN + ", orderAmount=" + orderAmount + ", shippedDate="
 				+ shippedDate + ", orderDate=" + orderDate + ", productDelivery=" + productDelivery + ", freight="
 				+ freight + ", paymentMethod=" + paymentMethod + ", orderState=" + orderState + ", email=" + email
-				+ ", address=" + address + ", name=" + name + ", tel=" + tel + ", phone=" + phone + "]";
+				+ ", address=" + address + ", name=" + name + ", tel=" + tel + ", phone=" + phone + ", image=" + image
+				+ "]";
 	}
-	
+
 	
 	
 }
