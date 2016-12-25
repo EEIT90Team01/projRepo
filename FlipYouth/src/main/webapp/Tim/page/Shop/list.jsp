@@ -285,7 +285,7 @@ $.ajax({
 									<div class="thumbnail ">
 										<a href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"><img
 											class="img-rounded" style="height: 200px"
-											src="<c:url value="Tim${data.smallImage}"/>"></a>
+											src="<c:url value="/Tim${data.smallImage}"/>"></a>
 										<div style="height: 200px;" class="caption">
 											<h3 style="text-overflow: ellipsis;">
 												<a style="line-height: 1.5;"

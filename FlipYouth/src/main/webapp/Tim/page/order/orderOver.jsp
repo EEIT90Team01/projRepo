@@ -203,9 +203,9 @@ strong {
 					<div class="col-xs-12" style="border-bottom: solid 1px #d9cdcd;">
 						<div class="col-xs-4" style="padding: 10px">
 							<a target="_blank"
-								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">
+								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">
 								<img style="margin-left: 20px; height: 40px; width: 50px"
-								src="<c:url value="${data.value.PK.gameSN.smallImage}"/>"
+								src="<c:url value="/Tim${data.value.PK.gameSN.smallImage}"/>"
 								class="img-rounded" /><font>${data.value.PK.gameSN.gameName}</font>
 							</a>
 
@@ -214,7 +214,7 @@ strong {
 							style="height: 200px margin-top: 20px; text-overflow: ellipsis; overflow: hidden; /* 超過範圍隱藏 */ white-space: nowrap;"
 							class="col-xs-4 px-100">
 							<a target="_blank"
-								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.introduction}
+								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.introduction}
 							</a>
 						</div>
 						<div class="col-xs-1 px-100">NT
@@ -325,7 +325,7 @@ strong {
 	<!-- 	<div class="col-md-12" style="height: 2000px"></div> -->
 	<div class="center col-md-12">
 		<div class="col-md-12" style="height: 50px">
-			<a class="btn btn-danger" href='<c:url value="../Shop.controller"/>'>繼續購物</a>
+			<a class="btn btn-danger" href='<c:url value="/Shop.controller"/>'>繼續購物</a>
 			<a style="cursor: pointer;" class="btn btn-danger" onclick="print()">列印訂單</a>
 		</div>
 		
@@ -378,7 +378,7 @@ strong {
 	function ajax(){
 		$.ajax({
 			type:"POST",
-			url:"../writeOrder.controller",
+			url:"/FlipYouth/writeOrder.controller",
 			data:{
 			url:link_name,
 			mbrSN:mbrSN,

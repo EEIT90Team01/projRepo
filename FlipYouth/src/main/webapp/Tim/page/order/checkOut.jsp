@@ -141,20 +141,20 @@ b {
 						<hr>
 						<div class="col-xs-2" style="margin-top: 20px">
 							<a target="_blank"
-								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.gameName}</a>
+								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.gameName}</a>
 						</div>
 						<div style="margin-top: 5px" class="col-xs-2 px-100">
 							<a target="_blank"
-								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">
+								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">
 								<img style="height: 120px; width: 110px"
-								src="<c:url value="${data.value.PK.gameSN.smallImage}"/>"
+								src="<c:url value="/Tim${data.value.PK.gameSN.smallImage}"/>"
 								class="img-rounded" />
 							</a>
 
 						</div>
 						<div style="height: 200px margin-top: 20px;" class="col-xs-3 ">
 							<a target="_blank"
-								href="<c:url value="../Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.introduction}
+								href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>">${data.value.PK.gameSN.introduction}
 							</a>
 						</div>
 						<div class="col-xs-1 px-100">${data.value.PK.gameSN.price}</div>
@@ -261,7 +261,7 @@ b {
 
 
 												<a class="btn btn-danger"
-													href='<c:url value="../Shop.controller"/>'>繼續購物</a> <a
+													href='<c:url value="/Shop.controller"/>'>繼續購物</a> <a
 													onclick="submit_btn(${loginOK.mbrSN},${ALL+100},'orderOver.jsp')"
 													class="btn btn-danger" style="cursor: pointer"
 													href="javascript: void(0)">訂單送出</a>
@@ -293,7 +293,7 @@ b {
 	var a;
 	function changeCar(gameSN,value){
 		$.ajax({
-			url: "../order.controller?change=1",
+			url: "/FlipYouth/order.controller?change=1",
 			type:"POST", 
 			data:{value:value,
 				  GameSN:gameSN,
@@ -321,7 +321,7 @@ b {
 		})
 	function delectCar(gameSN){
 		$.ajax({
-			url:"../order.controller?delectCar="+gameSN,
+			url:"/FlipYouth/order.controller?delectCar="+gameSN,
 			type:"POST",
 			async: true,
 			xhrFields: {
@@ -348,7 +348,7 @@ b {
 		 
 		 $.ajax({
 				type:"POST",
-				url:"../writeOrder.controller?insert=1",
+				url:"/FlipYouth/writeOrder.controller?insert=1",
 				data:{
 				url:link_name,
 				mbrSN:mbrSN,

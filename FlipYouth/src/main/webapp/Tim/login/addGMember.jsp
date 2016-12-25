@@ -44,6 +44,16 @@
 	color: #3276b1;
 	background-color: #fff;
 }
+
+.input {
+	display: block;
+	margin: 0 auto 15px;
+	width: 75%;
+	background: #d6d6d6;
+	border: 1px solid #bfbfbf;
+	color: #6c6c6c;
+	padding: 8px;
+}
 </style>
 </head>
 <body>
@@ -73,25 +83,34 @@
 						</div>
 						<form action="<c:out value="/FlipYouth/addGMember.controller"/>"
 							id="LoginForm" method="post">
-							<input type="text" name="nickName" placeholder="請輸入暱稱" required>
-							<input type="text" name="phone" placeholder="請輸入手機" required>
-							<input type="text" name="address" placeholder="請輸入地址" required>
+							<div class="col-xs-12 "style="">
+								<input class="input" type="text" name="nickName"style="width: 75%"
+									placeholder="請輸入暱稱" required>
+							</div>
+							<div class="col-xs-12">
+								<input class="input" type="text" name="phone"style="width: 75%"
+									placeholder="請輸入手機" required>
+							</div>
+							<div class="col-xs-12">
+								<input class="input" type="text" name="address" style="width: 75%"
+									placeholder="請輸入地址" required>
+							</div>
 
 							<div class="row">
 								<div
 									style="text-align: right; padding-left: 20%; padding-right: 0px; margin-top: 3px;"
-									class="col-sm-6">
+									class="col-xs-6">
 									<div class="input-group">
 										<div id="radioBtn" class="btn-group">
 											<a class="btn btn-primary btn-sm active" data-toggle="gender"
 												data-title="男">男</a> <a
-												class="btn btn-primary btn-sm notActive" data-toggle="gender"
-												data-title="女">女</a>
+												class="btn btn-primary btn-sm notActive"
+												data-toggle="gender" data-title="女">女</a>
 										</div>
 										<input type="hidden" name="gender" value="男" id="gender">
 									</div>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-xs-6 " style="padding-left: 0;">
 									<button type="submit" id="loginBtn"
 										style="margin: 0; width: 70%;" class="btn btn-red">完成送出</button>
 								</div>
@@ -129,18 +148,6 @@
 					+ scope;
 			window.open(url);
 		}
-
-		$(function() {
-			$('#kaptchaImage').click(
-					function() {
-						$(this).hide().attr(
-								'src',
-								'/FlipYouth/Image.controller?'
-										+ Math.floor(Math.random() * 100))
-								.fadeIn();
-						event.cancelBubble = true;
-					});
-		});
 
 		window.onbeforeunload = function() {
 			if (event.clientX > 360 && event.clientY < 0 || event.altKey) {
