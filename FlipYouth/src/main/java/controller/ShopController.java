@@ -1,7 +1,13 @@
 package controller;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +42,7 @@ import model.OrderDetailBean;
 import model.OrderDetailPK;
 import model.ShopBean;
 import model.ShopServices;
+import model.dao.MemberDAO;
 
 @Controller
 @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
@@ -47,6 +56,8 @@ public class ShopController {
 	@Autowired
 	@Resource(name = "shopServices")
 	ShopServices shopServices;
+	@Resource(name = "memberDao")
+	MemberDAO memberDao;
 	// @RequestMapping(path = "/DataTable.controller", produces =
 	// "application/json; charset=utf-8")
 	// public String delectOrder(HttpSession session) {
@@ -290,7 +301,8 @@ public class ShopController {
 	public String login(String kaptcha, HttpSession session, HttpServletResponse response, String user, String pass)
 			throws IOException, ParseException {
 		String code = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		if (kaptcha.trim().length() == 0) {
+
+		if (kaptcha == null || kaptcha.trim().length() == 0) {
 			session.setAttribute("loginError", "驗證碼輸入錯誤");
 			return "login";
 		}
@@ -338,4 +350,111 @@ public class ShopController {
 		return "home";
 	}
 
+	String access_token = "";
+
+	@RequestMapping(path = "/googleLogin.controller")
+	public String googleLogin(String code, HttpSession session, HttpServletResponse response, HttpServletRequest req)
+			throws Exception {
+		System.out.println(code);
+		URL urlObtainToken = new URL("https://accounts.google.com/o/oauth2/token");
+		HttpURLConnection connectionObtainToken = (HttpURLConnection) urlObtainToken.openConnection();
+		connectionObtainToken.setRequestMethod("POST");
+		connectionObtainToken.setDoOutput(true);
+		OutputStreamWriter writer = new OutputStreamWriter(connectionObtainToken.getOutputStream());
+		writer.write("code=" + code + "&"); // 取得Google回傳的參數code
+		writer.write("client_id=451639246634-4m1oh7enkiqquk8hje60mfm9ve47onfs.apps.googleusercontent.com&"); // 這裡請將xxxx替換成自己的client_id
+		writer.write("client_secret=Dhm_JQEV5en-oyRYoXeshyAc&"); // 這裡請將xxxx替換成自己的client_serect
+		writer.write("redirect_uri=http://localhost:8080/FlipYouth/googleLogin.controller&");
+		writer.write("grant_type=authorization_code");
+		writer.close();
+		JSONObject jo = null;
+		if (connectionObtainToken.getResponseCode() == HttpURLConnection.HTTP_OK) {
+			StringBuilder sbLines = new StringBuilder("");
+			// 取得Google回傳的資料(JSON格式)
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(connectionObtainToken.getInputStream(), "utf-8"));
+			String strLine = "";
+			while ((strLine = reader.readLine()) != null) {
+				sbLines.append(strLine);
+			}
+
+			// 把上面取回來的資料，放進JSONObject中，以方便我們直接存取到想要的參數
+			jo = new JSONObject(sbLines.toString());
+			access_token = jo.getString("access_token");
+			System.out.println("*************** access token *******************");
+			System.out.println(access_token);
+			response.sendRedirect("/FlipYouth/getData.controller");
+		}
+		return null;
+	}
+
+	@RequestMapping(path = "/getData.controller")
+	public String getData(HttpSession session) throws Exception {
+
+		System.out.println("getGoogleData");
+		URL getUser = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token);
+		HttpURLConnection getUserConnection = (HttpURLConnection) getUser.openConnection();
+		getUserConnection.setRequestMethod("GET");
+		getUserConnection.setDoOutput(true);
+		getUserConnection.setDoInput(true);
+		getUserConnection.setRequestProperty("Content-type", "application/json");
+		if (getUserConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+			System.out.println("maker1-2");
+			StringBuilder sbLines1 = new StringBuilder("");
+			BufferedReader reader1 = new BufferedReader(
+					new InputStreamReader(getUserConnection.getInputStream(), "utf-8"));
+			String strLine1 = "";
+			while ((strLine1 = reader1.readLine()) != null) {
+				sbLines1.append(strLine1);
+			}
+			JSONObject userData = new JSONObject(sbLines1.toString());
+			String name = userData.getString("name");
+			String id = userData.getString("id");
+			String email = userData.getString("email");
+			String picture = userData.getString("picture");
+			System.out.println(picture);
+			URL url2 = new URL(picture);
+			InputStream uc = url2.openStream();
+			byte[] imageBytes = IOUtils.toByteArray(uc);
+			uc.close();
+			System.out.println(imageBytes);
+			Integer MemberId = shopServices.checkGMember(id);
+			if (MemberId == 0) {
+				MemberBean member = new MemberBean();
+				member.setMbrName(name);
+				member.setMbrEmail(email);
+				member.setImage(imageBytes);
+				member.setMbrId(email);
+				member.setMbrPassword("尚未建立密碼");
+				session.setAttribute("GMember", member);
+				session.setAttribute("GID", id);
+				return "addGMember";
+			} else {
+				session.setAttribute("loginOK", (MemberBean)shopServices.selectMbr(MemberId));
+				return "home";
+			}
+		} else {
+			System.out.println("getUserConnection.getResponseCode() =  " + getUserConnection.getResponseCode());
+		}
+		System.out.println("maker3");
+		return "home";
+	}
+
+	@RequestMapping(path = "/addGMember.controller")
+	public String addGMember(String gender, HttpSession session, String nickName, String phone, String address)
+			throws Exception {
+		MemberBean Gmbr = (MemberBean) session.getAttribute("GMember");
+		Gmbr.setNickName(nickName);
+		Gmbr.setAddress(address);
+		Gmbr.setGender(gender);
+		Gmbr.setPhone(phone);
+		Gmbr.setMbrState(0);
+		Gmbr.setEnergy(10);
+		Gmbr.setRptCounter(0);
+		Gmbr.setActivatedCode(new byte[] { 0 });
+		String GID = (String) session.getAttribute("GID");
+		MemberBean MemberBean = shopServices.addGmber(Gmbr, GID);
+		session.setAttribute("loginOK", MemberBean);
+		return "home";
+	}
 }

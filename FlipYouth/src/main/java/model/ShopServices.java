@@ -202,4 +202,21 @@ public class ShopServices {
 		jsonAll.put("data", jsons);
 		return new JSONObject(jsonAll);
 	}
+
+	public int checkGMember(String SN) {
+		return shopDao.checkGMember(SN);
+	}
+
+	public void addGMbr() {
+
+	}
+
+	public MemberBean addGmber(MemberBean Gmbr, String GID) {
+
+		return shopDao.savegMbrAndGID(Gmbr, GID);
+	}
+	public MemberBean selectMbr(Integer SN) {
+		return (MemberBean)shopDao.selectMbr(SN);
+	}
+
 }

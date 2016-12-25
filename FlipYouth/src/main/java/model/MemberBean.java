@@ -2,6 +2,7 @@ package model;
 
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -130,5 +131,13 @@ public class MemberBean implements Serializable{
 	}
 	public void setActivatedCode(byte[] activatedCode) {
 		this.activatedCode = activatedCode;
+	}
+	@Override
+	public String toString() {
+		return "MemberBean [mbrSN=" + mbrSN + ", nickName=" + nickName + ", mbrId=" + mbrId + ", mbrPassword="
+				+ mbrPassword + ", mbrName=" + mbrName + ", gender=" + gender + ", createTime=" + createTime
+				+ ", phone=" + phone + ", address=" + address + ", mbrEmail=" + mbrEmail + ", image="
+				+ Arrays.toString(image) + ", mbrState=" + mbrState + ", energy=" + energy + ", rptCounter="
+				+ rptCounter + ", activatedCode=" + Arrays.toString(activatedCode) + "]";
 	}
 }

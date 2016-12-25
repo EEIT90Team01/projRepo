@@ -29,6 +29,7 @@
 				<value>model.OrderDetailBean</value>
 				<value>model.OrderDetailPK</value>
 				<value>model.OrderBean</value>
+				<value>model.GoogleMemberBean</value>
 			</list>
 		</property>
 	</bean>

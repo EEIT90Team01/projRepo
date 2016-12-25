@@ -40,7 +40,7 @@
 				<value>model.OrderDetailPK</value>
 				<value>model.OrderBean</value>
 				<value>model.CommentBean</value>
-
+				<value>model.GoogleMemberBean</value>
 			</array>
 		</property>
 	</bean>
