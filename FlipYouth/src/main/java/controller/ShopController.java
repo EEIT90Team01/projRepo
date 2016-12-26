@@ -71,8 +71,10 @@ public class ShopController {
 			HttpServletRequest req) throws JSONException {
 
 		String OrderColNam = req.getParameter(("columns[" + orderCol + "][data]"));
+		MemberBean Mbr = (MemberBean) session.getAttribute("loginOK");
 
-		return shopServices.PageList(1, length, start, draw, orderCol, dir, search, OrderColNam).toString();
+		return shopServices.PageList(Mbr.getMbrSN(), length, start, draw, orderCol, dir, search, OrderColNam)
+				.toString();
 
 	}
 
@@ -81,7 +83,7 @@ public class ShopController {
 	public String WriteOrder(String insert, HttpServletRequest req, HttpSession session, String mbrSN,
 			String orderAmount, String name, String tel, String phone, String email, String address)
 			throws ParseException, MessagingException, IOException {// 寫入訂單的controller
-		System.out.println("writeOrder.controller");
+
 		if (insert != null) {
 			OrderBean orderBean = new OrderBean(Integer.parseInt(orderAmount), email, address, name, tel, phone);
 			session.setAttribute("order", orderBean);
@@ -389,7 +391,7 @@ public class ShopController {
 	}
 
 	@RequestMapping(path = "/getData.controller")
-	public String getData(HttpSession session) throws Exception {
+	public String getGData(HttpSession session) throws Exception {
 
 		System.out.println("getGoogleData");
 		URL getUser = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token);
@@ -430,7 +432,7 @@ public class ShopController {
 				session.setAttribute("GID", id);
 				return "addGMember";
 			} else {
-				session.setAttribute("loginOK", (MemberBean)shopServices.selectMbr(MemberId));
+				session.setAttribute("loginOK", (MemberBean) shopServices.selectMbr(MemberId));
 				return "home";
 			}
 		} else {
@@ -456,5 +458,86 @@ public class ShopController {
 		MemberBean MemberBean = shopServices.addGmber(Gmbr, GID);
 		session.setAttribute("loginOK", MemberBean);
 		return "home";
+	}
+
+	@RequestMapping(path = "/FBLogin.controller")
+	@ResponseBody
+	public String FBLogin(String code, HttpSession session, HttpServletResponse response, HttpServletRequest req)
+			throws Exception {
+		String fbApi = "https://graph.facebook.com/me?";
+		String fields = "fields=id,name,picture.height(400),email&";
+		String access_token = "access_token=" + code;
+		URL getUser = new URL(fbApi + fields + access_token);
+		System.out.println(fbApi + fields + access_token);
+		HttpURLConnection getUserConnection = (HttpURLConnection) getUser.openConnection();
+		getUserConnection.setRequestMethod("GET");
+		getUserConnection.setDoOutput(true);
+		getUserConnection.setDoInput(true);
+		getUserConnection.setRequestProperty("Content-type", "application/json");
+		getUserConnection.setRequestProperty("Content-Language", "zh-TW");
+
+		if (getUserConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+			StringBuilder sbLines1 = new StringBuilder("");
+			BufferedReader reader1 = new BufferedReader(
+					new InputStreamReader(getUserConnection.getInputStream(), "big5"));
+			String strLine1 = "";
+			while ((strLine1 = reader1.readLine()) != null) {
+				sbLines1.append(strLine1);
+			}
+			JSONObject mbrData = new JSONObject(sbLines1.toString());
+			String id = mbrData.get("id").toString();
+			String name = new String(mbrData.get("name").toString().getBytes("UTF-8"), "utf-8");
+			String pictureURL = new JSONObject(
+					new JSONObject(new String(mbrData.get("picture").toString().getBytes("utf-8"), "utf-8")).get("data")
+							.toString()).get("url").toString();
+			String email = new String(mbrData.get("email").toString().getBytes("utf-8"), "utf-8").toString();
+			System.out.println("id= " + id + "\nname = " + name + "\npicture = " + pictureURL + "\nemail = " + email);
+
+			Integer mbrSN = shopServices.checkFBMember(id);
+			if (mbrSN == 0) {
+				URL url2 = new URL(pictureURL);
+				InputStream uc = url2.openStream();
+				byte[] imageBytes = IOUtils.toByteArray(uc);
+				MemberBean member = new MemberBean();
+				member.setImage(imageBytes);
+				member.setMbrName(name);
+				member.setMbrEmail(email);
+				member.setMbrId(email);
+				member.setMbrPassword("尚未建立密碼");
+				session.setAttribute("FBMember", member);
+				session.setAttribute("FBID", id);
+				return "/FlipYouth/Tim/login/addFBMember.jsp";
+			} else {
+				session.setAttribute("loginOK", (MemberBean) shopServices.selectMbr(mbrSN));
+				return "/FlipYouth/home.jsp";
+			}
+		}
+		return "home";
+	}
+
+	@RequestMapping(path = "/addFBMember.controller")
+	public String addFBMember(String gender, HttpSession session, String nickName, String phone, String address)
+			throws Exception {
+		MemberBean FBmbr = (MemberBean) session.getAttribute("FBMember");
+		FBmbr.setNickName(nickName);
+		FBmbr.setAddress(address);
+		FBmbr.setGender(gender);
+		FBmbr.setPhone(phone);
+		FBmbr.setMbrState(0);
+		FBmbr.setEnergy(10);
+		FBmbr.setRptCounter(0);
+		FBmbr.setActivatedCode(new byte[] { 0 });
+		String FBID = (String) session.getAttribute("FBID");
+		MemberBean MemberBean = shopServices.addFBmber(FBmbr, FBID);
+		session.setAttribute("loginOK", MemberBean);
+		return "home";
+	}
+
+	@RequestMapping(path = "/delectOrder.controller")
+	@ResponseBody
+	public String delectOrder(String orderSN) {
+		System.out.println(orderSN);
+		shopServices.delectOrder(orderSN);
+		return "/FlipYouth/Tim/page/order/orderDetal.jsp";
 	}
 }

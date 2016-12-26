@@ -1,9 +1,6 @@
 
 package model;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,15 +8,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -33,14 +26,10 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.google.gson.Gson;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import model.dao.MemberDAO;
 import model.dao.OrderDao;
@@ -64,14 +53,15 @@ public class ShopServices {
 	public OrderBean newOrderAndDetail(OrderBean orderBean, String mbrSN, String orderAmount,
 			Map<String, OrderDetailBean> car) throws ParseException {
 
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, +3);
 
 		System.err.println("mbrSN =  " + mbrSN);
 		orderBean.setMbrSN(Integer.parseInt(mbrSN));
 		orderBean.setOrderAmount(Integer.parseInt(orderAmount));
-		orderBean.setOrderDate(new java.util.Date(System.currentTimeMillis()));
+		orderBean.setOrderDate(new SimpleDateFormat("yyyy-MM-dd HH:mm")
+				.parse(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new java.util.Date())));
 		orderBean.setOrderState("未付款");
 		orderBean.setPaymentMethod("超商取貨付款");
 		orderBean.setFreight(100);
@@ -215,8 +205,23 @@ public class ShopServices {
 
 		return shopDao.savegMbrAndGID(Gmbr, GID);
 	}
+
 	public MemberBean selectMbr(Integer SN) {
-		return (MemberBean)shopDao.selectMbr(SN);
+		return (MemberBean) shopDao.selectMbr(SN);
+	}
+
+	public Integer checkFBMember(String id) {
+		return shopDao.checkFBMember(id);
+	}
+
+	public model.MemberBean addFBmber(MemberBean fBmbr, String fBID) {
+		return shopDao.savegMbrAndFBID(fBmbr, fBID);
+	}
+
+	public void delectOrder(String orderSN) {
+		OrderBean OB = orderDao.selectOrder(orderSN);
+		OB.setOrderState("已取消");
+		orderDao.update(OB);
 	}
 
 }

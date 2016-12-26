@@ -29,6 +29,7 @@
 	text-align: center;
 	height: 120px;
 }
+
 .imagefocus {
 	display: block;
 	/*     margin: 0 auto 15px; */
@@ -38,6 +39,7 @@
 	color: #6c6c6c;
 	padding: 8px;
 }
+
 .input {
 	display: block;
 	margin: 0 auto 15px;
@@ -156,6 +158,7 @@
 					+ scope;
 			window.location.href = url;
 		}
+
 		$(function() {
 			$('#kaptchaImage').click(
 					function() {
@@ -167,11 +170,13 @@
 						event.cancelBubble = true;
 					});
 		});
+
 		window.onbeforeunload = function() {
 			if (event.clientX > 360 && event.clientY < 0 || event.altKey) {
 				alert(parent.document.location);
 			}
 		};
+
 		function changeCode() {
 			$('#kaptchaImage').hide().attr(
 					'src',
@@ -182,6 +187,7 @@
 	</script>
 	<script type="text/javascript">
 		//fb登入
+
 		function FBlogin(accessToken) {
 			$.ajax({
 				url : "/FlipYouth/FBLogin.controller",
@@ -196,8 +202,11 @@
 				success : function(res) {
 					window.location.href=res
 				},
+
 			})
+
 		}
+
 		function statusChangeCallback(response) {
 			console.log('statusChangeCallback');
 			console.log(response);

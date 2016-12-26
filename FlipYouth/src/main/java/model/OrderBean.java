@@ -1,5 +1,7 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -127,8 +129,8 @@ public class OrderBean {
 	public void setShippedDate(Date shippedDate) {
 		this.shippedDate = shippedDate;
 	}
-	public Date getOrderDate() {
-		return orderDate;
+	public String getOrderDate() {
+		return new SimpleDateFormat("yyyy年MM月dd日 HH點mm分").format(orderDate);
 	}
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;

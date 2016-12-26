@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
+import model.FBMemberBean;
 import model.GoogleMemberBean;
 import model.MemberBean;
 import model.ShopBean;
@@ -39,7 +40,6 @@ public class ShopDao {
 	}
 
 	@SuppressWarnings("unchecked")
-
 	public List<ShopBean> select(String id) {// 查詢多筆
 		Query query = this.getSession().createQuery(("from ShopBean " + id));
 		return (List<ShopBean>) query.getResultList();
@@ -51,6 +51,21 @@ public class ShopDao {
 		return (MemberBean)this.getSession().get(MemberBean.class, mbrSN);
 	}
 	public MemberBean selectMbr(Integer mbrSN){
+		return (MemberBean)this.getSession().get(MemberBean.class, mbrSN);
+	}
+
+	public Integer checkFBMember(String id) {
+		int result = 0;
+		FBMemberBean FBMember = (FBMemberBean)this.getSession().get(FBMemberBean.class, id);
+		if (FBMember != null){
+			result = FBMember.getMbrSN();
+		}
+		return result;
+	}
+
+	public MemberBean savegMbrAndFBID(MemberBean fBmbr, String fBID) {
+		Integer mbrSN= (Integer) this.getSession().save(fBmbr);
+		this.getSession().save(new FBMemberBean(mbrSN,fBID));
 		return (MemberBean)this.getSession().get(MemberBean.class, mbrSN);
 	}
 }

@@ -83,26 +83,45 @@ tr.details td.details-control {
 		}
 	}
 
-	function format(d) {
-		var image = "open2('data:image/png;base64," + d.image + "');";
-		return '<button class="btn btn-danger" onclick="'+image+'">開啟明細</button><br>'
-				+ '<button class="btn btn-info" onclick="delectOrder('
-				+ d.orderSN + d.mbrSN + ')">取消訂單</button>';
+	function checkState(d) {
+		if (d.orderState == "未付款") {
+			return "取消訂單";
+		} else {
+			display = " style='display:none'";
+			return " ";
+		}
 	}
-	// 	function delectOrder(orderSN,mbrSN) {
-	// 		$.ajax({
-	// 			url : ,
-	// 			type : "post",
-	// 			data : {
-	// 				orderSN : orderSN,
-	// 				mbrSN:mbrSN
-	// 			},
-	// 			success : function(res) {
-	// 				alert('removeOK');
-	// 			},
-	// 		})//endAjax
+	var val;
+	var display = "";
+	function format(d) {
+		display="";
+		val = checkState(d);
+		var image = "open2('data:image/png;base64," + d.image + "');";
+		return '<button class="btn btn-danger" onclick="'+image+'">開啟明細</button>'
+				+ '<button id='
+				+ d.orderSN
+				+ display
+				+ ' class="btn btn-info" style="margin-left:3%" onclick="delectOrder('
+				+ d.orderSN
+				+ ')">' + val + '</button>';
+	}
+	function delectOrder(orderSN) {
+		if (val == '無法取消') {
+			alert('無法取消此訂單請聯絡管理員');
+			return false;
+		}
+		$.ajax({
+			url : "/FlipYouth/delectOrder.controller",
+			type : "post",
+			data : {
+				orderSN : orderSN,
+			},
+			success : function(res) {
+				window.location.href = res;
+			},
+		})//endAjax
 
-	// 	}//endfunction
+	}//endfunction
 	function open2(a) {
 		window.open(a, '訂單明細', "height=1515,width=1000");
 	}
@@ -124,6 +143,15 @@ tr.details td.details-control {
 				processing : "處理中",
 				loadingRecords : "載入中...",
 			},
+			"sScrollX": "70%",
+	        "sScrollY": "360px",
+	        "bScrollCollapse": true,
+// 	        "bJQueryUI": true,
+			"processing" : true,
+			"serverSide" : true,
+	        "aoColumnDefs": [
+	            { "sWidth": "10%", "aTargets": [ -1 ] }
+	            ],
 			"processing" : true,
 			"serverSide" : true,
 			"autoWidth" : true,
@@ -184,16 +212,15 @@ tr.details td.details-control {
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-10">
-			<table id="example" class="display" cellspacing="0" width="100%">
+		<div class="col-xs-12" >
+			<table id="example" class="display" cellspacing="0" width="100%" >
 				<thead>
 					<tr>
 						<th></th>
 						<th>訂單編號</th>
-						<th>下訂日期</th>
-						<th>訂單金額</th>
-						<th>訂單狀態</th>
+						<th>下訂日</th>
+						<th>價格</th>
+						<th>狀態</th>
 						<th>連絡人</th>
 						<!-- 				<th></th> -->
 					</tr>
