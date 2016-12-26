@@ -227,55 +227,6 @@ $.ajax({
 
 
 						<div class="col-md-9">
-							<div class="container-fluid">
-								<!-- image -->
-								<div class="row">
-									<div class="col-md-12">
-										<div class="carousel slide" id="carousel-124157">
-											<ol class="carousel-indicators">
-												<li data-slide-to="0" data-target="#carousel-124157"></li>
-												<li data-slide-to="1" data-target="#carousel-124157"
-													class="active"></li>
-												<li data-slide-to="2" data-target="#carousel-124157"></li>
-											</ol>
-											<div class="carousel-inner">
-												<div class="item">
-													<img alt="Carousel Bootstrap First"
-														src="<c:url value="/Tim/image/big/background/3.JPG" />" />
-													<div class="carousel-caption">
-														<h4>我是廣告</h4>
-														<p>有一種活動，既可以跟一群朋友培養感情默契，又可以動動頭腦為生活增添樂趣，簡直就是室內活動的霸主！沒錯，就是桌上遊戲啦！</p>
-													</div>
-												</div>
-												<div class="item active">
-													<img alt="Carousel Bootstrap Second"
-														src="<c:url value="/Tim/image/big/background/2.jpg" />" />
-													<div class="carousel-caption">
-														<h4>我是廣告</h4>
-														<p>桌遊其實在國外相當風行，尤其是德國，桌上遊戲風氣很盛，而台灣大約在七、八年前開始漸漸流行，一開始都是學生圈子互相揪團，後來也漸漸吸引到各個年齡層的玩家！</p>
-													</div>
-												</div>
-												<div class="item">
-													<img alt="Carousel Bootstrap Third"
-														src="<c:url value="/Tim/image/big/background/1.jpg" />" />
-													<div class="carousel-caption">
-														<h4>我是廣告</h4>
-														<p>近年來桌遊也越做越精緻，主題越來越多元，包括電影、戲劇、歷史甚至時事的題材都紛紛被製作成桌上遊戲，DailyView網路溫度計今天就來調查網路上討論最熱門</p>
-													</div>
-												</div>
-											</div>
-											<a class="left carousel-control" href="#carousel-124157"
-												data-slide="prev"><span
-												class="glyphicon glyphicon-chevron-left"></span></a> <a
-												class="right carousel-control" href="#carousel-124157"
-												data-slide="next"><span
-												class="glyphicon glyphicon-chevron-right"></span></a>
-										</div>
-									</div>
-								</div>
-							</div>
-
-
 							<c:forEach items="${shopBean.shopBean}" var="data">
 								<div class="col-sm-6 col-md-4">
 									<div class="thumbnail ">
