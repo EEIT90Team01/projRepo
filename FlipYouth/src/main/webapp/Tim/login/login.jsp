@@ -90,94 +90,97 @@
 										placeholder="請輸入密碼" required />
 								</div>
 							</div>
-							
-														<div class="row">
-															<div class="col-xs-6">
-																<img src="<c:url value="/Image.controller"/>" id="kaptchaImage"
-																	style="margin-bottom: -3px; float: right;" />
-															</div>
-															<div class="col-xs-6" style="padding-left: 0px">
-																<label style="padding: 0px"><input
-																	class="input imagefocus" data-toggle="tooltip"
-																	data-placement="left" style="margin: 0px; width: 69%"
-																	placeholder="請輸入驗證碼" name="kaptcha" type="text" id="kaptcha"
-																	maxlength="4" required class="required" /></label>
-															</div>
-														</div>
-<!-- 					</div> -->
-					</form>
 
-					<!-- 驗證碼 -->
-					<button type="submit" id="loginBtn" class="btn btn-red">登入</button>
+							<div class="row">
+								<div class="col-xs-6">
+									<img src="<c:url value="/Image.controller"/>" id="kaptchaImage"
+										style="margin-bottom: -3px; float: right;" />
+								</div>
+								<div class="col-xs-6" style="padding-left: 0px">
+									<label style="padding: 0px"><input
+										class="input imagefocus" data-toggle="tooltip"
+										data-placement="left" style="margin: 0px; width: 69%"
+										placeholder="請輸入驗證碼" name="kaptcha" type="text" id="kaptcha"
+										maxlength="4" required class="required" /></label>
+								</div>
+							</div>
+							<!-- 					</div> -->
+							<button type="submit" id="loginBtn" class="btn btn-red">登入</button>
+						</form>
 
-					<div class="login-links">
-						<a href="#"> 忘記密碼? </a> <br /> <a
-							href="<c:url value="/index.jsp"/>"> 還沒有帳號?<strong>註冊</strong>
-						</a>
-					</div>
-				</div>
-			</div>
+						<!-- 驗證碼 -->
 
-			<div class="social-login">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="fb-login animated flipInX">
-							<a href="#" class="btn btn-facebook btn-block">Connect with <strong>Facebook</strong></a>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="twit-login animated flipInX">
-							<a class="btn btn-twitter btn-block" onclick="googleLogin()">Connect
-								with <strong>Google</strong>
+
+						<div class="login-links">
+							<a href="#"> 忘記密碼? </a> <br /> <a
+								href="<c:url value="/index.jsp"/>"> 還沒有帳號?<strong>註冊</strong>
 							</a>
 						</div>
 					</div>
 				</div>
+
+				<div class="social-login">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="fb-login animated flipInX">
+								<a href="#" class="btn btn-facebook btn-block">Connect with
+									<strong>Facebook</strong>
+								</a>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="twit-login animated flipInX">
+								<a class="btn btn-twitter btn-block" onclick="googleLogin()">Connect
+									with <strong>Google</strong>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
-
 		</div>
-	</div>
 
-	<!-- End Login box -->
-	<script src="<c:url value="/Tim/js_Tim/bootstrap.min.js"/>"></script>
-	<script src="<c:url value="/Tim/js_Tim/placeholder-shim.min.js"/>"></script>
-	<script src="<c:url value="/Tim/js_Tim/custom.js"/>"></script>
-	<script type="text/javascript">
-		function googleLogin() {
-			var googleURL = 'https://accounts.google.com/o/oauth2/auth?';
-			var client_id = 'client_id=451639246634-4m1oh7enkiqquk8hje60mfm9ve47onfs.apps.googleusercontent.com&'
-			var response_type = 'response_type=code&'
-			var redirect_uri = 'redirect_uri=http://localhost:8080/FlipYouth/googleLogin.controller&'
-			var scope = 'scope=email%20profile'
-			var url = googleURL + client_id + response_type + redirect_uri
-					+ scope;
-			window.open(url);
-		}
-
-		$(function() {
-			$('#kaptchaImage').click(
-					function() {
-						$('#kaptchaImage').hide().attr(
-								'src',
-								'/FlipYouth/Image.controller?'
-										+ Math.floor(Math.random() * 100))
-								.fadeIn();
-						event.cancelBubble = true;
-					});
-		});
-
-		window.onbeforeunload = function() {
-			if (event.clientX > 360 && event.clientY < 0 || event.altKey) {
-				alert(parent.document.location);
+		<!-- End Login box -->
+		<script src="<c:url value="/Tim/js_Tim/bootstrap.min.js"/>"></script>
+		<script src="<c:url value="/Tim/js_Tim/placeholder-shim.min.js"/>"></script>
+		<script src="<c:url value="/Tim/js_Tim/custom.js"/>"></script>
+		<script type="text/javascript">
+			function googleLogin() {
+				var googleURL = 'https://accounts.google.com/o/oauth2/auth?';
+				var client_id = 'client_id=451639246634-4m1oh7enkiqquk8hje60mfm9ve47onfs.apps.googleusercontent.com&'
+				var response_type = 'response_type=code&'
+				var redirect_uri = 'redirect_uri=http://localhost:8080/FlipYouth/googleLogin.controller&'
+				var scope = 'scope=email%20profile'
+				var url = googleURL + client_id + response_type + redirect_uri
+						+ scope;
+				window.open(url);
 			}
-		};
 
-		function changeCode() {
-			$('#kaptchaImage').hide().attr(
-					'src',
-					'/FlipYouth/Image.controller?'
-							+ Math.floor(Math.random() * 100)).fadeIn();
-			event.cancelBubble = true;
-		}
-	</script>
+			$(function() {
+				$('#kaptchaImage').click(
+						function() {
+							$('#kaptchaImage').hide().attr(
+									'src',
+									'/FlipYouth/Image.controller?'
+											+ Math.floor(Math.random() * 100))
+									.fadeIn();
+							event.cancelBubble = true;
+						});
+			});
+
+			window.onbeforeunload = function() {
+				if (event.clientX > 360 && event.clientY < 0 || event.altKey) {
+					alert(parent.document.location);
+				}
+			};
+
+			function changeCode() {
+				$('#kaptchaImage').hide().attr(
+						'src',
+						'/FlipYouth/Image.controller?'
+								+ Math.floor(Math.random() * 100)).fadeIn();
+				event.cancelBubble = true;
+			}
+		</script>
 </html>
