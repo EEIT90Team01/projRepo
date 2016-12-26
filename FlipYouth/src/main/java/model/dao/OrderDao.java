@@ -61,7 +61,7 @@ public class OrderDao {
 			System.out.println("and =  " + and);
 		}
 		Query<OrderBean> order = this.getSession()
-				.createQuery(from.append(" where mbrSN = ").append(1).append(and).append("order by ").append(OrderColNam).append(" ").append(dir)+"").setFirstResult(start).setMaxResults(length);
+				.createQuery(from.append(" where mbrSN = ").append(mbrSN).append(and).append("order by ").append(OrderColNam).append(" ").append(dir)+"").setFirstResult(start).setMaxResults(length);
 		int total = (int) this.getSession().createNativeQuery("SELECT COUNT(*) FROM order1 where mbrSN = " + 1)
 				.getSingleResult();
 		ShopServices.setRecordsTotal(total);

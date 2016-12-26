@@ -123,8 +123,8 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="fb-login animated flipInX">
-								<a href="#" class="btn btn-facebook btn-block">Connect with
-									<strong>Facebook</strong>
+								<a onClick="fb_login()" class="btn btn-facebook btn-block">Connect
+									with <strong>Facebook</strong>
 								</a>
 							</div>
 						</div>
@@ -140,47 +140,142 @@
 
 			</div>
 		</div>
+	</div>
 
-		<!-- End Login box -->
-		<script src="<c:url value="/Tim/js_Tim/bootstrap.min.js"/>"></script>
-		<script src="<c:url value="/Tim/js_Tim/placeholder-shim.min.js"/>"></script>
-		<script src="<c:url value="/Tim/js_Tim/custom.js"/>"></script>
-		<script type="text/javascript">
-			function googleLogin() {
-				var googleURL = 'https://accounts.google.com/o/oauth2/auth?';
-				var client_id = 'client_id=451639246634-4m1oh7enkiqquk8hje60mfm9ve47onfs.apps.googleusercontent.com&'
-				var response_type = 'response_type=code&'
-				var redirect_uri = 'redirect_uri=http://localhost:8080/FlipYouth/googleLogin.controller&'
-				var scope = 'scope=email%20profile'
-				var url = googleURL + client_id + response_type + redirect_uri
-						+ scope;
-				window.open(url);
+	<!-- End Login box -->
+	<script src="<c:url value="/Tim/js_Tim/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/Tim/js_Tim/placeholder-shim.min.js"/>"></script>
+	<script src="<c:url value="/Tim/js_Tim/custom.js"/>"></script>
+	<script type="text/javascript">
+		//google登入+驗證碼
+		function googleLogin() {
+			var googleURL = 'https://accounts.google.com/o/oauth2/auth?';
+			var client_id = 'client_id=451639246634-4m1oh7enkiqquk8hje60mfm9ve47onfs.apps.googleusercontent.com&'
+			var response_type = 'response_type=code&'
+			var redirect_uri = 'redirect_uri=http://localhost:8080/FlipYouth/googleLogin.controller&'
+			var scope = 'scope=email%20profile'
+			var url = googleURL + client_id + response_type + redirect_uri
+					+ scope;
+			window.location.href = url;
+		}
+
+		$(function() {
+			$('#kaptchaImage').click(
+					function() {
+						$('#kaptchaImage').hide().attr(
+								'src',
+								'/FlipYouth/Image.controller?'
+										+ Math.floor(Math.random() * 100))
+								.fadeIn();
+						event.cancelBubble = true;
+					});
+		});
+
+		window.onbeforeunload = function() {
+			if (event.clientX > 360 && event.clientY < 0 || event.altKey) {
+				alert(parent.document.location);
 			}
+		};
 
-			$(function() {
-				$('#kaptchaImage').click(
-						function() {
-							$('#kaptchaImage').hide().attr(
-									'src',
-									'/FlipYouth/Image.controller?'
-											+ Math.floor(Math.random() * 100))
-									.fadeIn();
-							event.cancelBubble = true;
-						});
+		function changeCode() {
+			$('#kaptchaImage').hide().attr(
+					'src',
+					'/FlipYouth/Image.controller?'
+							+ Math.floor(Math.random() * 100)).fadeIn();
+			event.cancelBubble = true;
+		}
+	</script>
+	<script type="text/javascript">
+		//fb登入
+
+		function FBlogin(accessToken) {
+			$.ajax({
+				url : "/FlipYouth/FBLogin.controller",
+				type : "POST",
+				data : {
+					code : accessToken,
+				},
+				async : false,
+				xhrFields : {
+					withCredentials : false
+				},
+				success : function(res) {
+					window.location.href=res
+				},
+
+			})
+
+		}
+
+		function statusChangeCallback(response) {
+			console.log('statusChangeCallback');
+			console.log(response);
+			if (response.status === 'connected') {
+				// Logged into your app and Facebook.
+				FBlogin(response.authResponse.accessToken);
+			} else if (response.status === 'not_authorized') {
+				// The person is logged into Facebook, but not your app.
+				console
+						.log('The person is logged into Facebook, but not your app');
+			} else {
+				// The person is not logged into Facebook, so we're not sure if
+				// they are logged into this app or not.
+				console.log("The person is not logged into Facebook");
+			}
+		}
+		// This function is called when someone finishes with the Login
+		// Button.  See the onlogin handler attached to it in the sample
+		// code below.
+		function checkLoginState() {
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
 			});
-
-			window.onbeforeunload = function() {
-				if (event.clientX > 360 && event.clientY < 0 || event.altKey) {
-					alert(parent.document.location);
+		}
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : "138627046628205",
+				cookie : true, // enable cookies to allow the server to access 
+				// the session
+				xfbml : true, // parse social plugins on this page
+				version : 'v2.2' // use version 2.2
+			});
+		};
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, "script", "facebook-jssdk"));
+		// Here we run a very simple test of the Graph API after login is
+		// successful.  See statusChangeCallback() for when this call is made.
+		function loginNEMI(token) {
+			// 把 access_token 傳至後端再做資料拿取
+			console.log("Welcome!  Fetching your information.... ");
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/login", true);
+			xhr
+					.setRequestHeader("Content-type:application/json ;charset=utf-8");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					if (JSON.parse(xhr.responseText).status === "ok")
+						location.href = "/index";
+					else
+						alert("something wrong!");
 				}
 			};
-
-			function changeCode() {
-				$('#kaptchaImage').hide().attr(
-						'src',
-						'/FlipYouth/Image.controller?'
-								+ Math.floor(Math.random() * 100)).fadeIn();
-				event.cancelBubble = true;
-			}
-		</script>
+			xhr.send("token=" + token);
+		}
+		function fb_login() {
+			// FB 第三方登入，要求公開資料與email
+			FB.login(function(response) {
+				statusChangeCallback(response);
+				console.log(response);
+			}, {
+				scope : 'public_profile,email'
+			});
+		}
+	</script>
 </html>

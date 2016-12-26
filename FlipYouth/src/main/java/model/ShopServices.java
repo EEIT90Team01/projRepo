@@ -219,4 +219,12 @@ public class ShopServices {
 		return (MemberBean)shopDao.selectMbr(SN);
 	}
 
+	public Integer checkFBMember(String id) {
+		return shopDao.checkFBMember(id);
+	}
+
+	public model.MemberBean addFBmber(MemberBean fBmbr, String fBID) {
+		return shopDao.savegMbrAndFBID(fBmbr, fBID);
+	}
+
 }

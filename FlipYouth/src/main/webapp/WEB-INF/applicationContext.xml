@@ -41,6 +41,7 @@
 				<value>model.OrderBean</value>
 				<value>model.CommentBean</value>
 				<value>model.GoogleMemberBean</value>
+				<value>model.FBMemberBean</value>
 			</array>
 		</property>
 	</bean>
