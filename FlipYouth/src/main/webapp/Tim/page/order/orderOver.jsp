@@ -153,8 +153,6 @@ strong {
 
 <script type="text/javascript">
 	
-
-	
 </script>
 <body>
 	<font size="99">${loginOK.mbrName}購買成功</font>
@@ -168,10 +166,11 @@ strong {
 				<div class="row container">
 					<div class="col-xs-6">
 						<img style="float: right;" alt="Bootstrap Image Preview"
-							src='<c:url value="/Tim/image/icon/step01.png"/>'/>
+							src='<c:url value="/Tim/image/icon/step01.png"/>' />
 					</div>
 					<div class="col-xs-6">
-						<img alt="Bootstrap Image Preview" src="<c:url value="/Tim/image/icon/step02_c.png"/>" />
+						<img alt="Bootstrap Image Preview"
+							src="<c:url value="/Tim/image/icon/step02_c.png"/>" />
 					</div>
 				</div>
 				<div class="col-xs-12" style="height: 30px"></div>
@@ -197,8 +196,8 @@ strong {
 			</div>
 
 			<div class="col-xs-12">
-			
-			
+
+
 				<c:forEach items="${cars}" var="data">
 					<div class="col-xs-12" style="border-bottom: solid 1px #d9cdcd;">
 						<div class="col-xs-4" style="padding: 10px">
@@ -224,10 +223,10 @@ strong {
 							\$${data.value.PK.gameSN.price*data.value.quantity}</div>
 					</div>
 				</c:forEach>
-				
-				
-				
-				
+
+
+
+
 			</div>
 			<div class="col-md-12" style="height: 50px"></div>
 			<div class="col-xs-12"
@@ -291,8 +290,6 @@ strong {
 			<div class="col-md-12" style="height: 50px"></div>
 			<div class="col-md-12">
 				<h3 class="Ordertotal">訂單總計</h3>
-
-
 				<div class="row">
 					<div class="col-md-12">
 						<div class="col-md-11 title">購物總計</div>
@@ -300,7 +297,6 @@ strong {
 							\$${order.orderAmount-100}</div>
 					</div>
 				</div>
-
 				<div class="row">
 					<div class="col-md-12">
 						<div class="col-md-11 title">物流費</div>
@@ -315,9 +311,7 @@ strong {
 							\$${order.orderAmount}</div>
 					</div>
 				</div>
-
-				
-			</div>
+    		</div>
 		</div>
 		<!-- end setDiv -->
 	</div>
@@ -328,28 +322,28 @@ strong {
 			<a class="btn btn-danger" href='<c:url value="/Shop.controller"/>'>繼續購物</a>
 			<a style="cursor: pointer;" class="btn btn-danger" onclick="print()">列印訂單</a>
 		</div>
-		
+
 	</div>
 </body>
 
 <script type="text/javascript">
 	var img = 0;
 	var dataURL = 0;
-	var name=sessionStorage.getItem("name");
-	var tel=sessionStorage.getItem("tel");
-	var phone=sessionStorage.getItem("phone");
-	var email=sessionStorage.getItem("email");
-	var address=sessionStorage.getItem("address");
-	var orderAmount=sessionStorage.getItem("orderAmount");
-	var mbrSN=sessionStorage.getItem("mbrSN");
-	var link_name=sessionStorage.getItem("link_name");
+	var name = sessionStorage.getItem("name");
+	var tel = sessionStorage.getItem("tel");
+	var phone = sessionStorage.getItem("phone");
+	var email = sessionStorage.getItem("email");
+	var address = sessionStorage.getItem("address");
+	var orderAmount = sessionStorage.getItem("orderAmount");
+	var mbrSN = sessionStorage.getItem("mbrSN");
+	var link_name = sessionStorage.getItem("link_name");
 	var setDiv = document.getElementById("setDiv");
 	var width = setDiv.offsetWidth;
 	var height = setDiv.offsetHeight;
 	var canvas = document.createElement("canvas");
 	var scale = 1.2;
 	canvas.width = width * scale;
-	canvas.height = height * scale;
+	canvas.height = height * 2;
 	canvas.getContext("2d").scale(scale, scale);
 	var opts = {
 		scale : scale,
@@ -357,52 +351,58 @@ strong {
 		width : width,
 		height : height
 	};
-	
+
 	function toImage() {
 		html2canvas(setDiv, opts).then(
 				function(canvas) {
+
+					$('html, body').scrollTop(10000);
 					// 		     Canvas2Image.saveAsPNG(canvas, canvas.width, canvas.height);
-					img = Canvas2Image.convertToJPEG(canvas,canvas.width, canvas.height);
-					
+					img = Canvas2Image.convertToJPEG(canvas, canvas.width,
+							canvas.height);
+
 					dataURL = canvas.toDataURL(img);
-//						window.open(dataURL);
-//						console.log(img);
-//						console.log(dataURL);
-// 					sessionStorage.setItem("image", dataURL);
+					//						window.open(dataURL);
+					//						console.log(img);
+					//						console.log(dataURL);
+					// 					sessionStorage.setItem("image", dataURL);
 					// 				console.log(sessionStorage.getItem("image"));
-//						window.open(dataURL, '訂單',
-//								config = 'height=750,width=1000');
+					//						window.open(dataURL, '訂單',
+					//								config = 'height=750,width=1000');
 					ajax();
 				})
 	}
-	function ajax(){
+	function ajax() {
+		$('html, body').scrollTop(10000);
 		$.ajax({
-			type:"POST",
-			url:"/FlipYouth/writeOrder.controller",
-			data:{
-			url:link_name,
-			mbrSN:mbrSN,
-			orderAmount:orderAmount,
-			name:name,
-			tel:tel,     
-			phone:phone,
-			email:email,
-			address:address,
-			image:dataURL,
+			type : "POST",
+			url : "/FlipYouth/writeOrder.controller",
+			data : {
+				url : link_name,
+				mbrSN : mbrSN,
+				orderAmount : orderAmount,
+				name : name,
+				tel : tel,
+				phone : phone,
+				email : email,
+				address : address,
+				image : dataURL,
 			},
-			async: false,
-			xhrFields: {
-				withCredentials: false },
-			success:function(res) {
-			alert('訂單新增成功');
+			async : false,
+			xhrFields : {
+				withCredentials : false
+			},
+			success : function(res) {
+// 				window.location.href="/FlipYouth/Tim/page/order/orderOver.jsp";
+				alert('新增訂單成功');
 			},
 		})//end ajax
 	};
-	window.onload=function() {
+	window.onload = function() {
+		$('html, body').scrollTop(10000);
 		toImage();
 	};
-	
-	
+
 	function print() {
 		window.open(dataURL, '訂單', config = 'height=750,width=1000');
 	}

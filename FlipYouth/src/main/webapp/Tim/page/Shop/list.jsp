@@ -31,10 +31,10 @@
 
 
 <style type="text/css">
-/*  div {  */
-/*  	border-style: solid;  */
-/*  	border-width: 1px;  */
-/*  }  */
+/* div { */
+/* 	border-style: solid; */
+/* 	border-width: 1px; */
+/* } */
 p, h3 {
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -134,18 +134,18 @@ $.ajax({
 
 </script>
 <body id="body">
+	<span id="wdth"></span>
 	<c:set var="ShopUrl" scope="session"
 		value="'/FlipYouth/Shop.controller'" />
-	<div
-		style="background-image: url(<c:url value="/Tim/image/big/bg.png"/>); background-repeat: repeat;">
-		<div class="container-fluid">
+	<div>
+		<%-- 		style="background-image: url(<c:url value="/Tim/image/big/bg.png"/>); background-repeat: repeat;"> --%>
+		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-xs-12">
 					<div class="row">
-						<div class="col-md-3">
+						<div id="shop-left" class="col-md-3">
 							<div class="row">
-								<div class="col-md-2"
-									style="position: fixed; margin-left: 20px; width: 300px">
+								<div class="col-md-2" style="margin-left: 20px; width: 150px">
 									<div class="row ">
 										<div style="font-family: PMingLiU" class="col-md-12 ">
 											<font class="mart">¹CÀ¸°Ó«°</font>
@@ -227,10 +227,6 @@ $.ajax({
 
 
 						<div class="col-md-9">
-
-
-
-
 							<div class="container-fluid">
 								<!-- image -->
 								<div class="row">
@@ -316,6 +312,25 @@ $.ajax({
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		wdth=$(window).width();
+        if(wdth<975){
+        	$('#shop-left').hide();
+        }else{
+        	$('#shop-left').show();
+        }
+	    $(window).resize(function() {
+	        wdth=$(window).width();
+	        if(wdth<975){
+	        	$('#shop-left').hide();
+	        }else{
+	        	$('#shop-left').show();
+	        }
+	    });
+	});
+	</script>
+
 	<script type="text/javascript">
 // 	window.onload = refreshParent;
     function refreshParent() {

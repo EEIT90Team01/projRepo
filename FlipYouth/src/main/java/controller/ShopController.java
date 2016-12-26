@@ -515,8 +515,6 @@ public class ShopController {
 		return "home";
 	}
 
-	
-	
 	@RequestMapping(path = "/addFBMember.controller")
 	public String addFBMember(String gender, HttpSession session, String nickName, String phone, String address)
 			throws Exception {
@@ -533,5 +531,13 @@ public class ShopController {
 		MemberBean MemberBean = shopServices.addFBmber(FBmbr, FBID);
 		session.setAttribute("loginOK", MemberBean);
 		return "home";
+	}
+
+	@RequestMapping(path = "/delectOrder.controller")
+	@ResponseBody
+	public String delectOrder(String orderSN) {
+		System.out.println(orderSN);
+		shopServices.delectOrder(orderSN);
+		return "/FlipYouth/Tim/page/order/orderDetal.jsp";
 	}
 }

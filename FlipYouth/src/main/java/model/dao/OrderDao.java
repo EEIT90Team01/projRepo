@@ -62,10 +62,19 @@ public class OrderDao {
 		}
 		Query<OrderBean> order = this.getSession()
 				.createQuery(from.append(" where mbrSN = ").append(mbrSN).append(and).append("order by ").append(OrderColNam).append(" ").append(dir)+"").setFirstResult(start).setMaxResults(length);
-		int total = (int) this.getSession().createNativeQuery("SELECT COUNT(*) FROM order1 where mbrSN = " + 1)
+		int total = (int) this.getSession().createNativeQuery("SELECT COUNT(*) FROM order1 where mbrSN = " + mbrSN)
 				.getSingleResult();
 		ShopServices.setRecordsTotal(total);
 		list = order.getResultList();
 		return list;
+	}
+
+	public void update(OrderBean orderBean) {
+		 this.getSession().update(orderBean);
+	}
+
+	public OrderBean selectOrder(String orderSN) {
+		
+		return this.getSession().get(OrderBean.class, Integer.parseInt(orderSN));
 	}
 }

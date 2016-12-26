@@ -40,7 +40,6 @@ public class ShopDao {
 	}
 
 	@SuppressWarnings("unchecked")
-
 	public List<ShopBean> select(String id) {// 查詢多筆
 		Query query = this.getSession().createQuery(("from ShopBean " + id));
 		return (List<ShopBean>) query.getResultList();
