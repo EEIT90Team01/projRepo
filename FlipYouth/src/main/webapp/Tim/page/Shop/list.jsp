@@ -5,6 +5,7 @@
 <%@page import="java.util.*"%>
 <%@page import="javax.servlet.*"%>
 <%@page import="javax.servlet.http.HttpSession"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,6 +14,13 @@
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
 <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/producHome.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/bootstrap-select.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/nouislider.css"/>">
+<link rel="stylesheet" href="<c:url value="/Tim/css_Tim/checkBox.css"/>">
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -28,7 +36,9 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-
+<script src="<c:url value="/Tim/js_Tim/bootstrap-select.js"/>"></script>
+<script src="<c:url value="/Tim/js_Tim/nouislider.js"/>"></script>
+<script src="<c:url value="/Tim/js_Tim/range.js"/>"></script>
 
 <style type="text/css">
 /* div { */
@@ -115,219 +125,363 @@ a {
 	font-weight: 600;
 	font-family: Microsoft JhengHei;
 }
+
+.overfont {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.title {
+	border-bottom: 3px solid #9fa8da;
+}
+
+.select {
+	border-color: #1036d0;
+	outline: 0 !important;
+	background-color: #eee;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.noUi-horizontal {
+	height: 13px;
+}
+
+.list-group-item {
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+	margin-bottom: -1px;
+	background-color: #fff;
+}
 </style>
 </head>
 <script type="text/javascript">
+	
 <%if (session.getAttribute("shopBean") == null) {%>
-$.ajax({	
-	url: "/FlipYouth/Shop.controller?gameClass=1",
-	type:"POST",
-	async: false,
-	xhrFields: {
-		withCredentials: false },
-	success:function(res) {
-		window.location.href="/FlipYouth/Shop.controller"
-	},
-})
-
+	$.ajax({
+		url : "/FlipYouth/Shop.controller?gameClass=1",
+		type : "POST",
+		async : false,
+		xhrFields : {
+			withCredentials : false
+		},
+		success : function(res) {
+			window.location.href = "/FlipYouth/Shop.controller"
+		},
+	})
 <%}%>
-
+	
 </script>
 <body id="body">
 	<span id="wdth"></span>
 	<c:set var="ShopUrl" scope="session"
 		value="'/FlipYouth/Shop.controller'" />
-	<div>
-		<%-- 		style="background-image: url(<c:url value="/Tim/image/big/bg.png"/>); background-repeat: repeat;"> --%>
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="row">
-						<div id="shop-left" class="col-md-3">
-							<div class="row">
-								<div class="col-md-2" style="margin-left: 20px; width: 150px">
-									<div class="row ">
-										<div style="font-family: PMingLiU" class="col-md-12 ">
-											<font class="mart">遊戲商城</font>
+	<!-- 	<div> -->
+	<%-- 		style="background-image: url(<c:url value="/Tim/image/big/bg.png"/>); background-repeat: repeat;"> --%>
+
+
+
+	<div class="container">
+		<div class="col-xs-12" style="height: 300px"></div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="col-md-3">
+					<!-- =============================左側查詢 以下 =============================-->
+
+					<div class="filter-sidebar">
+						<div class="title">
+							<span><font>啟用的篩選</font></span>
+						</div>
+						<ul>
+							<!-- 								<li><font>分類：T卹 </font><a href="" -->
+							<!-- 									class="remove-filter" data-toggle="tooltip" title="" -->
+							<!-- 									data-original-title="Remove"><i class="fa fa-remove"></i></a></li> -->
+							<!-- 								<li><font>庫存量：有貨 </font><a href="" -->
+							<!-- 									class="remove-filter" data-toggle="tooltip" title="" -->
+							<!-- 									data-original-title="Remove"><i class="fa fa-remove"></i></a></li> -->
+							<!-- 								<li><font>品牌：品牌名稱1 </font><a href="" -->
+							<!-- 									class="remove-filter" data-toggle="tooltip" title="" -->
+							<!-- 									data-original-title="Remove"><i class="fa fa-remove"></i></a></li> -->
+						</ul>
+					</div>
+
+					<!-- ======================================================= -->
+					<div class="filter-sidebar">
+						<div class="title">
+							<span><font>語言</font></span>
+						</div>
+						<div class="checkbox checkbox-primary">
+							<label><input class="checkbox" type="checkbox" value="繁中"
+								checked="checked"><span><font>繁中</font></span></label>
+						</div>
+						<div class="checkbox checkbox-primary">
+							<label><input class="checkbox" value="簡中" type="checkbox"><span><font>簡中</font></span></label>
+						</div>
+						<div class="checkbox checkbox-primary">
+							<label><input class="checkbox" value="英文" type="checkbox"><span><font>英文</font></span></label>
+						</div>
+					</div>
+
+
+
+
+
+
+
+					<!-- ==========================================================  -->
+					<div class="filter-sidebar">
+						<div class="title">
+							<span><font>遊戲類型</font></span>
+						</div>
+
+						<select id="shopClass"
+							class="btn-group bootstrap-select selectpicker select">
+							<option value="0"><font>全部</font></option>
+							<option value="1"><font>自有商品</font></option>
+							<option value="2"><font>派對遊戲</font></option>
+							<option value="4"><font>親子桌遊</font></option>
+							<option value="5"><font>輕度策略</font></option>
+							<option value="6"><font>重度策略</font></option>
+							<option value="7"><font>台灣原創</font></option>
+							<option value="8"><font>麥卡貝推</font></option>
+							<option value="9"><font>卡套</font></option>
+						</select>
+
+
+					</div>
+
+
+
+
+					<div class="filter-sidebar">
+						<div class="title">
+							<span><font>遊戲主題</font></span>
+						</div>
+
+						<select id="theme" multiple title="可複選" data-live-search="true"
+							class="btn-group bootstrap-select selectpicker select">
+							<option value="0"><font>全部</font></option>
+							<option value="1"><font>動物</font></option>
+							<option value="2"><font>抽象</font></option>
+							<option value="4"><font>驚悚</font></option>
+							<option value="5"><font>諜報</font></option>
+							<option value="6"><font>海盜</font></option>
+							<option value="7"><font>尋寶</font></option>
+							<option value="8"><font>抽象</font></option>
+							<option value="9"><font>中世紀</font></option>
+							<option value="10"><font>可愛</font></option>
+							<option value="11"><font>積木</font></option>
+							<option value="12"><font>卡套商品</font></option>
+							<option value="13"><font>黑幫</font></option>
+							<option value="14"><font>冒險</font></option>
+							<option value="15"><font>股票</font></option>
+						</select>
+
+
+					</div>
+
+
+
+
+
+
+
+
+
+
+					<div class="filter-sidebar">
+						<div class="title">
+							<span><font><font>價格範圍</font></font></span>
+						</div>
+						<div id="range-value">
+							<font><font>範圍：</font></font><span id="min-price"><font>
+									<font></font>
+							</font> </span><font><font> - </font></font><span id="max-price"><span>
+									$</span><font><font></font></font></span>
+						</div>
+
+						<input type="hidden" name="min-price" value=""></input><input
+							type="hidden" name="max-price" value=""></input>
+						<div class="price-range">
+							<div id="price" class="noUi-target noUi-ltr noUi-horizontal">
+							</div>
+						</div>
+					</div>
+
+
+
+
+					<div class="filter-sidebar">
+						<div class="title">
+							<span><font><font>確認送出</font></font></span>
+						</div>
+						<button onclick="sendSelect()">送出查詢</button>
+					</div>
+
+					<script type="text/javascript">
+						var checkbox = [];//複選框
+						var GameClass = $('#shopClass').find("option:selected")
+								.text();
+						var theme = $('#theme').find("option:selected").text();
+						function sendSelect() {
+							checkbox = [];
+							var check = $('input:checked');
+
+							for (i = 0; i < check.length; i++) {
+
+								if (check[i].checked == true) {
+									checkbox.push(check[i].value)
+								}
+
+							}
+					
+							alert();
+							alert(document.getElementById('price').noUiSlider
+									.get());
+
+							alert(checkbox);
+							alert(GameClass);
+						}
+					</script>
+
+				</div>
+				<!-- end  col-md-3 -->
+				<!-- ===============================左側查詢 以上==========================================-->
+				<div class="col-md-9">
+					<div class="title">
+						<span>商品類型</span>
+					</div>
+					<c:forEach items="${shopBean.shopBean}" var="data">
+						<div class="col-sm-6 col-md-4">
+							<div class="img-responsive">
+								<div class="box-product-outer"
+									style="height: 400px; padding: 10px">
+									<div class="box-product">
+										<div class="img-wrapper">
+											<a href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>">
+												<img class="img-rounded" style="height: 200px"
+												src="<c:url value="/Tim${data.bigImage}"/>">
+											</a>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/Tim/image/icon/1.png" />"> <a
-												href="<c:url value="/Shop.controller?gameClass=1"/>">全部</a>
+										<h6>
+											<a style=""
+												href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>">${data.gameName}</a>
+										</h6>
+										<p style="height: 60px">${data.introduction}</p>
+										<div class="price">
+											<span class="btm-30px"
+												style="position: absolute; bottom: 50px; margin: 0px auto;">NT\$${data.price}元</span>
 										</div>
+										<!--               <div class="rating"> -->
+										<!--                 <a href="#">查看詳情</a> -->
+										<!--               </div> -->
+										<!--                <div class="rating"> -->
+										<!--                 <a href="#">放入購物車</a> -->
+										<!--               </div> -->
 									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/Tim/image/icon/2.png" />"> <a
-												href="<c:url value="/Shop.controller?gameClass=2"/>">自有商品</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/Tim/image/icon/3.png" />"> <a
-												href="<c:url value="/Shop.controller?gameClass=3"/>">派對遊戲</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/Tim/image/icon/4.png" />"> <a
-												href="<c:url value="/Shop.controller?gameClass=4"/>">親子桌遊</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/Tim/image/icon/5.png" />"> <a
-												href="<c:url value="/Shop.controller?gameClass=5"/>">輕度策略</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/Tim/image/icon/6.png" />"> <a
-												href="<c:url value="/Shop.controller?gameClass=6"/>">重度策略</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/Tim/image/icon/7.png" />"> <a
-												href="<c:url value="/Shop.controller?gameClass=7"/>">台灣原創</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/Tim/image/icon/8.png" />"> <a
-												href="<c:url value="/Shop.controller?gameClass=8"/>">麥卡貝推</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img src="<c:url value="/Tim/image/icon/9.png" />"> <a
-												href="<c:url value="/Shop.controller?gameClass=9"/>">卡套</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 border_bottom">
-											<img style="height: 40px; width: 40px"
-												src="<c:url value="/Tim/image/icon/buy.jpg" />"><span
-												id="cars">購物車</span><br> <span id="span"><font
-												style="color: red">目前金額${ALL}<br>目前件數${count}
-											</font></span> </a><br>
-											<!-- 											 -->
-											<a style="color: #ffffff" name="checkOut.jsp"
-												href="<c:url value="/order.controller?goOrder=1"/>"
-												class="btn btn-primary fluid login" role="button">前往結帳</a> <a
-												onclick="clearCar()" style="color: #ffffff"
-												class="btn btn-primary fluid" role="button">清除購物車</a>
-										</div>
-									</div>
+									<!-- 									</div> -->
 								</div>
 							</div>
 						</div>
-
-
-
-						<div class="col-md-9">
-							<c:forEach items="${shopBean.shopBean}" var="data">
-								<div class="col-sm-6 col-md-4">
-									<div class="thumbnail ">
-										<a href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"><img
-											class="img-rounded" style="height: 200px"
-											src="<c:url value="/Tim${data.smallImage}"/>"></a>
-										<div style="height: 200px;" class="caption">
-											<h3 style="text-overflow: ellipsis;">
-												<a style="line-height: 1.5;"
-													href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"><nobr>${data.gameName}</nobr></a>
-											</h3>
-											<p style="height: 60px">${data.introduction}</p>
-											<h4 style="float: right; position: absolute; bottom: 70px;">
-												價格: <font style="color: red">NT\$${data.price}元</font>
-											</h4>
-											<p
-												style="position: absolute; bottom: 30px; margin: 0px auto;">
-												<a style="color: #ffffff" class="btn btn-primary fluid"
-													role="button" id="ShoppingCar"
-													onclick="car(${data.gameSN},${data.price},${ShopUrl})">放入購物車</a>
-												<a
-													href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>"
-													class="btn btn-default fluid" role="button">查看詳情 </a>
-											</p>
-										</div>
-
-
-									</div>
-								</div>
-							</c:forEach>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
-	$(document).ready(function(){
-		wdth=$(window).width();
-        if(wdth<975){
-        	$('#shop-left').hide();
-        }else{
-        	$('#shop-left').show();
-        }
-	    $(window).resize(function() {
-	        wdth=$(window).width();
-	        if(wdth<975){
-	        	$('#shop-left').hide();
-	        }else{
-	        	$('#shop-left').show();
-	        }
-	    });
-	});
+		$(document).ready(function() {
+			wdth = $(window).width();
+			if (wdth < 975) {
+				$('#shop-left').hide();
+			} else {
+				$('#shop-left').show();
+			}
+			$(window).resize(function() {
+				wdth = $(window).width();
+				if (wdth < 975) {
+					$('#shop-left').hide();
+				} else {
+					$('#shop-left').show();
+				}
+			});
+		});
 	</script>
 
 	<script type="text/javascript">
-// 	window.onload = refreshParent;
-    function refreshParent() {
-    	$.ajax({	
-			url: window.location.href,
-			type:"POST",
-			async: false,
-			xhrFields: {
-				withCredentials: false },
-			success:function(res) {
-				$('body').html(res);
-			},
-		})
-    	
-    }
-    function clearCar(){
-    			$.ajax({	
-    				url: "Shop.controller",
-    				type:"POST",
-    				data:{clearCar:1},
-    				async: false,
-    				xhrFields: {
-    					withCredentials: false },
-    				success:function(res) {
-    					window.location=window.location.href;
-    				},
-    			})
-    		}
-    function car(gameSN,price,href){
-    	var b = price;
-		var a= gameSN;
-		$.ajax({	
-			url: href,
-			type:"POST",
-			data:{
-				name:gameSN,
-				price:price
-			},
-			async: false,
-			xhrFields: {
-				withCredentials: false },
-			success:function(res) {
-				$('#span').html(res);
-			},
-		})
-	}
+		// 	window.onload = refreshParent;
+		function refreshParent() {
+			$.ajax({
+				url : window.location.href,
+				type : "POST",
+				async : false,
+				xhrFields : {
+					withCredentials : false
+				},
+				success : function(res) {
+					$('body').html(res);
+				},
+			})
+
+		}
+		function clearCar() {
+			$.ajax({
+				url : "Shop.controller",
+				type : "POST",
+				data : {
+					clearCar : 1
+				},
+				async : false,
+				xhrFields : {
+					withCredentials : false
+				},
+				success : function(res) {
+					window.location = window.location.href;
+				},
+			})
+		}
+		function car(gameSN, price, href) {
+			var b = price;
+			var a = gameSN;
+			$.ajax({
+				url : href,
+				type : "POST",
+				data : {
+					name : gameSN,
+					price : price
+				},
+				async : false,
+				xhrFields : {
+					withCredentials : false
+				},
+				success : function(res) {
+					$('#span').html(res);
+				},
+			})
+		}
+
+		$(document).ready(function() {
+			var price = document.getElementById('price');
+			noUiSlider.create(price, {
+				start : [ 300, 2000 ],
+				connect : true,
+				range : {
+					'min' : 0,
+					'max' : 3000
+				}
+			});
+			price.noUiSlider.on('update', function(values, handle) {
+				var value = values[handle];
+				if (handle) {
+					$('#max-price').text(Math.round(value));
+					$('input[name="max-price"]').text(Math.round(value));
+				} else {
+					$('#min-price').text(Math.round(value));
+					$('input[name="min-price"]').text(Math.round(value));
+				}
+			});
+		});
 	</script>
 </body>
 </html>
