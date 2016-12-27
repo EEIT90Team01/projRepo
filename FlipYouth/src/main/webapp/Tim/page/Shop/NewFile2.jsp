@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="java.util.*"%>
-<%@page import="javax.servlet.*"%>
-<%@page import="javax.servlet.http.HttpSession"%>
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商城系統</title>
+<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -20,7 +17,6 @@
 	href="<c:url value="/Tim/css_Tim/bootstrap-select.css"/>">
 <link rel="stylesheet"
 	href="<c:url value="/Tim/css_Tim/nouislider.css"/>">
-<link rel="stylesheet" href="<c:url value="/Tim/css_Tim/checkBox.css"/>">
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -156,24 +152,15 @@ a {
 	background-color: #fff;
 }
 </style>
+
+
+
+
+
+
+
+
 </head>
-<script type="text/javascript">
-	
-<%if (session.getAttribute("shopBean") == null) {%>
-	$.ajax({
-		url : "/FlipYouth/Shop.controller?gameClass=1",
-		type : "POST",
-		async : false,
-		xhrFields : {
-			withCredentials : false
-		},
-		success : function(res) {
-			window.location.href = "/FlipYouth/Shop.controller"
-		},
-	})
-<%}%>
-	
-</script>
 <body id="body">
 	<span id="wdth"></span>
 	<c:set var="ShopUrl" scope="session"
@@ -410,21 +397,25 @@ a {
 		function ajax(checkbox, GameClass, orderBy, theme, mix, max) {
 			console.log(checkbox, GameClass, orderBy, theme, mix, max);
 			$.ajax({
-				url : "Game.controller",
 				type : "POST",
-				dara : {
-					// 									language:checkbox,
-					gameclass : "1",
-				// 									theme:theme,
-				// 									max:max,
-				// 									mix:mix,
-				// 									orderBy:orderBy
+				url : "/FlipYouth/Game.controller",
+				data : {
+					GameClass:GameClass,
+					orderBy:orderBy,
+					theme:theme,
+					mix:mix,
+					max:max
+					
 				},
 				async : false,
-				success : function(res) {
-					alert('success');
+				xhrFields : {
+					withCredentials : false
 				},
-			})
+				success : function(res) {
+//	 				window.location.href="/FlipYouth/Tim/page/order/orderOver.jsp";
+					alert('新增訂單成功');
+				},
+			})//end ajax
 
 		}
 	</script>

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -122,10 +123,19 @@ public class ShopController {
 		return "orderOver";
 	}
 
+	@RequestMapping(path = "/Game.controller")
+	public String Game(String GameClass,String orderBy,String theme,String mix,String max){
+System.out.println(GameClass);
+		 System.out.println("\n"+GameClass+"\n"+orderBy+"\n"+theme+"\n"+mix+"\n"+max+"\n");
+		return null;
+
+	}
+
 	// shop controller
 	@RequestMapping(path = "/Shop.controller")
 	public String Shop(Model model, HttpServletResponse response, HttpSession session, String gameClass, String ID,
 			String user, String pass, String name, Integer price, String clearCar) throws IOException {
+
 		if (session.isNew() || count == 0 || clearCar != null) {
 			// 如果是第一次進入的人 清空購物車
 			session.setAttribute("ALL", 0);
