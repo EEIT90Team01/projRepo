@@ -16,8 +16,6 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/v/bs/dt-1.10.13/cr-1.3.2/se-1.2.0/datatables.css" />
-
-
 <style>
 /* div{
 	border:1px solid;
@@ -28,8 +26,8 @@ body {
 }
 </style>
 </head>
-<body>
 
+<body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -44,7 +42,6 @@ body {
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav nav-tabs" role="tablist">
-
 					<li role="presentation" class="active"><a href="#home"
 						aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
 					<c:forEach var="tab" items="${access}">
@@ -86,7 +83,6 @@ body {
 				</tfoot>
 			</table>
 		</div>
-
 	</div>
 	<!-- js -->
 	<script
@@ -158,9 +154,7 @@ body {
 					}
 				}
 			});
-
 		};
 	</script>
 </body>
 </html>
-
