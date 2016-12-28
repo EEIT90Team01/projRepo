@@ -30,7 +30,6 @@ public class DataTablesController {
 	public String getDataTables(@RequestParam(name = "draw") String pDraw,
 			@RequestParam(name = "start") String pStart, @RequestParam(name = "length") String pLength,
 			@RequestParam(name = "search[value]") String search, HttpServletRequest request) {
-		System.out.println(request.getMethod());
 		String jsonResult = "";
 		String[] cols = columnService.getCols();
 		String table = columnService.getTableName();
@@ -80,4 +79,17 @@ public class DataTablesController {
 		}
 		return result;
 	}
+	
+	@RequestMapping(method= {RequestMethod.POST}, path = { "/admin/delete.controller" }, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String deleteSelected(@RequestParam(value = "toDelete[]") String[] toDelete) {
+		String table = columnService.getTableName();
+		String result = "";
+		if (table != null) {
+			result = dataTablesService.ajaxDeleteHandler(table, toDelete);
+		}
+		return result;
+	}
+	
+	
 }

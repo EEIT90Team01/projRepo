@@ -46,18 +46,8 @@ public class DataTablesService {
 	// }
 	// return result;
 	// }
-	//
-	// @Transactional
-	// public boolean delete(Object bean) {
-	// boolean result = false;
-	//// if (bean != null) {
-	////
-	//// result = authorityDao.delete(bean.getAuthId());
-	////
-	//// }
-	// return result;
-	// }
-
+	
+	
 	
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
 			int draw, int start, int length) {
@@ -117,14 +107,18 @@ public class DataTablesService {
 		case "Authority":
 			List<AuthorityBean> auths = authorityDao.ajaxQuery(hql.toString(), start, length);
 			for (AuthorityBean auth:auths){
-				JSONObject adminJSON = new JSONObject(auth);
-				jsonArray.put(adminJSON);
+				JSONObject authJSON = new JSONObject();
+				authJSON.put("DT_RowId","r_"+auth.getAuthId());
+				authJSON.put("authId",auth.getAuthId());
+				authJSON.put("authName",auth.getAuthName());
+				jsonArray.put(authJSON);
 			}
 			return jsonArray;
 		case "Administrator":
 			List<AdministratorBean> admins = administratorDao.ajaxQuery(hql.toString(), start, length);
 			for (AdministratorBean admin:admins){
 				JSONObject adminJSON = new JSONObject();
+				adminJSON.put("DT_RowId","r_"+admin.getAdmId());//+row id 
 				adminJSON.put("admId", admin.getAdmId());
 				try {
 					adminJSON.put("admPassword", new String(admin.getAdmPassword(),"UTF-8"));
@@ -140,6 +134,32 @@ public class DataTablesService {
 			return jsonArray;
 		default:
 			return jsonArray;
+		}	
+	}
+	
+	@Transactional
+	public String ajaxDeleteHandler(String table, String[] toDelete) {
+		String result = "";
+		int count = -1;
+		
+		switch (table) {
+		case "Authority":
+			count = authorityDao.ajaxDelete(toDelete);
+			break;
+		case "Administrator":
+			count = administratorDao.ajaxDelete(toDelete);
+			break;
+		default:
+			break;
 		}
+		
+		if (count==-1){
+			result = "刪除錯誤，請檢查表格關聯性。";
+		} else {
+			result = "成功刪除 "+count+" 筆資料";
+		}
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("text",result);
+		return jsonObj.toString();
 	}
 }

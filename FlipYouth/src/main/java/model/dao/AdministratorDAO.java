@@ -45,13 +45,19 @@ public class AdministratorDAO {
 		getSession().saveOrUpdate(bean);
 		return bean;
 	}
-
-	public boolean delete(String admId) {
-	
-		AdministratorBean bean = new AdministratorBean();
-		bean.setAdmId(admId);	
-		getSession().delete(bean);	
-		return true;
+	public int ajaxDelete(String[] toDelete) {
+		int result = 0;
+		AdministratorBean bean;
+		for (String pk : toDelete) {
+			if ("admin".equals(pk)){
+				continue;
+			}
+			bean = new AdministratorBean();
+			bean.setAdmId(pk);
+			getSession().delete(bean);
+			result++;
+		}
+		return result;
 	}
 	
 	public List<AdministratorBean> ajaxQuery(String hql, int start, int length) {
