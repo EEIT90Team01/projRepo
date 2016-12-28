@@ -472,7 +472,7 @@ a {
 					withCredentials : false
 				},
 				success : function(res) {
-					$('#span').html(res);
+					
 				},
 			})
 		}
