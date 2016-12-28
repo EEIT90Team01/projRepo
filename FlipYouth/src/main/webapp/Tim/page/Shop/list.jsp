@@ -37,10 +37,10 @@
 <script src="<c:url value="/Tim/js_Tim/range.js"/>"></script>
 
 <style type="text/css">
-div {
-	border-style: solid;
-	border-width: 1px;
-}
+/* div { */
+/* 	border-style: solid; */
+/* 	border-width: 1px; */
+/* } */
 
 p, h3 {
 	text-overflow: ellipsis;
@@ -177,6 +177,39 @@ a {
 
 	<div class="container">
 		<div class="col-xs-12" style="height: 300px"></div>
+		<!-- 選單  以下 -->
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<ul class="nav nav-pills">
+						<li class="active"><a href="#">商城首頁</a></li>
+						<li><a href="">商品列表</a></li>
+						<li><a href="">購物車</a></li>
+						<li><a onclick="" href="<c:url value="/Tim/page/order/checkOut.jsp"/>">確認訂單</a></li>
+						<li><a href="">訂單明細</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 選單  以上 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="col-md-3">
@@ -315,7 +348,7 @@ a {
 						</div>
 						<button onclick="sendSelect()">送出查詢</button>
 					</div>
-
+					<span id="span"></span>
 
 
 				</div>
@@ -353,15 +386,6 @@ a {
 							</div>
 						</div>
 					</div>
-
-
-
-
-
-
-
-
-
 					<!--===========================================  -->
 					<div id="forEach"></div>
 					<div class="row">
@@ -432,12 +456,11 @@ a {
 				},
 			})
 		}
-		function car(gameSN, price, href) {
-			alert(gameSN);
-			var b = price;
-			var a = gameSN;
+		function car(gameSN, price) {
+			// 			var b = price;
+			// 			var a = gameSN;
 			$.ajax({
-				url : href,
+				url : "/FlipYouth/Shop.controller",
 				type : "POST",
 				data : {
 					name : gameSN,
@@ -624,13 +647,17 @@ a {
 												var i = '<div class="price"> <span class="btm-30px" style="position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
 														+ data.price
 														+ '元</span> </div>'
-												var j ='<div class="rating"><a href=""><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('+data.gameSN+')"><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/car.png"/>"></a> </div>'
+												var j = '<div class="rating"><a href=""><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
+														+ data.gameSN
+														+ ','
+														+ data.price
+														+ ')"><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/car.png"/>"></a> </div>'
 
 												var div = "</div></div></div></div></div>"
 
 												$('#forEach').append(
 														a + b + c + d + e + f
-																+ g + h + i +j
+																+ g + h + i + j
 																+ div);
 											})
 
