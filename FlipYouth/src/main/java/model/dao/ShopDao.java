@@ -2,7 +2,7 @@ package model.dao;
 
 import java.util.List;
 
-import javax.persistence.Query;
+import org.hibernate.query.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,8 +27,8 @@ public class ShopDao {
 
 	public int checkGMember(String GMemberSN) {
 		int result = 0;
-		GoogleMemberBean GMember = (GoogleMemberBean)this.getSession().get(GoogleMemberBean.class, GMemberSN);
-		if (GMember != null){
+		GoogleMemberBean GMember = (GoogleMemberBean) this.getSession().get(GoogleMemberBean.class, GMemberSN);
+		if (GMember != null) {
 			result = GMember.getMbrSN();
 		}
 		return result;
@@ -46,26 +46,40 @@ public class ShopDao {
 	}
 
 	public MemberBean savegMbrAndGID(MemberBean gmbr, String GID) {
-		Integer mbrSN= (Integer) this.getSession().save(gmbr);
-		this.getSession().save(new GoogleMemberBean(GID,mbrSN));
-		return (MemberBean)this.getSession().get(MemberBean.class, mbrSN);
+		Integer mbrSN = (Integer) this.getSession().save(gmbr);
+		this.getSession().save(new GoogleMemberBean(GID, mbrSN));
+		return (MemberBean) this.getSession().get(MemberBean.class, mbrSN);
 	}
-	public MemberBean selectMbr(Integer mbrSN){
-		return (MemberBean)this.getSession().get(MemberBean.class, mbrSN);
+
+	public MemberBean selectMbr(Integer mbrSN) {
+		return (MemberBean) this.getSession().get(MemberBean.class, mbrSN);
 	}
 
 	public Integer checkFBMember(String id) {
 		int result = 0;
-		FBMemberBean FBMember = (FBMemberBean)this.getSession().get(FBMemberBean.class, id);
-		if (FBMember != null){
+		FBMemberBean FBMember = (FBMemberBean) this.getSession().get(FBMemberBean.class, id);
+		if (FBMember != null) {
 			result = FBMember.getMbrSN();
 		}
 		return result;
 	}
 
 	public MemberBean savegMbrAndFBID(MemberBean fBmbr, String fBID) {
-		Integer mbrSN= (Integer) this.getSession().save(fBmbr);
-		this.getSession().save(new FBMemberBean(mbrSN,fBID));
-		return (MemberBean)this.getSession().get(MemberBean.class, mbrSN);
+		Integer mbrSN = (Integer) this.getSession().save(fBmbr);
+		this.getSession().save(new FBMemberBean(mbrSN, fBID));
+		return (MemberBean) this.getSession().get(MemberBean.class, mbrSN);
+	}
+
+	public List<ShopBean> getGameData(String Query,int maxGameSN,int mixGameSN) {
+		Query<ShopBean> gameList = this.getSession().createQuery(Query).setFirstResult(mixGameSN-1).setMaxResults(maxGameSN);
+		
+		return gameList.getResultList();
+	}
+
+	public int getGameCount(String query) {
+		System.out.println("select count(*) "+query);
+		int total =(int)this.getSession().createNativeQuery("select count(*) "+query).getSingleResult();
+		System.out.println("total = "+total);
+		return total;
 	}
 }
