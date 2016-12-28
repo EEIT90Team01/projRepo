@@ -50,6 +50,84 @@ public class ShopServices {
 	@Resource(name = "OrderDao")
 	OrderDao orderDao;
 
+	public JSONObject getGameData(String search, String gameClass, String orderBy, String theme, String mix, String max,
+			String[] checkbox, Integer maxGameSN, Integer mixGameSN) {
+
+		StringBuffer from = new StringBuffer("from ShopBean ");
+		StringBuffer from1 = new StringBuffer("from Game ");
+		String GameClass = "where Gameclass like '%" + gameClass + "%'";
+		String[] Theme = theme.split("\\s");
+		StringBuffer STheme = new StringBuffer("");
+		String orderby = "";
+		StringBuffer language = new StringBuffer("");
+		StringBuffer priceRange = new StringBuffer(" and Price BETWEEN ");
+		if (search != null && search.trim().length() != 0) {
+			search = " and gamename like'%" + search + "%' ";
+		} else {
+			search = "";
+		}
+		priceRange.append(mix).append(" and ").append(max);
+
+		if (!"".equals(orderBy) || orderBy != null) {
+			orderby = " order by Price " + orderBy;
+		}
+
+		if (!"".equals(theme.trim())) {
+			STheme = new StringBuffer("and (");
+			for (int i = 0; i < Theme.length; i++) {
+				STheme.append("StrGameTheme").append(" like '%").append(Theme[i]).append("%' ");
+				if (i != Theme.length - 1) {
+					STheme.append("or ");
+				} else {
+					STheme.append(")");
+				}
+
+			}
+		}
+		if (STheme.indexOf("全部") != -1) {
+			STheme = new StringBuffer();
+		}
+		if (checkbox.length != 0) {
+			language = new StringBuffer(" and (");
+			for (int i = 0; i < checkbox.length; i++) {
+				language.append(" StrLanguage = ").append("'").append(checkbox[i]).append("'");
+				if (i != checkbox.length - 1) {
+					language.append(" or ");
+				} else {
+					language.append(")");
+				}
+			}
+		}
+
+		String Query = from.append(GameClass).append(STheme).append(language).append(priceRange).append(search)
+				.append(orderby).toString();
+		String Query1 = from1.append(GameClass).append(STheme).append(language).append(priceRange).append(search)
+				.toString();
+
+		List<ShopBean> gameList = shopDao.getGameData(Query, maxGameSN, mixGameSN);
+		JSONObject JSONOB = new JSONObject();
+		List<JSONObject> jsons = new ArrayList<JSONObject>();
+		for (Object a : gameList) {
+			JSONObject b = new JSONObject(a);
+			b.remove("div1");
+			jsons.add(b);
+		}
+		Map<String, Object> jsonAll = new HashMap<String, Object>();
+		int total = shopDao.getGameCount(Query1);
+		int page = total / maxGameSN;
+		if (page + "".indexOf(".") != -1) {
+			page += 1;
+		}
+		if (page == 0) {
+			page++;
+		}
+		jsonAll.put("data", jsons);
+		jsonAll.put("total", total);
+		jsonAll.put("page", page);
+		// System.out.println(jsonAll);
+		return new JSONObject(jsonAll);
+	}
+
 	public OrderBean newOrderAndDetail(OrderBean orderBean, String mbrSN, String orderAmount,
 			Map<String, OrderDetailBean> car) throws ParseException {
 

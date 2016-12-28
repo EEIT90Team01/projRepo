@@ -59,10 +59,7 @@ public class ShopController {
 	ShopServices shopServices;
 	@Resource(name = "memberDao")
 	MemberDAO memberDao;
-	// @RequestMapping(path = "/DataTable.controller", produces =
-	// "application/json; charset=utf-8")
-	// public String delectOrder(HttpSession session) {
-	// }
+	
 
 	@RequestMapping(path = "/DataTable.controller", produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -122,12 +119,25 @@ public class ShopController {
 
 		return "orderOver";
 	}
-
-	@RequestMapping(path = "/Game.controller")
-	public String Game(String GameClass,String orderBy,String theme,String mix,String max){
-System.out.println(GameClass);
-		 System.out.println("\n"+GameClass+"\n"+orderBy+"\n"+theme+"\n"+mix+"\n"+max+"\n");
-		return null;
+	JSONObject  JSON;
+	@RequestMapping(path = "/Game.controller" ,produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String Game(String search,String selectpage,String nowpage,@RequestParam(value = "checkbox[]")String[] checkbox,HttpServletRequest req,String GameClass, String orderBy, String theme, String mix, String max) {
+		Integer maxGameSN = Integer.parseInt(selectpage)*Integer.parseInt(nowpage); 
+		Integer mixGameSN = maxGameSN-(Integer.parseInt(selectpage)-1);
+//		System.out.println(" maxGameSN = "+maxGameSN);
+//		System.out.println(" mixGameSN = "+mixGameSN);
+		System.out.println("search"+search);
+		mix=mix.substring(0,mix.lastIndexOf("."));
+		max=max.substring(0,max.lastIndexOf("."));
+		JSON=null;
+		for(String a:checkbox){
+			System.out.println(a);
+		}
+		System.out.println(GameClass + "\n" + orderBy + "\n" + theme + "\n" + mix + "\n" + max + "\n");
+		
+		JSONObject  JSON= shopServices.getGameData(search,GameClass,orderBy,theme,mix,max,checkbox,Integer.parseInt(selectpage),mixGameSN);
+		return JSON.toString();
 
 	}
 

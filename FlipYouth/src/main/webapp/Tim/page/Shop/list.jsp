@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="java.util.*"%>
-<%@page import="javax.servlet.*"%>
-<%@page import="javax.servlet.http.HttpSession"%>
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商城系統</title>
+<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -20,7 +17,6 @@
 	href="<c:url value="/Tim/css_Tim/bootstrap-select.css"/>">
 <link rel="stylesheet"
 	href="<c:url value="/Tim/css_Tim/nouislider.css"/>">
-<link rel="stylesheet" href="<c:url value="/Tim/css_Tim/checkBox.css"/>">
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -41,10 +37,11 @@
 <script src="<c:url value="/Tim/js_Tim/range.js"/>"></script>
 
 <style type="text/css">
-/* div { */
-/* 	border-style: solid; */
-/* 	border-width: 1px; */
-/* } */
+div {
+	border-style: solid;
+	border-width: 1px;
+}
+
 p, h3 {
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -155,25 +152,20 @@ a {
 	margin-bottom: -1px;
 	background-color: #fff;
 }
+
+.dropdown-menu { !important;
+	
+}
 </style>
+
+
+
+
+
+
+
+
 </head>
-<script type="text/javascript">
-	
-<%if (session.getAttribute("shopBean") == null) {%>
-	$.ajax({
-		url : "/FlipYouth/Shop.controller?gameClass=1",
-		type : "POST",
-		async : false,
-		xhrFields : {
-			withCredentials : false
-		},
-		success : function(res) {
-			window.location.href = "/FlipYouth/Shop.controller"
-		},
-	})
-<%}%>
-	
-</script>
 <body id="body">
 	<span id="wdth"></span>
 	<c:set var="ShopUrl" scope="session"
@@ -195,15 +187,18 @@ a {
 							<span><font>啟用的篩選</font></span>
 						</div>
 						<ul>
-							<!-- 								<li><font>分類：T卹 </font><a href="" -->
-							<!-- 									class="remove-filter" data-toggle="tooltip" title="" -->
-							<!-- 									data-original-title="Remove"><i class="fa fa-remove"></i></a></li> -->
-							<!-- 								<li><font>庫存量：有貨 </font><a href="" -->
-							<!-- 									class="remove-filter" data-toggle="tooltip" title="" -->
-							<!-- 									data-original-title="Remove"><i class="fa fa-remove"></i></a></li> -->
-							<!-- 								<li><font>品牌：品牌名稱1 </font><a href="" -->
-							<!-- 									class="remove-filter" data-toggle="tooltip" title="" -->
-							<!-- 									data-original-title="Remove"><i class="fa fa-remove"></i></a></li> -->
+							<li><font id="left_checkbox"></font><a href=""
+								class="remove-filter" data-toggle="tooltip" title=""
+								data-original-title="Remove"><i class="fa fa-remove"></i></a></li>
+							<li><font id="left_Class"></font><a href=""
+								class="remove-filter" data-toggle="tooltip" title=""
+								data-original-title="Remove"><i class="fa fa-remove"></i></a></li>
+							<li><font id="left_theme"></font><a href=""
+								class="remove-filter" data-toggle="tooltip" title=""
+								data-original-title="Remove"><i class="fa fa-remove"></i></a></li>
+							<li><font id="left_price"></font><a href=""
+								class="remove-filter" data-toggle="tooltip" title=""
+								data-original-title="Remove"><i class="fa fa-remove"></i></a></li>
 						</ul>
 					</div>
 
@@ -212,14 +207,14 @@ a {
 						<div class="title">
 							<span><font>語言</font></span>
 						</div>
-						<div class="checkbox checkbox-primary">
+						<div onchange="sendSelect()" class="checkbox checkbox-primary">
 							<label><input class="checkbox" type="checkbox" value="繁中"
 								checked="checked"><span><font>繁中</font></span></label>
 						</div>
-						<div class="checkbox checkbox-primary">
+						<div onchange="sendSelect()" class="checkbox checkbox-primary">
 							<label><input class="checkbox" value="簡中" type="checkbox"><span><font>簡中</font></span></label>
 						</div>
-						<div class="checkbox checkbox-primary">
+						<div onchange="sendSelect()" class="checkbox checkbox-primary">
 							<label><input class="checkbox" value="英文" type="checkbox"><span><font>英文</font></span></label>
 						</div>
 					</div>
@@ -236,7 +231,7 @@ a {
 							<span><font>遊戲類型</font></span>
 						</div>
 
-						<select id="shopClass"
+						<select onchange="sendSelect()" id="shopClass"
 							class="btn-group bootstrap-select selectpicker select">
 							<option value="0"><font>全部</font></option>
 							<option value="1"><font>自有商品</font></option>
@@ -260,7 +255,8 @@ a {
 							<span><font>遊戲主題</font></span>
 						</div>
 
-						<select id="theme" multiple title="可複選" data-live-search="true"
+						<select onchange="sendSelect()" id="theme" multiple title="可複選"
+							data-live-search="true"
 							class="btn-group bootstrap-select selectpicker select">
 							<option value="0"><font>全部 </font></option>
 							<option value="1"><font>動物 </font></option>
@@ -330,11 +326,32 @@ a {
 						<span>商品類型</span>
 					</div>
 					<!--==========================================================  -->
-					<div id="orderBy">
-						排序 <select class="btn-group bootstrap-select selectpicker select">
-							<option value="DESC"><font>價錢高到低</font></option>
-							<option value="ASC"><font>價錢低到高</font></option>
-						</select>
+
+
+					<div class="filter-sidebar">
+						<div class="col-md-12">
+							<div id="orderBy" class="col-md-4">
+								排序 <select onchange="sendSelect()" style="width: 50%;"
+									class="btn-group bootstrap-select selectpicker select">
+									<option value="DESC"><font>價錢高到低</font></option>
+									<option value="ASC"><font>價錢低到高</font></option>
+								</select>
+							</div>
+
+
+							<div id="select-page" class="col-md-4">
+								每頁頁數<select onchange="changePageCount()" style="width: 50%;"
+									class="btn-group bootstrap-select selectpicker select ">
+									<option value="6"><font>6</font></option>
+									<option value="9"><font>9</font></option>
+									<option value="12"><font>12</font></option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<font id="page-count"></font> <input onchange="sendSelect()"
+									type="text" class="form-control" id="search" placeholder="查詢字串">
+							</div>
+						</div>
 					</div>
 
 
@@ -344,90 +361,24 @@ a {
 
 
 
+
 					<!--===========================================  -->
-					<c:forEach items="${shopBean.shopBean}" var="data">
-						<div class="col-sm-6 col-md-4">
-							<div class="img-responsive">
-								<div class="box-product-outer"
-									style="height: 400px; padding: 20px">
-									<div class="box-product">
-										<div class="img-wrapper">
-											<a href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>">
-												<img class="img-rounded" style="height: 200px"
-												src="<c:url value="/Tim${data.bigImage}"/>">
-											</a>
-										</div>
-										<h6>
-											<a style=""
-												href="<c:url value="/Shop.controller?ID=${data.gameSN}"/>">${data.gameName}</a>
-										</h6>
-										<p style="height: 60px">${data.introduction}</p>
-										<div class="price">
-											<span class="btm-30px"
-												style="position: absolute; bottom: 50px; margin: 0px auto;">NT\$${data.price}元</span>
-										</div>
-										<!--               <div class="rating"> -->
-										<!--                 <a href="#">查看詳情</a> -->
-										<!--               </div> -->
-										<!--                <div class="rating"> -->
-										<!--                 <a href="#">放入購物車</a> -->
-										<!--               </div> -->
-									</div>
-									<!-- 									</div> -->
-								</div>
-							</div>
+					<div id="forEach"></div>
+					<div class="row">
+						<div class="col-md-12">
+							<nav style="text-align: center;" aria-label="Page navigation">
+							<ul id="ul" class="pagination" max-size="3"></ul>
+							</nav>
 						</div>
-					</c:forEach>
+					</div>
+
 				</div>
 			</div>
 		</div>
 
 	</div>
 
-	<script type="text/javascript">
-		function sendSelect() {
-			var checkbox = [];//複選框
-			var GameClass = $('#shopClass').find("option:selected").text();
-			var orderBy = $('#orderBy').find("option:selected").text();
-			var theme = $('#theme').find("option:selected").text();
-			var mix = document.getElementById('price').noUiSlider.get()[0];
-			var max = document.getElementById('price').noUiSlider.get()[1];
 
-			checkbox = [];
-			var check = $('input:checked');
-
-			for (i = 0; i < check.length; i++) {
-				if (check[i].checked == true) {
-					checkbox.push(check[i].value)
-				}
-
-			}
-			// 							console.log(checkbox, GameClass, orderBy, theme,
-			// 									mix, max);
-			ajax(checkbox, GameClass, orderBy, theme, mix, max)
-		}
-
-		function ajax(checkbox, GameClass, orderBy, theme, mix, max) {
-			console.log(checkbox, GameClass, orderBy, theme, mix, max);
-			$.ajax({
-				url : "Game.controller",
-				type : "POST",
-				dara : {
-					// 									language:checkbox,
-					gameclass : "1",
-				// 									theme:theme,
-				// 									max:max,
-				// 									mix:mix,
-				// 									orderBy:orderBy
-				},
-				async : false,
-				success : function(res) {
-					alert('success');
-				},
-			})
-
-		}
-	</script>
 
 
 	<script type="text/javascript">
@@ -482,6 +433,7 @@ a {
 			})
 		}
 		function car(gameSN, price, href) {
+			alert(gameSN);
 			var b = price;
 			var a = gameSN;
 			$.ajax({
@@ -491,6 +443,7 @@ a {
 					name : gameSN,
 					price : price
 				},
+
 				async : false,
 				xhrFields : {
 					withCredentials : false
@@ -501,27 +454,190 @@ a {
 			})
 		}
 
-		$(document).ready(function() {
-			var price = document.getElementById('price');
-			noUiSlider.create(price, {
-				start : [ 300, 2000 ],
-				connect : true,
-				range : {
-					'min' : 0,
-					'max' : 3000
+		$(document).ready(
+				function() {
+					var price = document.getElementById('price');
+					noUiSlider.create(price, {
+						start : [ 300, 2000 ],
+						connect : true,
+						range : {
+							'min' : 0,
+							'max' : 3000
+						}
+					});
+					price.noUiSlider.on('update', function(values, handle) {
+						var value = values[handle];
+						sendSelect();
+
+						if (handle) {
+							$('#max-price').text(Math.round(value));
+							$('input[name="max-price"]')
+									.text(Math.round(value));
+						} else {
+							$('#min-price').text(Math.round(value));
+							$('input[name="min-price"]')
+									.text(Math.round(value));
+						}
+						$('#left_price').text(
+								"價格範圍 :" + $('#min-price').text() + "-"
+										+ $('#max-price').text())
+					});
+					sendSelect()
+				});
+	</script>
+	<script type="text/javascript">
+		var pageCount;
+		var nowpage = "1";
+		function setNow(page) {
+			nowpage = page;
+			sendSelect();
+		}
+		function changePageCount() {
+			nowpage = "1";
+			sendSelect();
+		}
+		function sendSelect() {
+			var checkbox = [];//複選框
+			var GameClass = $('#shopClass').find("option:selected").text();
+			var orderBy = $('#orderBy').find("option:selected").val();
+			var theme = $('#theme').find("option:selected").text();
+			var mix = document.getElementById('price').noUiSlider.get()[0];
+			var max = document.getElementById('price').noUiSlider.get()[1];
+			var selectpage = $('#select-page').find("option:selected").val();
+			checkbox = [];
+			var check = $('input:checked');
+			var search = $('#search').val();
+			var che = ""
+			for (i = 0; i < check.length; i++) {
+				if (check[i].checked == true) {
+					checkbox.push(check[i].value)
+					che += check[i].value
+					if (i != check.length - 1) {
+						che += ',';
+					}
 				}
-			});
-			price.noUiSlider.on('update', function(values, handle) {
-				var value = values[handle];
-				if (handle) {
-					$('#max-price').text(Math.round(value));
-					$('input[name="max-price"]').text(Math.round(value));
-				} else {
-					$('#min-price').text(Math.round(value));
-					$('input[name="min-price"]').text(Math.round(value));
-				}
-			});
-		});
+				$('#left_checkbox').text("語言:" + che)
+			}
+
+			$('#left_Class').text(
+					"遊戲類別:" + $('#shopClass').find("option:selected").text());
+			if (theme != "") {
+				$('#left_theme').text(
+						"遊戲主題:" + $('#theme').find("option:selected").text());
+			}
+
+			ajax(search, selectpage, checkbox, GameClass, orderBy, theme, mix,
+					max)
+		}
+		function Previous() {
+			if (nowpage != "1") {
+				nowpage--
+			} else {
+				return false;
+
+			}
+
+			sendSelect();
+
+		}
+		function Next() {
+			if (nowpage != pageCount) {
+				nowpage++
+			} else {
+				return false;
+			}
+			sendSelect();
+
+		}
+		function ajax(search, selectpage, checkbox, GameClass, orderBy, theme,
+				mix, max) {
+			$
+					.ajax({
+						type : "POST",
+						url : "/FlipYouth/Game.controller",
+						dataType : "json",
+						data : {
+							search : search,
+							nowpage : nowpage,
+							selectpage : selectpage,
+							checkbox : checkbox,
+							GameClass : GameClass,
+							orderBy : orderBy,
+							theme : theme,
+							mix : mix,
+							max : max
+
+						},
+						async : false,
+						xhrFields : {
+							withCredentials : false
+						},
+
+						success : function(res) {
+							$('#page-count')
+									.text(
+											'有'
+													+ res.total
+													+ '項商品 目前顯示第'
+													+ ((selectpage * nowpage) - (selectpage - 1))
+													+ "項-第" + selectpage
+													* nowpage + "項")
+							console.log(res.total);
+							console.log(res.page);
+							pageCount = res.page;
+							$('#forEach').empty();
+							var a = "";
+							$('#ul').empty();
+							$('#ul')
+									.append(
+											'<li ><a href="javascript:void(0)" onclick="Previous()"><span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span></a></li>');
+							for (var i = 1; i <= res.page; i++) {
+								$('#ul')
+										.append(
+												'<li class="page-item"><a href="javascript:void(0)" onclick="setNow(this.text)">'
+														+ i + '</a></li>')
+							}
+							$('#ul')
+									.append(
+											'<li><a href="javascript:void(0)" onclick="Next()"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>');
+							$
+									.each(
+											res.data,
+											function(key, data) {
+
+												var a = '<div class="col-sm-6 col-md-4">';
+												var b = '<div class="img-responsive">';
+												var c = '<div class="box-product-outer"style="height: 400px; padding: 20px">';
+												var d = '<div class="box-product">';
+												var e = '<div class="img-wrapper">';
+												var f = '<a href="<c:url value="/Shop.controller?ID='
+														+ data.gameSN
+														+ '"/>"><img class="img-rounded" style="height: 200px"src="<c:url value="/Tim'+data.bigImage+'"/>"></a></div>';
+												var g = '<h6> <a style="" href="<c:url value="/Shop.controller?ID='
+														+ data.gameSN
+														+ '"/>">'
+														+ data.gameName
+														+ '</a> </h6>';
+												var h = '<p style="height: 60px">'
+														+ data.introduction
+														+ '</p>'
+												var i = '<div class="price"> <span class="btm-30px" style="position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
+														+ data.price
+														+ '元</span> </div>'
+												var j ='<div class="rating"><a href=""><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('+data.gameSN+')"><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/car.png"/>"></a> </div>'
+
+												var div = "</div></div></div></div></div>"
+
+												$('#forEach').append(
+														a + b + c + d + e + f
+																+ g + h + i +j
+																+ div);
+											})
+
+						},
+					})//end ajax
+
+		}
 	</script>
 </body>
 </html>
