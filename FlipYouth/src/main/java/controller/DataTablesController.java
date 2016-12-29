@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import model.service.ColumnService;
 import model.service.DataTablesService;
@@ -91,5 +95,19 @@ public class DataTablesController {
 		return result;
 	}
 	
-	
+	@RequestMapping(method= {RequestMethod.POST}, path = { "/admin/cu.controller" }, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String createAndUpdate(HttpServletRequest req) throws IOException{//TODO
+		System.out.println(req.getParameterMap());
+		//String table = columnService.getTableName();
+		StringBuffer json = new StringBuffer();
+		  BufferedReader reader = req.getReader();
+		  String line;
+		  while ((line = reader.readLine()) != null) {
+		    json.append(line);
+		  }
+		  System.out.println(json+" right?");
+
+		return new Gson().toJson(" test?");
+	}
 }

@@ -1,16 +1,15 @@
 package model.service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import model.bean.AdministratorBean;
 import model.bean.AuthorityBean;
@@ -46,9 +45,7 @@ public class DataTablesService {
 	// }
 	// return result;
 	// }
-	
-	
-	
+
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
 			int draw, int start, int length) {
 		Integer total = 0, totalAfterFilter = 0;
@@ -75,19 +72,18 @@ public class DataTablesService {
 				hql.append(", " + cols[col.get(i)] + " " + dir.get(i));
 			}
 		}
+		Gson gson = new Gson();
+		JsonArray resultArray = ajaxQueryHandler(hql.toString(), table, start, length);
+		JsonObject jObj = new JsonObject();
 
-		JSONArray resultArray = ajaxQueryHandler(hql.toString(), table, start, length);
+		jObj.add("draw", gson.toJsonTree(draw));
+		jObj.add("recordsTotal", gson.toJsonTree(total));
+		jObj.add("recordsFiltered", gson.toJsonTree(totalAfterFilter));
+		jObj.add("data", resultArray);
 
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		jsonMap.put("draw", draw);
-		jsonMap.put("recordsTotal", total);
-		jsonMap.put("recordsFiltered", totalAfterFilter);
-		jsonMap.put("data", resultArray);
-		JSONObject jsonObject = new JSONObject(jsonMap);
-		System.out.println(jsonObject);
-		return jsonObject.toString();
+		return gson.toJson(jObj);
 	}
-	
+
 	@Transactional(readOnly = true)
 	int ajaxCountHandler(String hql, String table) {
 		switch (table) {
@@ -99,49 +95,49 @@ public class DataTablesService {
 			return 0;
 		}
 	}
-	
+
 	@Transactional(readOnly = true)
-	JSONArray ajaxQueryHandler(String hql, String table, int start, int length) {
-		JSONArray jsonArray = new JSONArray();
+	JsonArray ajaxQueryHandler(String hql, String table, int start, int length) {
+		Gson gson = new Gson();
+		JsonArray jArray = new JsonArray();
+
 		switch (table) {
 		case "Authority":
 			List<AuthorityBean> auths = authorityDao.ajaxQuery(hql.toString(), start, length);
-			for (AuthorityBean auth:auths){
-				JSONObject authJSON = new JSONObject();
-				authJSON.put("DT_RowId","r_"+auth.getAuthId());
-				authJSON.put("authId",auth.getAuthId());
-				authJSON.put("authName",auth.getAuthName());
-				jsonArray.put(authJSON);
+			for (AuthorityBean auth : auths) {
+
+				JsonObject jObj = gson.toJsonTree(auth).getAsJsonObject();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + auth.getAuthId()));
+				jArray.add(jObj);
 			}
-			return jsonArray;
+			return jArray;
 		case "Administrator":
 			List<AdministratorBean> admins = administratorDao.ajaxQuery(hql.toString(), start, length);
-			for (AdministratorBean admin:admins){
-				JSONObject adminJSON = new JSONObject();
-				adminJSON.put("DT_RowId","r_"+admin.getAdmId());//+row id 
-				adminJSON.put("admId", admin.getAdmId());
+			for (AdministratorBean admin : admins) {
+
+				JsonObject jObj = new JsonObject();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + admin.getAdmId()));
+				jObj.add("admId", gson.toJsonTree(admin.getAdmId()));
 				try {
-					adminJSON.put("admPassword", new String(admin.getAdmPassword(),"UTF-8"));
-				} catch (JSONException e) {
-					e.printStackTrace();
+					jObj.add("admPassword", gson.toJsonTree(new String(admin.getAdmPassword(), "UTF-8")));
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
-				adminJSON.put("admEmail", admin.getAdmEmail());
-				adminJSON.put("authId", admin.getAuthId().getAuthName());
-				jsonArray.put(adminJSON);
+				jObj.add("admEmail", gson.toJsonTree(admin.getAdmEmail()));
+				jObj.add("authId", gson.toJsonTree(admin.getAuthId().getAuthName()));
+				jArray.add(jObj);
 			}
-			return jsonArray;
+			return jArray;
 		default:
-			return jsonArray;
-		}	
+			return jArray;
+		}
 	}
-	
+
 	@Transactional
 	public String ajaxDeleteHandler(String table, String[] toDelete) {
 		String result = "";
 		int count = -1;
-		
+
 		switch (table) {
 		case "Authority":
 			count = authorityDao.ajaxDelete(toDelete);
@@ -152,14 +148,40 @@ public class DataTablesService {
 		default:
 			break;
 		}
-		
-		if (count==-1){
+
+		if (count == -1) {
 			result = "刪除錯誤，請檢查表格關聯性。";
 		} else {
-			result = "成功刪除 "+count+" 筆資料";
+			result = "成功刪除 " + count + " 筆資料";
 		}
-		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("text",result);
-		return jsonObj.toString();
+		Gson gson = new Gson();
+		JsonObject jObj = new JsonObject();
+		jObj.add("text", gson.toJsonTree(result));
+		return gson.toJson(jObj);
+	}
+
+	@Transactional
+	public String ajaxUpdateHandler(String table, String[] toDelete) {
+		String result = "";//TODO
+		int count = -1;
+
+		switch (table) {
+		case "Authority":
+			count = authorityDao.ajaxDelete(toDelete);
+			break;
+		case "Administrator":
+			count = administratorDao.ajaxDelete(toDelete);
+			break;
+		default:
+			break;
+		}
+
+		if (count == -1) {
+			result = "刪除錯誤，請檢查表格關聯性。";
+		} else {
+			result = "成功刪除 " + count + " 筆資料";
+		}
+		
+		return result;
 	}
 }

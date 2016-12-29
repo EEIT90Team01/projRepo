@@ -77,13 +77,12 @@
 			</table>
 		</div>
 	</div>
+
 	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
 		aria-labelledby="deleteModalTitle">
 		<div class="modal-dialog modal-sm" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close"></button>
 					<h4 class="modal-title" id="deleteModalTitle">刪除資料</h4>
 				</div>
 				<div class="modal-body text-center">
@@ -97,6 +96,43 @@
 			</div>
 		</div>
 	</div>
+	<!-- end of deleteModal -->
+	<div class="modal fade" id="cuModal" tabindex="-1" role="dialog"
+		aria-labelledby="cuModalTitle">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="cuModalTitle">增修資料</h4>
+				</div>
+				<div class="modal-body">
+					<form action="/FlipYouth/admin/cu.controller" method="POST" enctype="text/plain">
+						<div class="form-group">
+							<label for="authId">權限編號</label> <input type="number"
+								class="form-control" name="authId" id="authId">
+						</div>
+						<div class="form-group">
+							<label for="authName">權限名稱</label> <input type="text"
+								class="form-control" name="authName" id="authName">
+						</div>
+						<!-- <div class="form-group">
+							<label for="exampleInputFile">File input</label> <input
+								type="file" id="exampleInputFile">
+							<p class="help-block">Example block-level help text here.</p>
+						</div> -->
+						
+						<button type="submit" class="btn btn-primary cu-confirm">送出</button>
+						<button type="reset" class="btn btn-warning cu-reset">重置</button>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of cuModal -->
+
+
 	<!-- js -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -104,8 +140,9 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
-	<script type="text/javascript"
+	<script
 		src="https://cdn.datatables.net/v/bs/dt-1.10.13/cr-1.3.2/se-1.2.0/datatables.js"></script>
+	<script src="https://oss.maxcdn.com/jquery.form/3.50/jquery.form.min.js"></script>
 	<script src='<c:url value="/admin/js/admin.js"/>'></script>
 </body>
 </html>

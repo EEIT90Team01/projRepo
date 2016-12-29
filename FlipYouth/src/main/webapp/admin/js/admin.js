@@ -1,72 +1,114 @@
 $(document)
 .ready(
 	function () {
-	var selected = [];
-	var tabColumns = [];
-	var editIcon = {
-		"class": "icon-edit",
-		"orderable": false,
-		"data": null,
-		"defaultContent": ""
-	};
+	var selected = []; //datatables中被選擇欄位的pk
+	//var tabColumns = []; //navbar可存取的tables
+	//var editIcon = ;
 
-	$('a[href$="tables"]').click(function () {
+	//navbar的tab on click change table
+	$('#navbar').find('a[href$="tables"]').click(function () {
 		if ($.fn.dataTable.isDataTable('#dataTable')) {
 			$('#dataTable').DataTable().destroy();
 		}
-		ajaxChangeTable(this);
+		ajaxChangeTable(this.id);
 	});
 
-	$('div.tab-content').on('click', '#dataTable tbody tr',
+	$('#tables').on('click', '#dataTable tbody tr',
 		function () {
-		var id = this.id.substring(2);
-		var index = $.inArray(id, selected);
+		//select datatables row on click
+		var pk = this.id.substring(2);
+		var index = $.inArray(pk, selected);
 		if (index === -1) {
-			selected.push(id);
+			selected.push(pk);
 		} else {
 			selected.splice(index, 1);
 		}
 		$(this).toggleClass('selected');
-	});
-
-	$('div.tab-content').on('click', 'td.icon-edit',
-		function () {
-		/* alert('PK='+this.parent().id.substring(2)); */
-	});
-
-	$('#deleteModal').on('hidden.bs.modal', function () {
-	    console.log('hideddd');
-	    $('#dataTable').DataTable().draw();
-	})
-	
-	$('div.tab-content').on(
+	}).on(
 		'click',
-		'.icon-delete',
+		'#dataTable td.icon-edit',
+		function (event) {
+		//修改資料  on click
+		event.stopPropagation();
+		cuHandler($('#navbar').find('li.active').find('a').attr('id'), $(this)
+			.parent().attr('id').substring(2));
+	}).on(
+		'click',
+		'div.icon-new',
 		function () {
+		//新增資料  on click
+		cuHandler($('#navbar').find('li.active').find('a').attr('id'), null);
+	}).on(
+		'click',
+		'div.icon-delete',
+		function () {
+		//刪除資料 on click
 		if (selected.length !== 0) {
 			$('#deleteModal').modal();
-			$('h3.text-danger').html(
+			$('#deleteModal').find('h3').toggleClass('text-success text-danger').html(
 				'將刪除 ' + selected.length
 				 + ' 筆資料<br>真的嗎？');
-			$('.delete-confirm').click(function () {
+			$('#deleteModal').find('.delete-confirm').on('click', function () {
 				ajaxDelete();
-				$('h3.text-danger').text('刪除中...');
+				$('#deleteModal').find('h3').text('刪除中...');
 			});
 		}
 	});
 
-	var ajaxChangeTable = function (target) {
+	//關modal時redraw
+	$('div.modal').on('hidden.bs.modal', function () {
+		$('#dataTable').DataTable().draw();
+	})
+
+	//依table 顯示create/update form
+	function cuHandler(table, pk) {
+		$('#cuModal').modal();
+		var cuForm = $('#cuModal').find('form').off();
+
+		// 生成DOM (maybe call another js?)
+		switch (table) {
+		case "Authority":
+			break;
+		default:
+			break;
+		}
+
+		var options = {
+			success: function (result) {
+				console.log(result);
+				cuForm.find('input:first').prop('readonly', false);
+			}
+		};
+
+		if (pk != null) {
+			var pkInput = cuForm.find('input:first');
+			pkInput.val(pk).prop('readonly', true);
+
+			cuForm.on('reset', function (ev) {
+
+				ev.preventDefault();
+				cuForm.clearForm();
+				pkInput.val(pk);
+			});
+			options['data'] = {
+				forUpdate: true
+			};
+		}
+		cuForm.ajaxForm(options);
+	}
+
+	function ajaxChangeTable(navId) {
 		$.ajax({
 			url: "columns.controller",
 			data: {
-				tableName: target.id
+				tableName: navId
 			},
 			success: function (result) {
-				$('tbody').empty();
+				$('#dataTable').find('tbody').empty();
 				var theadtr = $('<tr/>').appendTo(
-						$('thead').empty());
+						$('#dataTable').find('thead').empty());
 				var tfoottr = $('<tr/>').appendTo(
-						$('tfoot').empty());
+						$('#dataTable').find('tfoot').empty());
 				for (var idx in result.colStrings) {
 					$('<th/>', {
 						text: result.colStrings[idx]
@@ -77,15 +119,22 @@ $(document)
 				}
 				theadtr.append($('<th/>'));
 				tfoottr.append($('<th/>'));
-				tabColumns = result.cols;
-				tabColumns.push(editIcon);
-				tableGen();
+				var tabColumns = result.cols;
+				tabColumns.push({
+					"class": "icon-edit",
+					"orderable": false,
+					"data": null,
+					"defaultContent": ""
+				});
+				tableGen(tabColumns);
+			},
+			error: function (err) {
+				console.log(err);
 			}
 		});
 	};
 
-	var ajaxDelete = function () {
-		console.log(JSON.stringify(selected));
+	function ajaxDelete() {
 		$.ajax({
 			url: 'delete.controller',
 			method: 'POST',
@@ -95,15 +144,16 @@ $(document)
 			success: function (result) {
 				console.log(result.text);
 				selected = [];
-				$('h3.text-danger').text(result.text);				
+				$('#deleteModal').find('h3').text(result.text).toggleClass('text-danger text-success');
+				$('#deleteModal').find('button.delete-confirm').off();
 			},
-			error: function(why){
-				console.log(why);
+			error: function (err) {
+				console.log(err);
 			}
 		});
 	};
 
-	var tableGen = function () {
+	function tableGen(tabColumns) {
 		$('#dataTable')
 		.DataTable({
 			"dom": "<'row'<'col-sm-6'l><'col-sm-4'f><'col-sm-2 text-right'<'icon-new'><'icon-delete'>>>"
