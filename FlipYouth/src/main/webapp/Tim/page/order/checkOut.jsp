@@ -291,26 +291,26 @@ b {
 
 	<script type="text/javascript">
 	var a;
-	function changeCar(gameSN,value){
-		$.ajax({
-			url: "/FlipYouth/order.controller?change=1",
-			type:"POST", 
-			data:{value:value,
-				  GameSN:gameSN,
-			},			
-			async: true,
-			xhrFields: {
-				withCredentials: false },
-			success:function(res) {
-				if(res==""){
-					alert('庫存不足');
-					document.getElementById(gameSN).value=a;
-				}else{
-				$('body').html(res);
-				}
-				},
-		})
-	}
+// 	function changeCar(gameSN,value){
+// 		$.ajax({
+// 			url: "/FlipYouth/order.controller?change=1",
+// 			type:"POST", 
+// 			data:{value:value,
+// 				  GameSN:gameSN,
+// 			},			
+// 			async: true,
+// 			xhrFields: {
+// 				withCredentials: false },
+// 			success:function(res) {
+// 				if(res==""){
+// 					alert('庫存不足');
+// 					document.getElementById(gameSN).value=a;
+// 				}else{
+// 				$('body').html(res);
+// 				}
+// 				},
+// 		})
+// 	}
 	
 	$(document).ready(
 		function(){
@@ -319,18 +319,7 @@ b {
 				console.log($(this))
 	 		})
 		})
-	function delectCar(gameSN){
-		$.ajax({
-			url:"/FlipYouth/order.controller?delectCar="+gameSN,
-			type:"POST",
-			async: true,
-			xhrFields: {
-				withCredentials: false },
-			success:function(res) {
-				$('body').html(res);
-				},
-		})
-	}
+	
 	
 	
 	
