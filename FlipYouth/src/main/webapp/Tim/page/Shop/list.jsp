@@ -166,7 +166,7 @@ a {
 
 
 </head>
-<body id="body">
+<body  id="body" >
 	<span id="wdth"></span>
 	<c:set var="ShopUrl" scope="session"
 		value="'/FlipYouth/Shop.controller'" />
@@ -175,24 +175,9 @@ a {
 
 
 
-	<div class="container">
-		<div class="col-xs-12" style="height: 300px"></div>
-		<!-- 選單  以下 -->
+	<div class="container-fluid">
+		<!-- 		<div class="col-xs-12" style="height: 300px"></div> -->
 
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-12">
-					<ul class="nav nav-pills">
-						<li class="active"><a href="#">商城首頁</a></li>
-						<li><a href="">商品列表</a></li>
-						<li><a href="">購物車</a></li>
-						<li><a onclick="" href="<c:url value="/Tim/page/order/checkOut.jsp"/>">確認訂單</a></li>
-						<li><a href="">訂單明細</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- 選單  以上 -->
 
 
 
@@ -476,9 +461,10 @@ a {
 				},
 			})
 		}
-
+		
 		$(document).ready(
 				function() {
+					
 					var price = document.getElementById('price');
 					noUiSlider.create(price, {
 						start : [ 300, 2000 ],
@@ -488,25 +474,29 @@ a {
 							'max' : 3000
 						}
 					});
-					price.noUiSlider.on('update', function(values, handle) {
-						var value = values[handle];
-						sendSelect();
-
-						if (handle) {
-							$('#max-price').text(Math.round(value));
-							$('input[name="max-price"]')
-									.text(Math.round(value));
-						} else {
-							$('#min-price').text(Math.round(value));
-							$('input[name="min-price"]')
-									.text(Math.round(value));
-						}
-						$('#left_price').text(
-								"價格範圍 :" + $('#min-price').text() + "-"
-										+ $('#max-price').text())
-					});
-					sendSelect()
+					//sendSelect();
+	
+					aa();
 				});
+		function aa(){
+			document.getElementById('price').noUiSlider.on('update', function(values, handle) {
+				var value = values[handle];
+				sendSelect();
+
+				if (handle) {
+					$('#max-price').text(Math.round(value));
+					$('input[name="max-price"]')
+							.text(Math.round(value));
+				} else {
+					$('#min-price').text(Math.round(value));
+					$('input[name="min-price"]')
+							.text(Math.round(value));
+				}
+				$('#left_price').text(
+						"價格範圍 :" + $('#min-price').text() + "-"
+								+ $('#max-price').text())
+			});
+		};
 	</script>
 	<script type="text/javascript">
 		var pageCount;
@@ -519,7 +509,16 @@ a {
 			nowpage = "1";
 			sendSelect();
 		}
+		
+		var obj = parent.document.getElementById("childFrame");  //取得父頁面IFrame對象
+		var tentwoHeight = 500;
+		var nineHeight = 300;
+		var Height = 0;
+		
+		
 		function sendSelect() {
+			
+			
 			var checkbox = [];//複選框
 			var GameClass = $('#shopClass').find("option:selected").text();
 			var orderBy = $('#orderBy').find("option:selected").val();

@@ -27,7 +27,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -218,6 +217,7 @@ public class ShopController {
 	// order controller
 
 	@RequestMapping(path = "/order.controller")
+	@ResponseBody
 	public String Order(String delectCar, String goOrder, HttpSession session, String change, String value,
 			String GameSN) throws ParseException {
 
@@ -237,14 +237,19 @@ public class ShopController {
 			session.setAttribute("ALL", all);
 			return "checkOut";
 		}
+		System.out.println("要更新的商品  = "+GameSN);
 		if (change != null) {
-			all = 0;
-			count = 0;
+//			all = 0; //??
+//			count = 0;//??
 			car = (Map<String, OrderDetailBean>) session.getAttribute("cars");
 			OrderDetailBean orderDetailBean = car.get(GameSN);
+			System.out.println("要更新的商品  = "+GameSN);
+			System.out.println("要更新的商品的名稱  = "+orderDetailBean.getPK().getGameSN());
+//			System.out.println("原本的數量 =  "+);
+			System.out.println("要改成的數量 =  "+value);
 			if (Integer.parseInt(value) > (orderDetailBean.getPK().getGameSN().getStockQuantity().intValue())) {
 				System.out.println("庫存不足");
-				return "index";
+				return "";
 			}
 			;
 			orderDetailBean.setQuantity(Integer.parseInt(value));

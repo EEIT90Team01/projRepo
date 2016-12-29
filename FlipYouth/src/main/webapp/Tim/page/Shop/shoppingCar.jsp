@@ -35,15 +35,24 @@
 <script src="<c:url value="/Tim/js_Tim/bootstrap-select.js"/>"></script>
 <script src="<c:url value="/Tim/js_Tim/nouislider.js"/>"></script>
 <script src="<c:url value="/Tim/js_Tim/range.js"/>"></script>
+<style type="text/css">
+/* div { */
+/* 	border: 1px solid; */
+/* } */
+</style>
+<script type="text/javascript">
+function loadaa() {
+	console.log('load')
+}
+</script>
 
 </head>
-<body>
 
 
 
 
-
-	<div class="container m-t-3">
+<body onload="loadaa()">
+	<div class="container-fluid m-t-3">
 		<div class="row">
 
 			<!-- Shopping Cart List -->
@@ -70,7 +79,7 @@
 
 
 						<c:forEach items="${cars}" var="data">
-							<tbody>
+							<tbody class="${data.value.PK.gameSN.gameSN}">
 								<tr>
 									<td class="img-cart"><a href=""> <img
 											style="width: 50px" alt="Product"
@@ -79,35 +88,53 @@
 									</a></td>
 									<td>
 										<p>
-											<a href="detail.html" class="d-block">${data.value.PK.gameSN.gameName}</a>
-										</p>
-										<small>${data.value.PK.gameSN.introduction}</small>
+											<a
+												href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>"
+												class="d-block">${data.value.PK.gameSN.gameName}</a>
+										</p> <small>${data.value.PK.gameSN.introduction}</small>
 									</td>
 									<td class="input-qty">
 										<div class="input-group bootstrap-touchspin">
 											<span class="input-group-addon bootstrap-touchspin-prefix">qty
-											</span> <input id="${data.value.PK.gameSN.gameSN}" type="text" value="${data.value.quantity}"
+											</span> <input onchange="inputCangeCar(this)" id="${data.value.PK.gameSN.gameSN}"
+												type="text" value="${data.value.quantity}"
 												class="form-control text-center" style="display: block;"><span
 												class="input-group-addon bootstrap-touchspin-postfix"
 												style="display: none;"></span><span
 												class="input-group-btn-vertical">
-												<button onclick="changeCar(${data.value.PK.gameSN.gameSN},'up')" 
+												<button onclick="ShopCarUp(${data.value.PK.gameSN.gameSN})"
 													class="btn btn-default bootstrap-touchspin-up"
 													type="button">
 													<i class="glyphicon glyphicon-chevron-up"></i>
 												</button>
-												<button onclick="changeCar(${data.value.PK.gameSN.gameSN},'down')" class="btn btn-default bootstrap-touchspin-down" type="button">
+												<button
+													onclick="ShopCarDown(${data.value.PK.gameSN.gameSN})"
+													class="btn btn-default bootstrap-touchspin-down"
+													type="button">
 													<i class="glyphicon glyphicon-chevron-down"></i>
-												</button></span>
+												</button>
+											</span>
 										</div>
 									</td>
 									<td class="unit">\$${data.value.PK.gameSN.price}</td>
 									<td class="sub">\$${data.value.PK.gameSN.price}</td>
-									<td class="action"><a href="#" data-toggle="tooltip"
+									<td class="action"><a href="javascript:void(0)"
+										data-toggle="tooltip"
+										onclick="CShopCar(${data.value.PK.gameSN.gameSN})"
 										data-placement="top" data-original-title="Update"> <i
-											class="fa fa-refresh"></i></a>&nbsp; <a href="#"
-										class="text-danger" data-toggle="tooltip" data-placement="top"
-										data-original-title="Remove"><i class="fa fa-trash-o"></i></a></td>
+											class="fa fa-refresh"><img data-original-title="Update"
+												data-toggle="tooltip" style="width: 25px"
+												data-placement="top"
+												src="<c:url value="/Tim/image/icon/update.png"/>"
+												class="img-thumbnail"></i></a>&nbsp; <a
+										onclick="delectCar(${data.value.PK.gameSN.gameSN},this)"
+										href="javascript:void(0)" class="text-danger"
+										data-toggle="tooltip" data-placement="top"
+										data-original-title="Remove"><i class="fa fa-trash-o">
+												<img style="width: 25px"
+												src="<c:url value="/Tim/image/icon/delete.png"/>"
+												class="img-thumbnail">
+										</i></a></td>
 								</tr>
 							</tbody>
 						</c:forEach>
@@ -117,7 +144,8 @@
 				</div>
 				<nav aria-label="Shopping Cart Next Navigation">
 				<ul class="pager">
-					<li class="previous"><a href="products.html"><span
+					<li role="presentation" class="previous"><a href="#home"
+						aria-controls="home" role="tab" data-toggle="tab"><span
 							aria-hidden="true">←</span>繼續購物</a></li>
 					<li class="next"><a href="checkout.html">繼續查看<span
 							aria-hidden="true">→</span>
@@ -299,37 +327,86 @@
 		</div>
 	</div>
 
-
 	<script type="text/javascript">
-		function changeCar(gameSN,val) {
-			var gameValue = '#'+gameSN;
-			var valu= parseInt($(gameValue).val());
-			if(val == "up"){$(gameValue).val(valu+1)}
-			if(val == "down"){$(gameValue).val(valu-1)}
-			
-			alert(gameSN);
-			alert($(gameValue).val())
-// 			$.ajax({
-// 				url : "/FlipYouth/order.controller?change=1",
-// 				type : "POST",
-// 				data : {
-// 					value : value,
-// 					GameSN : gameSN,
-// 				},
-// 				async : true,
-// 				xhrFields : {
-// 					withCredentials : false
-// 				},
-// 				success : function(res) {
-// 					if (res == "") {
-// 						alert('庫存不足');
-// 						document.getElementById(gameSN).value = a;
-// 					} else {
-// 						$('body').html(res);
-// 					}
-// 				},
-// 			})
+	$(document).ready(function() {
+		console.log("ready!");
+	});
+</script>
+	<script type="text/javascript">
+
+
+
+		var gameCount;
+		
+		function ShopCarUp(SN){
+			var GameVal= $('#'+SN).val();
+			GameVal = parseInt(GameVal)+1;
+			gameCount = GameVal;
+			$('#'+SN).val(gameCount);
 		}
+		function ShopCarDown(SN){
+			var GameVal= $('#'+SN).val();
+			GameVal = parseInt(GameVal)-1;
+			gameCount = GameVal;
+			$('#'+SN).val(gameCount);
+		}
+		
+		function CShopCar(gameSN) {
+			$.ajax({
+				url : "/FlipYouth/order.controller?change=1",
+				type : "POST",
+				data : {
+					value : gameCount,
+					GameSN : gameSN,
+				},
+				async : false,
+				xhrFields : {
+					withCredentials : false
+				},
+				success : function(res) {
+					if (res == "") {
+						alert('庫存不足');
+// 					$(gameValue).val(Quantity);
+					} else {
+						alert('更新購物車成功')
+					}
+				},
+			})
+			
+			
+			
+			
+		}
+		function inputCangeCar(me){
+			gameCount =$(me).val();			
+		}
+		function delectCar(gameSN,row){
+			$.ajax({
+				url:"/FlipYouth/order.controller?delectCar="+gameSN,
+				type:"POST",
+				async: true,
+				xhrFields: {
+					withCredentials: false },
+				success:function(res) {
+					alert('刪除成功');
+					$('.'+gameSN).empty();
+// 					window.location.href="/Tim/page/Shop/shoppingCar.jsp"
+// 					$('body').html(res);
+					},
+			})
+		}
+// 		function delectCar(gameSN){
+// 			$.ajax({
+// 				url:"/FlipYouth/order.controller?delectCar="+gameSN,
+// 				type:"POST",
+// 				async: true,
+// 				xhrFields: {
+// 					withCredentials: false },
+// 				success:function(res) {
+// 					$('body').html(res);
+// 					},
+// 			})
+// 		}
 	</script>
 
 
