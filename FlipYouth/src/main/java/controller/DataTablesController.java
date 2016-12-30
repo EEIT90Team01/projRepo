@@ -1,9 +1,9 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,12 +28,13 @@ public class DataTablesController {
 
 	@Autowired
 	private ColumnService columnService;
-	
-	@RequestMapping(path = { "/admin/datatables.controller" }, produces = "application/json; charset=UTF-8" , method = {RequestMethod.GET})
+
+	@RequestMapping(path = { "/admin/datatables.controller" }, produces = "application/json; charset=UTF-8", method = {
+			RequestMethod.GET })
 	@ResponseBody
-	public String getDataTables(@RequestParam(name = "draw") String pDraw,
-			@RequestParam(name = "start") String pStart, @RequestParam(name = "length") String pLength,
-			@RequestParam(name = "search[value]") String search, HttpServletRequest request) {
+	public String getDataTables(@RequestParam(name = "draw") String pDraw, @RequestParam(name = "start") String pStart,
+			@RequestParam(name = "length") String pLength, @RequestParam(name = "search[value]") String search,
+			HttpServletRequest request) {
 		String jsonResult = "";
 		String[] cols = columnService.getCols();
 		String table = columnService.getTableName();
@@ -44,12 +45,13 @@ public class DataTablesController {
 		List<Integer> col = new ArrayList<Integer>();
 		List<String> dir = new ArrayList<String>();
 		int i = 0;
-		while (request.getParameter("order["+i+"][column]")!=null&&!"".equals(request.getParameter("order["+i+"][column]"))){
-			col.add(Integer.parseInt(request.getParameter("order["+i+"][column]")));
-			dir.add(request.getParameter("order["+i+"][dir]"));
+		while (request.getParameter("order[" + i + "][column]") != null
+				&& !"".equals(request.getParameter("order[" + i + "][column]"))) {
+			col.add(Integer.parseInt(request.getParameter("order[" + i + "][column]")));
+			dir.add(request.getParameter("order[" + i + "][dir]"));
 			i++;
 		}
-		if (col.size()==0){
+		if (col.size() == 0) {
 			col.add(0);
 			dir.add("asc");
 		}
@@ -66,25 +68,26 @@ public class DataTablesController {
 		if (pDraw != null) {
 			draw = Integer.parseInt(pDraw);
 		}
-		
-		
-		jsonResult = dataTablesService.ajaxQueryService(table, cols, search , col , dir, draw, start, length);
+
+		jsonResult = dataTablesService.ajaxQueryService(table, cols, search, col, dir, draw, start, length);
 
 		return jsonResult;
 
 	}
 
-	@RequestMapping(method= {RequestMethod.GET}, path = { "/admin/columns.controller" }, produces = "application/json; charset=UTF-8")
+	@RequestMapping(method = { RequestMethod.GET }, path = {
+			"/admin/columns.controller" }, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String getTableColumns(@RequestParam String tableName) {
-		String result="";
+		String result = "";
 		if (tableName != null) {
 			result = columnService.getColumnInfo(tableName);
 		}
 		return result;
 	}
-	
-	@RequestMapping(method= {RequestMethod.POST}, path = { "/admin/delete.controller" }, produces = "application/json; charset=UTF-8")
+
+	@RequestMapping(method = { RequestMethod.POST }, path = {
+			"/admin/delete.controller" }, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String deleteSelected(@RequestParam(value = "toDelete[]") String[] toDelete) {
 		String table = columnService.getTableName();
@@ -94,20 +97,23 @@ public class DataTablesController {
 		}
 		return result;
 	}
-	
-	@RequestMapping(method= {RequestMethod.POST}, path = { "/admin/cu.controller" }, produces = "application/json; charset=UTF-8")
-	@ResponseBody
-	public String createAndUpdate(HttpServletRequest req) throws IOException{//TODO
-		System.out.println(req.getParameterMap());
-		//String table = columnService.getTableName();
-		StringBuffer json = new StringBuffer();
-		  BufferedReader reader = req.getReader();
-		  String line;
-		  while ((line = reader.readLine()) != null) {
-		    json.append(line);
-		  }
-		  System.out.println(json+" right?");
 
-		return new Gson().toJson(" test?");
+	@RequestMapping(method = { RequestMethod.POST }, path = {
+			"/admin/cu.controller" }, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String createAndUpdate(@RequestParam Map<String,String> cuParam) throws IOException {
+		String table = columnService.getTableName();
+		String result = "";
+		Gson gson = new Gson();
+		System.out.println("test with "+gson.toJson(cuParam));
+		if (table != null) {
+			if (Boolean.getBoolean(cuParam.get("forUpdate"))){
+				result = dataTablesService.ajaxUpdateHandler(table, cuParam);
+			} else {
+				result = dataTablesService.ajaxCreateHandler(table, cuParam);
+			}
+			//TODO
+		}
+		return result;
 	}
 }

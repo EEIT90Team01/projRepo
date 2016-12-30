@@ -14,8 +14,7 @@
 	rel="stylesheet"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/v/bs/dt-1.10.13/cr-1.3.2/se-1.2.0/datatables.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jszip-2.5.0/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-html5-1.2.4/cr-1.3.2/fh-3.1.2/se-1.2.0/datatables.css"/>
 <link rel="stylesheet" type="text/css"
 	href='<c:url value="/admin/css/admin.css"/>' />
 </head>
@@ -31,7 +30,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#home">FlipYouth 後台管理系統</a>
+				<a class="navbar-brand"  style="cursor:default">FlipYouth 後台管理系統</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav nav-tabs" role="tablist">
@@ -64,14 +63,10 @@
 				cellspacing="0" width="100%">
 				<thead>
 					<tr>
-						<th>權限編號</th>
-						<th>權限名稱</th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
-						<th>權限編號</th>
-						<th>權限名稱</th>
 					</tr>
 				</tfoot>
 			</table>
@@ -140,8 +135,7 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.datatables.net/v/bs/dt-1.10.13/cr-1.3.2/se-1.2.0/datatables.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jszip-2.5.0/dt-1.10.13/b-1.2.4/b-colvis-1.2.4/b-html5-1.2.4/cr-1.3.2/fh-3.1.2/se-1.2.0/datatables.js"></script>
 	<script src="https://oss.maxcdn.com/jquery.form/3.50/jquery.form.min.js"></script>
 	<script src='<c:url value="/admin/js/admin.js"/>'></script>
 </body>

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import model.bean.AdministratorBean;
-import model.dao.AdministratorDAO;
+import model.dao.AdministratorDTDAO;
 @Service(value="adminLoginService")
 @Transactional
 public class AdminLoginService {
@@ -61,7 +61,7 @@ public class AdminLoginService {
 	}
 
 	@Autowired
-	private AdministratorDAO administratorDao;
+	private AdministratorDTDAO administratorDao;
 	
 	@Transactional(readOnly=true)
 	public AdministratorBean login(String admId, String admPassword) {

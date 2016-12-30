@@ -6,11 +6,15 @@ $(document)
 	//var editIcon = ;
 
 	//navbar的tab on click change table
-	$('#navbar').find('a[href$="tables"]').click(function () {
+	$('#navbar').find('a').click(function () {
 		if ($.fn.dataTable.isDataTable('#dataTable')) {
 			$('#dataTable').DataTable().destroy();
+			$('#dataTable').find('tbody').empty();
+			$('#dataTable').find('tr').empty();
 		}
-		ajaxChangeTable(this.id);
+		if ($(this).attr('href')=='#tables'){
+			ajaxChangeTable(this.id)
+		};
 	});
 
 	$('#tables').on('click', '#dataTable tbody tr',
@@ -30,29 +34,9 @@ $(document)
 		function (event) {
 		//修改資料  on click
 		event.stopPropagation();
-		cuHandler($('#navbar').find('li.active').find('a').attr('id'), $(this)
-			.parent().attr('id').substring(2));
-	}).on(
-		'click',
-		'div.icon-new',
-		function () {
-		//新增資料  on click
-		cuHandler($('#navbar').find('li.active').find('a').attr('id'), null);
-	}).on(
-		'click',
-		'div.icon-delete',
-		function () {
-		//刪除資料 on click
-		if (selected.length !== 0) {
-			$('#deleteModal').modal();
-			$('#deleteModal').find('h3').toggleClass('text-success text-danger').html(
-				'將刪除 ' + selected.length
-				 + ' 筆資料<br>真的嗎？');
-			$('#deleteModal').find('.delete-confirm').on('click', function () {
-				ajaxDelete();
-				$('#deleteModal').find('h3').text('刪除中...');
-			});
-		}
+		console.log(test);
+		cuHandler($('#navbar').find('li.active').find('a').attr('id'), $('#dataTable').DataTable().row($(this).parent()).data());
+		//分別傳了tablename and row data
 	});
 
 	//關modal時redraw
@@ -61,17 +45,12 @@ $(document)
 	})
 
 	//依table 顯示create/update form
-	function cuHandler(table, pk) {
+	function cuHandler(table, data) {
 		$('#cuModal').modal();
 		var cuForm = $('#cuModal').find('form').off();
 
 		// 生成DOM (maybe call another js?)
-		switch (table) {
-		case "Authority":
-			break;
-		default:
-			break;
-		}
+		cuFormGen(table);
 
 		var options = {
 			success: function (result) {
@@ -104,21 +83,13 @@ $(document)
 				tableName: navId
 			},
 			success: function (result) {
-				$('#dataTable').find('tbody').empty();
-				var theadtr = $('<tr/>').appendTo(
-						$('#dataTable').find('thead').empty());
-				var tfoottr = $('<tr/>').appendTo(
-						$('#dataTable').find('tfoot').empty());
+				var dtTr= $('#dataTable').find('tr');
 				for (var idx in result.colStrings) {
-					$('<th/>', {
+					dtTr.append($('<th/>', {
 						text: result.colStrings[idx]
-					}).appendTo(theadtr);
-					$('<th/>', {
-						text: result.colStrings[idx]
-					}).appendTo(tfoottr);
+					}));
 				}
-				theadtr.append($('<th/>'));
-				tfoottr.append($('<th/>'));
+				dtTr.append($('<th/>'));
 				var tabColumns = result.cols;
 				tabColumns.push({
 					"class": "icon-edit",
@@ -156,9 +127,47 @@ $(document)
 	function tableGen(tabColumns) {
 		$('#dataTable')
 		.DataTable({
-			"dom": "<'row'<'col-sm-6'l><'col-sm-4'f><'col-sm-2 text-right'<'icon-new'><'icon-delete'>>>"
-			 + "<'row'<'col-sm-12'tr>>"
-			 + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+			"fixedHeader" : {
+		        footer: true
+		    },
+		    buttons: [
+		    	{
+		    		extend : 'colvis',
+		        	text: '<div class="icon-config"></div>'
+		        },
+		        {
+		    		extend : 'excel',		    	
+		        	text: '<div class="icon-save"></div>'
+		        }, 
+		        {
+		        	text: '<div class="icon-new"></div>',
+		            action: function ( e, dt, node, config ) {
+		            	//新增資料  on click
+		        		cuHandler($('#navbar').find('li.active').find('a').attr('id'), null);
+		            }
+		        }, 
+		        {
+		        	text: '<div class="icon-delete"></div>',
+		            action: function ( e, dt, node, config ) {
+		            	//刪除資料 on click
+		            	if (selected.length !== 0) {
+		        			$('#deleteModal').modal();
+		        			$('#deleteModal').find('h3').toggleClass('text-success text-danger').html(
+		        				'將刪除 ' + selected.length
+		        				 + ' 筆資料<br>真的嗎？');
+		        			$('#deleteModal').find('.delete-confirm').on('click', function () {
+		        				ajaxDelete();
+		        				$('#deleteModal').find('h3').text('刪除中...');
+		        			});
+		        		}
+		            }
+		        }
+		    ],
+		    "autoWidth": false,
+		    "colReorder": true,
+			"dom": "<'row'<'col-sm-6'B<'inline-fix'l>><'col-sm-6'f>>"
+				 + "<'row'<'col-sm-12'tr>>"
+				 + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
 			"processing": true,
 			"serverSide": true,
 			"ajax": "datatables.controller",
@@ -195,4 +204,13 @@ $(document)
 			}
 		});
 	};
+	
+	function cuFormGen(table){//TODO
+		switch (table) {
+		case "Authority":
+			break;
+		default:
+			break;
+		}
+	}
 });

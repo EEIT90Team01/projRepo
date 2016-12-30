@@ -2,6 +2,7 @@ package model.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,38 +14,16 @@ import com.google.gson.JsonObject;
 
 import model.bean.AdministratorBean;
 import model.bean.AuthorityBean;
-import model.dao.AdministratorDAO;
-import model.dao.AuthorityDAO;
+import model.dao.AdministratorDTDAO;
+import model.dao.AuthorityDTDAO;
 
 @Service(value = "dataTablesService")
 public class DataTablesService {
 
 	@Autowired
-	private AuthorityDAO authorityDao;
+	private AuthorityDTDAO authorityDtdao;
 	@Autowired
-	private AdministratorDAO administratorDao;
-
-	// @Transactional
-	// public Object insert(Object bean) {
-	// AuthorityBean result = null;
-	// if (bean != null) {
-	//
-	// result = genericDao.insert(bean);
-	//
-	// }
-	// return result;
-	// }
-	//
-	// @Transactional
-	// public Object update(Object bean) {
-	// AuthorityBean result = null;
-	// if (bean != null) {
-	//
-	// result = genericDao.update(bean);
-	//
-	// }
-	// return result;
-	// }
+	private AdministratorDTDAO administratorDtdao;
 
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
 			int draw, int start, int length) {
@@ -88,9 +67,9 @@ public class DataTablesService {
 	int ajaxCountHandler(String hql, String table) {
 		switch (table) {
 		case "Authority":
-			return authorityDao.ajaxCount(hql);
+			return authorityDtdao.ajaxCount(hql);
 		case "Administrator":
-			return administratorDao.ajaxCount(hql);
+			return administratorDtdao.ajaxCount(hql);
 		default:
 			return 0;
 		}
@@ -103,7 +82,7 @@ public class DataTablesService {
 
 		switch (table) {
 		case "Authority":
-			List<AuthorityBean> auths = authorityDao.ajaxQuery(hql.toString(), start, length);
+			List<AuthorityBean> auths = authorityDtdao.ajaxQuery(hql.toString(), start, length);
 			for (AuthorityBean auth : auths) {
 
 				JsonObject jObj = gson.toJsonTree(auth).getAsJsonObject();
@@ -112,7 +91,7 @@ public class DataTablesService {
 			}
 			return jArray;
 		case "Administrator":
-			List<AdministratorBean> admins = administratorDao.ajaxQuery(hql.toString(), start, length);
+			List<AdministratorBean> admins = administratorDtdao.ajaxQuery(hql.toString(), start, length);
 			for (AdministratorBean admin : admins) {
 
 				JsonObject jObj = new JsonObject();
@@ -140,10 +119,10 @@ public class DataTablesService {
 
 		switch (table) {
 		case "Authority":
-			count = authorityDao.ajaxDelete(toDelete);
+			count = authorityDtdao.ajaxDelete(toDelete);
 			break;
 		case "Administrator":
-			count = administratorDao.ajaxDelete(toDelete);
+			count = administratorDtdao.ajaxDelete(toDelete);
 			break;
 		default:
 			break;
@@ -161,27 +140,38 @@ public class DataTablesService {
 	}
 
 	@Transactional
-	public String ajaxUpdateHandler(String table, String[] toDelete) {
-		String result = "";//TODO
-		int count = -1;
+	public String ajaxUpdateHandler(String table, Map<String,String> updateParamMap) {
+		String result = "";
 
 		switch (table) {
 		case "Authority":
-			count = authorityDao.ajaxDelete(toDelete);
+			//TODO
+			//result = authorityDtdao.ajaxUpdate(toDelete);
 			break;
 		case "Administrator":
-			count = administratorDao.ajaxDelete(toDelete);
+			//result = administratorDtdao.ajaxUpdate(toDelete);
 			break;
 		default:
 			break;
 		}
+		return result;
+	}
+	
+	@Transactional
+	public String ajaxCreateHandler(String table, Map<String,String> updateParamMap) {
+		String result = "";
 
-		if (count == -1) {
-			result = "刪除錯誤，請檢查表格關聯性。";
-		} else {
-			result = "成功刪除 " + count + " 筆資料";
+		switch (table) {
+		case "Authority":
+			
+			//result = authorityDtdao.ajaxCreate(toDelete);
+			break;
+		case "Administrator":
+			//result = administratorDtdao.ajaxCreate(toDelete);
+			break;
+		default:
+			break;
 		}
-		
 		return result;
 	}
 }

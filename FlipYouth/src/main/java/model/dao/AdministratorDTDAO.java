@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.bean.AdministratorBean;
-@Repository(value="administratorDao")
-public class AdministratorDAO {
+@Repository(value="administratorDtdao")
+public class AdministratorDTDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -34,7 +34,7 @@ public class AdministratorDAO {
 //		return beans;
 //	}
 
-	public AdministratorBean insert(AdministratorBean bean) {
+	public AdministratorBean create(AdministratorBean bean) {
 		
 		getSession().saveOrUpdate(bean);
 		return bean;

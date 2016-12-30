@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import model.bean.AuthorityBean;
 
-@Repository(value = "authorityDao")
-public class AuthorityDAO {
+@Repository(value = "authorityDtdao")
+public class AuthorityDTDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	public Session getSession() {
@@ -27,7 +27,7 @@ public class AuthorityDAO {
 		return bean;
 	}
 
-	public AuthorityBean insert(AuthorityBean bean) {
+	public AuthorityBean create(AuthorityBean bean) {
 
 		getSession().saveOrUpdate(bean);
 		return bean;
