@@ -41,16 +41,21 @@
 /* } */
 </style>
 <script type="text/javascript">
+
 function loadaa() {
-	console.log('load')
+	var c =0;
+	var b=$('.sub').children().next();
+	console.log(b.length)
+	for(var i=0 ;i<b.length;i++){
+	var d = $(b[i]).text();
+		c+=parseInt(d);
+	}
+	$('#totalShop').text("$"+c);
+	
 }
 </script>
 
 </head>
-
-
-
-
 <body onload="loadaa()">
 	<div class="container-fluid m-t-3">
 		<div class="row">
@@ -96,8 +101,9 @@ function loadaa() {
 									<td class="input-qty">
 										<div class="input-group bootstrap-touchspin">
 											<span class="input-group-addon bootstrap-touchspin-prefix">qty
-											</span> <input onchange="inputCangeCar(this)" id="${data.value.PK.gameSN.gameSN}"
-												type="text" value="${data.value.quantity}"
+											</span> <input onchange="inputCangeCar(this)"
+												id="${data.value.PK.gameSN.gameSN}" type="text"
+												value="${data.value.quantity}"
 												class="form-control text-center" style="display: block;"><span
 												class="input-group-addon bootstrap-touchspin-postfix"
 												style="display: none;"></span><span
@@ -117,10 +123,10 @@ function loadaa() {
 										</div>
 									</td>
 									<td class="unit">\$${data.value.PK.gameSN.price}</td>
-									<td class="sub">\$${data.value.PK.gameSN.price}</td>
+									<td class="sub"><span>$</span><span>${data.value.PK.gameSN.price*data.value.quantity}</span></td>
 									<td class="action"><a href="javascript:void(0)"
 										data-toggle="tooltip"
-										onclick="CShopCar(${data.value.PK.gameSN.gameSN})"
+										onclick="CShopCar(${data.value.PK.gameSN.gameSN},${data.value.PK.gameSN.price},${data.value.quantity},this)"
 										data-placement="top" data-original-title="Update"> <i
 											class="fa fa-refresh"><img data-original-title="Update"
 												data-toggle="tooltip" style="width: 25px"
@@ -138,8 +144,12 @@ function loadaa() {
 								</tr>
 							</tbody>
 						</c:forEach>
-
-
+						<tbody>
+							<tr>
+								<td colspan="4" class="text-right">總計</td>
+								<td id="totalShop" colspan="2"><b></b></td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 				<nav aria-label="Shopping Cart Next Navigation">
@@ -327,11 +337,7 @@ function loadaa() {
 		</div>
 	</div>
 
-	<script type="text/javascript">
-	$(document).ready(function() {
-		console.log("ready!");
-	});
-</script>
+
 	<script type="text/javascript">
 
 
@@ -351,7 +357,11 @@ function loadaa() {
 			$('#'+SN).val(gameCount);
 		}
 		
-		function CShopCar(gameSN) {
+		function CShopCar(gameSN,price,count,thiss) {
+			var a =$(thiss).parent().prev();
+			a.children().next().empty();
+			var b = $('#'+gameSN).val()
+			a.children().next().text(price*b)
 			$.ajax({
 				url : "/FlipYouth/order.controller?change=1",
 				type : "POST",
@@ -369,6 +379,7 @@ function loadaa() {
 // 					$(gameValue).val(Quantity);
 					} else {
 						alert('更新購物車成功')
+						loadaa();
 					}
 				},
 			})
@@ -381,6 +392,7 @@ function loadaa() {
 			gameCount =$(me).val();			
 		}
 		function delectCar(gameSN,row){
+			
 			$.ajax({
 				url:"/FlipYouth/order.controller?delectCar="+gameSN,
 				type:"POST",
@@ -390,8 +402,8 @@ function loadaa() {
 				success:function(res) {
 					alert('刪除成功');
 					$('.'+gameSN).empty();
-// 					window.location.href="/Tim/page/Shop/shoppingCar.jsp"
-// 					$('body').html(res);
+					loadaa();
+
 					},
 			})
 		}
