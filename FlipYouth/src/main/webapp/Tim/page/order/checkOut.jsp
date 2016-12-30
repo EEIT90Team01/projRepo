@@ -13,29 +13,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商城系統</title>
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-	crossorigin="anonymous"></script>
-<!-- Latest compiled and minified CSS -->
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-<!-- <link rel="stylesheet" type="text/css" href="css/Tim.css"> -->
-<!-- Latest compiled and minified JavaScript -->
-<script type="text/javascript" src="../../js_Tim/html2canvas.js"></script>
-<script type="text/javascript" src="../../js_Tim/canvas2image.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
 <style type="text/css">
 /* div { */
 /* 	border-style: solid; */
@@ -114,7 +91,8 @@ b {
 						src="<c:url value="/Tim/image/icon/step01_c.png"/>" />
 				</div>
 				<div class="col-xs-6">
-					<img alt="Bootstrap Image Preview" src="<c:url value="/Tim/image/icon/step02.png"/>" />
+					<img alt="Bootstrap Image Preview"
+						src="<c:url value="/Tim/image/icon/step02.png"/>" />
 				</div>
 			</div>
 		</div>
@@ -224,30 +202,30 @@ b {
 								<div class="row">
 									<div class="col-md-12">
 										<form role="form">
-											<div class="form-group">
+											<div class="form-group col-md-6">
 
 												<label><b style="color: red">※</b> 訂購人姓名 </label> <input
 													type="text" class="form-control" id="name"
 													value="${loginOK.mbrName}" />
 											</div>
-											<div class="form-group">
+											<div class="form-group col-md-6">
 
 												<label>連絡電話 </label><input type="text"
 													value="${loginOK.phone}" class="form-control" id="tel" />
 											</div>
-											<div class="form-group">
+											<div class="form-group col-md-6">
 
 												<label><b style="color: red">※</b> 行動電話<b>
 														※查詢訂單必須輸入的欄位</b> </label> <input value="${loginOK.phone}" type="text"
 													class="form-control" id="phone" />
 											</div>
-											<div class="form-group">
+											<div class="form-group col-md-6">
 
 												<label><b style="color: red">※</b> 電子信箱 <b>※訂單明細收件信箱
 												</b></label> <input type="email" value="${loginOK.mbrEmail}"
 													class="form-control" id="email" />
 											</div>
-											<div class="form-group">
+											<div class="form-group col-md-6">
 
 												<label> 聯絡地址 </label> <input value="${loginOK.address}"
 													type="text" class="form-control" id="address" />
@@ -256,6 +234,7 @@ b {
 													</label>
 												</div>
 											</div>
+											
 
 											<div class="center">
 

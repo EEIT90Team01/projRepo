@@ -152,9 +152,13 @@ public class ShopController {
 	public String WriteOrder(String insert, HttpServletRequest req, HttpSession session, String mbrSN,
 			String orderAmount, String name, String tel, String phone, String email, String address)
 			throws ParseException, MessagingException, IOException {// 寫入訂單的controller
-
+		String orderAmoun = null;
+		
 		if (insert != null) {
-			OrderBean orderBean = new OrderBean(Integer.parseInt(orderAmount), email, address, name, tel, phone);
+			if(orderAmount.indexOf("$")!=-1){
+				orderAmoun=orderAmount.substring(1);
+			}
+			OrderBean orderBean = new OrderBean(Integer.parseInt(orderAmoun), email, address, name, tel, phone);
 			session.setAttribute("order", orderBean);
 			return "orderOver";
 		}
@@ -177,8 +181,16 @@ public class ShopController {
 
 			public void run() {
 				try {
-					OrderBean = shopServices.newOrderAndDetail(new OrderBean(image, email, address, name, tel, phone),
-							mbrSN, orderAmount, car);
+					car = (Map<String, OrderDetailBean>) session.getAttribute("cars");
+					OrderBean hi=(OrderBean)session.getAttribute("order");
+					
+					OrderBean = shopServices.newOrderAndDetail(new OrderBean(image,
+							email, 
+							hi.getAddress(),
+							hi.getName(),
+							hi.getTel(), 
+							hi.getPhone()),
+							((MemberBean)session.getAttribute("loginOK")).getMbrSN()+"", hi.getOrderAmount()+"", car);
 				} catch (ParseException e) {
 					System.out.println("NEW訂單失敗");
 					e.printStackTrace();
