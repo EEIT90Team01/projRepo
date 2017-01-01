@@ -68,12 +68,6 @@ function loadaa() {
 <body onload="loadaa()">
 	<script type="text/javascript">
 function changeData(){
-// 	console.log($('#name').val());
-// 	console.log($('#tel').val()); 
-// 	console.log($('#email').val());
-// 	console.log($('#address').val());
-// 	console.log($('#phone').val());
-// 	console.log();
 	$.ajax({
 		type:"POST",
 		url:"/FlipYouth/writeOrder.controller?insert=1",

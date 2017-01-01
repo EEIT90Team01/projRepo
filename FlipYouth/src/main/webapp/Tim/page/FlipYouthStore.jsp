@@ -32,10 +32,10 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-<script src="<c:url value="/Tim/js_Tim/bootstrap-select.js"/>"></script>
 <script src="<c:url value="/Tim/js_Tim/nouislider.js"/>"></script>
 <script src="<c:url value="/Tim/js_Tim/range.js"/>"></script>
 
+<script src="<c:url value="/Tim/js_Tim/bootstrap-select.js"/>"></script>
 <style type="text/css">
 /* .nav>li>a:focus, .nav>li>a:hover { */
 /* 	text-decoration: none; */
@@ -100,8 +100,30 @@ body {
 </style>
 </head>
 <body>
+  <!-- ------------------------------- -->
+	
 	<div class="row">
-		<div class="col-xs-12" style="height: 100px"></div>
+		<div class="middle-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 logo">
+            <img alt="Logo" style="height: 113px;
+    width: 259px;" src="<c:url value="/Tim/image/login/shoplogo.png"/>" class="img-responsive">
+          </div>
+          <div class="col-sm-8 col-md-6 search-box m-t-2">
+            <div class="input-group">
+             <input href="#one" aria-controls="one"  style="margin: 30px 50px;"
+						role="tab" data-toggle="tab" onchange="toggleTab(this)"  type="text" class="form-control" id="search" placeholder="查詢字串"> <div class="input-group-btn">
+                
+                <button type="button" class="btn btn-default btn-search"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    <!-- ------------------------------- -->
 	</div>
 	<nav class="navbar navbar-default shadow-navbar" role="navigation">
 	<div class="container">
@@ -112,7 +134,7 @@ body {
 					<li role="presentation" class="active"><a href="#home"
 						aria-controls="home" role="tab" data-toggle="tab"
 						onclick="toggleTab(this)">商城首頁</a></li>
-					<li role="presentation"><a href="#one" aria-controls="one"
+					<li role="presentation" id="list"><a href="#one" aria-controls="one" 
 						role="tab" data-toggle="tab" onclick="toggleTab(this)">商城列表</a></li>
 					<li role="presentation"><a href="#two" aria-controls="two"
 						role="tab" data-toggle="tab" onclick="toggleTabCar(this)">購物車</a></li>
@@ -145,6 +167,9 @@ body {
 
 	<script type="text/javascript">
 		function toggleTabcheckOver(thiss){
+			<%if (session.getAttribute("loginOK") == null) {%>
+			window.location.href = "/FlipYouth/Tim/login/login.jsp"
+		<%}%>
 			$('#four').empty();
 			$('#four')
 					.append(
@@ -155,6 +180,9 @@ body {
 			$('#' + a).show();
 		}
 		function toggleTab(thiss) {
+			$('#list').siblings().removeClass('active');
+			$('#list').addClass('active');
+			sendSelect();
 			$('.a').hide();
 			var a = $(thiss).attr('aria-controls')
 

@@ -73,11 +73,8 @@
 						<!-- 已下加入 -->
 						<a href="<c:url value="/Tim/login/login.jsp"/>">登入</a><BR> <a
 							href="<c:url value="/logout.controller"/>">登出</a><BR> <a
-							href="<c:url value="/Shop.controller"/>">商品列表</a><BR> <a
-							href="<c:url value="/Tim/page/order/checkOut.jsp"/>">檢查訂單</a><BR>
+							href="<c:url value="/Tim/page/FlipYouthStore.jsp"/>">商城</a><BR> <BR>
 						<a href="<c:url value="/Tim/page/order/orderDetal.jsp"/>">訂單明細</a><BR>
-						<a href="<c:url value="/Tim/page/order/orderOver.jsp"/>">訂單成功</a><BR>
-						<a href="<c:url value="/Tim/page/Shop/list.jsp"/>">商品列表</a><BR>
 						<a href="<c:url value="/Shop.controller?ID=1"/>">單件商品</a><BR>
 					</div>
 					<div class="col-xs-2">
