@@ -71,6 +71,46 @@ b {
 .btn-danger {
 	background-image: linear-gradient(to bottom, #c7000b 0, #c12e2a 100%);
 }
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.bootstrap-select .dropdown-toggle {
+	border-color: #ccc;
+	border-radius: 0;
+}
+
+.title2 {
+	font-size: 15px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 150px;
+}
+font{font-family: 
+Meiryo, "·L³n¥¿¶ÂÅé", "Microsoft JhengHei"}
 </style>
 </head>
 <script type="text/javascript">

@@ -39,6 +39,63 @@
 /* div { */
 /* 	border: 1px solid; */
 /* } */
+
+.overfont {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.title {
+	border-bottom: 3px solid #9fa8da;
+}
+
+.title {
+	font-size: 18px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.bootstrap-select .dropdown-toggle {
+	border-color: #ccc;
+	border-radius: 0;
+}
+
+.title2 {
+	font-size: 15px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 150px;
+}
 </style>
 <script type="text/javascript">
 
@@ -147,22 +204,27 @@ function loadaa() {
 						<tbody>
 							<tr>
 								<td colspan="4" class="text-right">總計</td>
-								<td id="totalShop" colspan="2"><b></b></td>
+								<td id="totalShop" style="font-family: fantasy; font: red" colspan="2"><b></b></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<nav aria-label="Shopping Cart Next Navigation">
 				<ul class="pager">
-					<li role="presentation" class="previous"><a href="#home"
-						aria-controls="home" role="tab" data-toggle="tab"><span
+					<li role="presentation" class="previous"><a myid="two" aria-controls="one" href="javascript:void(0)"
+						 onclick="parentHome(this)"><span
 							aria-hidden="true">←</span>繼續購物</a></li>
-					<li class="next"><a href="checkout.html">繼續查看<span
+					<li class="next"><a myid="two" aria-controls="three" onclick="parentHome(this)" href="checkout.html">繼續查看<span
 							aria-hidden="true">→</span>
 					</a></li>
 				</ul>
 				</nav>
 			</div>
+			<script type="text/javascript">
+			function parentHome(me) {
+				parent.parentTab(me)
+			}
+			</script>
 			<!-- End Shopping Cart List -->
 
 			<!-- New Arrivals -->

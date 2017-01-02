@@ -97,45 +97,105 @@ body {
 	color: #333;
 	background-color: #fff;
 }
+
+.title {
+	font-size: 18px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: malgun gothic;
+}
+
+a {
+	font-family: "malgun gothic", simhei;
+}
+
+.title3 {
+	font-family: "malgun gothic", simhei;
+}
+
+#loadingIMG {
+	position: absolute;
+	height: 150px;
+	width: 150px;
+}
 </style>
+<script type="text/javascript">
+$(function () {
+    move_div();
+    $(window).resize(move_div);
+    $(window).scroll(move_div);
+
+
+});
+
+
+function move_div() {
+//  window_width =window.parent.outerWidth;
+//  window_height = window.parent.outerHeight;
+ window_width =$(window).width();
+ window_height = $(window).height();
+	obj_width = $('#loadingIMG').width();
+ obj_height = $('#loadingIMG').height();
+ $('#loadingIMG').css({
+     'top': ((window_height / 2) - (obj_height / 2) + document.body.scrollTop),
+     'left': (window_width / 2) - (obj_width / 2)
+ });
+}
+</script>
 </head>
 <body>
-  <!-- ------------------------------- -->
-	
+	<div id="loadingIMG" style="display: none; z-index: 9999;">
+		<nobr style="font-size:30px;color:red">訂單處理中</nobr>
+		<img src="<c:url value="/Tim/image/icon/gears.svg"/>">
+	</div>
+
+	<!-- ------------------------------- -->
+
 	<div class="row">
 		<div class="middle-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 logo">
-            <img alt="Logo" style="height: 113px;
-    width: 259px;" src="<c:url value="/Tim/image/login/shoplogo.png"/>" class="img-responsive">
-          </div>
-          <div class="col-sm-8 col-md-6 search-box m-t-2">
-            <div class="input-group">
-             <input href="#one" aria-controls="one"  style="margin: 30px 50px;"
-						role="tab" data-toggle="tab" onchange="toggleTab(this)"  type="text" class="form-control" id="search" placeholder="查詢字串"> <div class="input-group-btn">
-                
-                <button type="button" class="btn btn-default btn-search"><i class="fa fa-search"></i></button>
-              </div>
-            </div>
-          </div>
-         
-        </div>
-      </div>
-    </div>
-    <!-- ------------------------------- -->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 logo">
+						<img alt="Logo" style="height: 113px; width: 259px;"
+							src="<c:url value="/Tim/image/login/shoplogo.png"/>"
+							class="img-responsive">
+					</div>
+					<div class="col-sm-8 col-md-6 search-box m-t-2">
+						<div class="input-group">
+							<input href="#one" aria-controls="one"
+								style="width: 98%; margin: 30px 50px;" role="tab"
+								data-toggle="tab" onchange="toggleTab(this)" type="text"
+								class="form-control" id="search" placeholder="查詢字串">
+							<div class="input-group-btn">
+
+								<button type="button" class="btn btn-default btn-search">
+									<img
+										style="margin: 0px; padding: 0px; width: 20px; height: 20px;"
+										src="<c:url  value="/Tim/image/icon/seach.png"/>">
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- ------------------------------- -->
 	</div>
 	<nav class="navbar navbar-default shadow-navbar" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
-			<div class="collapse navbar-collapse" id="navbar-ex1-collapse">
+			<div onclick="" class="collapse navbar-collapse"
+				id="navbar-ex1-collapse">
 
 				<ul class="nav navbar-nav">
 					<li role="presentation" class="active"><a href="#home"
 						aria-controls="home" role="tab" data-toggle="tab"
 						onclick="toggleTab(this)">商城首頁</a></li>
-					<li role="presentation" id="list"><a href="#one" aria-controls="one" 
-						role="tab" data-toggle="tab" onclick="toggleTab(this)">商城列表</a></li>
+					<li role="presentation" id="list"><a href="#one"
+						class="title3" aria-controls="one" role="tab" data-toggle="tab"
+						onclick="toggleTab(this)">商城列表</a></li>
 					<li role="presentation"><a href="#two" aria-controls="two"
 						role="tab" data-toggle="tab" onclick="toggleTabCar(this)">購物車</a></li>
 					<li role="presentation"><a href="#three" aria-controls="three"
@@ -166,6 +226,27 @@ body {
 
 
 	<script type="text/javascript">
+		function parentTab(thiss) {
+			var myid = $(thiss).attr('myid');
+			$('#' + myid).empty();
+			$('#navbar-ex1-collapse').children().children().removeClass('active')
+			var a = $(thiss).attr('aria-controls');
+			$("a[aria-controls='"+a+"']").parent().addClass('active');
+			if(a=='three'){
+				<%if (session.getAttribute("loginOK") == null) {%>
+				window.location.href = "/FlipYouth/Tim/login/login.jsp"
+			<%}%>
+				$('#three').empty();
+				$('#three')
+				.append(
+						'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/order/check.jsp"></iframe>');
+			}
+			$('#' + a).show();
+		}
+		
+		
+		
+		
 		function toggleTabcheckOver(thiss){
 			<%if (session.getAttribute("loginOK") == null) {%>
 			window.location.href = "/FlipYouth/Tim/login/login.jsp"
@@ -256,5 +337,6 @@ body {
 <script src="<c:url value="/Tim/js_Tim/bootstrap-select.js"/>"></script>
 <script src="<c:url value="/Tim/js_Tim/nouislider.js"/>"></script>
 <script src="<c:url value="/Tim/js_Tim/range.js"/>"></script> --%>
+
 </body>
 </html>

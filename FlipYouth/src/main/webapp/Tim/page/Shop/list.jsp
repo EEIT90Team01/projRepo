@@ -26,15 +26,17 @@ body {
 }
 
 a:link {
-	color: black;
-	font-family: Microsoft JhengHei;;
+
+font-size:17px;
+	color: black;font-family: "malgun gothic", simhei;
 	　font-weight: 900;
 	//
 	設定還沒瀏覽過的連結樣式
 }
 
-a:visited {
-	font-family: Microsoft JhengHei;;
+a:visited {font-family: "malgun gothic", simhei;
+
+font-size:17px;
 	color: black;
 	font-size: 900;
 	font-weight: 900;
@@ -43,7 +45,8 @@ a:visited {
 }
 
 a:hover {
-	font-family: Microsoft JhengHei;;
+font-size:17px;
+font-family: "malgun gothic", simhei;
 	color: black;
 	font-size: 900;
 	font-weight: 900;
@@ -51,8 +54,10 @@ a:hover {
 	設定滑鼠移到連結上的樣式
 }
 
-a:active {
-	font-family: Microsoft JhengHei;;
+a:active {font-family: "malgun gothic", simhei;
+	
+
+font-size:17px;
 	font-weight: 900;
 	//
 	設定正在被點選的連結樣式
@@ -102,6 +107,14 @@ a:active {
 	border-bottom: 3px solid #9fa8da;
 }
 
+.title {
+	font-size: 18px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
 /* .select { */
 /* 	border-color: #1036d0; */
 /* 	outline: 0 !important; */
@@ -150,6 +163,21 @@ a:active {
 	border-color: #ccc;
 	border-radius: 0;
 }
+
+.title2 {
+	font-size: 15px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 150px;
+}
+font{font-family: 
+Meiryo, "微軟正黑體", "Microsoft JhengHei"}
+
 </style>
 
 
@@ -305,8 +333,8 @@ a:active {
 						<div id="range-value">
 							<font><font>範圍：</font></font><span id="min-price"><font>
 									<font></font>
-							</font> </span><font><font> - </font></font><span id="max-price"><span>
-									$</span><font><font></font></font></span>
+							</font> </span><font><font> - </font></font><span style="font-family: absolute"
+								id="max-price"><span> $</span><font><font></font></font></span>
 						</div>
 
 						<input type="hidden" name="min-price" value=""></input><input
@@ -339,30 +367,31 @@ a:active {
 					<!--==========================================================  -->
 
 					<div class="product-sorting-bar">
-							<div class="col-md-12">
-								<div id="orderBy" class="col-md-4">
-										<font>排序</font><select onchange="sendSelect()"
-											class="btn-group bootstrap-select selectpicker select">
-											<option value="DESC"><font>價錢高到低</font></option>
-											<option value="ASC"><font>價錢低到高</font></option>
-										</select>
-									
-								</div>
-  
+						<div class="col-md-12">
+							<div id="orderBy" class="col-md-4">
+								<font class="title2">排序 </font><select onchange="sendSelect()"
+									class="btn-group bootstrap-select selectpicker select">
+									<option value="DESC"><font>價錢高到低</font></option>
+									<option value="ASC"><font>價錢低到高</font></option>
+								</select>
 
-								<div id="select-page" class="col-md-4">
-										<font>每頁頁數</font><select onchange="changePageCount()"
-											class="btn-group bootstrap-select selectpicker select ">
-											<option value="6"><font>6</font></option>
-											<option value="9"><font>9</font></option>
-											<option value="12"><font>12</font></option>
-										</select>
-									
-								</div>
-								<div class="col-xs-4"><br>
-									<font  id="page-count"></font>
-								</div>
 							</div>
+
+
+							<div id="select-page" class="col-md-4">
+								<font class="title2">每頁頁數 </font><select style="width: 100px" onchange="changePageCount()"
+									class="btn-group bootstrap-select selectpicker ">
+									<option value="6"><font>6</font></option>
+									<option value="9"><font>9</font></option>
+									<option value="12"><font>12</font></option>
+								</select>
+
+							</div>
+							<div class="col-md-4">
+								<font id="page-count" class="title2"></font><br>
+								<font id="page-count1" class="title2"></font>
+							</div>
+						</div>
 					</div>
 					<!--===========================================  -->
 					<div id="forEach"></div>
@@ -589,7 +618,10 @@ a:active {
 									.text(
 											'有'
 													+ res.total
-													+ '項商品 目前顯示第'
+													+ '項商品');
+							$('#page-count1')
+							.text('目前顯示第'
+													
 													+ ((selectpage * nowpage) - (selectpage - 1))
 													+ "項-第" + selectpage
 													* nowpage + "項")
@@ -632,9 +664,9 @@ a:active {
 												var h = '<p style="height: 60px">'
 														+ data.introduction
 														+ '</p>'
-												var i = '<div class="price"> <span class="btm-30px" style="position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
+												var i = '<div class="price"> <span class="btm-30px" style="font-family: fantasy;position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
 														+ data.price
-														+ '元</span> </div>'
+														+ '</span> </div>'
 												var j = '<div class="rating"><a href=""><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
 														+ data.gameSN
 														+ ','
