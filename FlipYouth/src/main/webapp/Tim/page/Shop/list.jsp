@@ -12,7 +12,6 @@
 /* 	border-style: solid; */
 /* 	border-width: 1px; */
 /* } */
-
 p, h3 {
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -27,15 +26,17 @@ body {
 }
 
 a:link {
-	color: black;
-	font-family: Microsoft JhengHei;;
+
+font-size:17px;
+	color: black;font-family: "malgun gothic", simhei;
 	　font-weight: 900;
 	//
 	設定還沒瀏覽過的連結樣式
 }
 
-a:visited {
-	font-family: Microsoft JhengHei;;
+a:visited {font-family: "malgun gothic", simhei;
+
+font-size:17px;
 	color: black;
 	font-size: 900;
 	font-weight: 900;
@@ -44,7 +45,8 @@ a:visited {
 }
 
 a:hover {
-	font-family: Microsoft JhengHei;;
+font-size:17px;
+font-family: "malgun gothic", simhei;
 	color: black;
 	font-size: 900;
 	font-weight: 900;
@@ -52,8 +54,10 @@ a:hover {
 	設定滑鼠移到連結上的樣式
 }
 
-a:active {
-	font-family: Microsoft JhengHei;;
+a:active {font-family: "malgun gothic", simhei;
+	
+
+font-size:17px;
 	font-weight: 900;
 	//
 	設定正在被點選的連結樣式
@@ -78,7 +82,6 @@ a:active {
 /* 	font-weight: 600; */
 /* 	font-family: Microsoft JhengHei; */
 /* } */
-
 .ffff {
 	background-color: black;
 }
@@ -104,29 +107,77 @@ a:active {
 	border-bottom: 3px solid #9fa8da;
 }
 
-.select {
-	border-color: #1036d0;
-	outline: 0 !important;
-	background-color: #eee;
-	-webkit-box-shadow: none;
-	box-shadow: none;
+.title {
+	font-size: 18px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
 }
-
+/* .select { */
+/* 	border-color: #1036d0; */
+/* 	outline: 0 !important; */
+/* 	background-color: #eee; */
+/* 	-webkit-box-shadow: none; */
+/* 	box-shadow: none; */
+/* } */
 .noUi-horizontal {
 	height: 13px;
 }
 
-.list-group-item {
-	position: relative;
-	display: block;
-	padding: 10px 15px;
-	margin-bottom: -1px;
-	background-color: #fff;
+/* .list-group-item { */
+/* 	position: relative; */
+/* 	display: block; */
+/* 	padding: 10px 15px; */
+/* 	margin-bottom: -1px; */
+/* 	background-color: #fff; */
+/* } */
+
+/* .dropdown-menu { !important; */
+
+/* } */
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
 }
 
-.dropdown-menu { !important;
-	
+.bootstrap-select .dropdown-toggle {
+	border-color: #ccc;
+	border-radius: 0;
 }
+
+.title2 {
+	font-size: 15px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 150px;
+}
+font{font-family: 
+Meiryo, "微軟正黑體", "Microsoft JhengHei"}
+
 </style>
 
 
@@ -137,7 +188,7 @@ a:active {
 
 
 </head>
-<body  id="body" >
+<body id="body">
 	<span id="wdth"></span>
 	<c:set var="ShopUrl" scope="session"
 		value="'/FlipYouth/Shop.controller'" />
@@ -243,10 +294,9 @@ a:active {
 						<div class="title">
 							<span><font>遊戲主題</font></span>
 						</div>
-
 						<select onchange="sendSelect()" id="theme" multiple title="可複選"
 							data-live-search="true"
-							class="btn-group bootstrap-select selectpicker select">
+							class="btn-group bootstrap-select selectpicker show-menu-arrow">
 							<option value="0"><font>全部 </font></option>
 							<option value="1"><font>動物 </font></option>
 							<option value="2"><font>抽象 </font></option>
@@ -283,8 +333,8 @@ a:active {
 						<div id="range-value">
 							<font><font>範圍：</font></font><span id="min-price"><font>
 									<font></font>
-							</font> </span><font><font> - </font></font><span id="max-price"><span>
-									$</span><font><font></font></font></span>
+							</font> </span><font><font> - </font></font><span style="font-family: absolute"
+								id="max-price"><span> $</span><font><font></font></font></span>
 						</div>
 
 						<input type="hidden" name="min-price" value=""></input><input
@@ -312,33 +362,34 @@ a:active {
 				<!-- ===============================左側查詢 以上==========================================-->
 				<div class="col-md-9">
 					<div class="title">
-						<span>商品類型</span>
+						<span>商品</span>
 					</div>
 					<!--==========================================================  -->
 
-
-					<div class="filter-sidebar">
+					<div class="product-sorting-bar">
 						<div class="col-md-12">
 							<div id="orderBy" class="col-md-4">
-								排序 <select onchange="sendSelect()" style="width: 50%;"
+								<font class="title2">排序 </font><select onchange="sendSelect()"
 									class="btn-group bootstrap-select selectpicker select">
 									<option value="DESC"><font>價錢高到低</font></option>
 									<option value="ASC"><font>價錢低到高</font></option>
 								</select>
+
 							</div>
 
 
 							<div id="select-page" class="col-md-4">
-								每頁頁數<select onchange="changePageCount()" style="width: 50%;"
-									class="btn-group bootstrap-select selectpicker select ">
+								<font class="title2">每頁頁數 </font><select style="width: 100px" onchange="changePageCount()"
+									class="btn-group bootstrap-select selectpicker ">
 									<option value="6"><font>6</font></option>
 									<option value="9"><font>9</font></option>
 									<option value="12"><font>12</font></option>
 								</select>
+
 							</div>
 							<div class="col-md-4">
-								<font id="page-count"></font> <input onchange="sendSelect()"
-									type="text" class="form-control" id="search" placeholder="查詢字串">
+								<font id="page-count" class="title2"></font><br>
+								<font id="page-count1" class="title2"></font>
 							</div>
 						</div>
 					</div>
@@ -428,40 +479,38 @@ a:active {
 					withCredentials : false
 				},
 				success : function(res) {
-					
+
 				},
 			})
 		}
-		
-		$(document).ready(
-				function() {
-					
-					var price = document.getElementById('price');
-					noUiSlider.create(price, {
-						start : [ 300, 2000 ],
-						connect : true,
-						range : {
-							'min' : 0,
-							'max' : 3000
-						}
-					});
-					//sendSelect();
-	
-					aa();
-				});
-		function aa(){
-			document.getElementById('price').noUiSlider.on('update', function(values, handle) {
+
+		$(document).ready(function() {
+
+			var price = document.getElementById('price');
+			noUiSlider.create(price, {
+				start : [ 300, 2000 ],
+				connect : true,
+				range : {
+					'min' : 0,
+					'max' : 3000
+				}
+			});
+			//sendSelect();
+
+			aa();
+		});
+		function aa() {
+			document.getElementById('price').noUiSlider.on('update', function(
+					values, handle) {
 				var value = values[handle];
 				sendSelect();
 
 				if (handle) {
 					$('#max-price').text(Math.round(value));
-					$('input[name="max-price"]')
-							.text(Math.round(value));
+					$('input[name="max-price"]').text(Math.round(value));
 				} else {
 					$('#min-price').text(Math.round(value));
-					$('input[name="min-price"]')
-							.text(Math.round(value));
+					$('input[name="min-price"]').text(Math.round(value));
 				}
 				$('#left_price').text(
 						"價格範圍 :" + $('#min-price').text() + "-"
@@ -480,16 +529,14 @@ a:active {
 			nowpage = "1";
 			sendSelect();
 		}
-		
-		var obj = parent.document.getElementById("childFrame");  //取得父頁面IFrame對象
+
+		var obj = parent.document.getElementById("childFrame"); //取得父頁面IFrame對象
 		var tentwoHeight = 500;
 		var nineHeight = 300;
 		var Height = 0;
-		
-		
+
 		function sendSelect() {
-			
-			
+
 			var checkbox = [];//複選框
 			var GameClass = $('#shopClass').find("option:selected").text();
 			var orderBy = $('#orderBy').find("option:selected").val();
@@ -571,7 +618,10 @@ a:active {
 									.text(
 											'有'
 													+ res.total
-													+ '項商品 目前顯示第'
+													+ '項商品');
+							$('#page-count1')
+							.text('目前顯示第'
+													
 													+ ((selectpage * nowpage) - (selectpage - 1))
 													+ "項-第" + selectpage
 													* nowpage + "項")
@@ -614,9 +664,9 @@ a:active {
 												var h = '<p style="height: 60px">'
 														+ data.introduction
 														+ '</p>'
-												var i = '<div class="price"> <span class="btm-30px" style="position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
+												var i = '<div class="price"> <span class="btm-30px" style="font-family: fantasy;position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
 														+ data.price
-														+ '元</span> </div>'
+														+ '</span> </div>'
 												var j = '<div class="rating"><a href=""><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
 														+ data.gameSN
 														+ ','

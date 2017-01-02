@@ -39,6 +39,64 @@
 /* div { */
 /* 	border: 1px solid; */
 /* } */
+.overfont {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.title {
+	border-bottom: 3px solid #9fa8da;
+}
+
+.title {
+	font-size: 18px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.bootstrap-select .dropdown-toggle {
+	border-color: #ccc;
+	border-radius: 0;
+}
+
+.title2 {
+	font-size: 15px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 150px;
+}
+font{font-family: 
+Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 </style>
 <script type="text/javascript">
 
@@ -68,12 +126,6 @@ function loadaa() {
 <body onload="loadaa()">
 	<script type="text/javascript">
 function changeData(){
-// 	console.log($('#name').val());
-// 	console.log($('#tel').val()); 
-// 	console.log($('#email').val());
-// 	console.log($('#address').val());
-// 	console.log($('#phone').val());
-// 	console.log();
 	$.ajax({
 		type:"POST",
 		url:"/FlipYouth/writeOrder.controller?insert=1",
@@ -259,7 +311,7 @@ function changeData(){
 						<tbody>
 							<tr>
 								<td colspan="4" class="text-right">運費與商品總和</td>
-								<td id="totalShop" colspan="2"><b></b></td>
+								<td id="totalShop" style="font-family: fantasy; font-color: red" colspan="2"><b></b></td>
 							</tr>
 						</tbody>
 					</table>
@@ -283,11 +335,10 @@ function changeData(){
 	</div>
 
 	<script type="text/javascript">
+	function parentHome(me) {
+		parent.parentTab(me)
+	}
 	function openCheckOver(){
-		
-		
-		
-		
 		window.location.href="/FlipYouth/Tim/page/order/orderOver2.jsp";
 	}
 </script>
