@@ -1,7 +1,9 @@
 package model.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,38 +15,21 @@ import com.google.gson.JsonObject;
 
 import model.bean.AdministratorBean;
 import model.bean.AuthorityBean;
-import model.dao.AdministratorDAO;
-import model.dao.AuthorityDAO;
+import model.bean.BackEndLogBean;
+import model.dao.AdministratorDTDAO;
+import model.dao.AuthorityDTDAO;
+import model.dao.BackEndLogDTDAO;
 
 @Service(value = "dataTablesService")
 public class DataTablesService {
-
 	@Autowired
-	private AuthorityDAO authorityDao;
+	private Gson gson;
 	@Autowired
-	private AdministratorDAO administratorDao;
-
-	// @Transactional
-	// public Object insert(Object bean) {
-	// AuthorityBean result = null;
-	// if (bean != null) {
-	//
-	// result = genericDao.insert(bean);
-	//
-	// }
-	// return result;
-	// }
-	//
-	// @Transactional
-	// public Object update(Object bean) {
-	// AuthorityBean result = null;
-	// if (bean != null) {
-	//
-	// result = genericDao.update(bean);
-	//
-	// }
-	// return result;
-	// }
+	private AuthorityDTDAO authorityDtdao;
+	@Autowired
+	private AdministratorDTDAO administratorDtdao;
+	@Autowired
+	private BackEndLogDTDAO backEndLogDtdao;
 
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
 			int draw, int start, int length) {
@@ -72,7 +57,6 @@ public class DataTablesService {
 				hql.append(", " + cols[col.get(i)] + " " + dir.get(i));
 			}
 		}
-		Gson gson = new Gson();
 		JsonArray resultArray = ajaxQueryHandler(hql.toString(), table, start, length);
 		JsonObject jObj = new JsonObject();
 
@@ -88,9 +72,11 @@ public class DataTablesService {
 	int ajaxCountHandler(String hql, String table) {
 		switch (table) {
 		case "Authority":
-			return authorityDao.ajaxCount(hql);
+			return authorityDtdao.ajaxCount(hql);
 		case "Administrator":
-			return administratorDao.ajaxCount(hql);
+			return administratorDtdao.ajaxCount(hql);
+		case "BackEndLog":
+			return backEndLogDtdao.ajaxCount(hql);
 		default:
 			return 0;
 		}
@@ -98,12 +84,11 @@ public class DataTablesService {
 
 	@Transactional(readOnly = true)
 	JsonArray ajaxQueryHandler(String hql, String table, int start, int length) {
-		Gson gson = new Gson();
 		JsonArray jArray = new JsonArray();
 
 		switch (table) {
 		case "Authority":
-			List<AuthorityBean> auths = authorityDao.ajaxQuery(hql.toString(), start, length);
+			List<AuthorityBean> auths = authorityDtdao.ajaxQuery(hql.toString(), start, length);
 			for (AuthorityBean auth : auths) {
 
 				JsonObject jObj = gson.toJsonTree(auth).getAsJsonObject();
@@ -112,7 +97,7 @@ public class DataTablesService {
 			}
 			return jArray;
 		case "Administrator":
-			List<AdministratorBean> admins = administratorDao.ajaxQuery(hql.toString(), start, length);
+			List<AdministratorBean> admins = administratorDtdao.ajaxQuery(hql.toString(), start, length);
 			for (AdministratorBean admin : admins) {
 
 				JsonObject jObj = new JsonObject();
@@ -124,7 +109,17 @@ public class DataTablesService {
 					e.printStackTrace();
 				}
 				jObj.add("admEmail", gson.toJsonTree(admin.getAdmEmail()));
-				jObj.add("authId", gson.toJsonTree(admin.getAuthId().getAuthName()));
+				jObj.add("authIdText", gson.toJsonTree(admin.getAuthId().getAuthName()));
+				jObj.add("authId", gson.toJsonTree(admin.getAuthId().getAuthId()));
+				jArray.add(jObj);
+			}
+			return jArray;
+		case "BackEndLog":
+			List<BackEndLogBean> bels = backEndLogDtdao.ajaxQuery(hql.toString(), start, length);
+			for (BackEndLogBean bel : bels) {
+
+				JsonObject jObj = gson.toJsonTree(bel).getAsJsonObject();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + bel.getAdmId() +"_"+bel.getExecuteTime()));
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -134,54 +129,81 @@ public class DataTablesService {
 	}
 
 	@Transactional
-	public String ajaxDeleteHandler(String table, String[] toDelete) {
+	public String ajaxDeleteHandler(String table, String[] toDelete, String admId, String note) {
 		String result = "";
 		int count = -1;
-
+		BackEndLogBean belBean = new BackEndLogBean(admId, new Date());
+		belBean.setBelNotes(note);;
+		StringBuffer sql = new StringBuffer("delete from ").append(table);
 		switch (table) {
 		case "Authority":
-			count = authorityDao.ajaxDelete(toDelete);
+			count = authorityDtdao.ajaxDelete(toDelete);
+			sql.append(" where authId in (");
 			break;
 		case "Administrator":
-			count = administratorDao.ajaxDelete(toDelete);
+			count = administratorDtdao.ajaxDelete(toDelete);
+			sql.append(" where admId in (");
+			break;
+		case "BackEndLog":
+			count = backEndLogDtdao.ajaxDelete(toDelete);
+			sql.append(" where composite id admId_executeTime in (");
 			break;
 		default:
 			break;
 		}
-
+		sql.append(String.join(",", toDelete)).append(")");
+		belBean.setSqlCommand(sql.toString());
+		backEndLogDtdao.create(belBean);
 		if (count == -1) {
 			result = "刪除錯誤，請檢查表格關聯性。";
 		} else {
 			result = "成功刪除 " + count + " 筆資料";
 		}
-		Gson gson = new Gson();
 		JsonObject jObj = new JsonObject();
 		jObj.add("text", gson.toJsonTree(result));
 		return gson.toJson(jObj);
 	}
 
 	@Transactional
-	public String ajaxUpdateHandler(String table, String[] toDelete) {
-		String result = "";//TODO
-		int count = -1;
-
-		switch (table) {
-		case "Authority":
-			count = authorityDao.ajaxDelete(toDelete);
-			break;
-		case "Administrator":
-			count = administratorDao.ajaxDelete(toDelete);
-			break;
-		default:
-			break;
-		}
-
-		if (count == -1) {
-			result = "刪除錯誤，請檢查表格關聯性。";
+	public String ajaxAuthorityCuHandler(Map<String,String> cuParam) {
+		String result = "";
+		JsonObject jObj = new JsonObject();
+		Integer authId = Integer.parseInt(cuParam.get("authId"));
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate && authorityDtdao.select(authId)!=null){
+			jObj.add("miscE", gson.toJsonTree("已存在資料，無法新增"));
+			result = gson.toJson(jObj); 
 		} else {
-			result = "成功刪除 " + count + " 筆資料";
-		}
-		
+			AuthorityBean bean = new AuthorityBean(authId,cuParam.get("authName"));
+			authorityDtdao.cu(bean);
+			jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+			result = gson.toJson(jObj);
+//			BackEndLogBean belBean = new BackEndLogBean(cuParam.get("adminBel"), new Date());
+//			belBean.setBelNotes(cuParam.get("belInput"));
+//			belBean.setSqlCommand((forUpdate)?("update "):("insert into ")+" Authority : "+ bean.toString());
+//			backEndLogDtdao.create(belBean);
+			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"), (forUpdate)?("update "):("insert into ")+" Authority : "+ bean.toString()));
+		}					
 		return result;
 	}
+	
+	@Transactional
+	public String ajaxAdministratorCuHandler(Map<String,String> cuParam) {
+		String result = "";
+		JsonObject jObj = new JsonObject();
+		String admId = cuParam.get("admId");
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate && administratorDtdao.select(admId)!=null){
+			jObj.add("miscE", gson.toJsonTree("已存在資料，無法新增"));
+			result = gson.toJson(jObj); 
+		} else {
+			AdministratorBean bean = new AdministratorBean(admId, cuParam.get("admPassword").getBytes(), cuParam.get("admEmail"), authorityDtdao.select(Integer.parseInt(cuParam.get("authId"))));
+			administratorDtdao.cu(bean);
+			jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+			result = gson.toJson(jObj);
+			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"), (forUpdate)?("update "):("insert into ")+" Administrator : "+ bean.toString()));
+		}					
+		return result;
+	}
+
 }

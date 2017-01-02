@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import model.bean.AuthorityBean;
 
-@Repository(value = "authorityDao")
-public class AuthorityDAO {
+@Repository(value = "authorityDtdao")
+public class AuthorityDTDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	public Session getSession() {
@@ -27,13 +27,7 @@ public class AuthorityDAO {
 		return bean;
 	}
 
-	public AuthorityBean insert(AuthorityBean bean) {
-
-		getSession().saveOrUpdate(bean);
-		return bean;
-	}
-
-	public AuthorityBean update(AuthorityBean bean) {
+	public AuthorityBean cu(AuthorityBean bean) {
 
 		getSession().saveOrUpdate(bean);
 		return bean;
@@ -43,8 +37,7 @@ public class AuthorityDAO {
 		int result = 0;
 		AuthorityBean bean;
 		for (String pk : toDelete) {
-			bean = new AuthorityBean();
-			bean.setAuthId(Integer.parseInt(pk));
+			bean = new AuthorityBean(Integer.parseInt(pk));
 			getSession().delete(bean);
 			result++;
 		}

@@ -1,16 +1,20 @@
 $(document)
 .ready(
 	function () {
-	var selected = []; //datatables中被選擇欄位的pk
-	//var tabColumns = []; //navbar可存取的tables
-	//var editIcon = ;
+	var selected = []; //datatables中被選擇欄位的pk 可能要改
 
 	//navbar的tab on click change table
-	$('#navbar').find('a[href$="tables"]').click(function () {
-		if ($.fn.dataTable.isDataTable('#dataTable')) {
-			$('#dataTable').DataTable().destroy();
+	$('#navbar').find('a').click(function () {
+		if (!$(this).parent().hasClass('active')) {
+			if ($.fn.dataTable.isDataTable('#dataTable')) {
+				$('#dataTable').DataTable().destroy();
+				$('#dataTable').find('tbody').empty();
+				$('#dataTable').find('tr').empty();
+			}
+			if ($(this).attr('href') == '#tables') {
+				ajaxChangeTable(this.id);
+			};
 		}
-		ajaxChangeTable(this.id);
 	});
 
 	$('#tables').on('click', '#dataTable tbody tr',
@@ -30,71 +34,80 @@ $(document)
 		function (event) {
 		//修改資料  on click
 		event.stopPropagation();
-		cuHandler($('#navbar').find('li.active').find('a').attr('id'), $(this)
-			.parent().attr('id').substring(2));
-	}).on(
-		'click',
-		'div.icon-new',
-		function () {
-		//新增資料  on click
-		cuHandler($('#navbar').find('li.active').find('a').attr('id'), null);
-	}).on(
-		'click',
-		'div.icon-delete',
-		function () {
-		//刪除資料 on click
-		if (selected.length !== 0) {
-			$('#deleteModal').modal();
-			$('#deleteModal').find('h3').toggleClass('text-success text-danger').html(
-				'將刪除 ' + selected.length
-				 + ' 筆資料<br>真的嗎？');
-			$('#deleteModal').find('.delete-confirm').on('click', function () {
-				ajaxDelete();
-				$('#deleteModal').find('h3').text('刪除中...');
-			});
-		}
+		cuHandler($('#navbar').find('li.active').find('a').attr('id'), $('#dataTable').DataTable().row($(this).parent()).data());
+		//分別傳了tablename and row data
 	});
 
 	//關modal時redraw
-	$('div.modal').on('hidden.bs.modal', function () {
+	$('div.modal').on('hidden.bs.modal', function (e) {
 		$('#dataTable').DataTable().draw();
+		$(e.target).find('span').empty();
+		$(e.target).find('button:hidden').show(); //回復隱藏的確認鈕
+		$(e.target).find('.form-control').removeData('temp'); //清除初始值
 	})
 
 	//依table 顯示create/update form
-	function cuHandler(table, pk) {
-		$('#cuModal').modal();
-		var cuForm = $('#cuModal').find('form').off();
+	function cuHandler(table, data) {
+		var cuForm = $('#cuModal').find('form');
 
-		// 生成DOM (maybe call another js?)
-		switch (table) {
-		case "Authority":
-			break;
-		default:
-			break;
+		// 生成DOM
+		if (table != cuForm.data('table')) { //避免重複生成
+			cuForm.load('/FlipYouth/admin/pages/' + table + 'Form.html', null, cuPart2);
+			cuForm.data('table', table);
+		} else {
+			cuPart2();
 		}
 
-		var options = {
-			success: function (result) {
-				console.log(result);
-				cuForm.find('input:first').prop('readonly', false);
+		//這寫法總覺得有問題
+		function cuPart2() {
+			$('#cuModal').modal();
+			if ("BackEndLog" != cuForm.data('table')) {
+				$('#cuSuccess').empty();
+				var options = {
+					success: function (result) {
+						console.log('cuajaxreturn');
+						console.log(result);
+						if (result['cuSuccess']) {
+							$('#cuSuccess').text(result['cuSuccess']);
+							cuForm.find('button.cu-confirm').hide();
+						} else {
+							cuForm.find('span').each(function (idx) {
+								$(this).text(result[this.id]);
+							});
+						}
+					},
+					//only for debug
+					beforeSubmit: function (arr, $form, options) {
+						console.log('cuajaxgo:');
+					}
+				};
+				if (data != null) {
+					cuForm.find('.form-control').each(function (idx) {
+						$(this).val(data[this.id]).data('temp', data[this.id]);
+						if (idx == 0) {
+							$(this).prop('readonly', true);
+						}
+					});
+					cuForm.on('reset', function (ev) {
+						ev.preventDefault();
+						cuForm.clearForm();
+						cuForm.find('.form-control').val(function () {
+							return $(this).data('temp');
+						})
+					});
+					options['data'] = {
+						forUpdate: true
+					};
+				} else {
+					cuForm.find('.form-control:first').prop('readonly', false);
+					cuForm.clearForm();
+					options['data'] = {
+						forUpdate: false
+					};
+				}
+				cuForm.ajaxForm(options);
 			}
-		};
-
-		if (pk != null) {
-			var pkInput = cuForm.find('input:first');
-			pkInput.val(pk).prop('readonly', true);
-
-			cuForm.on('reset', function (ev) {
-
-				ev.preventDefault();
-				cuForm.clearForm();
-				pkInput.val(pk);
-			});
-			options['data'] = {
-				forUpdate: true
-			};
 		}
-		cuForm.ajaxForm(options);
 	}
 
 	function ajaxChangeTable(navId) {
@@ -104,21 +117,13 @@ $(document)
 				tableName: navId
 			},
 			success: function (result) {
-				$('#dataTable').find('tbody').empty();
-				var theadtr = $('<tr/>').appendTo(
-						$('#dataTable').find('thead').empty());
-				var tfoottr = $('<tr/>').appendTo(
-						$('#dataTable').find('tfoot').empty());
+				var dtTr = $('#dataTable').find('tr');
 				for (var idx in result.colStrings) {
-					$('<th/>', {
-						text: result.colStrings[idx]
-					}).appendTo(theadtr);
-					$('<th/>', {
-						text: result.colStrings[idx]
-					}).appendTo(tfoottr);
+					dtTr.append($('<th/>', {
+							text: result.colStrings[idx]
+						}));
 				}
-				theadtr.append($('<th/>'));
-				tfoottr.append($('<th/>'));
+				dtTr.append($('<th/>'));
 				var tabColumns = result.cols;
 				tabColumns.push({
 					"class": "icon-edit",
@@ -134,18 +139,19 @@ $(document)
 		});
 	};
 
-	function ajaxDelete() {
+	function ajaxDelete(bel) {
 		$.ajax({
 			url: 'delete.controller',
 			method: 'POST',
 			data: {
-				toDelete: selected
+				'toDelete': selected,
+				'bel': bel
 			},
 			success: function (result) {
 				console.log(result.text);
 				selected = [];
 				$('#deleteModal').find('h3').text(result.text).toggleClass('text-danger text-success');
-				$('#deleteModal').find('button.delete-confirm').off();
+				$('#deleteModal').find('button.delete-confirm').hide();
 			},
 			error: function (err) {
 				console.log(err);
@@ -156,7 +162,42 @@ $(document)
 	function tableGen(tabColumns) {
 		$('#dataTable')
 		.DataTable({
-			"dom": "<'row'<'col-sm-6'l><'col-sm-4'f><'col-sm-2 text-right'<'icon-new'><'icon-delete'>>>"
+			"fixedHeader": {
+				footer: true
+			},
+			buttons: [{
+					extend: 'colvis',
+					text: '<div class="icon-config"></div>'
+				}, {
+					extend: 'excel',
+					text: '<div class="icon-save"></div>'
+				}, {
+					text: '<div class="icon-new"></div>',
+					action: function (e, dt, node, config) {
+						//新增資料  on click
+						cuHandler($('#navbar').find('li.active').find('a').attr('id'), null);
+					}
+				}, {
+					text: '<div class="icon-delete"></div>',
+					action: function (e, dt, node, config) {
+						//刪除資料 on click
+						if (selected.length !== 0) {
+							$('#deleteModal').modal();
+							$('#deleteModal').find('h3').toggleClass('text-success text-danger').html(
+								'將刪除 ' + selected.length
+								 + ' 筆資料<br>真的嗎？');
+							$('#deleteModal').find('.delete-confirm').on('click', function () {
+								ajaxDelete($('#belInput').val());
+								$('#belInput').val('');
+								$('#deleteModal').find('h3').text('刪除中...');
+							});
+						}
+					}
+				}
+			],
+			"autoWidth": false,
+			"colReorder": true,
+			"dom": "<'row'<'col-sm-6'B<'inline-fix'l>><'col-sm-6'f>>"
 			 + "<'row'<'col-sm-12'tr>>"
 			 + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
 			"processing": true,

@@ -23,8 +23,11 @@
 		</property>
 		<property name="annotatedClasses">
 			<array>
+			<!-- Woody -->
 				<value>model.bean.AdministratorBean</value>
 				<value>model.bean.AuthorityBean</value>
+				<value>model.bean.BackEndLogBean</value>
+			<!-- Woody -->
 				<value>model.MemberBean</value>
 				<value>model.RelationBean</value>
 				<value>model.ShopBean</value>
@@ -51,5 +54,13 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="model" />
-
+<!-- Woody -->
+	<bean id="gson" class="com.google.gson.Gson" />
+	<bean id="emailValidator"
+    class="org.apache.commons.validator.routines.EmailValidator"
+    factory-method="getInstance" lazy-init="false" />
+    <bean id="integerValidator"
+    class="org.apache.commons.validator.routines.IntegerValidator"
+    factory-method="getInstance" lazy-init="false" />
+<!-- Woody -->
 </beans>

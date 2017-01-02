@@ -11,8 +11,8 @@ import org.hibernate.annotations.Nationalized;
 @Entity
 @Table(name = "Authority")
 public class AuthorityBean implements Serializable {
-
 	private static final long serialVersionUID = 1L;
+	
 	private Integer authId;
 	private String authName;
 
@@ -37,5 +37,21 @@ public class AuthorityBean implements Serializable {
 	@Override
 	public String toString() {
 		return "authId=" + authId + ", authName=" + authName + "]";
+	}
+
+	public AuthorityBean() {
+		super();
+	}
+
+	public AuthorityBean(Integer authId) {
+		super();
+		this.authId = authId;
+	}
+
+	public AuthorityBean(Integer authId, String authName) {
+		super();
+		this.authId = authId;
+		this.authName = authName;
 	}	
+	
 }

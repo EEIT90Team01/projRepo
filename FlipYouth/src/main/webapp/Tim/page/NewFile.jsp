@@ -7,8 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
-<%-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
 <!-- Latest compiled and minified CSS -->
@@ -28,36 +27,105 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous"> --%>
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+<script src="<c:url value="/Tim/js_Tim/bootstrap-select.js"/>"></script>
+<script src="<c:url value="/Tim/js_Tim/nouislider.js"/>"></script>
+<script src="<c:url value="/Tim/js_Tim/range.js"/>"></script>
 
 <style type="text/css">
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
-	{
-	color: #555;
-	cursor: default;
+/* .nav>li>a:focus, .nav>li>a:hover { */
+/* 	text-decoration: none; */
+/* 	background-color: #3f51b5; */
+/* } */
+
+/* a:hover { */
+/* 	font-family: Microsoft JhengHei; */
+/* 	color: #fdfcfc; */
+/* 	font-size: 900; */
+/* 	font-weight: 900; */
+/* } */
+
+/* .active { */
+/* 	background-color: #3f51b5; */
+/* 	font-family: Microsoft JhengHei; */
+/* 	color: #ffffff; */
+/* 	font-size: 900; */
+/* 	font-weight: 900; */
+/* 	font: #ffffff; */
+/* } */
+/* .active>a{ */
+
+/* } */
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.open>a,
+	.navbar-header a:hover {
+	background-image: -o-linear-gradient(top, #3f51b5 0, #3f51b5 100%);
+	background-image: linear-gradient(to bottom, #3f51b5 0, #3f51b5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdbdbdb',
+		endColorstr='#ffe2e2e2', GradientType=0);
+}
+
+.navbar-collapse.collapse {
+	display: block !important;
+	height: auto !important;
+	padding-bottom: 0;
+	overflow: visible !important;
+}
+
+.navbar-default { /*長條背景*/
+	background-image: -webkit-linear-gradient(top, #F3f3f3 0, #F3f3f3 100%);
+	background-image: -o-linear-gradient(top, #F3f3f3 0, #F3f3f3 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff),
+		to(#f8f8f8));
+	background-image: linear-gradient(to bottom, #F3f3f3 0, #F3f3f3 100%);
+}
+
+.navbar {
+	position: relative;
+	min-height: 0px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	/* font-size: 14px; */
+	line-height: 1.42857143;
+	color: #333;
 	background-color: #fff;
-	border: 1px solid #3949ab;
-	border-bottom-color: transparent;
 }
 </style>
 </head>
 <body>
-	<div class="nav nav-pills " id="navbar-ex1-collapse"
-		aria-expanded="false" style="height: 1px;">
-		<ul class="nav navbar-nav" role="tablist">
-			<li role="presentation" class="active"><a href="#home"
-				id="hihihih" aria-controls="home" role="tab" data-toggle="tab"
-				onclick="toggleTab(this)">商城首頁</a></li>
-			<li role="presentation"><a href="#one" aria-controls="one"
-				role="tab" data-toggle="tab" onclick="toggleTab(this)">商城列表</a></li>
-			<li role="presentation"><a href="#two" aria-controls="two"
-				role="tab" data-toggle="tab" onclick="toggleTabCar(this)">購物車</a></li>
-			<li role="presentation"><a href="#three" aria-controls="three"
-				role="tab" data-toggle="tab" onclick="toggleTab(this)">確認訂單</a></li>
-			<li role="presentation">
-		</ul>
+	<div class="row">
+		<div class="col-xs-12" style="height: 100px"></div>
 	</div>
+	<nav class="navbar navbar-default shadow-navbar" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<div class="collapse navbar-collapse" id="navbar-ex1-collapse">
 
+				<ul class="nav navbar-nav">
+					<li role="presentation" class="active"><a href="#home"
+						aria-controls="home" role="tab" data-toggle="tab"
+						onclick="toggleTab(this)">商城首頁</a></li>
+					<li role="presentation"><a href="#one" aria-controls="one"
+						role="tab" data-toggle="tab" onclick="toggleTab(this)">商城列表</a></li>
+					<li role="presentation"><a href="#two" aria-controls="two"
+						role="tab" data-toggle="tab" onclick="toggleTabCar(this)">購物車</a></li>
+					<li role="presentation"><a href="#three" aria-controls="three"
+						role="tab" data-toggle="tab" onclick="toggleTabcheck(this)">填寫聯絡人資料</a></li>
+					<li role="presentation"><a href="#four" aria-controls="four"
+						role="tab" data-toggle="tab" onclick="toggleTabcheckOver(this)">確認訂單</a></li>
+					<li role="presentation">
+				</ul>
+			</div>
+		</div>
+	</div>
+	</nav>
 	<!-- 	<div class="container"> -->
 
 	<!--            -->
@@ -76,6 +144,16 @@
 
 
 	<script type="text/javascript">
+		function toggleTabcheckOver(thiss){
+			$('#four').empty();
+			$('#four')
+					.append(
+							'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/order/orderOver2.jsp"></iframe>');
+			$('.a').hide();
+			$('.a').hide();
+			var a = $(thiss).attr('aria-controls')
+			$('#' + a).show();
+		}
 		function toggleTab(thiss) {
 			$('.a').hide();
 			var a = $(thiss).attr('aria-controls')
@@ -86,34 +164,44 @@
 			$('#two').empty();
 			$('#two')
 					.append(
-							'<iframe style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/Shop/shoppingCar.jsp"></iframe>');
+							'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/Shop/shoppingCar.jsp"></iframe>');
+			$('.a').hide();
+			var a = $(thiss).attr('aria-controls')
+			$('#' + a).show();
+		}
+		function toggleTabcheck(thiss) {
+	<%if (session.getAttribute("loginOK") == null) {%>
+		window.location.href = "/FlipYouth/Tim/login/login.jsp"
+	<%}%>
+		$('#three').empty();
+			$('#three')
+					.append(
+							'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/order/check.jsp"></iframe>');
+			$('.a').hide();
 			$('.a').hide();
 			var a = $(thiss).attr('aria-controls')
 			$('#' + a).show();
 		}
 	</script>
 	<!-- Tab panes -->
-	<div class="tab-content">
+	<div class="container">
 		<div style="display: none" role="tabpanel" class="a tab-pane active"
 			id="home">
 			<jsp:include page="/Tim/page/Shop/shopHome.jsp"></jsp:include>
 		</div>
 
-		<div class="a" style="display: none" role="tabpanel" class="tab-pane"
-			id="one">
+		<div style="display: none" role="tabpanel" class="tab-pane a" id="one">
 			<jsp:include page="/Tim/page/Shop/list.jsp"></jsp:include>
 		</div>
-		<div class="a" style="display: none" role="tabpanel" class="tab-pane"
-			id="two">
+		<div style="display: none" role="tabpanel" class="tab-pane a" id="two">
 			<%-- 			<iframe style="width: 100% ;height: 900px" name="frame1" src="<c:url value="/Tim/page/Shop/shoppingCar.jsp"/>"></iframe> --%>
 			<%-- 			<jsp:include page="/Tim/page/Shop/shoppingCar.jsp"></jsp:include> --%>
 		</div>
-		<div class="a" style="display: none" role="tabpanel" class="tab-pane"
-			id="three">
-			<jsp:include page="/Tim/page/order/checkOut.jsp"></jsp:include>
-		</div>
+		<div style="display: none" role="tabpanel" class="tab-pane a"
+			id="three"></div>
 
-
+		<div style="display: none" role="tabpanel" class="tab-pane a"
+			id="four"></div>
 	</div>
 
 

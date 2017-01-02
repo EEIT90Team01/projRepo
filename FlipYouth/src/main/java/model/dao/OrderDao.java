@@ -34,12 +34,13 @@ public class OrderDao {
 		Session session = this.getSession();
 		int a = (int) session.save(orderBean);
 		System.out.println("新建立的訂單編號為 = " + a);
-
+		System.out.println("cars = "+cars);
 		for (String key : cars.keySet()) {
 			ShopBean GameSN = session.get(ShopBean.class, Integer.parseInt(key));
 			cars.get(key).getPK().setGameSN(GameSN);
 			cars.get(key).getPK().setOrderSN(orderBean);
 			session.save(cars.get(key));
+			System.out.println(key);
 		}
 		return orderBean;
 	}
