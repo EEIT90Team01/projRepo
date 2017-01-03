@@ -60,4 +60,23 @@ public class AdministratorBean implements Serializable {
 		return "AdministratorBean [admId=" + admId + ", admPassword=" + Arrays.toString(admPassword) + ", admEmail="
 				+ admEmail + ", authId=" + authId + "]";
 	}
+
+	public AdministratorBean() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public AdministratorBean(String admId) {
+		super();
+		this.admId = admId;
+	}
+
+	public AdministratorBean(String admId, byte[] admPassword, String admEmail, AuthorityBean authId) {
+		super();
+		this.admId = admId;
+		this.admPassword = admPassword;
+		this.admEmail = admEmail;
+		this.authId = authId;
+	}
+	
 }

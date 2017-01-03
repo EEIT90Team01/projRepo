@@ -81,7 +81,8 @@
 					<h4 class="modal-title" id="deleteModalTitle">刪除資料</h4>
 				</div>
 				<div class="modal-body text-center">
-
+					<label>請輸入備註<input type="text" class="form-control" id="belInput">
+					</label>
 					<h3 class="text-danger"></h3>
 				</div>
 				<div class="modal-footer">
@@ -100,23 +101,15 @@
 					<h4 class="modal-title" id="cuModalTitle">增修資料</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/FlipYouth/admin/cu.controller" method="POST" enctype="text/plain">
-						<div class="form-group">
-							<label for="authId">權限編號</label> <input type="number"
-								class="form-control" name="authId" id="authId">
-						</div>
-						<div class="form-group">
-							<label for="authName">權限名稱</label> <input type="text"
-								class="form-control" name="authName" id="authName">
-						</div>
+					<form action="/FlipYouth/admin/cu.controller" method="POST" enctype="multipart/form-data">
+						
 						<!-- <div class="form-group">
 							<label for="exampleInputFile">File input</label> <input
 								type="file" id="exampleInputFile">
 							<p class="help-block">Example block-level help text here.</p>
 						</div> -->
 						
-						<button type="submit" class="btn btn-primary cu-confirm">送出</button>
-						<button type="reset" class="btn btn-warning cu-reset">重置</button>
+						
 					</form>
 				</div>
 				<div class="modal-footer">

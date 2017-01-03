@@ -221,8 +221,8 @@ public class ShopServices {
 
 		textPart.setContent(html.toString(), "text/html; charset=UTF-8");
 		Message message = new MimeMessage(session);
-		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("flipyoutheeit90@gmail.com"));
-		message.setSubject("測試寄信.");
+		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(OrderEmail));
+		message.setSubject("FlipYouth訂單明細");
 		Multipart email = new MimeMultipart();
 		email.addBodyPart(textPart);
 		email.addBodyPart(picturePart);

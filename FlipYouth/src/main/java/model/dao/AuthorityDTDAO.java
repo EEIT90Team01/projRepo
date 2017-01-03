@@ -27,13 +27,7 @@ public class AuthorityDTDAO {
 		return bean;
 	}
 
-	public AuthorityBean create(AuthorityBean bean) {
-
-		getSession().saveOrUpdate(bean);
-		return bean;
-	}
-
-	public AuthorityBean update(AuthorityBean bean) {
+	public AuthorityBean cu(AuthorityBean bean) {
 
 		getSession().saveOrUpdate(bean);
 		return bean;
@@ -41,11 +35,8 @@ public class AuthorityDTDAO {
 
 	public int ajaxDelete(String[] toDelete) {
 		int result = 0;
-		AuthorityBean bean;
 		for (String pk : toDelete) {
-			bean = new AuthorityBean();
-			bean.setAuthId(Integer.parseInt(pk));
-			getSession().delete(bean);
+			getSession().delete(new AuthorityBean(Integer.parseInt(pk)));
 			result++;
 		}
 		return result;

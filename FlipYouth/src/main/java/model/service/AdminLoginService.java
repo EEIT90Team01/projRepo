@@ -1,5 +1,6 @@
 package model.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,10 @@ public class AdminLoginService {
 	List<Access> accessList2;
 	List<Access> accessList3;
 
-	public class Access {
+	public class Access implements Serializable{
+	
+		private static final long serialVersionUID = 1L;
+		
 		private String accessString;
 		private String accessName;
 
@@ -40,11 +44,23 @@ public class AdminLoginService {
 	@PostConstruct
 	void init(){
 		accessList1 = new ArrayList<Access>();
-		accessList1.add(new Access("管理員", "Administrator"));
-		accessList1.add(new Access("權限", "Authority"));
-		accessList1.add(new Access("管理紀錄", "BackEndLog"));
-		// accessList2 = new ArrayList<Access>();
-		// accessList3 = new ArrayList<Access>();
+		accessList1.add(new Access("管理員帳號", "Administrator"));
+		accessList1.add(new Access("權限列表", "Authority"));
+		accessList1.add(new Access("管理紀錄(唯讀)", "BackEndLog"));
+		accessList2 = new ArrayList<Access>();
+		accessList2.add(new Access("商品資訊", "Shop"));
+		accessList2.add(new Access("訂單", "Order"));
+		accessList2.add(new Access("訂單明細", "OrderDetail"));
+		accessList3 = new ArrayList<Access>();
+		accessList3.add(new Access("會員", "Member"));
+		accessList3.add(new Access("留言", "Comment"));	
+		accessList3.add(new Access("揪團", "Event"));
+		accessList3.add(new Access("揪團成員", "EventDetail"));
+		accessList3.add(new Access("地點", "Location"));
+		accessList3.add(new Access("評價", "Rating"));
+		accessList3.add(new Access("檢舉", "Report"));
+		accessList3.add(new Access("好友關係(唯讀)", "Relation"));
+		accessList3.add(new Access("封鎖記錄(唯讀)", "BanLog"));
 	}
 	
 	public List<Access> getAccessList(Integer id) {
@@ -69,7 +85,7 @@ public class AdminLoginService {
 		AdministratorBean bean = null;
 		bean = administratorDao.select(admId);
 		if (bean != null) {
-			if (admPassword != null && admPassword.length() != 0) {
+			if (admPassword != null && !admPassword.isEmpty()) {
 				
 				byte[] pass = bean.getAdmPassword();
 				byte[] temp = admPassword.getBytes();

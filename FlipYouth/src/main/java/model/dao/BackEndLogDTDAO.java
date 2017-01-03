@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -9,9 +10,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import model.bean.AdministratorBean;
-@Repository(value="administratorDtdao")
-public class AdministratorDTDAO {
+import model.bean.BackEndLogBean;
+import model.bean.BackEndLogBeanPK;
+@Repository(value="backEndLogDtdao")
+public class BackEndLogDTDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -19,10 +21,10 @@ public class AdministratorDTDAO {
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public AdministratorBean select(String admId) {
+	public BackEndLogBean select(String admId, Date executeTime) {
 		
-		AdministratorBean bean = null;
-		bean = getSession().get(AdministratorBean.class, admId);
+		BackEndLogBean bean = null;
+		bean = getSession().get(BackEndLogBean.class, new BackEndLogBeanPK(admId, executeTime));
 		return bean;
 	}
 
@@ -34,27 +36,34 @@ public class AdministratorDTDAO {
 //		return beans;
 //	}
 
-	public AdministratorBean cu(AdministratorBean bean) {
+	public BackEndLogBean create(BackEndLogBean bean) {
 		
+		getSession().saveOrUpdate(bean);
+		return bean;
+	}
+
+	public BackEndLogBean update(BackEndLogBean bean) {
+
 		getSession().saveOrUpdate(bean);
 		return bean;
 	}
 	public int ajaxDelete(String[] toDelete) {
 		int result = 0;
+		BackEndLogBean bean;
 		for (String pk : toDelete) {
-			if ("admin".equals(pk)){
-				continue;
-			}
-			getSession().delete(new AdministratorBean(pk));
+	
+			bean = new BackEndLogBean();
+			bean.setAdmId(pk);
+			getSession().delete(bean);
 			result++;
 		}
 		return result;
 	}
 	
-	public List<AdministratorBean> ajaxQuery(String hql, int start, int length) {
+	public List<BackEndLogBean> ajaxQuery(String hql, int start, int length) {
 		
-		List<AdministratorBean> beans = null;
-		beans = getSession().createQuery(hql, AdministratorBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+		List<BackEndLogBean> beans = null;
+		beans = getSession().createQuery(hql, BackEndLogBean.class).setFirstResult(start).setMaxResults(length).getResultList();
 		return beans;
 	}
 	

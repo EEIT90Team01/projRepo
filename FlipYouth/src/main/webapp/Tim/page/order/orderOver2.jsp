@@ -94,23 +94,22 @@
 /* 	color: #000; */
 /* 	display: inline-block; */
 /* } */
+strong {
+	display: block;
+	padding: 0 0 0 13px;
+	font-weight: normal;
+	font-family: 'Noto Sans TC', sans-serif;
+	font-size: 15px;
+	color: #a51516;
+	margin-top: -5px;
+}
 
-/* strong { */
-/* 	display: block; */
-/* 	padding: 0 0 0 13px; */
-/* 	font-weight: normal; */
-/* 	font-family: 'Noto Sans TC', sans-serif; */
-/* 	font-size: 15px; */
-/* 	color: #a51516; */
-/* 	margin-top: -5px; */
-/* } */
-
-/* .orderStatus { */
-/* 	margin-bottom: 30px; */
-/* 	font-size: 15px; */
-/* 	color: #000; */
-/* 	line-height: 1.8; */
-/* } */
+.orderStatus {
+	margin-bottom: 30px;
+	font-size: 15px;
+	color: #000;
+	line-height: 1.8;
+}
 
 /* .px-100 { */
 /* 	height: 62px; */
@@ -162,42 +161,62 @@
 	
 </script>
 <body>
+	<div id="orderOK" style="display: none;">
+		<div class="col-xs-12">
+			<h2 class="orderStatus">
+				<em>Complete</em><strong>訂購完成</strong>
+			</h2>
+			
+			<div class="col-xs-12" style="height: 30px"></div>
+			<div class="col-xs-12 orderStatus">
+				親愛的 ${loginOK.mbrName}先生，感謝您於本商店購物。您的訂單明細已同步發送至您的信箱。 <br>
+				歡迎使用「訂單查詢」功能查詢目前訂單狀態，謝謝。 <br>狀態：<b style="color:red">新單
+				</b><br>
+			</div>
 
-	<div class="container-fluid m-t-3">
+		</div>
+	</div>
+
+
+
+
+	<!-- ------------------------------------------------- -->
+	<div id="orderdate" class="container-fluid m-t-3">
 		<div class="row">
 
 			<!-- Shopping Cart List -->
 			<div class="col-md-9">
-			<div id="sendpictur">
-				<div class="title">
-					<span>聯絡人資料</span>
-				</div>
-				<form role="form">
-					<div class="row">
-						<div class="form-group col-md-6">
-
-							<label> 訂購人姓名 : ${order.name}</label>
-						</div>
-						<div class="form-group col-md-6">
-
-							<label>連絡電話 : ${order.tel}</label>
-						</div>
-						<div class="form-group col-md-6">
-
-							<label> 行動電話 : ${order.phone}</label>
-						</div>
-
-						<div class="form-group col-md-6">
-
-							<label> 聯絡地址 : ${order.address}</label> <label> </label>
-						</div>
-						<div style="height: 50px" class="form-group col-md-12">
-
-							<label><b style="color: red">※<b>※訂單明細收件信箱 :<br>
-							</b></b> 電子信箱 ${order.email}</label>
-						</div>
+				<div style="background-color: white;" id="sendpictur">
+					<div class="title">
+						<span>聯絡人資料</span><img style="display: none" id="loadingIMG"
+							class="loader" alt="" src="<c:url value=""/>">
 					</div>
-				</form>
+					<form role="form">
+						<div class="row">
+							<div class="form-group col-md-6">
+
+								<label> 訂購人姓名 : ${order.name}</label>
+							</div>
+							<div class="form-group col-md-6">
+
+								<label>連絡電話 : ${order.tel}</label>
+							</div>
+							<div class="form-group col-md-6">
+
+								<label> 行動電話 : ${order.phone}</label>
+							</div>
+
+							<div class="form-group col-md-6">
+
+								<label> 聯絡地址 : ${order.address}</label> <label> </label>
+							</div>
+							<div style="height: 50px" class="form-group col-md-12">
+
+								<label><b style="color: red">※<b>※訂單明細收件信箱 :<br>
+									</b></b> 電子信箱 ${order.email}</label>
+							</div>
+						</div>
+					</form>
 
 
 
@@ -209,93 +228,95 @@
 
 
 
-				<!-- 以下購物車-------------------------------------------------------------------- -->
-				<div class="title">
-					<span>購物車</span>
-				</div>
-				<div class="table-responsive">
-					<table class="table table-bordered table-cart">
+					<!-- 以下購物車-------------------------------------------------------------------- -->
+					<div class="title">
+						<span>購物車</span>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-bordered table-cart">
 
 
 
-						<thead>
-							<tr>
-								<th>商品</th>
-								<th>描述</th>
-								<th>數量</th>
-								<th>單價</th>
-								<th>小計</th>
-								<!-- 								<th>操作</th> -->
-							</tr>
-						</thead>
-
-
-
-						<c:forEach items="${cars}" var="data">
-							<tbody class="${data.value.PK.gameSN.gameSN}">
+							<thead>
 								<tr>
-									<td class="img-cart"><a href=""> <img
-											style="width: 50px" alt="Product"
-											src="<c:url value="/Tim${data.value.PK.gameSN.smallImage}"/>"
-											class="img-thumbnail">
-									</a></td>
-									<td>
-										<p>
-											<a
-												href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>"
-												class="d-block">${data.value.PK.gameSN.gameName}</a>
-										</p> <small>${data.value.PK.gameSN.introduction}</small>
-									</td>
-									<td class="input-qty">
-										<div class="input-group bootstrap-touchspin">
-											<span class="input-group-addon bootstrap-touchspin-prefix">qty
-											</span> <input onchange="inputCangeCar(this)"
-												id="${data.value.PK.gameSN.gameSN}" type="text"
-												value="${data.value.quantity}"
-												class="form-control text-center" style="display: block;"
-												readonly><span
-												class="input-group-addon bootstrap-touchspin-postfix"
-												style="display: none;"></span><span
-												class="input-group-btn-vertical"> </span>
-										</div>
-									</td>
-									<td class="unit">\$${data.value.PK.gameSN.price}</td>
-									<td class="sub"><span>$</span><span>${data.value.PK.gameSN.price*data.value.quantity}</span></td>
-									<!-- 									<td class="action"><a href="javascript:void(0)" -->
-									<!-- 										data-toggle="tooltip" -->
-									<%-- 										onclick="CShopCar(${data.value.PK.gameSN.gameSN},${data.value.PK.gameSN.price},${data.value.quantity},this)" --%>
-									<!-- 										data-placement="top" data-original-title="Update"> <i -->
-									<!-- 											class="fa fa-refresh"><img data-original-title="Update" -->
-									<!-- 												data-toggle="tooltip" style="width: 25px" -->
-									<!-- 												data-placement="top" -->
-									<%-- 												src="<c:url value="/Tim/image/icon/update.png"/>" --%>
-									<!-- 												class="img-thumbnail"></i></a>&nbsp; <a -->
-									<%-- 										onclick="delectCar(${data.value.PK.gameSN.gameSN},this)" --%>
-									<!-- 										href="javascript:void(0)" class="text-danger" -->
-									<!-- 										data-toggle="tooltip" data-placement="top" -->
-									<!-- 										data-original-title="Remove"><i class="fa fa-trash-o"> -->
-									<!-- 												<img style="width: 25px" -->
-									<%-- 												src="<c:url value="/Tim/image/icon/delete.png"/>" --%>
-									<!-- 												class="img-thumbnail"> -->
-									<!-- 										</i></a></td> -->
+									<th>商品</th>
+									<th>描述</th>
+									<th>數量</th>
+									<th>單價</th>
+									<th>小計</th>
+									<!-- 								<th>操作</th> -->
+								</tr>
+							</thead>
+
+
+
+							<c:forEach items="${cars}" var="data">
+								<tbody class="${data.value.PK.gameSN.gameSN}">
+									<tr>
+										<td class="img-cart"><a href=""> <img
+												style="width: 50px" alt="Product"
+												src="<c:url value="/Tim${data.value.PK.gameSN.smallImage}"/>"
+												class="img-thumbnail">
+										</a></td>
+										<td>
+											<p>
+												<a
+													href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>"
+													class="d-block">${data.value.PK.gameSN.gameName}</a>
+											</p> <small>${data.value.PK.gameSN.introduction}</small>
+										</td>
+										<td class="input-qty">
+											<div class="input-group bootstrap-touchspin">
+												<span class="input-group-addon bootstrap-touchspin-prefix">qty
+												</span> <input onchange="inputCangeCar(this)"
+													id="${data.value.PK.gameSN.gameSN}" type="text"
+													value="${data.value.quantity}"
+													class="form-control text-center" style="display: block;"
+													readonly><span
+													class="input-group-addon bootstrap-touchspin-postfix"
+													style="display: none;"></span><span
+													class="input-group-btn-vertical"> </span>
+											</div>
+										</td>
+										<td class="unit">\$${data.value.PK.gameSN.price}</td>
+										<td class="sub"><span>$</span><span>${data.value.PK.gameSN.price*data.value.quantity}</span></td>
+										<!-- 									<td class="action"><a href="javascript:void(0)" -->
+										<!-- 										data-toggle="tooltip" -->
+										<%-- 										onclick="CShopCar(${data.value.PK.gameSN.gameSN},${data.value.PK.gameSN.price},${data.value.quantity},this)" --%>
+										<!-- 										data-placement="top" data-original-title="Update"> <i -->
+										<!-- 											class="fa fa-refresh"><img data-original-title="Update" -->
+										<!-- 												data-toggle="tooltip" style="width: 25px" -->
+										<!-- 												data-placement="top" -->
+										<%-- 												src="<c:url value="/Tim/image/icon/update.png"/>" --%>
+										<!-- 												class="img-thumbnail"></i></a>&nbsp; <a -->
+										<%-- 										onclick="delectCar(${data.value.PK.gameSN.gameSN},this)" --%>
+										<!-- 										href="javascript:void(0)" class="text-danger" -->
+										<!-- 										data-toggle="tooltip" data-placement="top" -->
+										<!-- 										data-original-title="Remove"><i class="fa fa-trash-o"> -->
+										<!-- 												<img style="width: 25px" -->
+										<%-- 												src="<c:url value="/Tim/image/icon/delete.png"/>" --%>
+										<!-- 												class="img-thumbnail"> -->
+										<!-- 										</i></a></td> -->
+									</tr>
+								</tbody>
+							</c:forEach>
+							<tbody>
+								<tr>
+									<td colspan="4" class="text-right">運費與商品總和</td>
+									<td id="totalShop" style="font-family: fantasy; font: red"
+										colspan="2">\$${order.orderAmount}</td>
 								</tr>
 							</tbody>
-						</c:forEach>
-						<tbody>
-							<tr>
-								<td colspan="4" class="text-right">運費與商品總和</td>
-								<td id="totalShop" colspan="2"><b>${order.orderAmount}</b></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+						</table>
+					</div>
 				</div>
 				<nav aria-label="Shopping Cart Next Navigation">
 				<ul class="pager">
 					<li role="presentation" class="previous"><a href="#home"
 						aria-controls="home" role="tab" data-toggle="tab"><span
 							aria-hidden="true">←</span>繼續購物</a></li>
-					<li class="next"><a onclick="ajax('${order.name}','${order.email}')"
+					<li class="next"><a
+						onclick="ajax('${order.name}','${order.email}')"
 						href="javascript:void(0)">送出訂單<span aria-hidden="true">→</span>
 					</a></li>
 				</ul>
@@ -338,19 +359,18 @@
 					img = Canvas2Image.convertToJPEG(canvas, canvas.width,
 							canvas.height);
 					dataURL = canvas.toDataURL(img);
-// 											window.open(dataURL);
+					// 											window.open(dataURL);
 					//						console.log(img);
 					//						console.log(dataURL);
 					// 					sessionStorage.setItem("image", dataURL);
 					// 				console.log(sessionStorage.getItem("image"));
 					//						window.open(dataURL, '訂單',
 					//								config = 'height=750,width=1000');
-					
+
 				})
 	}
-	
-	
-	function ajax(name,email) {
+
+	function ajax(name, email) {
 		$.ajax({
 			type : "POST",
 			url : "/FlipYouth/writeOrder.controller",
@@ -364,8 +384,25 @@
 				withCredentials : false
 			},
 			success : function(res) {
-				alert('新增訂單成功');
+				$('#orderdate').empty();
+				$('#orderOK').show();
 			},
+			error : function() {
+
+				alert('訂單出錯');
+			},
+			beforeSend : function() {
+				
+				parent.move_div();
+				window.parent.$('#loadingIMG').show();
+			},
+			complete : function() {
+				setTimeout(function() {
+					window.parent.$('#loadingIMG').hide();
+				}, 500)
+				
+			},
+
 		})//end ajax
 	};
 	window.onload = function() {

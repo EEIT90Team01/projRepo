@@ -58,79 +58,78 @@ public class ShopController {
 	ShopServices shopServices;
 	@Resource(name = "memberDao")
 	MemberDAO memberDao;
-	
-	
-	// shop controller
-		@RequestMapping(path = "/Shop.controller")
-		public String Shop(Model model, HttpServletResponse response, HttpSession session, String gameClass, String ID,
-				String user, String pass, String name, Integer price, String clearCar) throws IOException {
 
-			if (session.isNew() || count == 0 || clearCar != null) {
-				// 如果是第一次進入的人 清空購物車
+	// shop controller
+	@RequestMapping(path = "/Shop.controller")
+	public String Shop(Model model, HttpServletResponse response, HttpSession session, String gameClass, String ID,
+			String user, String pass, String name, Integer price, String clearCar) throws IOException {
+
+		if (session.isNew() || count == 0 || clearCar != null) {
+			// 如果是第一次進入的人 清空購物車
+			session.setAttribute("ALL", 0);
+			session.setAttribute("count", 0);
+			car.clear();
+			count = 0;
+		}
+
+		if (clearCar != null) {
+			return "list";
+		}
+
+		if (name != null) {
+			// name==我放入購物車的商品的編號
+
+			count++;
+			if (car.get(name) == null) {// 先進去購物車找
+				OrderDetailPK PK = new OrderDetailPK();
+				OrderDetailBean orderDetailBean = new OrderDetailBean();
+				PK.setGameSN(shopServices.select(Integer.parseInt(name)));
+				orderDetailBean.setPK(PK);
+				orderDetailBean.setQuantity(1);
+				car.put(name, orderDetailBean);
+
+				System.out.println("第一次加入" + name + "商品 比數=" + orderDetailBean.getQuantity());
+			} else {
+				OrderDetailBean a = car.get(name);
+				a.setQuantity(a.getQuantity().intValue() + 1);
+				car.put(name, a);
+				System.out.println("更新" + name + "商品" + car.get(name).getQuantity());
+			}
+
+			session.setAttribute("cars", car);
+
+			session.setAttribute("count", count);
+			try {
+				all = (int) session.getAttribute("ALL");
+			} catch (Exception e) {
 				session.setAttribute("ALL", 0);
-				session.setAttribute("count", 0);
-				car.clear();
+				all = 0;
 				count = 0;
 			}
 
-			if (clearCar != null) {
-				return "list";
-			}
-
-			if (name != null) {
-				// name==我放入購物車的商品的編號
-
-				count++;
-				if (car.get(name) == null) {// 先進去購物車找
-					OrderDetailPK PK = new OrderDetailPK();
-					OrderDetailBean orderDetailBean = new OrderDetailBean();
-					PK.setGameSN(shopServices.select(Integer.parseInt(name)));
-					orderDetailBean.setPK(PK);
-					orderDetailBean.setQuantity(1);
-					car.put(name, orderDetailBean);
-
-					System.out.println("第一次加入" + name + "商品 比數=" + orderDetailBean.getQuantity());
-				} else {
-					OrderDetailBean a = car.get(name);
-					a.setQuantity(a.getQuantity().intValue() + 1);
-					car.put(name, a);
-					System.out.println("更新" + name + "商品" + car.get(name).getQuantity());
-				}
-
-				session.setAttribute("cars", car);
-
-				session.setAttribute("count", count);
-				try {
-					all = (int) session.getAttribute("ALL");
-				} catch (Exception e) {
-					session.setAttribute("ALL", 0);
-					all = 0;
-					count = 0;
-				}
-
-				session.setAttribute("ALL", all + price);
-				// &#x76EE;&#x524D;&#x4EF6;&#x6578 == 目前件數
-				// &#x76EE;&#x524D;&#x91D1;&#x984D == 目前金額
-				response.getWriter().write("<font color='red'>&#x76EE;&#x524D;&#x91D1;&#x984D;" + (all + price)
-						+ "<br>&#x76EE;&#x524D;&#x4EF6;&#x6578;" + count + "</font>");
-				return null;
-			}
-
-			if (ID == null) {// 把要查詢的遊戲類別送去比對
-				if ("".equals(gameClass) || gameClass == null) {
-					gameClass = "1";
-				}
-				List<ShopBean> ShopBean = shopServices.selectAll(gameClass);
-				// 放入拿到的資料
-				shopBean.put("shopBean", ShopBean);
-				session.setAttribute("shopBean", shopBean);
-				return "list";
-			} else {// 第幾筆商品
-				pruduct.put("pruduct", shopServices.select(Integer.parseInt(ID)));
-				model.addAllAttributes(pruduct);
-				return "pruduct";
-			}
+			session.setAttribute("ALL", all + price);
+			// &#x76EE;&#x524D;&#x4EF6;&#x6578 == 目前件數
+			// &#x76EE;&#x524D;&#x91D1;&#x984D == 目前金額
+			response.getWriter().write("<font color='red'>&#x76EE;&#x524D;&#x91D1;&#x984D;" + (all + price)
+					+ "<br>&#x76EE;&#x524D;&#x4EF6;&#x6578;" + count + "</font>");
+			return null;
 		}
+
+		if (ID == null) {// 把要查詢的遊戲類別送去比對
+			if ("".equals(gameClass) || gameClass == null) {
+				gameClass = "1";
+			}
+			List<ShopBean> ShopBean = shopServices.selectAll(gameClass);
+			// 放入拿到的資料
+			shopBean.put("shopBean", ShopBean);
+			session.setAttribute("shopBean", shopBean);
+			return "list";
+		} else {// 第幾筆商品
+			pruduct.put("pruduct", shopServices.select(Integer.parseInt(ID)));
+			model.addAllAttributes(pruduct);
+			return "pruduct";
+		}
+	}
 
 	@RequestMapping(path = "/DataTable.controller", produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -153,10 +152,10 @@ public class ShopController {
 			String orderAmount, String name, String tel, String phone, String email, String address)
 			throws ParseException, MessagingException, IOException {// 寫入訂單的controller
 		String orderAmoun = null;
-		
+
 		if (insert != null) {
-			if(orderAmount.indexOf("$")!=-1){
-				orderAmoun=orderAmount.substring(1);
+			if (orderAmount.indexOf("$") != -1) {
+				orderAmoun = orderAmount.substring(1);
 			}
 			OrderBean orderBean = new OrderBean(Integer.parseInt(orderAmoun), email, address, name, tel, phone);
 			session.setAttribute("order", orderBean);
@@ -176,55 +175,44 @@ public class ShopController {
 			}
 		});
 		thread.start();
-		Thread thread1 = new Thread(new Runnable() {
-			OrderBean OrderBean;
+//		shopServices.sendMain(name, image, email);
+		OrderBean aOrderBean = null;
 
-			public void run() {
-				try {
-					car = (Map<String, OrderDetailBean>) session.getAttribute("cars");
-					OrderBean hi=(OrderBean)session.getAttribute("order");
-					
-					OrderBean = shopServices.newOrderAndDetail(new OrderBean(image,
-							email, 
-							hi.getAddress(),
-							hi.getName(),
-							hi.getTel(), 
-							hi.getPhone()),
-							((MemberBean)session.getAttribute("loginOK")).getMbrSN()+"", hi.getOrderAmount()+"", car);
-				} catch (ParseException e) {
-					System.out.println("NEW訂單失敗");
-					e.printStackTrace();
-				}
-				session.setAttribute("order", OrderBean);
-			}
-		});
-		thread1.start();
+		car = (Map<String, OrderDetailBean>) session.getAttribute("cars");
+		OrderBean hi = (OrderBean) session.getAttribute("order");
 
+		aOrderBean = shopServices.newOrderAndDetail(
+				new OrderBean(image, email, hi.getAddress(), hi.getName(), hi.getTel(), hi.getPhone()),
+				((MemberBean) session.getAttribute("loginOK")).getMbrSN() + "", hi.getOrderAmount() + "", car);
+		session.setAttribute("order", aOrderBean);
 		return "orderOver";
 	}
-	JSONObject  JSON;
-	@RequestMapping(path = "/Game.controller" ,produces = "application/json; charset=utf-8")
+
+	JSONObject JSON;
+
+	@RequestMapping(path = "/Game.controller", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String Game(String search,String selectpage,String nowpage,@RequestParam(value = "checkbox[]")String[] checkbox,HttpServletRequest req,String GameClass, String orderBy, String theme, String mix, String max) {
-		Integer maxGameSN = Integer.parseInt(selectpage)*Integer.parseInt(nowpage); 
-		Integer mixGameSN = maxGameSN-(Integer.parseInt(selectpage)-1);
-//		System.out.println(" maxGameSN = "+maxGameSN);
-//		System.out.println(" mixGameSN = "+mixGameSN);
-		System.out.println("search"+search);
-		mix=mix.substring(0,mix.lastIndexOf("."));
-		max=max.substring(0,max.lastIndexOf("."));
-		JSON=null;
-		for(String a:checkbox){
+	public String Game(String search, String selectpage, String nowpage,
+			@RequestParam(value = "checkbox[]") String[] checkbox, HttpServletRequest req, String GameClass,
+			String orderBy, String theme, String mix, String max) {
+		Integer maxGameSN = Integer.parseInt(selectpage) * Integer.parseInt(nowpage);
+		Integer mixGameSN = maxGameSN - (Integer.parseInt(selectpage) - 1);
+		// System.out.println(" maxGameSN = "+maxGameSN);
+		// System.out.println(" mixGameSN = "+mixGameSN);
+		System.out.println("search" + search);
+		mix = mix.substring(0, mix.lastIndexOf("."));
+		max = max.substring(0, max.lastIndexOf("."));
+		JSON = null;
+		for (String a : checkbox) {
 			System.out.println(a);
 		}
 		System.out.println(GameClass + "\n" + orderBy + "\n" + theme + "\n" + mix + "\n" + max + "\n");
-		
-		JSONObject  JSON= shopServices.getGameData(search,GameClass,orderBy,theme,mix,max,checkbox,Integer.parseInt(selectpage),mixGameSN);
+
+		JSONObject JSON = shopServices.getGameData(search, GameClass, orderBy, theme, mix, max, checkbox,
+				Integer.parseInt(selectpage), mixGameSN);
 		return JSON.toString();
 
 	}
-
-	
 
 	// order controller
 
@@ -249,16 +237,16 @@ public class ShopController {
 			session.setAttribute("ALL", all);
 			return "checkOut";
 		}
-		System.out.println("要更新的商品  = "+GameSN);
+		System.out.println("要更新的商品  = " + GameSN);
 		if (change != null) {
-//			all = 0; //??
-//			count = 0;//??
+			// all = 0; //??
+			// count = 0;//??
 			car = (Map<String, OrderDetailBean>) session.getAttribute("cars");
 			OrderDetailBean orderDetailBean = car.get(GameSN);
-			System.out.println("要更新的商品  = "+GameSN);
-			System.out.println("要更新的商品的名稱  = "+orderDetailBean.getPK().getGameSN());
-//			System.out.println("原本的數量 =  "+);
-			System.out.println("要改成的數量 =  "+value);
+			System.out.println("要更新的商品  = " + GameSN);
+			System.out.println("要更新的商品的名稱  = " + orderDetailBean.getPK().getGameSN());
+			// System.out.println("原本的數量 = "+);
+			System.out.println("要改成的數量 =  " + value);
 			if (Integer.parseInt(value) > (orderDetailBean.getPK().getGameSN().getStockQuantity().intValue())) {
 				System.out.println("庫存不足");
 				return "";

@@ -24,19 +24,19 @@ public class AdminLoginController {
 	@RequestMapping(path = {"/admin/secure/adminLogin.controller"}, method = {RequestMethod.POST})
 	public String adminLoginMethod(
 			// 接收資料
-			@RequestParam String admId, @RequestParam String admPassword, Model model, HttpSession session) {
+			@RequestParam(defaultValue="") String admId, @RequestParam(defaultValue="") String admPassword, Model model, HttpSession session) {
 
 		Map<String, String> errors = new HashMap<String, String>();
 		// 驗證資料
-//		if (admId.trim().length() == 0)
-//			errors.put("admId", "invalid id");
-//		if (admPassword.trim().length() == 0)
-//			errors.put("admPassword", "invalid password");
-//		if (!errors.isEmpty()) {
-//			model.addAttribute("errors", errors);
-//			System.out.println(errors);
-//			return "adminLogin.logPage";
-//		}
+		if (admId.trim().isEmpty())
+			errors.put("admId", "不可為空");
+		if (admPassword.trim().isEmpty())
+			errors.put("admPassword", "不可為空");
+		if (!errors.isEmpty()) {
+			model.addAttribute("errors", errors);
+			System.out.println(errors);
+			return "adminLogin.logPage";
+		}
 		// 呼叫model
 		AdministratorBean ab = adminLoginService.login(admId, admPassword);
 		// 根據結果顯示view

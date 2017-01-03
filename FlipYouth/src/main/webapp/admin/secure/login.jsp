@@ -50,7 +50,7 @@ html, body {
 											ID </label>
 										<div class="col-sm-10">
 											<input type="text" name="admId" value="${param.admId}"
-												class="form-control" id="inputid" required autofocus> <span>${errors.admId}</span>
+												class="form-control" id="inputid" required autofocus> <span class="text-danger">${errors.admId}</span>
 										</div>
 									</div>
 									<div class="form-group">
@@ -59,7 +59,7 @@ html, body {
 											Password </label>
 										<div class="col-sm-10">
 											<input type="password" name="admPassword"
-												class="form-control" id="inputPassword" required> <span>${errors.admPassword}</span>
+												class="form-control" id="inputPassword" required> <span class="text-danger">${errors.admPassword}</span>
 										</div>
 									</div>
 									<div class="form-group">
