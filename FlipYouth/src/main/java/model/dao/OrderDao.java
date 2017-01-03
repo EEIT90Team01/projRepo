@@ -26,7 +26,6 @@ public class OrderDao {
 
 	public OrderDetailBean select(MemberBean memberBean, OrderBean orderBean) {
 
-
 		return null;
 	}
 
@@ -34,7 +33,7 @@ public class OrderDao {
 		Session session = this.getSession();
 		int a = (int) session.save(orderBean);
 		System.out.println("新建立的訂單編號為 = " + a);
-		System.out.println("cars = "+cars);
+		System.out.println("cars = " + cars);
 		for (String key : cars.keySet()) {
 			ShopBean GameSN = session.get(ShopBean.class, Integer.parseInt(key));
 			cars.get(key).getPK().setGameSN(GameSN);
@@ -49,20 +48,23 @@ public class OrderDao {
 			String dir, String search, String OrderColNam) {
 		List<OrderBean> list;
 		StringBuffer from = new StringBuffer("from OrderBean");
-		StringBuffer  and = new StringBuffer();
+		StringBuffer and = new StringBuffer();
 		String[] colDB = { "orderSN", "orderDate", "orderAmount", "orderState", "name" };
 		if (search.trim().length() != 0) {
 			and.append("and ");
 			for (int i = 0; i < colDB.length; i++) {
 				and.append(colDB[i]);
 				and.append(" like ");
-				and.append("'%"+search+"%'");
-				if(i!=colDB.length-1){and.append(" or ");}
+				and.append("'%" + search + "%'");
+				if (i != colDB.length - 1) {
+					and.append(" or ");
+				}
 			}
 			System.out.println("and =  " + and);
 		}
-		Query<OrderBean> order = this.getSession()
-				.createQuery(from.append(" where mbrSN = ").append(mbrSN).append(and).append("order by ").append(OrderColNam).append(" ").append(dir)+"").setFirstResult(start).setMaxResults(length);
+		Query<OrderBean> order = this.getSession().createQuery(from.append(" where mbrSN = ").append(mbrSN).append(and)
+				.append("order by ").append(OrderColNam).append(" ").append(dir) + "").setFirstResult(start)
+				.setMaxResults(length);
 		int total = (int) this.getSession().createNativeQuery("SELECT COUNT(*) FROM order1 where mbrSN = " + mbrSN)
 				.getSingleResult();
 		ShopServices.setRecordsTotal(total);
@@ -71,11 +73,15 @@ public class OrderDao {
 	}
 
 	public void update(OrderBean orderBean) {
-		 this.getSession().update(orderBean);
+		this.getSession().update(orderBean);
 	}
 
 	public OrderBean selectOrder(String orderSN) {
-		
 		return this.getSession().get(OrderBean.class, Integer.parseInt(orderSN));
+	}
+
+	public List<OrderBean> selectOrderAll(int MSN) {
+		List<OrderBean> orderList = this.getSession().createQuery("from OrderBean where MBrSN = '" + MSN + "'").getResultList();
+		return orderList;
 	}
 }

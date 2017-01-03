@@ -59,6 +59,18 @@ public class ShopController {
 	@Resource(name = "memberDao")
 	MemberDAO memberDao;
 
+	
+	@RequestMapping(path="/fullcalendar.controller")
+	public String fullcalendar(HttpSession session){
+		MemberBean ok = (MemberBean)session.getAttribute("loginOK");
+		
+		shopServices.getOrderData(ok.getMbrSN());
+		
+		
+		System.out.println(ok.getMbrSN());
+		return null;
+	}
+	
 	// shop controller
 	@RequestMapping(path = "/Shop.controller")
 	public String Shop(Model model, HttpServletResponse response, HttpSession session, String gameClass, String ID,

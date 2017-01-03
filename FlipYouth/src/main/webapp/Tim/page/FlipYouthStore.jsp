@@ -36,7 +36,15 @@
 <script src="<c:url value="/Tim/js_Tim/range.js"/>"></script>
 
 <script src="<c:url value="/Tim/js_Tim/bootstrap-select.js"/>"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<script
+	src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/dataTable.css"/>">
+
 <style type="text/css">
+
 /* .nav>li>a:focus, .nav>li>a:hover { */
 /* 	text-decoration: none; */
 /* 	background-color: #3f51b5; */
@@ -119,6 +127,17 @@ a {
 	height: 150px;
 	width: 150px;
 }
+
+td.details-control {
+	background: url('/FlipYouth/Tim/image/icon/open.png') no-repeat center
+		center;
+	cursor: pointer;
+}
+
+tr.details td.details-control {
+	background: url('/FlipYouth/Tim/image/icon/close.png') no-repeat center
+		center;
+}
 </style>
 <script type="text/javascript">
 $(function () {
@@ -167,7 +186,7 @@ function move_div() {
 								style="width: 98%; margin: 30px 50px;" role="tab"
 								data-toggle="tab" onchange="toggleTab(this)" type="text"
 								class="form-control" id="search" placeholder="查詢字串">
-							<div class="input-group-btn">
+							<div style="z-index: 99999" class="input-group-btn">
 
 								<button type="button" class="btn btn-default btn-search">
 									<img
@@ -198,33 +217,24 @@ function move_div() {
 						onclick="toggleTab(this)">商城列表</a></li>
 					<li role="presentation"><a href="#two" aria-controls="two"
 						role="tab" data-toggle="tab" onclick="toggleTabCar(this)">購物車</a></li>
-					<li role="presentation"><a href="#three" aria-controls="three"
-						role="tab" data-toggle="tab" onclick="toggleTabcheck(this)">填寫聯絡人資料</a></li>
-					<li role="presentation"><a href="#four" aria-controls="four"
-						role="tab" data-toggle="tab" onclick="toggleTabcheckOver(this)">確認訂單</a></li>
-					<li role="presentation">
+					
+							<li role="presentation"><a href="#three"
+								aria-controls="three" role="tab" data-toggle="tab"
+								onclick="toggleTabcheck(this)">填寫聯絡人資料</a></li>
+							<li role="presentation"><a href="#four" aria-controls="four"
+								role="tab" data-toggle="tab" onclick="toggleTabcheckOver(this)">確認訂單</a></li>
+							<li role="presentation"><a href="#five" aria-controls="five"
+								role="tab" data-toggle="tab" onclick="openOrderDetail()">訂單明細</a></li>
+						
+
 				</ul>
 			</div>
 		</div>
 	</div>
 	</nav>
-	<!-- 	<div class="container"> -->
-
-	<!--            -->
-	<!--             <ul class="nav navbar-nav"> -->
-	<!--               <li><a href="index.html">商城首頁</a></li> -->
-	<!--               <li class="active"><a href="products.html">商品列表</a></li> -->
-	<!--               <li><a href="cart.html">購物車</a></li> -->
-	<!--               <li><a href="checkout.html">確認訂單</a></li> -->
-	<!--              </ul> -->
-	<!--           </div> -->
-	<!--        -->
-
-
-
-
-
-
+	<script type="text/javascript">
+	
+	</script>
 	<script type="text/javascript">
 		function parentTab(thiss) {
 			var myid = $(thiss).attr('myid');
@@ -240,6 +250,18 @@ function move_div() {
 				$('#three')
 				.append(
 						'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/order/check.jsp"></iframe>');
+			}else if(a=='two'){
+				$('#two').empty();
+				$('#two')
+				.append(
+				'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/Shop/shoppingCar.jsp"></iframe>');
+				
+			}else if(a=='four'){
+				$('#four').empty();
+				$('#four')
+						.append(
+								'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/order/orderOver2.jsp"></iframe>');
+					
 			}
 			$('#' + a).show();
 		}
@@ -304,13 +326,43 @@ function move_div() {
 		</div>
 		<div style="display: none" role="tabpanel" class="tab-pane a" id="two">
 			<%-- 			<iframe style="width: 100% ;height: 900px" name="frame1" src="<c:url value="/Tim/page/Shop/shoppingCar.jsp"/>"></iframe> --%>
-			<%-- 			<jsp:include page="/Tim/page/Shop/shoppingCar.jsp"></jsp:include> --%>
+
 		</div>
 		<div style="display: none" role="tabpanel" class="tab-pane a"
 			id="three"></div>
 
 		<div style="display: none" role="tabpanel" class="tab-pane a"
 			id="four"></div>
+
+		<div style="display: none" role="tabpanel" class="tab-pane a"
+			id="five">
+
+			<!-- dataTable---------------------------------------- -->
+
+			<div on id="dataTableTab" class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<table id="example" class="display" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th></th>
+									<th>訂單編號</th>
+									<th>下訂日</th>
+									<th>價格</th>
+									<th>狀態</th>
+									<th>連絡人</th>
+									<!-- 				<th></th> -->
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<!-- dataTable---------------------------------------- -->
+
+
+		</div>
 	</div>
 
 
@@ -321,22 +373,153 @@ function move_div() {
 
 
 
-	<!-- 		<div id="list" style="display: none"></div> -->
-	<!-- 		<!-- 		<div id="orderOver" style="display: none"> -->
-	<%-- 		<%-- 			<jsp:include page="/Tim/page/order/orderOver.jsp"></jsp:include> --%>
-	<!-- 		<!-- 		</div> -->
-	<!-- 		<div id="shoppingCar" style="display: none"> -->
-	<%-- 			<jsp:include page="/Tim/page/Shop/shoppingCar.jsp"></jsp:include> --%>
-	<!-- 		</div> -->
-	<!-- 		<div id="shopHome" style="display: none"></div> -->
 
-	<%-- <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-<script src="<c:url value="/Tim/js_Tim/bootstrap-select.js"/>"></script>
-<script src="<c:url value="/Tim/js_Tim/nouislider.js"/>"></script>
-<script src="<c:url value="/Tim/js_Tim/range.js"/>"></script> --%>
+	<script type="text/javascript">
+	var dt;
+	
+	function openOrderDetail() {
+		<%if (session.getAttribute("loginOK") == null) {%>
+		window.location.href = "/FlipYouth/Tim/login/login.jsp"
+		return false;
+		<%}%>
+		
+		if(typeof dt==="undefined"){
+			getorderdata();
+		}else{
+			dt.ajax.reload();
+		}
+		$('.a').hide();
+		$('#five').show()
+	}
+	
+	function checkState(d) {
+		if (d.orderState == "未付款") {
+			return "取消訂單";
+		} else {
+			display = " style='display:none'";
+			return " ";
+		}
+	}
+	var val;
+	var display = "";
+	function format(d) {
+		display="";
+		val = checkState(d);
+		var image = "open2('data:image/png;base64," + d.image + "');";
+		return '<button class="btn btn-danger" onclick="'+image+'">開啟明細</button>'
+				+ '<button id='
+				+ d.orderSN
+				+ display
+				+ ' class="btn btn-info" style="margin-left:3%" onclick="delectOrder('
+				+ d.orderSN
+				+ ')">' + val + '</button>';
+	}
 
+	function delectOrder(orderSN) {
+		if (val == '無法取消') {
+			alert('無法取消此訂單請聯絡管理員');
+			return false;
+		}
+		$.ajax({
+			url : "/FlipYouth/delectOrder.controller",
+			type : "post",
+			data : {
+				orderSN : orderSN,
+			},
+			success : function(res) {
+				
+// 				window.location.href = res;
+				$('#'+orderSN).hide();
+				dt.ajax.reload();
+			},
+		})//endAjax
+
+	}//endfunction
+	function open2(a) {
+		window.open(a, '訂單明細', "height=1515,width=1000");
+	}
+
+		function getorderdata(){
+			dt = $('#example').DataTable({
+			language : {
+				searchPlaceholder :  "查詢",
+				loadingRecords : "載入中",
+				info : "找到  _TOTAL_ 筆資料   目前顯示   _START_ 到 _END_  資料 ",
+				search : "收尋 :",
+				lengthMenu : "顯示 _MENU_ 資料",
+				"paginate" : {
+					first : "第一頁",
+					last : "最後一頁",
+					next : "下一頁",
+					previous : "上一頁"
+				},
+				processing : "處理中",
+				loadingRecords : "載入中...",
+			},
+			"sScrollX": "70%",
+	        "sScrollY": "360px",
+	        "bScrollCollapse": true,
+			"processing" : true,
+			"serverSide" : true,
+	        "aoColumnDefs": [
+	            { "sWidth": "10%", "aTargets": [ -1 ] }
+	            ],
+			"autoWidth" : true,
+			"ajax" : "/FlipYouth/DataTable.controller",
+			"columns" : [ {
+				"class" : "details-control",
+				"orderable" : false,
+				"data" : null,
+				"defaultContent" : ""
+			}, {
+				"data" : "orderSN"
+			}, {
+				"data" : "orderDate"
+			}, {
+				"data" : "orderAmount"
+			}, {
+				"data" : "orderState"
+			}, {
+				"data" : "name"
+			},
+			// 				{"data" : ""}
+			],
+			"order" : [ [ 1, 'asc' ] ]
+		});
+
+		// Array to track the ids of the details displayed rows
+		var detailRows = [];
+
+		$('#example tbody').on('click', 'tr td.details-control', function() {
+			var tr = $(this).closest('tr');
+			var row = dt.row(tr);
+			var idx = $.inArray(tr.attr('id'), detailRows);
+
+			if (row.child.isShown()) {
+				tr.removeClass('details');
+				row.child.hide();
+
+				// Remove from the 'open' array
+				detailRows.splice(idx, 1);
+			} else {
+				tr.addClass('details');
+				row.child(format(row.data())).show();
+
+				// Add to the 'open' array
+				if (idx === -1) {
+					detailRows.push(tr.attr('id'));
+				}
+			}
+		});
+
+		dt.on('draw', function() {
+			$.each(detailRows, function(i, id) {
+				$('#' + id + ' td.details-control').trigger('click');
+			});
+		});
+		}
+			
+			
+</script>
 </body>
 </html>
