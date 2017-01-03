@@ -312,9 +312,9 @@ strong {
 				</div>
 				<nav aria-label="Shopping Cart Next Navigation">
 				<ul class="pager">
-					<li role="presentation" class="previous"><a href="#home"
-						aria-controls="home" role="tab" data-toggle="tab"><span
-							aria-hidden="true">←</span>繼續購物</a></li>
+					<li role="presentation" class="previous"><a href="javascript:void(0)"
+						onclick="parentHome(this)" aria-controls="three" myid="four" role="tab" data-toggle="tab"><span
+							aria-hidden="true">←</span>填寫聯絡人資料</a></li>
 					<li class="next"><a
 						onclick="ajax('${order.name}','${order.email}')"
 						href="javascript:void(0)">送出訂單<span aria-hidden="true">→</span>
@@ -322,6 +322,11 @@ strong {
 				</ul>
 				</nav>
 			</div>
+			<script type="text/javascript">
+			function parentHome(me) {
+				parent.parentTab(me)
+			}
+			</script>
 			<!-- End Shopping Cart List -->
 
 			<!-- New Arrivals -->

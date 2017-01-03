@@ -26,6 +26,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,28 @@ public class ShopServices {
 	@Autowired
 	@Resource(name = "OrderDao")
 	OrderDao orderDao;
+	
+	public void getOrderData(int SN) {
+		List<OrderBean> orderAll = orderDao.selectOrderAll(SN);
+		JSONArray JSON = new JSONArray();
+		StringBuffer SB=new StringBuffer();
+		for (int i = 0; i < orderAll.size(); i++) {
+			JSONObject a = new JSONObject(orderAll.get(i));
+			a.remove("image");
+			
+			
+			System.out.println(a.get("orderDate").toString());
+//			String b =a.get("orderDate").toString().split("年|月|日","b");
+			
+//			a.put("star",);
+			System.out.println(a);
+//			System.out.println(a);
+			JSON.put(i, a);
+			
+		}
+		
+		System.out.println(JSON);
+	}
 
 	public JSONObject getGameData(String search, String gameClass, String orderBy, String theme, String mix, String max,
 			String[] checkbox, Integer maxGameSN, Integer mixGameSN) {

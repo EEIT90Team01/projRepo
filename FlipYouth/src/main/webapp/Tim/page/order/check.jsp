@@ -318,11 +318,11 @@ function changeData(){
 				</div>
 				<nav aria-label="Shopping Cart Next Navigation">
 				<ul class="pager">
-					<li role="presentation" class="previous"><a href="#home"
-						aria-controls="home" role="tab" data-toggle="tab"><span
-							aria-hidden="true">←</span>繼續購物</a></li>
-					<li class="next"><a onclick="openCheckOver()"
-						href="javascript:void(0)">送出訂單<span aria-hidden="true">→</span>
+					<li role="presentation" class="previous"><a onclick="parentHome(this)" href="javascript:void(0)"
+						aria-controls="two" myid="three" role="tab" data-toggle="tab"><span
+							aria-hidden="true">←</span>查看購物車</a></li>
+					<li class="next"><a aria-controls="four" myid="three" onclick="parentHome(this)"
+						href="javascript:void(0)">檢查訂單<span aria-hidden="true">→</span>
 					</a></li>
 				</ul>
 				</nav>
@@ -338,9 +338,7 @@ function changeData(){
 	function parentHome(me) {
 		parent.parentTab(me)
 	}
-	function openCheckOver(){
-		window.location.href="/FlipYouth/Tim/page/order/orderOver2.jsp";
-	}
+	
 </script>
 	<script type="text/javascript">
 

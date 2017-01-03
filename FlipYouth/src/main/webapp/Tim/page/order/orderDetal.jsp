@@ -94,7 +94,7 @@ tr.details td.details-control {
 	var val;
 	var display = "";
 	function format(d) {
-		display="";
+		display = "";
 		val = checkState(d);
 		var image = "open2('data:image/png;base64," + d.image + "');";
 		return '<button class="btn btn-danger" onclick="'+image+'">開啟明細</button>'
@@ -102,8 +102,7 @@ tr.details td.details-control {
 				+ d.orderSN
 				+ display
 				+ ' class="btn btn-info" style="margin-left:3%" onclick="delectOrder('
-				+ d.orderSN
-				+ ')">' + val + '</button>';
+				+ d.orderSN + ')">' + val + '</button>';
 	}
 	function delectOrder(orderSN) {
 		if (val == '無法取消') {
@@ -143,17 +142,19 @@ tr.details td.details-control {
 				processing : "處理中",
 				loadingRecords : "載入中...",
 			},
-			"sScrollX": "70%",
-	        "sScrollY": "360px",
-	        "bScrollCollapse": true,
-// 	        "bJQueryUI": true,
+			"sScrollX" : "70%",
+			"sScrollY" : "360px",
+			"bScrollCollapse" : true,
 			"processing" : true,
 			"serverSide" : true,
-	        "aoColumnDefs": [
-	            { "sWidth": "10%", "aTargets": [ -1 ] }
-	            ],
-			"processing" : true,
-			"serverSide" : true,
+			// 	        "aoColumnDefs": [
+			// 	            { "sWidth": "10%", "aTargets": [ 1 ] }
+			// 	            ],
+			columnDefs : [ {
+				orderable : false,
+				targets : -1
+			} ],
+
 			"autoWidth" : true,
 			"ajax" : "/FlipYouth/DataTable.controller",
 			"columns" : [ {
@@ -212,8 +213,8 @@ tr.details td.details-control {
 
 <div class="container">
 	<div class="row">
-		<div class="col-xs-12" >
-			<table id="example" class="display" cellspacing="0" width="100%" >
+		<div class="col-xs-12">
+			<table id="example" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th></th>

@@ -214,7 +214,7 @@ function loadaa() {
 					<li role="presentation" class="previous"><a myid="two" aria-controls="one" href="javascript:void(0)"
 						 onclick="parentHome(this)"><span
 							aria-hidden="true">←</span>繼續購物</a></li>
-					<li class="next"><a myid="two" aria-controls="three" onclick="parentHome(this)" href="checkout.html">繼續查看<span
+					<li class="next"><a myid="two" aria-controls="three" onclick="parentHome(this)" href="checkout.html">檢查資料<span
 							aria-hidden="true">→</span>
 					</a></li>
 				</ul>
