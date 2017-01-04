@@ -19,10 +19,10 @@ public class ShopDTDAO {
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public ShopBean select(String GameSN) {
+	public ShopBean select(Integer GameSN) {
 		
 		ShopBean bean = null;
-		bean = getSession().get(ShopBean.class, Integer.parseInt(GameSN));
+		bean = getSession().get(ShopBean.class, GameSN);
 		return bean;
 	}
 
@@ -52,7 +52,6 @@ public class ShopDTDAO {
 	}
 	
 	public List<ShopBean> ajaxQuery(String hql, int start, int length) {
-		
 		List<ShopBean> beans = null;
 		beans = getSession().createQuery(hql, ShopBean.class).setFirstResult(start).setMaxResults(length).getResultList();
 		return beans;

@@ -28,10 +28,10 @@ public class ColumnService {
 		colsMap = new HashMap<String, String[]>();
 		colStringsMap = new HashMap<String, String[]>(); 
 		
-		colsMap.put("Administrator", new String[]{"admId","admPassword","admEmail","authIdDis"});
+		colsMap.put("Administrator", new String[]{"admId","admPassword","admEmail","authId_Dis"});
 		colsMap.put("Authority", new String[]{"authId","authName"});
 		colsMap.put("BackEndLog", new String[]{"admId","executeTime","belNotes","sqlCommand"});
-		colsMap.put("Shop", new String[]{"GameSN","GameName","Introduction","PlayingTime","PlayerNumber","SmallImageDis","StockQuantity","Gameclass","Ages","StrGameTheme","StrGameMechanics","StrLanguage","Price","Discount","Freight"});//,"BigImageDis","div1Dis"
+		colsMap.put("Shop", new String[]{"GameSN","GameName","Introduction","PlayingTime","PlayerNumber","SmallImage_Dis","StockQuantity","Gameclass","Ages","StrGameTheme","StrGameMechanics","StrLanguage","Price","Discount","Freight"});//,"BigImageDis","div1Dis"
 		colsMap.put("Order", new String[]{"orderSN","mbrSN","orderAmount","shippedDate","orderDate","productDelivery","freight","paymentMethod","orderState","email","address","name","tel","phone","image"});
 		colsMap.put("OrderDetail", new String[]{"orderSN","gameSN","Quantity"});
 		colStringsMap.put("Administrator", new String[]{"管理員帳號","密碼","Email","管理員權限"});

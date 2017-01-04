@@ -131,8 +131,8 @@ public class DataTablesController {
 	@RequestMapping(method = { RequestMethod.POST }, path = {
 			"/admin/cu.controller" }, produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String createAndUpdate(@RequestParam Map<String,String> cuParam, @RequestParam("file") MultipartFile file, HttpSession session) throws IOException {
-		System.out.println(file);
+	public String createAndUpdate(@RequestParam Map<String,String> cuParam, @RequestParam(name="file", required=false) MultipartFile file, HttpSession session) throws IOException {
+		
 		String result = "";
 		String table = columnService.getTableName();
 		
@@ -150,7 +150,7 @@ public class DataTablesController {
 			case "Authority":
 				
 				if (integerValidator.validate(cuParam.get("authId"))==null){
-					errMap.put("authIdE", "不可為空且須為整數");
+					errMap.put("authIdE", "不可為空且需為整數");
 				}
 				if (cuParam.get("authName")==null || cuParam.get("authName").isEmpty() || cuParam.get("authName").length()>50){
 					errMap.put("authNameE", "不可為空且長度不可超過50字");
@@ -171,7 +171,7 @@ public class DataTablesController {
 				if (cuParam.get("admPassword")==null || cuParam.get("admPassword").isEmpty() || cuParam.get("admPassword").length()>20){
 					errMap.put("admPasswordE", "不可為空且長度不可超過20字");
 				}
-				if (!(emailValidator.isValid(cuParam.get("admEmail")) && cuParam.get("admEmail").length()<50)){
+				if (cuParam.get("admEmail")==null ||(!cuParam.get("admEmail").isEmpty()&&!(emailValidator.isValid(cuParam.get("admEmail")) && cuParam.get("admEmail").length()<50))){
 					errMap.put("admEmailE", "需為合法Email地址且長度不可超過50字");
 				}
 				if (integerValidator.validate(cuParam.get("authId"))==null){
@@ -184,6 +184,35 @@ public class DataTablesController {
 				break;
 			case "BackEndLog":
 				result = gson.toJson("不對吧");
+				break;
+			case "Shop":
+				if (file!=null){
+					if (!"image".equals(file.getContentType().split("/")[0])){
+						errMap.put("SmallImageE", "檔案類型不符");
+					}
+					if ((file.getSize()/1024)>30){
+						errMap.put("SmallImageE", "檔案太大");
+					}
+				}
+				if (Boolean.parseBoolean(cuParam.get("forUpdate"))&&integerValidator.validate(cuParam.get("GameSN"))==null){
+					errMap.put("GameSNE", "不可為空且需為整數");
+				}
+				if (cuParam.get("GameName")==null || cuParam.get("GameName").isEmpty() || cuParam.get("GameName").length()>50){
+					errMap.put("GameNameE", "不可為空且長度不可超過50字");
+				}
+				if (!cuParam.get("StockQuantity").isEmpty() && integerValidator.validate(cuParam.get("StockQuantity"))==null){
+					errMap.put("StockQuantityE", "需為整數");
+				}
+				if (!cuParam.get("Price").isEmpty() && integerValidator.validate(cuParam.get("Price"))==null){
+					errMap.put("PriceE", "需為整數");
+				}
+				if (errMap.size()!=0){
+					return gson.toJson(errMap);
+				}
+				
+				
+			    
+				result = dataTablesService.ajaxShopCuHandler(cuParam, file);
 				break;
 			}
 			

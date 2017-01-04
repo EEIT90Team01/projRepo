@@ -1,13 +1,20 @@
 package model.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -24,9 +31,12 @@ import model.dao.ShopDTDAO;
 
 @Service(value = "dataTablesService")
 public class DataTablesService {
-
+	@Autowired
+	private TempService tempService;
 	@Autowired
 	private Gson gson;
+	@Autowired
+	private IntegerValidator integerValidator;
 	@Autowired
 	private AuthorityDTDAO authorityDtdao;
 	@Autowired
@@ -39,16 +49,16 @@ public class DataTablesService {
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
 			int draw, int start, int length) {
 		Integer total = 0, totalAfterFilter = 0;
-
+		
 		StringBuffer hql = new StringBuffer().append("FROM ").append(table + "Bean");
 		//
 
 		//
 		total = ajaxCountHandler(hql.toString(), table);
 		if (!search.equals("")) {
-			hql.append(" where (" + cols[0] + " like '%" + search + "%'");
+			hql.append(" where (" + cols[0].replace("_Dis", "") + " like '%" + search + "%'");
 			for (int i = 1; i < cols.length; i++) {
-				hql.append(" or " + cols[i] + " like '%" + search + "%'");
+				hql.append(" or " + cols[i].replace("_Dis", "") + " like '%" + search + "%'");
 			}
 			hql.append(")");
 			totalAfterFilter = ajaxCountHandler(hql.toString(), table);
@@ -56,10 +66,10 @@ public class DataTablesService {
 			totalAfterFilter = total;
 		}
 
-		hql.append(" order by " + cols[col.get(0)] + " " + dir.get(0));
+		hql.append(" order by " + cols[col.get(0)].replace("_Dis", "") + " " + dir.get(0));
 		if (col.size() > 1) {
 			for (int i = 1; i < cols.length; i++) {
-				hql.append(", " + cols[col.get(i)] + " " + dir.get(i));
+				hql.append(", " + cols[col.get(i)].replace("_Dis", "") + " " + dir.get(i));
 			}
 		}
 		JsonArray resultArray = ajaxQueryHandler(hql.toString(), table, start, length);
@@ -116,7 +126,7 @@ public class DataTablesService {
 					e.printStackTrace();
 				}
 				jObj.add("admEmail", gson.toJsonTree(admin.getAdmEmail()));
-				jObj.add("authIdDis", gson.toJsonTree(admin.getAuthId().getAuthName()));
+				jObj.add("authId_Dis", gson.toJsonTree(admin.getAuthId().getAuthName()));
 				jObj.add("authId", gson.toJsonTree(admin.getAuthId().getAuthId()));
 				jArray.add(jObj);
 			}
@@ -126,7 +136,7 @@ public class DataTablesService {
 			for (BackEndLogBean bel : bels) {
 
 				JsonObject jObj = gson.toJsonTree(bel).getAsJsonObject();
-				jObj.add("DT_RowId", gson.toJsonTree("r_" + bel.getAdmId() +"_"+bel.getExecuteTime()));
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + bel.getAdmId() + "_" + bel.getExecuteTime()));
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -136,9 +146,10 @@ public class DataTablesService {
 
 				JsonObject jObj = gson.toJsonTree(shop).getAsJsonObject();
 				jObj.add("DT_RowId", gson.toJsonTree("r_" + shop.getGameSN()));
-				jObj.add("BigImageDis", gson.toJsonTree("<img src='/FlipYouth/Tim"+shop.getBigImage()+"' />"));
-				jObj.add("SmallImageDis", gson.toJsonTree("<img src='/FlipYouth/Tim"+shop.getSmallImage()+"' />"));
-//				jObj.add("div1Dis", gson.toJsonTree(HtmlUtils.htmlEscape(shop.getDiv1())));
+				jObj.add("BigImage_Dis", gson.toJsonTree("<img src='/FlipYouth/Tim" + shop.getBigImage() + "?"+System.currentTimeMillis()+"' />"));
+				jObj.add("SmallImage_Dis", gson.toJsonTree("<img src='/FlipYouth/Tim" + shop.getSmallImage() + "?"+System.currentTimeMillis()+"' />"));
+				// jObj.add("div1Dis",
+				// gson.toJsonTree(HtmlUtils.htmlEscape(shop.getDiv1())));
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -152,7 +163,8 @@ public class DataTablesService {
 		String result = "";
 		int count = -1;
 		BackEndLogBean belBean = new BackEndLogBean(admId, new Date());
-		belBean.setBelNotes(note);;
+		belBean.setBelNotes(note);
+		;
 		StringBuffer sql = new StringBuffer("delete from ").append(table);
 		switch (table) {
 		case "Authority":
@@ -168,7 +180,7 @@ public class DataTablesService {
 			sql.append(" where composite id admId_executeTime in (");
 			break;
 		case "Shop":
-			count =shopDtdao.ajaxDelete(toDelete);
+			count = shopDtdao.ajaxDelete(toDelete);
 			sql.append(" where GameSN in (");
 			break;
 		default:
@@ -188,45 +200,112 @@ public class DataTablesService {
 	}
 
 	@Transactional
-	public String ajaxAuthorityCuHandler(Map<String,String> cuParam) {
+	public String ajaxAuthorityCuHandler(Map<String, String> cuParam) {
 		String result = "";
 		JsonObject jObj = new JsonObject();
 		Integer authId = Integer.parseInt(cuParam.get("authId"));
 		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
-		if (!forUpdate && authorityDtdao.select(authId)!=null){
+		if (!forUpdate && authorityDtdao.select(authId) != null) {
 			jObj.add("miscE", gson.toJsonTree("已存在資料，無法新增"));
-			result = gson.toJson(jObj); 
+			result = gson.toJson(jObj);
 		} else {
-			AuthorityBean bean = new AuthorityBean(authId,cuParam.get("authName"));
+			AuthorityBean bean = new AuthorityBean(authId, cuParam.get("authName"));
 			authorityDtdao.cu(bean);
 			jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 			result = gson.toJson(jObj);
-//			BackEndLogBean belBean = new BackEndLogBean(cuParam.get("adminBel"), new Date());
-//			belBean.setBelNotes(cuParam.get("belInput"));
-//			belBean.setSqlCommand((forUpdate)?("update "):("insert into ")+" Authority : "+ bean.toString());
-//			backEndLogDtdao.create(belBean);
-			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"), (forUpdate)?("update "):("insert into ")+" Authority : "+ bean.toString()));
-		}					
+			// BackEndLogBean belBean = new
+			// BackEndLogBean(cuParam.get("adminBel"), new Date());
+			// belBean.setBelNotes(cuParam.get("belInput"));
+			// belBean.setSqlCommand((forUpdate)?("update "):("insert into ")+"
+			// Authority : "+ bean.toString());
+			// backEndLogDtdao.create(belBean);
+			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+					(forUpdate) ? ("update ") : ("insert into ") + " Authority : " + bean.toString()));
+		}
 		return result;
 	}
-	
+
 	@Transactional
-	public String ajaxAdministratorCuHandler(Map<String,String> cuParam) {
+	public String ajaxAdministratorCuHandler(Map<String, String> cuParam) {
 		String result = "";
 		JsonObject jObj = new JsonObject();
 		String admId = cuParam.get("admId");
 		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
-		if (!forUpdate && administratorDtdao.select(admId)!=null){
+		if (!forUpdate && administratorDtdao.select(admId) != null) {
 			jObj.add("miscE", gson.toJsonTree("已存在資料，無法新增"));
-			result = gson.toJson(jObj); 
+			result = gson.toJson(jObj);
 		} else {
-			AdministratorBean bean = new AdministratorBean(admId, cuParam.get("admPassword").getBytes(), cuParam.get("admEmail"), authorityDtdao.select(Integer.parseInt(cuParam.get("authId"))));
+			AdministratorBean bean = new AdministratorBean(admId, cuParam.get("admPassword").getBytes(),
+					cuParam.get("admEmail"), authorityDtdao.select(Integer.parseInt(cuParam.get("authId"))));
 			administratorDtdao.cu(bean);
 			jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 			result = gson.toJson(jObj);
-			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"), (forUpdate)?("update "):("insert into ")+" Administrator : "+ bean.toString()));
-		}					
+			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+					(forUpdate) ? ("update ") : ("insert into ") + " Administrator : " + bean.toString()));
+		}
 		return result;
 	}
 
+	@Transactional
+	public String ajaxShopCuHandler(Map<String, String> cuParam, MultipartFile file) throws IOException {
+		String result = "";
+
+		JsonObject jObj = new JsonObject();
+		Integer GameSN = integerValidator.validate(cuParam.get("GameSN"));
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate && GameSN!=null && shopDtdao.select(GameSN) != null) {
+			jObj.add("miscE", gson.toJsonTree("已存在資料，無法新增"));
+			result = gson.toJson(jObj);
+		} else {
+
+			ShopBean bean = new ShopBean();
+			bean.setGameSN(GameSN);
+			bean.setGameName(cuParam.get("GameName"));
+			bean.setIntroduction(cuParam.get("Introduction"));
+			bean.setPlayingTime(cuParam.get("PlayingTime"));
+			bean.setPlayerNumber(cuParam.get("PlayerNumber"));
+
+			bean.setSmallImage(cuParam.get("filepath"));
+
+			bean.setStockQuantity(integerValidator.validate(cuParam.get("StockQuantity")));
+			bean.setGameclass(cuParam.get("Gameclass"));
+			bean.setStrGameTheme(cuParam.get("StrGameTheme"));
+			bean.setStrGameMechanics(cuParam.get("StrGameMechanics"));
+			bean.setStrLanguage(cuParam.get("StrLanguage"));
+			bean.setPrice(integerValidator.validate(cuParam.get("Price")));
+			bean.setDiscount(cuParam.get("Discount"));
+			bean.setFreight(cuParam.get("Freight"));
+			
+			System.out.println(bean);
+			shopDtdao.cu(bean);
+			//真正IO
+			if (file != null) {
+				if (!forUpdate) {
+					String ext = file.getOriginalFilename();
+					String filepath = "/image/small/" + bean.getGameSN() + ext.substring(ext.lastIndexOf("."));
+					cuParam.put("filepath", filepath);
+				}
+				String gamepath = tempService.getRootPath()+("/Tim"+cuParam.get("filepath")).replace("/", File.separator);
+				File outFile = new File(gamepath);
+				outFile.createNewFile();
+			    FileOutputStream fos = new FileOutputStream(outFile); 
+			    InputStream fis =file.getInputStream();
+			    IOUtils.copy(fis, fos);
+			    IOUtils.closeQuietly(fis);
+			    IOUtils.closeQuietly(fos);
+			    bean.setSmallImage(cuParam.get("filepath"));
+			}
+			
+			
+			
+			
+			
+			jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+			result = gson.toJson(jObj);
+			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+					(forUpdate) ? ("update ") : ("insert into ") + " Game : " + bean.toString()));
+		}
+
+		return result;
+	}
 }

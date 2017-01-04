@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.context.annotation.Lazy;
-
 @Entity
 @Table(name = "Game")
 public class ShopBean implements Serializable {
@@ -91,11 +89,11 @@ public class ShopBean implements Serializable {
 	public String getSmallImage() {
 		return SmallImage;
 	}
-
+	
 	public void setSmallImage(String smallImage) {
 		SmallImage = smallImage;
 	}
-
+	
 	public Integer getStockQuantity() {
 		return StockQuantity;
 	}

@@ -45,6 +45,8 @@ $(document)
 
 		$(e.target).find('span').empty();
 		$(e.target).find(':hidden').show(); //回復隱藏的確認鈕
+		$(e.target).find('form')[0].reset();
+		$(e.target).find('img').attr('src','').removeData('temp');
 		$(e.target).find('.form-control').removeData('temp'); //清除初始值
 	})
 
@@ -62,7 +64,14 @@ $(document)
 		// 生成DOM
 		if (table != $cuForm.data('table')) { //避免重複生成
 			$cuForm.data('table', table);
-			$cuForm.load('/FlipYouth/admin/pages/' + table + 'Form.html', null, cuPart2);
+			$.ajax({
+				  url: '/FlipYouth/admin/pages/' + table + 'Form.html',
+				  context: $cuForm[0],
+				  cache: false
+				}).done(function(page) {
+				  $(this).html(page);
+				  cuPart2();
+			});
 		} else {
 			cuPart2();
 		}
@@ -90,8 +99,11 @@ $(document)
 				$cuForm.find('.form-control').each(function (idx) {
 					if ($(this).attr('type')==='file'){
 						var $img = $(this).closest('div').find('img');
-						console.log($img);
-						$img.attr('src',$(data[$img.attr('id')]).attr('src'));
+						var imgSrc = $(data[$img.attr('id')]).attr('src');
+						$img.attr('src',imgSrc).data('temp',imgSrc);
+						console.log($('#filepath'));
+						console.log(data[this.id]);
+						$('#filepath').val(data[this.id]).data('temp', data[this.id]);
 					} else{
 						$(this).val(data[this.id]).data('temp', data[this.id]);
 						if (idx == 0) {
@@ -101,18 +113,26 @@ $(document)
 				});
 				$cuForm.on('reset', function (ev) {
 					ev.preventDefault();
-					console.log('onresettarget');
-					console.log(ev.target);
 					$cuForm.clearForm();
-					$cuForm.find('.form-control').val(function () {
-						return $(this).data('temp');
-					})
+					$cuForm.find('.form-control').each(function(){
+						if ($(this).attr('type')==='file'){
+							var $img = $(this).closest('div').find('img');
+							$img.attr('src',$img.data('temp'));
+						} else {
+							$(this).val($(this).data('temp'));
+						}
+					});
 				});
 				options['data'] = {
 					forUpdate: true
 				};
 			} else {
-				$cuForm.find('.form-control:first').prop('readonly', false);
+				$firstInput = $cuForm.find('.form-control:first');
+				if ($firstInput.attr('placeholder')==null){
+					$firstInput.prop('readonly', false);
+				} else {
+					$firstInput.prop('readonly', true);
+				}
 				$cuForm.clearForm();
 				options['data'] = {
 					forUpdate: false

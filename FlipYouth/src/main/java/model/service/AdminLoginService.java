@@ -1,6 +1,5 @@
 package model.service;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,26 +20,7 @@ public class AdminLoginService {
 	List<Access> accessList2;
 	List<Access> accessList3;
 
-	public class Access implements Serializable{
 	
-		private static final long serialVersionUID = 1L;
-		
-		private String accessString;
-		private String accessName;
-
-		public String getAccessString() {
-			return accessString;
-		}
-
-		public String getAccessName() {
-			return accessName;
-		}
-
-		public Access(String accessString, String accessName) {
-			this.accessString = accessString;
-			this.accessName = accessName;
-		}
-	}
 	@PostConstruct
 	void init(){
 		accessList1 = new ArrayList<Access>();
@@ -57,10 +37,10 @@ public class AdminLoginService {
 		accessList3.add(new Access("揪團", "Event"));
 		accessList3.add(new Access("揪團成員", "EventDetail"));
 		accessList3.add(new Access("地點", "Location"));
-		accessList3.add(new Access("評價", "Rating"));
-		accessList3.add(new Access("檢舉", "Report"));
+		//accessList3.add(new Access("評價", "Rating"));
+		//accessList3.add(new Access("檢舉", "Report"));
 		accessList3.add(new Access("好友關係(唯讀)", "Relation"));
-		accessList3.add(new Access("封鎖記錄(唯讀)", "BanLog"));
+		//accessList3.add(new Access("封鎖記錄(唯讀)", "BanLog"));
 	}
 	
 	public List<Access> getAccessList(Integer id) {
