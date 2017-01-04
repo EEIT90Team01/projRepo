@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -42,6 +43,47 @@
 	src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet"
 	href="<c:url value="/Tim/css_Tim/dataTable.css"/>">
+
+
+
+<!------------------------------------------- fullcalendar.io------------------------------------->
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/cupertino/fullcalendar.min.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/cupertino/jquery-ui.min.css"/>">
+<link
+	href='<c:url value="/Tim/css_Tim/cupertino/fullcalendar.min.css"/>'
+	rel='stylesheet' />
+<link
+	href='<c:url value="/Tim/css_Tim/cupertino/fullcalendar.print.min.css"/>'
+	rel='stylesheet' media='print' />
+
+<link rel="stylesheet" href="../css/pikaday.css">
+<link rel="stylesheet" href="../css/site.css">
+<script src="../pikaday.js"></script>
+
+<%-- <script src='<c:url value="/Tim/js_Tim/fuck/jquery.min.js"/>'></script> --%>
+<script src='<c:url value="/Tim/js_Tim/fuck/moment.min.js"/>'></script>
+<script src='<c:url value="/Tim/js_Tim/fuck/fullcalendar.min.js"/>'></script>
+<script src='<c:url value="/Tim/js_Tim/fuck/locale-all.js"/>'></script>
+<script src='<c:url value="/Tim/js_Tim/fuck/zh-tw.js"/>'></script>
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+<script src='<c:url value="/Tim/js_Tim/jquery.ui.datepicker-zh-TW.js"/>'></script>
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" -->
+<!-- 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" -->
+<!-- 	crossorigin="anonymous"> -->
+<link href='<c:url value="/Tim/css/datepicker.css"/>' rel='stylesheet' />
+
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.css" />
+<!------------------------------------------- fullcalendar.io------------------------------------->
+<link
+	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+	rel="stylesheet">
+<script
+	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 
 <style type="text/css">
 
@@ -139,13 +181,105 @@ tr.details td.details-control {
 		center;
 }
 </style>
+
+<style>
+td.details-control {
+	background: url('/FlipYouth/Tim/image/icon/open.png') no-repeat center
+		center;
+	cursor: pointer;
+}
+
+tr.details td.details-control {
+	background: url('/FlipYouth/Tim/image/icon/close.png') no-repeat center
+		center;
+}
+
+.fc-time {
+	display: none;
+}
+
+.ui-datepicker-month, .ui-datepicker-year {
+	color: black
+}
+
+#ui-datepicker-div {
+	width: 216px
+}
+
+/* div { */
+/* 	border: 1px solid; */
+/* } */
+.colortitle {
+	margin: 10px;
+	height: 34px;
+	opacity: 0.85 !important;
+	font-size: 24px;
+	color: white;
+	padding: 0 29px;
+}
+
+.fc-today {
+	opacity: 0;
+	border: none;
+}
+
+/* Styling for each event from Schedule */
+.fc-time-grid-event.fc-v-event.fc-event {
+	border-radius: 4px;
+	border: none;
+	padding: 5px;
+	opacity: .65;
+	left: 5% !important;
+	right: 5% !important;
+}
+
+/* Bolds the name of the event and inherits the font size */
+.fc-event {
+	font-size: inherit !important;
+	font-weight: bold !important;
+}
+
+/* Remove the header border from Schedule */
+.fc td, .fc th {
+	border-style: none !important;
+	border-width: 1px !important;
+	padding: 0 !important;
+	vertical-align: top !important;
+}
+
+/* Inherits background for each event from Schedule. */
+.fc-event .fc-bg {
+	z-index: 1 !important;
+	background: inherit !important;
+	opacity: .25 !important;
+}
+
+/* Normal font weight for the time in each event */
+.fc-time-grid-event .fc-time {
+	font-weight: normal !important;
+}
+
+/* Apply same opacity to all day events */
+.fc-ltr .fc-h-event.fc-not-end, .fc-rtl .fc-h-event.fc-not-start {
+	opacity: .65 !important;
+	margin-left: 12px !important;
+	padding: 5px ! important;
+}
+
+/* Apply same opacity to all day events */
+.fc-day-grid-event.fc-h-event.fc-event.fc-not-start.fc-end {
+	opacity: .65 !important;
+	margin-left: 12px !important;
+	padding: 5px ! important;
+}
+</style>
+
+
 <script type="text/javascript">
 $(function () {
     move_div();
     $(window).resize(move_div);
     $(window).scroll(move_div);
-
-
 });
 
 
@@ -165,10 +299,13 @@ function move_div() {
 </head>
 <body>
 	<div id="loadingIMG" style="display: none; z-index: 9999;">
-		<nobr style="font-size:30px;color:red">訂單處理中</nobr>
+		<nobr id="nobrtext" style="font-size:30px;color:red">訂單處理中</nobr>
 		<img src="<c:url value="/Tim/image/icon/gears.svg"/>">
 	</div>
-
+	<!-- 	<div id="dateIMG" style="display: none; z-index: 9999;"> -->
+	<!-- 		<nobr style="font-size:30px;color:red">轉換資料中</nobr> -->
+	<%-- 		<img src="<c:url value="/Tim/image/icon/gears.svg"/>"> --%>
+	<!-- 	</div> -->
 	<!-- ------------------------------- -->
 
 	<div class="row">
@@ -217,15 +354,14 @@ function move_div() {
 						onclick="toggleTab(this)">商城列表</a></li>
 					<li role="presentation"><a href="#two" aria-controls="two"
 						role="tab" data-toggle="tab" onclick="toggleTabCar(this)">購物車</a></li>
-					
-							<li role="presentation"><a href="#three"
-								aria-controls="three" role="tab" data-toggle="tab"
-								onclick="toggleTabcheck(this)">填寫聯絡人資料</a></li>
-							<li role="presentation"><a href="#four" aria-controls="four"
-								role="tab" data-toggle="tab" onclick="toggleTabcheckOver(this)">確認訂單</a></li>
-							<li role="presentation"><a href="#five" aria-controls="five"
-								role="tab" data-toggle="tab" onclick="openOrderDetail()">訂單明細</a></li>
-						
+
+					<li role="presentation"><a href="#three" aria-controls="three"
+						role="tab" data-toggle="tab" onclick="toggleTabcheck(this)">填寫聯絡人資料</a></li>
+					<li role="presentation"><a href="#four" aria-controls="four"
+						role="tab" data-toggle="tab" onclick="toggleTabcheckOver(this)">確認訂單</a></li>
+					<li role="presentation"><a href="#five" aria-controls="five"
+						role="tab" data-toggle="tab" onclick="openOrderDetail()">訂單明細</a></li>
+
 
 				</ul>
 			</div>
@@ -316,9 +452,9 @@ function move_div() {
 	</script>
 	<!-- Tab panes -->
 	<div class="container">
-		<div style="display: none" role="tabpanel" class="a tab-pane active"
+		<div style="display: block" role="tabpanel" class="a tab-pane active"
 			id="home">
-			<jsp:include page="/Tim/page/Shop/shopHome.jsp"></jsp:include>
+			<%-- 			<jsp:include page="/Tim/page/test2.jsp"></jsp:include> --%>
 		</div>
 
 		<div style="display: none" role="tabpanel" class="tab-pane a" id="one">
@@ -338,8 +474,17 @@ function move_div() {
 			id="five">
 
 			<!-- dataTable---------------------------------------- -->
-
-			<div on id="dataTableTab" class="container">
+			<label class="checkbox-inline"> <input
+				onchange="toggledatatable()" type="checkbox" data-toggle="toggle">
+				切換為日曆
+			</label>
+			<script type="text/javascript">
+			function toggledatatable() {
+				$('.b').toggle();
+			}
+			
+			</script>
+			<div id="dataTableTab" class="b container">
 				<div class="row">
 					<div class="col-xs-12">
 						<table id="example" class="display" cellspacing="0" width="100%">
@@ -360,7 +505,33 @@ function move_div() {
 			</div>
 
 			<!-- dataTable---------------------------------------- -->
+			<!-- fullcalendar.io---------------------------------------- -->
 
+			<div style="display: none" id="datatable2" class="b row">
+				<div class="container-fluid">
+					<div class="col-xs-2">
+						<div>
+							<div class="flow-element">
+								<label for="datepicker">選擇日期</label> <input type="text"
+									id="datepicker" placeholder="選擇時間">
+							</div>
+							<div class="flow-element">
+								<label>顏色</label>
+								<div class="colortitle" style="background-color: #337ab7">出貨中</div>
+								<div class="colortitle"
+									style="padding: 0 23px; font-size: 23px; background-color: green">已到門市</div>
+								<div class="colortitle" style="background-color: red">已取消</div>
+								<div class="colortitle" style="background-color: #B94FFF">已完成</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-10">
+						<div id="calendar"
+							style="z-index: 1; width: 872px; margin: 0 auto;"></div>
+					</div>
+				</div>
+			</div>
+			<!-- fullcalendar.io---------------------------------------- -->
 
 		</div>
 	</div>
@@ -393,7 +564,7 @@ function move_div() {
 	}
 	
 	function checkState(d) {
-		if (d.orderState == "未付款") {
+		if (d.orderState == "出貨中") {
 			return "取消訂單";
 		} else {
 			display = " style='display:none'";
@@ -496,6 +667,7 @@ function move_div() {
 			var idx = $.inArray(tr.attr('id'), detailRows);
 
 			if (row.child.isShown()) {
+				$('#nobrtext').text("訂單處理中");
 				tr.removeClass('details');
 				row.child.hide();
 
@@ -521,5 +693,54 @@ function move_div() {
 			
 			
 </script>
+	<script><!-- fullcalendar -->
+		$(document).ready(
+				function() {
+					var date = new Date();
+					var d = date.getDate();
+					var m = date.getMonth();
+					var y = date.getFullYear();
+					$('#datepicker').datepicker({
+						changeYear : true,
+						changeMonth : true,
+
+						inline : true,
+						onSelect : function(dateText, inst) {
+							var d = new Date(dateText);
+							$('#calendar').fullCalendar('gotoDate', d);
+ 						}
+					});
+
+					$('#calendar').fullCalendar(
+							{	editable : false,
+
+								header : {
+									left : 'myCustomButton,prev,next today',
+									center : 'title',
+									right : 'month,agendaWeek,agendaDay'
+								},
+
+								events : {
+									url : "/FlipYouth/fullcalendar.controller",
+
+									error : function() {
+									}
+
+								},
+								eventClick : function(event, jsEvent, view) {
+									window.open("data:image/png;base64,"
+											+ event.image, '訂單明細',
+											config = 'height=700,width=700')
+
+								},
+								loading : function(bool) {
+									$('#nobrtext').text("處理中...");
+									$('#loadingIMG').toggle();
+								},
+
+							});
+
+				});
+	</script>
 </body>
 </html>

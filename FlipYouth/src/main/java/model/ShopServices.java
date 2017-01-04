@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.mail.Authenticator;
@@ -51,26 +53,46 @@ public class ShopServices {
 	@Resource(name = "OrderDao")
 	OrderDao orderDao;
 	
-	public void getOrderData(int SN) {
+	public String getOrderData(int SN) {
 		List<OrderBean> orderAll = orderDao.selectOrderAll(SN);
 		JSONArray JSON = new JSONArray();
-		StringBuffer SB=new StringBuffer();
+		StringBuffer SB=new StringBuffer("[");
+		JSONObject b;
 		for (int i = 0; i < orderAll.size(); i++) {
 			JSONObject a = new JSONObject(orderAll.get(i));
-			a.remove("image");
+//			a.remove("image");
+			String backcolor = "red";
+			String orderState=a.get("orderState").toString();
+			if("出貨中".equals(orderState)){backcolor = "#337ab7";};
+			if("已到門市".equals(orderState)){backcolor = "green";};
+			if("已取消".equals(orderState)){backcolor = "red";};
+			if("已完成".equals(orderState)){backcolor = "#B94FFF";};
 			
-			
-			System.out.println(a.get("orderDate").toString());
+			String dest="";
 //			String b =a.get("orderDate").toString().split("年|月|日","b");
+			Pattern p = Pattern.compile("年|月");
+			Matcher m = p.matcher(a.get("orderDate").toString());
+			dest = m.replaceAll("-").replace("點", ":").replace("日","").replace("分","");
 			
-//			a.put("star",);
-			System.out.println(a);
-//			System.out.println(a);
-			JSON.put(i, a);
+			a.put("start", dest);
+			a.put("end", a.get("shippedDate"));
+//			a.put("title","訂單編號為"+a.get("orderSN")+"購買日期:"+a.get("orderDate"));
+			a.put("title","購買日期:"+a.get("orderDate")+"　　　　訂單狀態 :"+orderState);
+			a.put("id", a.get("orderSN"));
+			a.put("color", backcolor);
+		
+			SB.append(a);
+			if(orderAll.size()>i+1){
+				SB.append(",");
+			}else{
+				SB.append("]");
+			}
 			
 		}
-		
-		System.out.println(JSON);
+//		System.out.println(SB);
+//		System.out.println(new JSONObject(SB));
+//		System.out.println(new JSONObject().);
+		return SB.toString();
 	}
 
 	public JSONObject getGameData(String search, String gameClass, String orderBy, String theme, String mix, String max,
@@ -163,7 +185,7 @@ public class ShopServices {
 		orderBean.setOrderAmount(Integer.parseInt(orderAmount));
 		orderBean.setOrderDate(new SimpleDateFormat("yyyy-MM-dd HH:mm")
 				.parse(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new java.util.Date())));
-		orderBean.setOrderState("未付款");
+		orderBean.setOrderState("出貨中");
 		orderBean.setPaymentMethod("超商取貨付款");
 		orderBean.setFreight(100);
 		orderBean.setProductDelivery(df.parse(df.format(cal.getTime())).toString());

@@ -60,15 +60,16 @@ public class ShopController {
 	MemberDAO memberDao;
 
 	
-	@RequestMapping(path="/fullcalendar.controller")
+	@RequestMapping(path="/fullcalendar.controller", produces = "application/json; charset=utf-8")
+	@ResponseBody
 	public String fullcalendar(HttpSession session){
 		MemberBean ok = (MemberBean)session.getAttribute("loginOK");
+		System.out.println(ok);
+		String JSON = shopServices.getOrderData(ok.getMbrSN());
+//		System.out.println(JSON);
 		
-		shopServices.getOrderData(ok.getMbrSN());
-		
-		
-		System.out.println(ok.getMbrSN());
-		return null;
+//		System.out.println(ok.getMbrSN());
+		return JSON;
 	}
 	
 	// shop controller
