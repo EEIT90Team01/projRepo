@@ -46,7 +46,7 @@ public class CommentController {
 		bean.setMbrSN(mDao.select(mbrSN));
 		bean.setText(comment);
 		CommentBean result = dao.insert(bean);
-		System.out.println(result);
+		
 		Gson gson = new Gson();
 		gson.toJson(result);
 		return gson.toJson(result);
@@ -61,7 +61,7 @@ public class CommentController {
 	}
 	
 	//==============================================================Comment mbrImage======================
-		@RequestMapping(path="/commentMemberImage.controller")
+		@RequestMapping(path="/commentMemberImage.controller")   
 		public @ResponseBody String commentMemberImage(@RequestParam(name="mbrSN") String strMbrSN){
 			System.out.println("進入/commentMemberImage.controller");
 			int mbrSN = Integer.parseInt(strMbrSN);

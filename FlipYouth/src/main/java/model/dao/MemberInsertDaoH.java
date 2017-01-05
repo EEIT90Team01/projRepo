@@ -48,7 +48,7 @@ public class MemberInsertDaoH implements MemberInsertDao {
 		}
 		
 		if("codeCheck".equals(field)){
-			Query query = this.getSession().createQuery("from MemberBean where mbrId=?");
+			Query query = this.getSession().createQuery("from MemberBean where nickName=?");
 			query.setParameter(0, bean.getMbrId());
 			return (MemberBean)query.getSingleResult();
 		}
@@ -87,6 +87,14 @@ public class MemberInsertDaoH implements MemberInsertDao {
 	}
 	
 	//=========================================		Comment拿取會員大頭貼  	==================================================
-
 	
+	//================================================================================================================
+	@Override
+	public int selectMbrSNByNickName(String nickName) {
+		Query query = this.getSession().createQuery("select mbrSN from MemberBean where nickName=?");
+		query.setParameter(0, nickName);
+		return (int)query.getSingleResult();
+	}
+
+	//================================================================================================================
 }

@@ -528,7 +528,7 @@ input[type=radio]:checked + span::before {
 }
 
 .middle-header {
-  background-color: #f9f9f9;
+  background-color: #ffffff;
 }
 .middle-header > .container > .row {
   padding: 15px 0;
