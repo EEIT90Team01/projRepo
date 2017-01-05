@@ -62,5 +62,8 @@
     <bean id="integerValidator"
     class="org.apache.commons.validator.routines.IntegerValidator"
     factory-method="getInstance" lazy-init="false" />
+    <bean id="dateValidator"
+    class="org.apache.commons.validator.routines.DateValidator"
+    factory-method="getInstance" lazy-init="false" />
 <!-- Woody -->
 </beans>

@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import model.MemberBean;
 import model.ShopBean;
 import model.bean.AdministratorBean;
 import model.bean.AuthorityBean;
@@ -27,6 +28,7 @@ import model.bean.BackEndLogBean;
 import model.dao.AdministratorDTDAO;
 import model.dao.AuthorityDTDAO;
 import model.dao.BackEndLogDTDAO;
+import model.dao.MemberDTDAO;
 import model.dao.ShopDTDAO;
 
 @Service(value = "dataTablesService")
@@ -45,20 +47,26 @@ public class DataTablesService {
 	private BackEndLogDTDAO backEndLogDtdao;
 	@Autowired
 	private ShopDTDAO shopDtdao;
+	@Autowired
+	private MemberDTDAO memberDtdao;
 
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
 			int draw, int start, int length) {
 		Integer total = 0, totalAfterFilter = 0;
-		
+
 		StringBuffer hql = new StringBuffer().append("FROM ").append(table + "Bean");
 		//
 
 		//
 		total = ajaxCountHandler(hql.toString(), table);
 		if (!search.equals("")) {
-			hql.append(" where (" + cols[0].replace("_Dis", "") + " like '%" + search + "%'");
+			hql.append(" where (" + cols[0] + " like '%" + search + "%'");
 			for (int i = 1; i < cols.length; i++) {
-				hql.append(" or " + cols[i].replace("_Dis", "") + " like '%" + search + "%'");
+				if (cols[i].lastIndexOf("_Dis") != -1) {
+					continue;
+				} else {
+					hql.append(" or " + cols[i] + " like '%" + search + "%'");
+				}
 			}
 			hql.append(")");
 			totalAfterFilter = ajaxCountHandler(hql.toString(), table);
@@ -94,6 +102,8 @@ public class DataTablesService {
 			return backEndLogDtdao.ajaxCount(hql);
 		case "Shop":
 			return shopDtdao.ajaxCount(hql);
+		case "Member":
+			return memberDtdao.ajaxCount(hql);
 		default:
 			return 0;
 		}
@@ -146,10 +156,24 @@ public class DataTablesService {
 
 				JsonObject jObj = gson.toJsonTree(shop).getAsJsonObject();
 				jObj.add("DT_RowId", gson.toJsonTree("r_" + shop.getGameSN()));
-				jObj.add("BigImage_Dis", gson.toJsonTree("<img src='/FlipYouth/Tim" + shop.getBigImage() + "?"+System.currentTimeMillis()+"' />"));
-				jObj.add("SmallImage_Dis", gson.toJsonTree("<img src='/FlipYouth/Tim" + shop.getSmallImage() + "?"+System.currentTimeMillis()+"' />"));
+				jObj.add("BigImage_Dis", gson.toJsonTree(
+						"<img src='/FlipYouth/Tim" + shop.getBigImage() + "?" + System.currentTimeMillis() + "' />"));
+				jObj.add("SmallImage_Dis", gson.toJsonTree(
+						"<img src='/FlipYouth/Tim" + shop.getSmallImage() + "?" + System.currentTimeMillis() + "' />"));
 				// jObj.add("div1Dis",
 				// gson.toJsonTree(HtmlUtils.htmlEscape(shop.getDiv1())));
+				jArray.add(jObj);
+			}
+			return jArray;
+		case "Member":
+			List<MemberBean> mbrs = memberDtdao.ajaxQuery(hql.toString(), start, length);
+			for (MemberBean mbr : mbrs) {
+
+				JsonObject jObj = gson.toJsonTree(mbr).getAsJsonObject();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + mbr.getMbrSN()));
+				if (mbr.getImage() != null) {
+					jObj.add("image_Dis", gson.toJsonTree(tempService.getBase64Src(mbr.getImage())));
+				}
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -183,6 +207,10 @@ public class DataTablesService {
 			count = shopDtdao.ajaxDelete(toDelete);
 			sql.append(" where GameSN in (");
 			break;
+		case "Member":
+			count = memberDtdao.ajaxDelete(toDelete);
+			sql.append(" where mbrSN in (");
+			break;
 		default:
 			break;
 		}
@@ -204,24 +232,19 @@ public class DataTablesService {
 		String result = "";
 		JsonObject jObj = new JsonObject();
 		Integer authId = Integer.parseInt(cuParam.get("authId"));
+		AuthorityBean bean = null;
 		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
-		if (!forUpdate && authorityDtdao.select(authId) != null) {
-			jObj.add("miscE", gson.toJsonTree("已存在資料，無法新增"));
-			result = gson.toJson(jObj);
+		if (!forUpdate) {
+			bean = new AuthorityBean(authId);
 		} else {
-			AuthorityBean bean = new AuthorityBean(authId, cuParam.get("authName"));
-			authorityDtdao.cu(bean);
-			jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
-			result = gson.toJson(jObj);
-			// BackEndLogBean belBean = new
-			// BackEndLogBean(cuParam.get("adminBel"), new Date());
-			// belBean.setBelNotes(cuParam.get("belInput"));
-			// belBean.setSqlCommand((forUpdate)?("update "):("insert into ")+"
-			// Authority : "+ bean.toString());
-			// backEndLogDtdao.create(belBean);
-			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-					(forUpdate) ? ("update ") : ("insert into ") + " Authority : " + bean.toString()));
+			bean = authorityDtdao.select(authId);
 		}
+		bean.setAuthName(cuParam.get("authName"));
+		authorityDtdao.cu(bean);
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				(forUpdate) ? ("update ") : ("insert into ") + " Authority : " + bean.toString()));
 		return result;
 	}
 
@@ -230,19 +253,21 @@ public class DataTablesService {
 		String result = "";
 		JsonObject jObj = new JsonObject();
 		String admId = cuParam.get("admId");
+		AdministratorBean bean = null;
 		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
-		if (!forUpdate && administratorDtdao.select(admId) != null) {
-			jObj.add("miscE", gson.toJsonTree("已存在資料，無法新增"));
-			result = gson.toJson(jObj);
+		if (!forUpdate) {
+			bean = new AdministratorBean(admId);
 		} else {
-			AdministratorBean bean = new AdministratorBean(admId, cuParam.get("admPassword").getBytes(),
-					cuParam.get("admEmail"), authorityDtdao.select(Integer.parseInt(cuParam.get("authId"))));
-			administratorDtdao.cu(bean);
-			jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
-			result = gson.toJson(jObj);
-			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-					(forUpdate) ? ("update ") : ("insert into ") + " Administrator : " + bean.toString()));
+			bean = administratorDtdao.select(admId);
 		}
+		bean.setAdmPassword(cuParam.get("admPassword").getBytes());
+		bean.setAdmEmail(cuParam.get("admEmail"));
+		bean.setAuthId(authorityDtdao.select(integerValidator.validate(cuParam.get("authId"))));
+		administratorDtdao.cu(bean);
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				(forUpdate) ? ("update ") : ("insert into ") + " Administrator : " + bean.toString()));
 		return result;
 	}
 
@@ -251,61 +276,96 @@ public class DataTablesService {
 		String result = "";
 
 		JsonObject jObj = new JsonObject();
+		ShopBean bean = null;
 		Integer GameSN = integerValidator.validate(cuParam.get("GameSN"));
 		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
-		if (!forUpdate && GameSN!=null && shopDtdao.select(GameSN) != null) {
-			jObj.add("miscE", gson.toJsonTree("已存在資料，無法新增"));
-			result = gson.toJson(jObj);
+		if (!forUpdate) {
+			bean = new ShopBean();
 		} else {
+			bean = shopDtdao.select(GameSN);
+		}
+		bean.setGameName(cuParam.get("GameName"));
+		bean.setIntroduction(cuParam.get("Introduction"));
+		bean.setPlayingTime(cuParam.get("PlayingTime"));
+		bean.setPlayerNumber(cuParam.get("PlayerNumber"));
+		bean.setStockQuantity(integerValidator.validate(cuParam.get("StockQuantity")));
+		bean.setGameclass(cuParam.get("Gameclass"));
+		bean.setStrGameTheme(cuParam.get("StrGameTheme"));
+		bean.setStrGameMechanics(cuParam.get("StrGameMechanics"));
+		bean.setStrLanguage(cuParam.get("StrLanguage"));
+		bean.setPrice(integerValidator.validate(cuParam.get("Price")));
+		bean.setDiscount(cuParam.get("Discount"));
+		bean.setFreight(cuParam.get("Freight"));
 
-			ShopBean bean = new ShopBean();
-			bean.setGameSN(GameSN);
-			bean.setGameName(cuParam.get("GameName"));
-			bean.setIntroduction(cuParam.get("Introduction"));
-			bean.setPlayingTime(cuParam.get("PlayingTime"));
-			bean.setPlayerNumber(cuParam.get("PlayerNumber"));
-
-			bean.setSmallImage(cuParam.get("filepath"));
-
-			bean.setStockQuantity(integerValidator.validate(cuParam.get("StockQuantity")));
-			bean.setGameclass(cuParam.get("Gameclass"));
-			bean.setStrGameTheme(cuParam.get("StrGameTheme"));
-			bean.setStrGameMechanics(cuParam.get("StrGameMechanics"));
-			bean.setStrLanguage(cuParam.get("StrLanguage"));
-			bean.setPrice(integerValidator.validate(cuParam.get("Price")));
-			bean.setDiscount(cuParam.get("Discount"));
-			bean.setFreight(cuParam.get("Freight"));
-			
-			System.out.println(bean);
-			shopDtdao.cu(bean);
-			//真正IO
-			if (file != null) {
-				if (!forUpdate) {
-					String ext = file.getOriginalFilename();
-					String filepath = "/image/small/" + bean.getGameSN() + ext.substring(ext.lastIndexOf("."));
-					cuParam.put("filepath", filepath);
-				}
-				String gamepath = tempService.getRootPath()+("/Tim"+cuParam.get("filepath")).replace("/", File.separator);
-				File outFile = new File(gamepath);
-				outFile.createNewFile();
-			    FileOutputStream fos = new FileOutputStream(outFile); 
-			    InputStream fis =file.getInputStream();
-			    IOUtils.copy(fis, fos);
-			    IOUtils.closeQuietly(fis);
-			    IOUtils.closeQuietly(fos);
-			    bean.setSmallImage(cuParam.get("filepath"));
+		// System.out.println(bean);
+		shopDtdao.cu(bean);
+		// 真正IO
+		if (file != null) {
+			if (!forUpdate) {
+				String ext = file.getOriginalFilename();
+				String filepath = "/image/small/" + bean.getGameSN() + ext.substring(ext.lastIndexOf("."));
+				cuParam.put("filepath", filepath);
 			}
-			
-			
-			
-			
-			
-			jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
-			result = gson.toJson(jObj);
-			backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-					(forUpdate) ? ("update ") : ("insert into ") + " Game : " + bean.toString()));
+			String gamepath = tempService.getRootPath()
+					+ ("/Tim" + cuParam.get("filepath")).replace("/", File.separator);
+			File outFile = new File(gamepath);
+			outFile.createNewFile();
+			FileOutputStream fos = new FileOutputStream(outFile);
+			InputStream fis = file.getInputStream();
+			IOUtils.copy(fis, fos);
+			IOUtils.closeQuietly(fis);
+			IOUtils.closeQuietly(fos);
+			bean.setSmallImage(cuParam.get("filepath"));
 		}
 
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				(forUpdate) ? ("update ") : ("insert into ") + " Game : " + bean.toString()));
 		return result;
+	}
+
+	@Transactional
+	public String ajaxMemberCuHandler(Map<String, String> cuParam, MultipartFile file) throws IOException {
+		String result = "";
+
+		JsonObject jObj = new JsonObject();
+		MemberBean bean = null;
+		Integer mbrSN = integerValidator.validate(cuParam.get("mbrSN"));
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate) {
+			bean = new MemberBean();
+			bean.setCreateTime(new Date());
+		} else {
+			bean = memberDtdao.select(mbrSN);
+		}
+		bean.setMbrId(cuParam.get("mbrId"));
+		bean.setGender(cuParam.get("gender"));
+		bean.setMbrPassword(cuParam.get("mbrPassword"));
+		bean.setMbrName(cuParam.get("mbrName"));
+		System.out.println(cuParam.get("createTime"));
+		bean.setPhone(cuParam.get("phone"));
+		bean.setAddress(cuParam.get("address"));
+		bean.setMbrEmail(cuParam.get("mbrEmail"));
+		bean.setMbrState(integerValidator.validate(cuParam.get("mbrState")));
+		bean.setEnergy(integerValidator.validate(cuParam.get("energy")));
+		bean.setNickName(cuParam.get("nickName"));
+		if (file != null) {
+			bean.setImage(file.getBytes());
+		}
+		System.out.println(bean);
+		memberDtdao.cu(bean);
+
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				(forUpdate) ? ("update ") : ("insert into ") + " Game : " + bean.toString()));
+
+		return result;
+	}
+	
+	
+	public boolean checkExistHandler(String table, String column, String value){
+		return (ajaxCountHandler("From "+table+"Bean where (" + column + " = '" + value + "')",table)>0);
 	}
 }

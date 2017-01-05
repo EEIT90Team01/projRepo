@@ -108,7 +108,7 @@ public class MemberBean implements Serializable{
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	public int getMbrState() {
+	public Integer getMbrState() {
 		return mbrState;
 	}
 	public void setMbrState(Integer mbrState) {
