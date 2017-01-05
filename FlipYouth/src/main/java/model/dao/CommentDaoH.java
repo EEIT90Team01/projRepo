@@ -61,10 +61,8 @@ public class CommentDaoH implements CommentDao {
 	@Transactional(readOnly =true)
 	public CommentBean select(CommentBean bean) {
 		CommentBean temp = this.getSession().get(CommentBean.class, bean.getCmtSN());
-		
-		
-		
 		return temp ;
 	}
+	
 
 }
