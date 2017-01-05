@@ -1,0 +1,433 @@
+/*----logo  顏色#CCFF33-----*/
+
+.header_left_img {
+    max-width: 250px;
+    width: 19%;
+    hegiht: auto;
+    position: absolute;
+    left: 8%;
+    top: 50%;
+    margin: 0 auto;
+    margin-top: -90px;
+}
+
+
+/*css的對位都是左上角
+  所以50%
+  會用左上角定位
+  我們想要的50%是用圖片的中間對位
+  所以要在減掉圖片的一半*/
+
+.header_right_img {
+    width: 100px;
+    hegiht: auto;
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    margin-top: -5px;
+    border: 5px solid #fff;
+    box-shadow: 0 0 5px #ddd;
+}
+
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    height: 100%;
+}
+
+
+
+.hero {
+    margin-top: 35px;
+    min-height: 150px;
+    width: 100%;
+    height: 22%;
+    background: #63D7D4;
+    box-shadow: 4px 4px 12px -2px rgba(204, 204, 204, 0.97);
+    display: table;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: 600;
+    font-family: Microsoft JhengHei;
+    color: #D6FF79;
+    /*#ECC8AE 灰粉 #D6FF79亮綠 #84C0C6灰藍  #46B1C9深藍 #DCDCDC灰  logo--#CCFF33*/
+}
+
+h1 strong {
+    font-weight: 300;
+    color: #fff;
+}
+
+
+/* -----header 結束------------------------------------------------*/
+
+
+/*------container  開始------------------------------------------------*/
+
+.container {
+    width: 1024px;
+    max-width: 100%;
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+figure {
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border: 5px solid #fff;
+    box-shadow: 0 0 5px #ddd;
+    margin: 1em;
+}
+
+figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+
+figcaption div {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    top: 20px;
+    opacity: 0;
+    color: #2c3e50;
+    text-transform: uppercase;
+    /*變成全大寫*/
+}
+
+figcaption div:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: 40%;
+    text-align: center;
+    margin: auto;
+    width: 0%;
+    height: 2px;
+    background: #2c3e50;
+}
+
+figure img {
+    -webkit-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+}
+
+figure:hover figcaption {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+figcaption:hover div {
+    opacity: 1;
+    /*半透明效果*/
+    top: 0;
+}
+
+figcaption:hover div:after {
+    width: 50%;
+}
+
+figure:hover img {
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+    transform: scale3d(1.2, 1.2, 1);
+}
+
+.container_bottom_img {
+    width: 25%;
+    height: auto;
+    position: fixed;
+    bottom: 0;
+    left: 50px;
+}
+
+
+/*------container  結束------------------------------------------------*/
+
+
+/*------font-face  開始--------------------------------------------------*/
+
+
+/*
+  
+  font-family定義一個名稱為 MyHelvetica 的粗體字;
+  src: local('Lato Hairline'), local('Lato-Hairline'),可使用的字型位置依序為使用者電腦Lato Hairline 與 Lato-Hairline 兩個字型名稱
+  url(http://themes.googleusercontent.com/static/fonts/lato/v6/boeCNmOCCh-EWFLSfVffDg.woff)如果使用者電腦中找不到這些字型，則從網頁上下載這個字型檔。
+  
+  */
+
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 100;
+    src: local('Lato Hairline'), local('Lato-Hairline'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/boeCNmOCCh-EWFLSfVffDg.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Lato Light'), local('Lato-Light'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/KT3KS9Aol4WfR6Vas8kNcg.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Lato Bold'), local('Lato-Bold'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
+}
+
+
+/*------font-face  結束--------------------------------------------------*/
+
+
+/*-------導覽列  開始-----------------------------------------------------------------------------------------*/
+
+
+/*   float:right----將直向列表變成橫向，且向右對齊
+  list-style:none----不要顯示項目符號 */
+
+.list-group-k ul {
+    float: right;
+    list-style: none;
+}
+
+
+/*
+  float:left----每一個列表項目由左開始排列
+  margin:0px 10px 0px 0px----每一個列表項目彼此的右變間距為10px
+  */
+
+.list-group-k ul li {
+    float: left;
+    margin: 6px 10px;
+}
+
+
+/*製作分隔線樣式表
+   .menudeco {
+	  width: 1px;
+	  height: 20px;
+	  background: #7A3719;
+  }*/
+
+
+/* 在#menu中的語法意義: */
+
+#nav-group {
+    display: table;
+    font-family: Microsoft JhengHei;
+    font-weight: 600;
+    padding: 45px 10px 30px 10px;
+    text-align: center;
+    margin: auto;
+}
+
+
+/*製作連結樣式*/
+
+#nav-group ul li a {
+    margin: 5px 5px;
+    padding: 10px 5px;
+    color: #63D7D4;
+    border: 1px solid #fff;
+    font-size: 1em;
+    text-decoration: none;
+    /* -webkit-transition: all 0.5s linear;
+	  transition: all 0.5s linear;
+	  -webkit-transform: scale3d(1, 1, 1);
+	  transform: scale3d(1, 1, 1);*/
+}
+
+
+/*#ECC8AE 灰粉 #D6FF79亮綠 #84C0C6灰藍  #46B1C9深藍 #DCDCDC灰  logo--#CCFF33  hero--#63D7D4 */
+
+#nav-group ul li a:hover {
+    color: #DCDCDC;
+    border-bottom: 4.5px solid #63D7D4;
+ 
+    text-decoration: none;
+
+}
+
+#nav-group img {
+    -webkit-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+}
+
+#nav-group ul li:hover img {
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+    transform: scale3d(1.2, 1.2, 1);
+}
+
+
+/*-------導覽列  結束-----------------------------------------------------------------------------------------*/
+
+
+/*margin: 0;（上下左右）
+  margin: 0 0;（上下）（左右）
+  margin: 0 0 0;（上）（左右）（下）
+  margin: 0 0 0 0;（上）（右）（下）（左）*/
+
+#footer {
+    margin-top: 30px;
+    background-color: #63D7D4;
+    width: 100%;
+    height: 15%;
+}
+
+.footer_left_img {
+    width: 150px;
+    height: auto;
+}
+
+/*手機版*/
+@media (max-width:640px) {
+    .hero {
+        margin-top: 35px;
+        min-height: 150px;
+        width: 100%;
+        height: 22%;
+        background: pink;
+        box-shadow: 4px 4px 12px -2px rgba(204, 204, 204, 0.97);
+        display: table;
+        position: relative;
+    }
+
+/*-------導覽列  開始-----------------------------------------------------------------------------------------*/
+
+
+/*   float:right----將直向列表變成橫向，且向右對齊
+  list-style:none----不要顯示項目符號 */
+
+.list-group-k ul {
+    float: right;
+    list-style: none;
+}
+
+
+/*
+  float:left----每一個列表項目由左開始排列
+  margin:0px 10px 0px 0px----每一個列表項目彼此的右變間距為10px
+  */
+
+.list-group-k ul li {
+    float: center;
+    margin: 6px 10px;
+}
+
+
+/*製作分隔線樣式表
+   .menudeco {
+	  width: 1px;
+	  height: 20px;
+	  background: #7A3719;
+  }*/
+
+
+/* 在#menu中的語法意義: */
+
+#nav-group {
+    display: table;
+    font-family: Microsoft JhengHei;
+    font-weight: 600;
+    padding: 45px 10px 30px 10px;
+    text-align: center;
+    margin: auto;
+}
+
+
+/*製作連結樣式*/
+
+#nav-group ul li a {
+    margin: 5px 5px;
+    padding: 10px 5px;
+    color: #63D7D4;
+    border: 1px solid #fff;
+    font-size: 1em;
+    text-decoration: none;
+    /* -webkit-transition: all 0.5s linear;
+	  transition: all 0.5s linear;
+	  -webkit-transform: scale3d(1, 1, 1);
+	  transform: scale3d(1, 1, 1);*/
+}
+
+
+/*#ECC8AE 灰粉 #D6FF79亮綠 #84C0C6灰藍  #46B1C9深藍 #DCDCDC灰  logo--#CCFF33  hero--#63D7D4 */
+
+#nav-group ul li a:hover {
+    color: #DCDCDC;
+    border-bottom: 4.5px solid #63D7D4;
+ 
+    text-decoration: none;
+
+}
+
+#nav-group img {
+    -webkit-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+}
+
+#nav-group ul li:hover img {
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+    transform: scale3d(1.2, 1.2, 1);
+}
+
+
+/*-------導覽列  結束-----------------------------------------------------------------------------------------*/
+
+
+
+}
+
+/*pad版*/
+/*@media screen and (min-width: 400px) and (max-width: 700px){
+    .hero {
+        margin-top: 35px;
+        min-height: 150px;
+        width: 100%;
+        height: 22%;
+        background: pink;
+        box-shadow: 4px 4px 12px -2px rgba(204, 204, 204, 0.97);
+        display: table;
+        position: relative;
+    }
+}
+*/

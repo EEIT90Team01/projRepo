@@ -56,7 +56,7 @@ public class ShopController {
 	@Autowired
 	@Resource(name = "shopServices")
 	ShopServices shopServices;
-	@Resource(name = "memberDao")
+	@Resource(name = "memberDAO")
 	MemberDAO memberDao;
 
 	

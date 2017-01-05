@@ -26,6 +26,7 @@
 			<list>
 				<value>model.ShopBean</value>
 				<value>model.MemberBean</value>
+				<value>model.RelationBean</value>
 				<value>model.OrderDetailBean</value>
 				<value>model.OrderDetailPK</value>
 				<value>model.OrderBean</value>
