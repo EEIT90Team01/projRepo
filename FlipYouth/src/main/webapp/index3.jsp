@@ -93,7 +93,7 @@ session.setAttribute("user_photo", user_photo);
 					
 			</a></li>
 
-			<li ><a href="<c:url value='/Shop.controller'/>"> <img
+			<li ><a href="<c:url value="/Tim/page/FlipYouthStore.jsp"/>"> <img
 					src="<c:url value='/Kelsey/images/basic_gray/shopping-cart.png'/>" class="navimg">&nbsp&nbsp翻桌唷&nbsp商城&nbsp
 			</a></li>
 
