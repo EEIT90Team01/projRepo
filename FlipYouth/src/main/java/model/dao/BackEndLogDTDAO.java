@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+//import org.apache.commons.validator.routines.DateValidator;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,37 +29,29 @@ public class BackEndLogDTDAO {
 		return bean;
 	}
 
-//	@Override
-//	public List<Object> select() {
-//		
-//		List<AdministratorBean> beans = null;
-//		beans = (List<AdministratorBean>) getSession().createQuery("from AdministratorBean", AdministratorBean.class).getResultList();
-//		return beans;
-//	}
-
 	public BackEndLogBean create(BackEndLogBean bean) {
 		
 		getSession().saveOrUpdate(bean);
 		return bean;
 	}
 
-	public BackEndLogBean update(BackEndLogBean bean) {
-
-		getSession().saveOrUpdate(bean);
-		return bean;
-	}
-	public int ajaxDelete(String[] toDelete) {
-		int result = 0;
-		BackEndLogBean bean;
-		for (String pk : toDelete) {
-	
-			bean = new BackEndLogBean();
-			bean.setAdmId(pk);
-			getSession().delete(bean);
-			result++;
-		}
-		return result;
-	}
+//	public BackEndLogBean update(BackEndLogBean bean) {
+//
+//		getSession().saveOrUpdate(bean);
+//		return bean;
+//	}
+//	public int ajaxDelete(String[] toDelete) {
+//		int result = 0;
+//		BackEndLogBean bean;
+//		for (String pk : toDelete) {
+//			bean = new BackEndLogBean();
+//			bean.setAdmId(pk.split("_")[0]);
+//			bean.setExecuteTime(DateValidator.getInstance().validate((pk.split("_")[1]), "yyyy-MM-dd HH:mm:ss.SSS"));
+//			getSession().delete(bean);
+//			result++;
+//		}
+//		return result;
+//	}
 	
 	public List<BackEndLogBean> ajaxQuery(String hql, int start, int length) {
 		

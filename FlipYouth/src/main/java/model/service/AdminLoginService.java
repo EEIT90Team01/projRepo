@@ -39,7 +39,7 @@ public class AdminLoginService {
 		accessList3.add(new Access("地點", "Location"));
 		//accessList3.add(new Access("評價", "Rating"));
 		//accessList3.add(new Access("檢舉", "Report"));
-		accessList3.add(new Access("好友關係(唯讀)", "Relation"));
+		accessList3.add(new Access("好友/黑名單(唯讀)", "Relation"));
 		//accessList3.add(new Access("封鎖記錄(唯讀)", "BanLog"));
 	}
 	

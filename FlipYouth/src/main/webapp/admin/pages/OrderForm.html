@@ -1,42 +1,47 @@
 <div class="form-group">
+	<label for="orderSN">訂單編號</label><input type="number" class="form-control isPk"
+		placeholder="自動生成" name="orderSN" id="orderSN">
+		<span class="text-danger" id="orderSNE"></span>
+</div>
+<div class="form-group">
 	<label for="mbrSN">會員編號</label><input type="number" class="form-control"
-		placeholder="自動生成" name="mbrSN" id="mbrSN">
+		name="mbrSN" id="mbrSN">
 		<span class="text-danger" id="mbrSNE"></span>
 </div>
 <div class="form-group">
-	<label for="mbrId">會員帳號</label><input type="text" class="form-control"
-		name="mbrId" id="mbrId">
-		<span class="text-danger" id="mbrIdE"></span>
+	<label for="orderAmount">訂單金額</label><input type="number" class="form-control"
+		name="orderAmount" id="orderAmount">
+		<span class="text-danger" id="orderAmountE"></span>
 </div>
 <div class="form-group">
-<label for="gender">性別</label><select class="form-control"
-		name="gender" id="gender">
-			<option value="男">男</option>
-			<option value="女">女</option>
-			<option value="其他">其他 </option>
-		</select>
-		<span class="text-danger" id="genderE"></span>
+	<label for="shippedDate">出貨日期</label><input type="text" class="form-control"
+		name="shippedDate" id="shippedDate">
+		<span class="text-danger" id="shippedDateE"></span>
 </div>
 <div class="form-group">
-	<label for="mbrPassword">密碼</label><input type="password" class="form-control"
-		name="mbrPassword" id="mbrPassword">
-		<span class="text-danger" id="mbrPasswordE"></span>
+	<label for="productDelivery">到貨日期</label><input type="text" class="form-control"
+		name="productDelivery" id="productDelivery">
+		<span class="text-danger" id="productDeliveryE"></span>
 </div>
 <div class="form-group">
-	<label for="mbrName">姓名</label><input type="text" class="form-control"
-		name="mbrName" id="mbrName">
-		<span class="text-danger" id="mbrNameE"></span>
+	<label for="freight">運費</label><input type="number" class="form-control"
+		name="freight" id="freight">
+		<span class="text-danger" id="freightE"></span>
 </div>
-
-
-
-
 <div class="form-group">
-<input type="hidden" class="form-control"
-		name="createTime" id="createTime">
-	<label for="phone">電話</label><input type="text" class="form-control"
-		name="phone" id="phone">
-		<span class="text-danger" id="phoneE"></span>
+	<label for="paymentMethod">付費方式</label><input type="text" class="form-control"
+		name="paymentMethod" id="paymentMethod">
+		<span class="text-danger" id="paymentMethodE"></span>
+</div>
+<div class="form-group">
+	<label for="orderState">訂單狀態</label><input type="text" class="form-control"
+		name="orderState" id="orderState">
+		<span class="text-danger" id="orderStateE"></span>
+</div>
+<div class="form-group">
+	<label for="email">Email</label><input type="email" class="form-control"
+		name="email" id="email">
+		<span class="text-danger" id="emailE"></span>
 </div>
 <div class="form-group">
 	<label for="address">地址</label><input type="text" class="form-control"
@@ -44,37 +49,19 @@
 		<span class="text-danger" id="addressE"></span>
 </div>
 <div class="form-group">
-	<label for="mbrEmail">Email</label><input type="email" class="form-control"
-		name="mbrEmail" id="mbrEmail">
-		<span class="text-danger" id="mbrEmailE"></span>
+	<label for="name">姓名</label><input type="text" class="form-control"
+		name="name" id="name">
+		<span class="text-danger" id="nameE"></span>
 </div>
 <div class="form-group">
-	<label for="mbrState">狀態碼</label>
-	<select class="form-control"
-		name="mbrState" id="mbrState">
-			<option value="0">0</option>
-			<option value="1">1</option></select>
-		<span class="text-danger" id="mbrStateE"></span>
+	<label for="tel">電話</label><input type="text" class="form-control"
+		name="tel" id="tel">
+		<span class="text-danger" id="telE"></span>
 </div>
 <div class="form-group">
-	<label for="energy">能量值</label><input type="number" class="form-control"
-		name="energy" id="energy">
-		<span class="text-danger" id="energyE"></span>
-</div>
-<div class="form-group">
-	<label for="nickName">暱稱</label><input type="text" class="form-control"
-		name="nickName" id="nickName">
-		<span class="text-danger" id="nickNameE"></span>
-</div>
-
-
-<div class="form-group">
-	<label for="image">大頭貼</label><input type="file" class="form-control"
-		name="file" id="image">
-		<img id="image_Dis" src="">
-		<input type="hidden"
-		name="filepath" id="filepath">
-		<span class="text-danger" id="imageE"></span>
+	<label for="phone">手機</label><input type="text" class="form-control"
+		name="phone" id="phone">
+		<span class="text-danger" id="phoneE"></span>
 </div>
 <hr>
 <div class="form-group">

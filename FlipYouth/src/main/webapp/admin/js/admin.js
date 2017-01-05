@@ -45,7 +45,8 @@ $(document)
 
 		$(e.target).find('span').empty();
 		$(e.target).find(':hidden').show(); //回復隱藏的確認鈕
-		$(e.target).find('form')[0].reset();
+		if ($(e.target).find('form').length>0){
+		$(e.target).find('form')[0].reset();}
 		$(e.target).find('img').attr('src','').removeData('temp');
 		$(e.target).find('.form-control').removeData('temp'); //清除初始值
 	})
@@ -106,7 +107,7 @@ $(document)
 						$('#filepath').val(data[this.id]).data('temp', data[this.id]);
 					} else{
 						$(this).val(data[this.id]).data('temp', data[this.id]);
-						if (idx == 0) {
+						if ($(this).hasClass('isPk')) {
 							$(this).prop('readonly', true);
 						}
 					}
@@ -127,11 +128,11 @@ $(document)
 					forUpdate: true
 				};
 			} else {
-				$firstInput = $cuForm.find('.form-control:first');
-				if ($firstInput.attr('placeholder')==null){
-					$firstInput.prop('readonly', false);
+				$pkInput = $cuForm.find('.isPk');
+				if ($pkInput.attr('placeholder')==null){
+					$pkInput.prop('readonly', false);
 				} else {
-					$firstInput.prop('readonly', true);
+					$pkInput.prop('readonly', true);
 				}
 				$cuForm.clearForm();
 				options['data'] = {
@@ -230,7 +231,7 @@ $(document)
 
 						var $dModal = $('#deleteModal').modal();
 						if (isReadOnlyTable($('#navbar').find('li.active').find('a').attr('id'))) {
-							$dModal.find('h3').text('');
+							$dModal.find('h3').text('本表格不可手動刪除');
 							$dModal.find('label').hide();
 							$dModal.find('button.delete-confirm').hide();
 						} else if (selected.length == 0) {}

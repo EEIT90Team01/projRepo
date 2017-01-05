@@ -35,6 +35,7 @@ public class ColumnService {
 		colsMap.put("Order", new String[]{"orderSN","mbrSN","orderAmount","shippedDate","orderDate","productDelivery","freight","paymentMethod","orderState","email","address","name","tel","phone"});
 		colsMap.put("OrderDetail", new String[]{"orderSN","gameSN","Quantity"});
 		colsMap.put("Member", new String[]{"mbrSN","mbrId","gender","mbrName","createTime","phone","address","mbrEmail","mbrState","energy","nickName","image_Dis"});
+		colsMap.put("Relation", new String[]{"mbrSN_Dis","targetMbrSN_Dis","notes","relation_Dis","createTime"});
 		colStringsMap.put("Administrator", new String[]{"管理員帳號","密碼","Email","管理員權限"});
 		colStringsMap.put("Authority", new String[]{"權限編號","權限名稱"});
 		colStringsMap.put("BackEndLog", new String[]{"管理員帳號","執行時間","附註","SQL指令"});
@@ -42,6 +43,7 @@ public class ColumnService {
 		colStringsMap.put("Order", new String[]{"訂單編號","會員編號","訂單金額","出貨日期","下訂日","到貨日期","運費","付費方式","訂單狀態","Email","地址","姓名","電話","手機"});
 		colStringsMap.put("OrderDetail", new String[]{"訂單編號","商品編號","數量"});
 		colStringsMap.put("Member", new String[]{"會員編號","會員帳號","性別","姓名","加入時間","電話","地址","Email","狀態碼","能量值","暱稱","大頭貼"});
+		colStringsMap.put("Relation", new String[]{"會員編號","目標會員編號","註記","關係","建立時間"});
 		
 	}
 	
