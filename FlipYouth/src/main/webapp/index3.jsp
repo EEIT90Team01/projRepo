@@ -85,7 +85,8 @@ session.setAttribute("user_photo", user_photo);
 		</div>
 		<nav id="navContainer">
 		<ul>
-			<li ><a href="<c:url value="/Tim/login/login.jsp"/>">Login</a></li>
+			<li ><a href="<c:url value="/Tim/login/login.jsp"/>">Sign In</a></li>
+			<li><a 	href="<c:url value="/logout.controller"/>">Sign Up</a></li>
 			<li ><a
 				href="<c:url value='/pages/memberIndex.jsp'/>" >
 					<img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" class="navimg">&nbsp&nbsp會員中心&nbsp
