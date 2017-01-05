@@ -9,9 +9,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import model.ShopBean;
-@Repository(value="shopDtdao")
-public class ShopDTDAO {
+import model.MemberBean;
+@Repository(value="memberDtdao")
+public class MemberDTDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -19,34 +19,33 @@ public class ShopDTDAO {
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public ShopBean select(Integer GameSN) {
+	public MemberBean select(Integer mbrSN) {
 		
-		ShopBean bean = null;
-		bean = getSession().get(ShopBean.class, GameSN);
+		MemberBean bean = null;
+		bean = getSession().get(MemberBean.class, mbrSN);
 		return bean;
 	}
 
-	public ShopBean cu(ShopBean bean) {
+	public MemberBean cu(MemberBean bean) {
 		
 		getSession().saveOrUpdate(bean);
 		return bean;
 	}
-	
 	public int ajaxDelete(String[] toDelete) {
 		int result = 0;
-		ShopBean bean;
+		MemberBean bean;
 		for (String pk : toDelete) {
-			bean = new ShopBean();
-			bean.setGameSN(Integer.parseInt(pk));
+			bean = new MemberBean();
+			bean.setMbrSN(Integer.parseInt(pk));
 			getSession().delete(bean);
 			result++;
 		}
 		return result;
 	}
 	
-	public List<ShopBean> ajaxQuery(String hql, int start, int length) {
-		List<ShopBean> beans = null;
-		beans = getSession().createQuery(hql, ShopBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+	public List<MemberBean> ajaxQuery(String hql, int start, int length) {
+		List<MemberBean> beans = null;
+		beans = getSession().createQuery(hql, MemberBean.class).setFirstResult(start).setMaxResults(length).getResultList();
 		return beans;
 	}
 	

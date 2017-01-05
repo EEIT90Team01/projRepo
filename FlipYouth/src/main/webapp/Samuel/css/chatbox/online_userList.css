@@ -1,0 +1,176 @@
+@CHARSET "UTF-8";
+
+.chat_room_box{
+	z-index:100;
+	width:250px;
+	box-shadow: 0px 1px 5px 1px rgba(20%,20%,40%,0.5) ;
+	position:fixed;
+	right:10px;
+	bottom:0px;
+	background-color:white;
+	border-radius:5px 5px 0px 0px;
+}
+
+.chat_room_head{
+	
+	background-color:#3498db;
+/* 	background-color:#922C2C; */
+	padding:7px 10px 7px 10px ;
+	font-weight:bolder;
+	font-size:20px;
+	font-family:monospace;
+	color:white;
+	border-radius:5px 5px 0px 0px;
+}
+
+.chat_room_head:hover{
+	cursor:pointer;
+	
+}
+
+.chat_room_body{
+	height:450px;
+	width:250px;
+	padding:5px 1px 1px 1px;
+	background:rgb(255, 255, 255);
+	display:none;
+}
+
+.chat_room_user{
+	
+	font-family:Microsoft JhengHei,fantasy;
+	padding:8px;
+	font-weight:bolder;
+	font-size:15px;
+	position:relative;
+	margin:1px 0px 1px 0px;
+	background:rgb(255, 255, 255);
+}
+
+.chat_room_user:hover{
+	
+	background:rgb(220, 220, 220);
+	cursor:pointer;
+}
+
+.chat_room_user:before{
+	
+	content:'';
+	position:absolute;
+	background:#2ecc71;
+	height:10px;
+	width:10px;
+	right:10px;
+	top:23px;
+	border-radius:6px;
+}
+
+/* *************************** http://codepen.io/sravankacha/pen/HrwBp 的css 	******************** */
+
+
+.chat-box, .enter-message{
+  background:#ECECEC;
+  padding:0 20px;
+  color:#a1a1a1;
+}
+.chat-box .message-box{
+  padding:18px 0 10px;
+  clear:both;
+}
+.message-box .picture{
+  float:left;
+  width:50px;
+  display:block;
+  padding-right:10px;
+}
+.picture img{
+  width:43px;
+  height:48px;
+  border-radius:5px;
+}
+.picture span{
+  font-weight:bold;
+  font-size:12px;
+  clear:both;
+  display:block;
+  text-align:center;
+  margin-top:3px;
+}
+.message{
+  background:#fff;
+/*   background-color:#D7F8C5; */
+  display:inline-block;
+  padding:3px;
+  width:175px;
+  border-radius:2px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  position:relative;
+}
+.message:before{
+  content:"";
+  position:absolute;
+  display:block;
+  left:0;
+  
+/*   11111111111111111111111 */
+  border-right:6px solid #fff;
+  border-top: 6px solid transparent;
+  border-bottom:6px solid transparent;
+  top:10px;
+  margin-left:-6px;
+}
+.message span{
+  color:#a1a1a1;
+  font-weight:bold;
+}
+.message p{
+	word-break: break-all;
+  padding-top:5px;
+  color:black;
+}
+.message-box.right-img .picture{
+  float:right;
+  padding:0;
+  padding-left:10px;
+}
+.message-box.right-img .picture img{
+  float:right;
+}
+.message-box.right-img .message:before{
+  left:100%;
+  margin-right:6px;
+  margin-left:0;
+  border-right:6px solid transparent;
+  border-left:6px solid #fff;
+  border-top: 6px solid transparent;
+  border-bottom:6px solid transparent;
+}
+.enter-message{
+  padding:13px 0px;
+}
+.enter-message input{
+  border:none;
+  padding:10px 12px;
+  background:#d3d3d3;
+  width:260px;
+  border-radius:2px;
+}
+.enter-message a.send{
+  padding:10px 15px;
+  background:#6294c2;
+  border-radius:2px;
+  float:right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -287,6 +287,13 @@ $(document)
 				}
 			}
 		});
+//		.on( 'xhr', function () {
+//		    var data = $('#dataTable').DataTable().ajax.params();
+//		    for (var i in data){
+//		    	console.log(i+" : ");
+//		    	console.log(data[i]);
+//		    }
+//		}); //for debug
 	};
 	function isReadOnlyTable(table) {
 		var readOnlyTable = ["BackEndLog", "Relation", "BanLog"];

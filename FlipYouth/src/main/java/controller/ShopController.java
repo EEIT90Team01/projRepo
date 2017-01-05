@@ -9,6 +9,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 
+import model.CommentBean;
+import model.CommentDao;
 import model.MemberBean;
 import model.OrderBean;
 import model.OrderDetailBean;
@@ -58,7 +62,9 @@ public class ShopController {
 	ShopServices shopServices;
 	@Resource(name = "memberDAO")
 	MemberDAO memberDao;
-
+	@Autowired
+	@Resource(name="commentDao")
+	CommentDao cmtDao;
 	
 	@RequestMapping(path="/fullcalendar.controller", produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -140,6 +146,20 @@ public class ShopController {
 		} else {// 第幾筆商品
 			pruduct.put("pruduct", shopServices.select(Integer.parseInt(ID)));
 			model.addAllAttributes(pruduct);
+			
+			//======================================================================
+			int gameSN = Integer.parseInt(ID);
+			List<CommentBean> result = cmtDao.select(gameSN);		//result為一個 List<CommentBean>
+			List<Map> img64  = new ArrayList<Map>();				//設定一個List<Map>
+			for(int i = 0 ; i < result.size();i++){					//用迴圈取出result的值(CommentBean)
+				Map<String,Object> ob = new HashMap<String,Object>();
+				ob.put("CommentBean", result.get(i));				//將第i個CommentBean放進 Map 的"CommentBean"
+				ob.put("img",Base64.getEncoder().encodeToString(result.get(i).getMbrSN().getImage()));	//將第i個 轉為base64格式的CommentBean的MemberBean的image(byte[])放入Map的 img
+				img64.add(ob);					//將這Map放入 List<Map> img64
+			}
+			session.setAttribute("Comment", img64);
+			
+			//======================================================================			
 			return "pruduct";
 		}
 	}
