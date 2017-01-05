@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -44,6 +45,7 @@
 <link rel="stylesheet"
 	href="<c:url value="/Tim/css_Tim/dataTable.css"/>">
 
+<link rel="stylesheet" href="<c:url value="/Tim/css_Tim/relation.css"/>">
 
 
 <!------------------------------------------- fullcalendar.io------------------------------------->
@@ -57,11 +59,9 @@
 <link
 	href='<c:url value="/Tim/css_Tim/cupertino/fullcalendar.print.min.css"/>'
 	rel='stylesheet' media='print' />
-
 <link rel="stylesheet" href="../css/pikaday.css">
 <link rel="stylesheet" href="../css/site.css">
 <script src="../pikaday.js"></script>
-
 <%-- <script src='<c:url value="/Tim/js_Tim/fuck/jquery.min.js"/>'></script> --%>
 <script src='<c:url value="/Tim/js_Tim/fuck/moment.min.js"/>'></script>
 <script src='<c:url value="/Tim/js_Tim/fuck/fullcalendar.min.js"/>'></script>
@@ -85,22 +85,17 @@
 	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <link href="<c:url value="/Tim/css_Tim/one-page-wonder.css"/>"
 	rel="stylesheet">
-
-
 <style type="text/css">
-
 /* .nav>li>a:focus, .nav>li>a:hover { */
 /* 	text-decoration: none; */
 /* 	background-color: #3f51b5; */
 /* } */
-
 /* a:hover { */
 /* 	font-family: Microsoft JhengHei; */
 /* 	color: #fdfcfc; */
 /* 	font-size: 900; */
 /* 	font-weight: 900; */
 /* } */
-
 /* .active { */
 /* 	background-color: #3f51b5; */
 /* 	font-family: Microsoft JhengHei; */
@@ -110,7 +105,6 @@
 /* 	font: #ffffff; */
 /* } */
 /* .active>a{ */
-
 /* } */
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.open>a,
 	.navbar-header a:hover {
@@ -134,9 +128,11 @@
 		to(#f8f8f8));
 	background-image: linear-gradient(to bottom, #FFFFFF 0, #FFFFFF 100%);
 }
+
 .middle-header {
-border-color: #FFFFFF;
+	border-color: #FFFFFF;
 }
+
 .navbar {
 	position: relative;
 	min-height: 0px;
@@ -185,7 +181,6 @@ tr.details td.details-control {
 		center;
 }
 </style>
-
 <style>
 td.details-control {
 	background: url('/FlipYouth/Tim/image/icon/open.png') no-repeat center
@@ -209,7 +204,6 @@ tr.details td.details-control {
 #ui-datepicker-div {
 	width: 216px
 }
-
 /* div { */
 /* 	border: 1px solid; */
 /* } */
@@ -226,7 +220,6 @@ tr.details td.details-control {
 	opacity: 0;
 	border: none;
 }
-
 /* Styling for each event from Schedule */
 .fc-time-grid-event.fc-v-event.fc-event {
 	border-radius: 4px;
@@ -236,13 +229,11 @@ tr.details td.details-control {
 	left: 5% !important;
 	right: 5% !important;
 }
-
 /* Bolds the name of the event and inherits the font size */
 .fc-event {
 	font-size: inherit !important;
 	font-weight: bold !important;
 }
-
 /* Remove the header border from Schedule */
 .fc td, .fc th {
 	border-style: none !important;
@@ -250,47 +241,69 @@ tr.details td.details-control {
 	padding: 0 !important;
 	vertical-align: top !important;
 }
-
 /* Inherits background for each event from Schedule. */
 .fc-event .fc-bg {
 	z-index: 1 !important;
 	background: inherit !important;
 	opacity: .25 !important;
 }
-
 /* Normal font weight for the time in each event */
 .fc-time-grid-event .fc-time {
 	font-weight: normal !important;
 }
-
 /* Apply same opacity to all day events */
 .fc-ltr .fc-h-event.fc-not-end, .fc-rtl .fc-h-event.fc-not-start {
 	opacity: .65 !important;
 	margin-left: 12px !important;
 	padding: 5px ! important;
 }
-
 /* Apply same opacity to all day events */
 .fc-day-grid-event.fc-h-event.fc-event.fc-not-start.fc-end {
 	opacity: .65 !important;
 	margin-left: 12px !important;
 	padding: 5px ! important;
 }
+
 html, #header {
-    margin: 0 !important;
-    padding: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.shopTopTitle {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	font-weight: 600;
+	font-family: Microsoft JhengHei;
+	color: #D6FF79;
+	font-size: 36px;
+}
+
+a[data-toggle="tab"] {
+	margin-left: 50px;
+	margin-right: 30px;
+}
+
+/* div { */
+/* 	border: 1px solid; */
+/* } */
+
+.scroll-300 {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 99999;
 }
 </style>
-
-
 <script type="text/javascript">
 $(function () {
     move_div();
     $(window).resize(move_div);
     $(window).scroll(move_div);
 });
-
-
 function move_div() {
 //  window_width =window.parent.outerWidth;
 //  window_height = window.parent.outerHeight;
@@ -305,77 +318,109 @@ function move_div() {
 }
 </script>
 </head>
-<body style="margin: 0;padding: 0;">
+<body style="margin: 0; padding: 0;">
+	<script type="text/javascript">
+$( window ).scroll(function() {
+	if(window.scrollY > 279)
+		{
+		$('#navbar').addClass("scroll-300");
+		
+	}else{
+		$('#navbar').removeClass("scroll-300");
+		$('.shopTopRow').animate({'padding':10},100);
+	}
+	
+	});
+
+
+
+</script>
+	<div class="hero">
+		<img class="header_left_img"
+			src="/FlipYouth/Kelsey/images/light_green/logo_06-02.png">
+		<h1 class="shopTopTitle">
+			商&nbsp;城&nbsp;系&nbsp;統&nbsp;&nbsp;<strong>Flip Youth</strong>
+		</h1>
+	</div>
+	<div id='nav-group' class="list-group-k">
+		<nav>
+		<ul>
+			<li><a href="login.jsp#login-modal" data-toggle="modal"
+				data-target="login.jsp#login-modal">Login</a></li>
+			<li><a href="<c:url value='/pages/editMember.jsp'/>"> <img
+					src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>"
+					class="navimg">&nbsp&nbsp修改個人資料&nbsp
+
+			</a></li>
+
+			<li><a href="<c:url value='/Shop.controller'/>"> <img
+					src="<c:url value='/Kelsey/images/basic_gray/shopping-cart.png'/>"
+					class="navimg">&nbsp&nbsp翻桌唷&nbsp商城&nbsp
+			</a></li>
+
+			<li><a href=""> <img
+					src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>"
+					class="navimg">&nbsp&nbsp我的揪團&nbsp
+			</a></li>
+
+			<li><a href="<c:url value='/searchRelation.controller' />">
+					<img src="<c:url value='/Kelsey/images/basic_gray/stick-man.png'/>"
+					class="navimg">&nbsp&nbsp我的好友&nbsp
+			</a></li>
+
+			<li><a href=""> <img
+					src="<c:url value='/Kelsey/images/basic_gray/time.png'/>"
+					class="navimg">&nbsp&nbsp我的月曆&nbsp
+			</a></li>
+
+		</ul>
+		</nav>
+
+	</div>
+
+
+
+
+
+
+
 	<div id="loadingIMG" style="display: none; z-index: 9999;">
 		<nobr id="nobrtext" style="font-size:30px;color:red">訂單處理中</nobr>
 		<img src="<c:url value="/Tim/image/icon/gears.svg"/>">
 	</div>
-	<!-- 	<div id="dateIMG" style="display: none; z-index: 9999;"> -->
-	<!-- 		<nobr style="font-size:30px;color:red">轉換資料中</nobr> -->
-	<%-- 		<img src="<c:url value="/Tim/image/icon/gears.svg"/>"> --%>
-	<!-- 	</div> -->
-	<!-- ------------------------------- -->
+	<div id="shopTopRow" style="padding: 0;width: 100%;" class="row">
+		<nav id="navbar" class="navbar navbar-default shadow-navbar"
+			role="navigation" style="margin:0">
+		<div class="container">
+			<div class="navbar-header" style="float: right;">
+				<div onclick="" class="collapse navbar-collapse"
+					id="navbar-ex1-collapse">
 
-	<div class="row">
-		<div class="middle-header">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 logo">
-						<img alt="Logo" style="height: 113px; width: 259px;"
-							src="<c:url value="/Tim/image/login/shoplogo.png"/>"
-							class="img-responsive">
-					</div>
-					<div class="col-sm-8 col-md-6 search-box m-t-2">
-						<div class="input-group">
-							<input href="#one" aria-controls="one"
-								style="width: 98%; margin: 30px 50px;" role="tab"
-								data-toggle="tab" onchange="toggleTab(this)" type="text"
-								class="form-control" id="search" placeholder="查詢字串">
-							<div style="z-index: 99999" class="input-group-btn">
+					<ul class="nav navbar-nav">
+						<li role="presentation" class="active"><a href="#home"
+							aria-controls="home" role="tab" data-toggle="tab"
+							onclick="toggleTab(this)">商城首頁</a></li>
+						<li role="presentation" id="list"><a href="#one"
+							class="title3" aria-controls="one" role="tab" data-toggle="tab"
+							onclick="toggleTab(this)">商城列表</a></li>
+						<li role="presentation"><a href="#two" aria-controls="two"
+							role="tab" data-toggle="tab" onclick="toggleTabCar(this)">購物車</a></li>
 
-								<button type="button" class="btn btn-default btn-search">
-									<img
-										style="margin: 0px; padding: 0px; width: 20px; height: 20px;"
-										src="<c:url  value="/Tim/image/icon/seach.png"/>">
-								</button>
-							</div>
-						</div>
-					</div>
+						<li role="presentation"><a href="#three"
+							aria-controls="three" role="tab" data-toggle="tab"
+							onclick="toggleTabcheck(this)">填寫聯絡人資料</a></li>
+						<li role="presentation"><a href="#four" aria-controls="four"
+							role="tab" data-toggle="tab" onclick="toggleTabcheckOver(this)">確認訂單</a></li>
+						<li role="presentation"><a href="#five" aria-controls="five"
+							role="tab" data-toggle="tab" onclick="openOrderDetail()">訂單明細</a></li>
 
+
+					</ul>
 				</div>
 			</div>
 		</div>
-		<!-- ------------------------------- -->
+		</nav>
 	</div>
-	<nav class="navbar navbar-default shadow-navbar" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<div onclick="" class="collapse navbar-collapse"
-				id="navbar-ex1-collapse">
-
-				<ul class="nav navbar-nav">
-					<li role="presentation" class="active"><a href="#home"
-						aria-controls="home" role="tab" data-toggle="tab"
-						onclick="toggleTab(this)">商城首頁</a></li>
-					<li role="presentation" id="list"><a href="#one"
-						class="title3" aria-controls="one" role="tab" data-toggle="tab"
-						onclick="toggleTab(this)">商城列表</a></li>
-					<li role="presentation"><a href="#two" aria-controls="two"
-						role="tab" data-toggle="tab" onclick="toggleTabCar(this)">購物車</a></li>
-
-					<li role="presentation"><a href="#three" aria-controls="three"
-						role="tab" data-toggle="tab" onclick="toggleTabcheck(this)">填寫聯絡人資料</a></li>
-					<li role="presentation"><a href="#four" aria-controls="four"
-						role="tab" data-toggle="tab" onclick="toggleTabcheckOver(this)">確認訂單</a></li>
-					<li role="presentation"><a href="#five" aria-controls="five"
-						role="tab" data-toggle="tab" onclick="openOrderDetail()">訂單明細</a></li>
-
-
-				</ul>
-			</div>
-		</div>
-	</div>
-	</nav>
 	<script type="text/javascript">
 	
 	</script>
@@ -432,7 +477,6 @@ function move_div() {
 			sendSelect();
 			$('.a').hide();
 			var a = $(thiss).attr('aria-controls')
-
 			$('#' + a).show();
 		}
 		function toggleTabCar(thiss) {
@@ -460,13 +504,13 @@ function move_div() {
 	</script>
 	<!-- Tab panes -->
 	<div style="display: block" role="tabpanel" class="a tab-pane active"
-			id="home">
-			<jsp:include page="/Tim/page/Shop/shopHome.jsp"></jsp:include>
-		</div>
+		id="home">
+		<jsp:include page="/Tim/page/Shop/shopHome.jsp"></jsp:include>
+	</div>
 	<div class="container">
-	
-	
-		
+
+
+
 
 		<div style="display: none" role="tabpanel" class="tab-pane a" id="one">
 			<jsp:include page="/Tim/page/Shop/list.jsp"></jsp:include>
@@ -600,7 +644,6 @@ function move_div() {
 				+ d.orderSN
 				+ ')">' + val + '</button>';
 	}
-
 	function delectOrder(orderSN) {
 		if (val == '無法取消') {
 			alert('無法取消此訂單請聯絡管理員');
@@ -619,12 +662,10 @@ function move_div() {
 				dt.ajax.reload();
 			},
 		})//endAjax
-
 	}//endfunction
 	function open2(a) {
 		window.open(a, '訂單明細', "height=1515,width=1000");
 	}
-
 		function getorderdata(){
 			dt = $('#example').DataTable({
 			language : {
@@ -672,33 +713,27 @@ function move_div() {
 			],
 			"order" : [ [ 1, 'asc' ] ]
 		});
-
 		// Array to track the ids of the details displayed rows
 		var detailRows = [];
-
 		$('#example tbody').on('click', 'tr td.details-control', function() {
 			var tr = $(this).closest('tr');
 			var row = dt.row(tr);
 			var idx = $.inArray(tr.attr('id'), detailRows);
-
 			if (row.child.isShown()) {
 				$('#nobrtext').text("訂單處理中");
 				tr.removeClass('details');
 				row.child.hide();
-
 				// Remove from the 'open' array
 				detailRows.splice(idx, 1);
 			} else {
 				tr.addClass('details');
 				row.child(format(row.data())).show();
-
 				// Add to the 'open' array
 				if (idx === -1) {
 					detailRows.push(tr.attr('id'));
 				}
 			}
 		});
-
 		dt.on('draw', function() {
 			$.each(detailRows, function(i, id) {
 				$('#' + id + ' td.details-control').trigger('click');
@@ -708,6 +743,7 @@ function move_div() {
 			
 			
 </script>
+
 	<script><!-- fullcalendar -->
 		$(document).ready(
 				function() {
@@ -718,43 +754,34 @@ function move_div() {
 					$('#datepicker').datepicker({
 						changeYear : true,
 						changeMonth : true,
-
 						inline : true,
 						onSelect : function(dateText, inst) {
 							var d = new Date(dateText);
 							$('#calendar').fullCalendar('gotoDate', d);
  						}
 					});
-
 					$('#calendar').fullCalendar(
 							{	editable : false,
-
 								header : {
 									left : 'myCustomButton,prev,next today',
 									center : 'title',
 									right : 'month,agendaWeek,agendaDay'
 								},
-
 								events : {
 									url : "/FlipYouth/fullcalendar.controller",
-
 									error : function() {
 									}
-
 								},
 								eventClick : function(event, jsEvent, view) {
 									window.open("data:image/png;base64,"
 											+ event.image, '訂單明細',
 											config = 'height=700,width=700')
-
 								},
 								loading : function(bool) {
 									$('#nobrtext').text("處理中...");
 									$('#loadingIMG').toggle();
 								},
-
 							});
-
 				});
 	</script>
 </body>
