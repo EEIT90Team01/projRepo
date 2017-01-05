@@ -83,6 +83,8 @@
 	rel="stylesheet">
 <script
 	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<link href="<c:url value="/Tim/css_Tim/one-page-wonder.css"/>"
+	rel="stylesheet">
 
 
 <style type="text/css">
@@ -126,13 +128,15 @@
 }
 
 .navbar-default { /*長條背景*/
-	background-image: -webkit-linear-gradient(top, #F3f3f3 0, #F3f3f3 100%);
-	background-image: -o-linear-gradient(top, #F3f3f3 0, #F3f3f3 100%);
+	background-image: -webkit-linear-gradient(top, #FFFFFF 0, #FFFFFF 100%);
+	background-image: -o-linear-gradient(top, #FFFFFF 0, #FFFFFF 100%);
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff),
 		to(#f8f8f8));
-	background-image: linear-gradient(to bottom, #F3f3f3 0, #F3f3f3 100%);
+	background-image: linear-gradient(to bottom, #FFFFFF 0, #FFFFFF 100%);
 }
-
+.middle-header {
+border-color: #FFFFFF;
+}
 .navbar {
 	position: relative;
 	min-height: 0px;
@@ -272,6 +276,10 @@ tr.details td.details-control {
 	margin-left: 12px !important;
 	padding: 5px ! important;
 }
+html, #header {
+    margin: 0 !important;
+    padding: 0 !important;
+}
 </style>
 
 
@@ -297,7 +305,7 @@ function move_div() {
 }
 </script>
 </head>
-<body>
+<body style="margin: 0;padding: 0;">
 	<div id="loadingIMG" style="display: none; z-index: 9999;">
 		<nobr id="nobrtext" style="font-size:30px;color:red">訂單處理中</nobr>
 		<img src="<c:url value="/Tim/image/icon/gears.svg"/>">
@@ -451,11 +459,14 @@ function move_div() {
 		}
 	</script>
 	<!-- Tab panes -->
-	<div class="container">
-		<div style="display: block" role="tabpanel" class="a tab-pane active"
+	<div style="display: block" role="tabpanel" class="a tab-pane active"
 			id="home">
-			<%-- 			<jsp:include page="/Tim/page/test2.jsp"></jsp:include> --%>
+			<jsp:include page="/Tim/page/Shop/shopHome.jsp"></jsp:include>
 		</div>
+	<div class="container">
+	
+	
+		
 
 		<div style="display: none" role="tabpanel" class="tab-pane a" id="one">
 			<jsp:include page="/Tim/page/Shop/list.jsp"></jsp:include>
@@ -474,13 +485,17 @@ function move_div() {
 			id="five">
 
 			<!-- dataTable---------------------------------------- -->
-			<label class="checkbox-inline"> <input
-				onchange="toggledatatable()" type="checkbox" data-toggle="toggle">
-				切換為日曆
-			</label>
+			<div class="col-xs-12" style="margin-bottom: 20px">
+				<label class="checkbox-inline"> <input
+					onchange="toggledatatable()" type="checkbox" data-toggle="toggle">
+					切換為日曆
+				</label>
+			</div>
+
 			<script type="text/javascript">
 			function toggledatatable() {
 				$('.b').toggle();
+				$('#calendar').fullCalendar('gotoDate', new Date());
 			}
 			
 			</script>
