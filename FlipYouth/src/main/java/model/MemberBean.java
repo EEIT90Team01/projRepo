@@ -3,12 +3,17 @@ package model;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -38,6 +43,15 @@ public class MemberBean implements Serializable{
 		
 	}
 	
+	
+	//Set<> 不會有重覆值,但取出來時不一定會按照順序
+		@OneToMany(cascade=CascadeType.REMOVE , fetch=FetchType.EAGER , mappedBy="mbrSN")
+		private Set<RelationBean> mbrSNRelation =new HashSet<RelationBean>();
+		
+		@OneToMany(cascade=CascadeType.REMOVE , fetch=FetchType.EAGER , mappedBy="targetMbrSN")
+		private Set<RelationBean> targetMbrSN =new HashSet<RelationBean>();
+		
+		
 	 
 	@Id
 	@Column(name="mbrSN")

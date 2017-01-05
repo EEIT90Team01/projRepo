@@ -46,7 +46,7 @@ public class ShopServices {
 	ShopDao shopDao;
 
 	@Autowired
-	@Resource(name = "memberDao")
+	@Resource(name = "memberDAO")
 	MemberDAO memberDao;
 
 	@Autowired

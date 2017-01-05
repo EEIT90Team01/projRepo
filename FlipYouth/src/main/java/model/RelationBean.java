@@ -1,15 +1,20 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name = "Relation")
+@Component(value="relationBean")
 public class RelationBean implements Serializable{
 	
 	private MemberBean mbrSN;
@@ -18,7 +23,21 @@ public class RelationBean implements Serializable{
 	private Integer relation;
 	private java.util.Date createTime;
 	
+	public RelationBean(){
+		
+	}
 	
+	
+	public RelationBean(MemberBean mbrSN, MemberBean targetMbrSN, String notes, Integer relation, Date createTime) {
+		super();
+		this.mbrSN = mbrSN;
+		this.targetMbrSN = targetMbrSN;
+		this.notes = notes;
+		this.relation = relation;
+		this.createTime = createTime;
+	}
+
+
 	@Override
 	public String toString() {
 		return "RelationBean [mbrSN=" + mbrSN + ", targetMbrSN=" + targetMbrSN + ", notes=" + notes + ", relation="
@@ -38,7 +57,7 @@ public class RelationBean implements Serializable{
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "mbrSN")
+	@JoinColumn(name = "targetMbrSN")
 	public MemberBean getTargetMbrSN() {
 		return this.targetMbrSN;
 	}

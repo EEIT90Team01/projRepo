@@ -4,55 +4,142 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!--  最新編譯和最佳化的Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!--  選擇性佈景主題 Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
+<%-- <link href="<c:url value="/Kelsey/css/index3.css"/>" rel="stylesheet"> --%>
+
 <head>
-
-
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Edit Member</title>
 <style type="text/css">
-fieldset {
-	margin: 15px;
-	border: 5px solid #FFC8B4;
-	border-radius: 10px;
-	width: 400px;
-	min-height: 350px;
-	padding: 20px;
-}
-
 .st1 {
 	border-bottom: 1.5px solid pink;
 	margin: 10px;
 	padding: 10px;
 }
 
+fieldset {
+	border: 5px solid #FFC8B4;
+	border-radius: 10px;
+	width: 400px;
+	min-height: 350px;
+	padding: 20px;
+	margin:0 auto;
+}
+
 .st2 {
-	margin: 20px;
+	margin-top: 0px;
 	text-align: center;
 }
 
-.st3 {
-	border-bottom: 1.5px solid pink;
-	margin: 10px;
-	padding: 10px;
-	min-height: 150px;
-}
-
 .title {
-	text-align: right;
+	
 	width: 80px;
 	padding-right: 5px;
 }
 
-p {
-	font-size: 0.5em;
-	color: #beaeae;
+.legend_k{
+	width: auto;
+	border-bottom: none;
 }
-
+.st3{
+	text-align: center;
+}
+.img_k{
+	
+	margin-right: 10px;
+}
+#member_photo{
+	width: 170px;
+	margin: 10px auto;
+}
 </style>
 </head>
 <body>
+<%@ page import="model.MemberBean"%>
+<%@ page import="java.util.*"%>
+<%@ page import="org.springframework.web.context.WebApplicationContext"%>
+<%@ page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%
+//將存在資料庫的二進位檔轉成base64並輸出在網頁上
+WebApplicationContext context = (WebApplicationContext) WebApplicationContextUtils.getWebApplicationContext(application);
+MemberBean user = (MemberBean)session.getAttribute("loginOK");
+String user_photo = null;
+if(user != null){
+	user_photo = Base64.getEncoder().encodeToString(user.getImage());
+}
+session.setAttribute("user_photo", user_photo);
+%>
+
+												
+						<div class="hero">
+								 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
+									<h1>
+											會&nbsp員&nbsp資&nbsp料&nbsp&nbsp<strong>Flip Youth</strong>
+									</h1>
+						</div>
+						
+	<!-- ***************	導覽列   開始  ******************************-->
+<!-- 	<a href="#menu" id="toggle"><span></span></a> -->
+
+<!--   <div id="menu"> -->
+<!--     <ul> -->
+<!--       <li><a href="#home">Home</a></li> -->
+<!--       <li><a href="#about">About</a></li> -->
+<!--       <li><a href="#contact">Contact</a></li> -->
+<!--     </ul> -->
+<!--   </div> -->
+<!-- </div> -->
+	
+<!-- <a href="#menu" id="toggle"><span></span></a> -->
+<!-- 	<div id='menu' class="list-group-k"> -->
+	<div id='nav-group' class="list-group-k">
+		<nav>
+		<ul>
+			<li ><a href="login.jsp#login-modal"
+				data-toggle="modal" data-target="login.jsp#login-modal">Login</a></li>
+			<li ><a
+				href="<c:url value='/pages/memberIndex.jsp'/>" >
+					<img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" class="navimg">&nbsp&nbsp會員中心&nbsp
+					
+			</a></li>
+
+			<li ><a href="<c:url value='/Shop.controller'/>"> <img
+					src="<c:url value='/Kelsey/images/basic_gray/shopping-cart.png'/>" class="navimg">&nbsp&nbsp翻桌唷&nbsp商城&nbsp
+			</a></li>
+
+			<li ><a href="" > <img
+					src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>" class="navimg">&nbsp&nbsp我的揪團&nbsp
+			</a></li>
+
+			<li ><a
+				href="<c:url value='/searchRelation.controller' />"> <img
+					src="<c:url value='/Kelsey/images/basic_gray/stick-man.png'/>" class="navimg">&nbsp&nbsp我的好友&nbsp
+			</a></li>
+
+			<li ><a href="" > <img
+					src="<c:url value='/Kelsey/images/basic_gray/time.png'/>" class="navimg">&nbsp&nbsp我的月曆&nbsp
+			</a></li>
+		</ul>
+		</nav>
+
+	</div>
+    
+						
+
 	<form action="<c:url value='/editMember.controller'/>" method="post"
 		enctype="multipart/form-data">
 		<fieldset>
@@ -63,9 +150,8 @@ p {
 					id="nickName" value="${loginOK.nickName}"  required /><span id="idspName"><span>${errors.nickName}</span>
 			</div>
 			<div class="st1">
-				<label class="title">密碼：</label> <input type="text"
-					name="mbrPassword" id="mbrPassword" placeholder="${loginOK.mbrPassword}" 
-					required /><span id="idspPwd"><span>${errors.nickName}</span>
+				<label class="title">密碼：</label> <input type="password"
+					name="mbrPassword" id="mbrPassword" required /><span id="idspPwd"><span>${errors.nickName}</span>
 			</div>
 			<div class="st1">
 				<label class="title">地址：</label> <input type="text" name="address"
@@ -81,11 +167,13 @@ p {
 					id="idspMbrEmail" required ><span>${errors.nickName}</span>
 			</div>
 			<div class="st3">
-				<label class="title">大頭貼：</label> <input type="file" name="image"
-					id="member_photo" accept="image/jpeg,image/png" multiple accept="image/*"
+			<label class="title">大頭貼</label><br>
+			<img src="data:image/jpg;base64,${loginOK.image}" id="imgPreview" class="img-thumbnail img_k" width=150	height=auto>
+				 <input type="file" name="image"
+					id="member_photo" accept="image/jpeg,image/png"
 					value=" ${loginOK.image}" /><br>
 					<!-- 	*alt屬性   alt="your image" 為  照片沒有顯示出來時會出現的字 -->
-			<img src="<c:url value='/images/basic_gray/picture.png'/>" id="imgPreview" >
+			
 			</div>
 				
 			</div>
@@ -99,6 +187,21 @@ p {
 	</form>
 	<!-- 	表格輸入時, 想即時檢查資料庫有没有相同記錄時，不用多問大家都會選用 Ajax 。 -->
 	<!-- 可以令你行 JavaScript 時不會因 loading 停頓，又不用重新整理頁面 ， 迅捷回應  -->
+	
+<!-- ************javascript 開始 ************************************************************************-->
+
+<!-- Bootstrap-jquery CDN -->
+<script src="https://code.jquery.com/jquery-3.1.1.js"
+	integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+	crossorigin="anonymous"></script>
+
+
+<!-- 最新編譯和最佳化的 Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+	
 	<script type="text/javascript">
 		//     window.onload = function () {
 		//         document.getElementById("nickName").onblur = function(){document.getElementById("idspName").innerHTML = "<img src='../images/cancel.png' style='width:15px;height:15 px;margin:2px;'><span style='color:red;font-size:0.5em;'>不可為空白</span>"};
