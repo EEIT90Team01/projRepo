@@ -51,31 +51,12 @@ session.setAttribute("user_photo", user_photo);
 	<div class="hero">
  <img class="header_left_img" src="images/light_green/logo_06-02.png" />
  <img class="header_right_img" src="images/non_profile.png" />
-<%--   <img class="header_right_img" src="data:image/png;base64,${user_photo}" /> --%>
- 
-<!-- <img class="header_right_img" src="images/non_profile.png"  width=80px hegiht=80px style="position:absolute;right:0px;top:50%;margin-top:-40px"> -->
 		<h1>
 			翻&nbsp桌&nbsp唷&nbsp<strong>Flip Youth</strong>
 		</h1>
 		
 	</div>
 	
-	
-
-	<!-- ***************	導覽列   開始  ******************************-->
-<!-- 	<a href="#menu" id="toggle"><span></span></a> -->
-
-<!--   <div id="menu"> -->
-<!--     <ul> -->
-<!--       <li><a href="#home">Home</a></li> -->
-<!--       <li><a href="#about">About</a></li> -->
-<!--       <li><a href="#contact">Contact</a></li> -->
-<!--     </ul> -->
-<!--   </div> -->
-<!-- </div> -->
-	
-<!-- <a href="#menu" id="toggle"><span></span></a> -->
-<!-- 	<div id='menu' class="list-group-k"> -->
 	<div id='nav-group' class="list-group-k">
 		<div id="nav-icon3">
 			  <span></span>
