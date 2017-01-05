@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.validator.routines.DateValidator;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class DataTablesController {
 
 	@Autowired
 	private IntegerValidator integerValidator;
+	
+	@Autowired
+	private DateValidator dateValidator;
 
 	@Autowired
 	private Gson gson;
@@ -102,6 +106,7 @@ public class DataTablesController {
 		if (tableName != null) {
 			result = columnService.getColumnInfo(tableName);
 		}
+		//System.out.println(result);
 		return result;
 	}
 
@@ -281,6 +286,55 @@ public class DataTablesController {
 				}
 				result = dataTablesService.ajaxMemberCuHandler(cuParam, file);
 				break;
+			case "Order":
+				if (forUpdate
+						&& integerValidator.validate(cuParam.get("orderSN")) == null) {
+					errMap.put("orderSNE", "不可為空且需為整數");
+				} else if (!forUpdate && dataTablesService.checkExistHandler(table, "orderSN", cuParam.get("orderSN"))){
+					errMap.put("orderSNE", "已被使用");
+				}
+				if (integerValidator.validate(cuParam.get("mbrSN")) == null) {
+					errMap.put("mbrSNE", "不可為空且需為整數");
+				}
+				if (integerValidator.validate(cuParam.get("orderAmount")) == null) {
+					errMap.put("orderAmountE", "不可為空且需為整數");
+				}
+				if (dateValidator.validate(cuParam.get("shippedDate")) == null) {
+					errMap.put("shippedDateE", "日期格式不符");
+				}
+				if (dateValidator.validate(cuParam.get("orderDate")) == null) {
+					errMap.put("orderDateE", "日期格式不符");
+				}
+				if (integerValidator.validate(cuParam.get("freight")) == null) {
+					errMap.put("freightE", "不可為空且需為整數");
+				}
+				//
+				if (cuParam.get("admId") == null || cuParam.get("admId").isEmpty()
+						|| cuParam.get("admId").length() > 50) {
+					errMap.put("admIdE", "不可為空且長度不可超過50字");
+				} else if ("admin".equals(cuParam.get("admId"))) {
+					errMap.put("admIdE", "不允許修改最高權限帳號admin");
+				} else if (!forUpdate && dataTablesService.checkExistHandler(table, "admId", cuParam.get("admId"))){
+					errMap.put("admIdE", "已被使用");
+				}
+				if (cuParam.get("admPassword") == null || cuParam.get("admPassword").isEmpty()
+						|| cuParam.get("admPassword").length() > 20) {
+					errMap.put("admPasswordE", "不可為空且長度不可超過20字");
+				}
+				if (cuParam.get("admEmail") == null
+						|| (!cuParam.get("admEmail").isEmpty() && !(emailValidator.isValid(cuParam.get("admEmail"))
+								&& cuParam.get("admEmail").length() < 50))) {
+					errMap.put("admEmailE", "需為合法Email地址且長度不可超過50字");
+				}
+				if (integerValidator.validate(cuParam.get("authId")) == null) {
+					errMap.put("authIdE", "不該出現這錯誤的啊");
+				}
+				if (errMap.size() != 0) {
+					return gson.toJson(errMap);
+				}
+				result = dataTablesService.ajaxAdministratorCuHandler(cuParam);
+				break;
+				
 			default:
 				break;
 			}

@@ -21,6 +21,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import model.MemberBean;
+import model.OrderBean;
 import model.ShopBean;
 import model.bean.AdministratorBean;
 import model.bean.AuthorityBean;
@@ -29,6 +30,7 @@ import model.dao.AdministratorDTDAO;
 import model.dao.AuthorityDTDAO;
 import model.dao.BackEndLogDTDAO;
 import model.dao.MemberDTDAO;
+import model.dao.OrderDTDAO;
 import model.dao.ShopDTDAO;
 
 @Service(value = "dataTablesService")
@@ -49,6 +51,8 @@ public class DataTablesService {
 	private ShopDTDAO shopDtdao;
 	@Autowired
 	private MemberDTDAO memberDtdao;
+	@Autowired
+	private OrderDTDAO orderDtdao;
 
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
 			int draw, int start, int length) {
@@ -91,6 +95,10 @@ public class DataTablesService {
 		return gson.toJson(jObj);
 	}
 
+	public boolean checkExistHandler(String table, String column, String value){
+		return (ajaxCountHandler("From "+table+"Bean where (" + column + " = '" + value + "')",table)>0);
+	}
+	
 	@Transactional(readOnly = true)
 	int ajaxCountHandler(String hql, String table) {
 		switch (table) {
@@ -104,6 +112,8 @@ public class DataTablesService {
 			return shopDtdao.ajaxCount(hql);
 		case "Member":
 			return memberDtdao.ajaxCount(hql);
+		case "Order":
+			return orderDtdao.ajaxCount(hql);
 		default:
 			return 0;
 		}
@@ -177,6 +187,16 @@ public class DataTablesService {
 				jArray.add(jObj);
 			}
 			return jArray;
+		case "Order":
+			//System.out.println(hql);
+			List<OrderBean> ords = orderDtdao.ajaxQuery(hql.toString(), start, length);
+			for (OrderBean ord : ords) {
+
+				JsonObject jObj = gson.toJsonTree(ord).getAsJsonObject();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + ord.getOrderSN()));
+				jArray.add(jObj);
+			}
+			return jArray;
 		default:
 			return jArray;
 		}
@@ -210,6 +230,10 @@ public class DataTablesService {
 		case "Member":
 			count = memberDtdao.ajaxDelete(toDelete);
 			sql.append(" where mbrSN in (");
+			break;
+		case "Order":
+			count = orderDtdao.ajaxDelete(toDelete);
+			sql.append(" where orderSN in (");
 			break;
 		default:
 			break;
@@ -359,13 +383,38 @@ public class DataTablesService {
 		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 		result = gson.toJson(jObj);
 		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-				(forUpdate) ? ("update ") : ("insert into ") + " Game : " + bean.toString()));
+				(forUpdate) ? ("update ") : ("insert into ") + " Member : " + bean.toString()));
 
 		return result;
 	}
 	
-	
-	public boolean checkExistHandler(String table, String column, String value){
-		return (ajaxCountHandler("From "+table+"Bean where (" + column + " = '" + value + "')",table)>0);
+	@Transactional
+	public String ajaxOrderCuHandler(Map<String, String> cuParam) {
+		String result = "";
+		JsonObject jObj = new JsonObject();
+		Integer orderSN = integerValidator.validate(cuParam.get("orderSN"));
+		OrderBean bean = null;
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate) {
+			bean = new OrderBean();
+			bean.setOrderSN(orderSN);
+			//bean.setOrderDate(cuParam.get("orderDate"));
+		} else {
+			bean = orderDtdao.select(orderSN);
+		}
+		bean.setMbrSN(integerValidator.validate(cuParam.get("mbrSN")));
+		bean.setOrderAmount(integerValidator.validate(cuParam.get("orderAmount")));
+		//bean.setShippedDate(cuParam.get("shippedDate"));
+		bean.setProductDelivery(cuParam.get("productDelivery"));
+		bean.setFreight(integerValidator.validate(cuParam.get("freight")));
+		bean.setPaymentMethod(cuParam.get("paymentMethod"));
+		bean.setOrderState(cuParam.get("orderState"));
+		orderDtdao.cu(bean);
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				(forUpdate) ? ("update ") : ("insert into ") + " Order1 : " + bean.toString()));
+		return result;
 	}
+
 }
