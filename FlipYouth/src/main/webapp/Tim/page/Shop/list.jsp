@@ -16,39 +16,47 @@ p, h3 {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
+
 body {
 	width: 100%;
 }
+
 .max-h {
 	height: 22px;
 }
+
 a:link {
-font-size:17px;
-	color: black;font-family: "malgun gothic", simhei;
+	font-size: 17px;
+	color: black;
+	font-family: "malgun gothic", simhei;
 	　font-weight: 900;
 	//
 	設定還沒瀏覽過的連結樣式
 }
-a:visited {font-family: "malgun gothic", simhei;
-font-size:17px;
+
+a:visited {
+	font-family: "malgun gothic", simhei;
+	font-size: 17px;
 	color: black;
 	font-size: 900;
 	font-weight: 900;
 	//
 	設定已經瀏覽過的連結樣式
 }
+
 a:hover {
-font-size:17px;
-font-family: "malgun gothic", simhei;
+	font-size: 17px;
+	font-family: "malgun gothic", simhei;
 	color: black;
 	font-size: 900;
 	font-weight: 900;
 	//
 	設定滑鼠移到連結上的樣式
 }
-a:active {font-family: "malgun gothic", simhei;
-	
-font-size:17px;
+
+a:active {
+	font-family: "malgun gothic", simhei;
+	font-size: 17px;
 	font-weight: 900;
 	//
 	設定正在被點選的連結樣式
@@ -56,10 +64,12 @@ font-size:17px;
 	:
 	black;
 }
+
 .border_bottom {
 	border-bottom: solid 1px;
 	border-bottom-color: #dcd5d5;
 }
+
 .mart {
 	font-size: 50px;
 	font-family: Microsoft JhengHei;
@@ -73,23 +83,28 @@ font-size:17px;
 .ffff {
 	background-color: black;
 }
+
 .Carousel {
 	width: 100%;
 }
+
 #cars, #span {
 	font-size: 17px;
 	line-height: 2.0;
 	font-weight: 600;
 	font-family: Microsoft JhengHei;
 }
+
 .overfont {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
 .title {
 	border-bottom: 3px solid #9fa8da;
 }
+
 .title {
 	font-size: 18px;
 	line-height: 1;
@@ -138,10 +153,12 @@ font-size:17px;
 	border: 1px solid transparent;
 	border-radius: 4px;
 }
+
 .bootstrap-select .dropdown-toggle {
 	border-color: #ccc;
 	border-radius: 0;
 }
+
 .title2 {
 	font-size: 15px;
 	line-height: 1;
@@ -150,24 +167,90 @@ font-size:17px;
 	font-family: "malgun gothic", simhei;
 	font-weight: 300;
 }
-.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
-    width: 150px;
+
+.bootstrap-select
+:not
+ 
+(
+[
+class
+*=
+"col-"
+]
+ 
+)
+:not
+ 
+(
+[
+class
+*=
+"form-control"
+]
+ 
+)
+:not
+
+	
+(
+.input-group-btn
+ 
+)
+{
+width
+:
+ 
+150
+px
+;
+
+
 }
-font{font-family: 
-Meiryo, "微軟正黑體", "Microsoft JhengHei"}
-
-
-.navbar-header{
-    display: table;
-    font-family: Microsoft JhengHei;
-    font-weight: 600;
-     padding: 10px; 
-    /* background: url(images/css-menubg-image.jpg) no-repeat; */
-    text-align: center;
-    margin: auto;
-    border: none;
+font {
+	font-family: Meiryo, "微軟正黑體", "Microsoft JhengHei"
 }
 
+.navbar-header {
+	/*     display: table; */
+	font-family: Microsoft JhengHei;
+	font-weight: 600;
+	padding: 10px;
+	/* background: url(images/css-menubg-image.jpg) no-repeat; */
+	text-align: center;
+	margin: auto;
+	border: none;
+}
+
+.carimage:hover {
+	border: 1px solid blue;
+}
+
+.shoppingBox {
+	display: block;
+	width: 206px;
+	height: 140px;
+	background: url(/FlipYouth/Tim/image/shopping.png) no-repeat;
+	position: absolute;
+	top: 95px;
+	right: 0px;
+	z-index: 100;
+	text-align: center;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+.shoppingBox h3 {
+    position: relative;
+    margin: 43px 0 6px 0;
+    padding-bottom: 5px;
+    color: #fff;
+    font-size: 17px;
+    font-weight: normal;
+}
+.shoppingBox p {
+    font-size: 13px;
+    color: #e9ee94;
+    line-height: 1.8;
+}
 </style>
 
 
@@ -179,7 +262,13 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 
 </head>
 
-<%@ include file="/chatRoom.jsp" %>
+<%@ include file="/chatRoom.jsp"%>
+<div class="shoppingBox">
+<h3>購物清單</h3>
+<span id="car">
+<p>以選購${count}件
+<p>總金額\$${ALL}
+</span></div>
 <body id="body">
 	<span id="wdth"></span>
 	<c:set var="ShopUrl" scope="session"
@@ -371,7 +460,8 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 
 
 							<div id="select-page" class="col-md-4">
-								<font class="title2">每頁頁數 </font><select style="width: 100px" onchange="changePageCount()"
+								<font class="title2">每頁頁數 </font><select style="width: 100px"
+									onchange="changePageCount()"
 									class="btn-group bootstrap-select selectpicker ">
 									<option value="6"><font>6</font></option>
 									<option value="9"><font>9</font></option>
@@ -380,8 +470,8 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 
 							</div>
 							<div class="col-md-4">
-								<font id="page-count" class="title2"></font><br>
-								<font id="page-count1" class="title2"></font>
+								<font id="page-count" class="title2"></font><br> <font
+									id="page-count1" class="title2"></font>
 							</div>
 						</div>
 					</div>
@@ -455,8 +545,6 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 			})
 		}
 		function car(gameSN, price) {
-			// 			var b = price;
-			// 			var a = gameSN;
 			$.ajax({
 				url : "/FlipYouth/Shop.controller",
 				type : "POST",
@@ -469,6 +557,7 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 					withCredentials : false
 				},
 				success : function(res) {
+					$('#car').html(res);
 				},
 			})
 		}
@@ -588,14 +677,11 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 							withCredentials : false
 						},
 						success : function(res) {
-							$('#page-count')
-									.text(
-											'有'
-													+ res.total
-													+ '項商品');
+							$('#page-count').text('有' + res.total + '項商品');
 							$('#page-count1')
-							.text('目前顯示第'
-													
+									.text(
+											'目前顯示第'
+
 													+ ((selectpage * nowpage) - (selectpage - 1))
 													+ "項-第" + selectpage
 													* nowpage + "項")
@@ -640,11 +726,11 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 												var i = '<div class="price"> <span class="btm-30px" style="font-family: fantasy;position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
 														+ data.price
 														+ '</span> </div>'
-												var j = '<div class="rating"><a href=""><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
+												var j = '<div class="rating"><a href=""><img class="carimage" style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
 														+ data.gameSN
 														+ ','
 														+ data.price
-														+ ')"><img style="width:30px;float:right" src="<c:url value="/Tim/image/icon/car.png"/>"></a> </div>'
+														+ ')"><img class="carimage" style="width:30px;float:right"  src="<c:url value="/Tim/image/icon/car.png"/>"></a> </div>'
 												var div = "</div></div></div></div></div>"
 												$('#forEach').append(
 														a + b + c + d + e + f
@@ -653,6 +739,11 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 											})
 						},
 					})//end ajax
+		}
+	</script>
+	<script type="text/javascript">
+		function carshow() {
+			console.log('gggggg');
 		}
 	</script>
 </body>

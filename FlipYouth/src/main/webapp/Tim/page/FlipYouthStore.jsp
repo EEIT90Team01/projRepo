@@ -59,9 +59,9 @@
 <link
 	href='<c:url value="/Tim/css_Tim/cupertino/fullcalendar.print.min.css"/>'
 	rel='stylesheet' media='print' />
-<link rel="stylesheet" href="../css/pikaday.css">
-<link rel="stylesheet" href="../css/site.css">
-<script src="../pikaday.js"></script>
+<!-- <link rel="stylesheet" href="../css/pikaday.css"> -->
+<!-- <link rel="stylesheet" href="../css/site.css"> -->
+<!-- <script src="../pikaday.js"></script> -->
 <%-- <script src='<c:url value="/Tim/js_Tim/fuck/jquery.min.js"/>'></script> --%>
 <script src='<c:url value="/Tim/js_Tim/fuck/moment.min.js"/>'></script>
 <script src='<c:url value="/Tim/js_Tim/fuck/fullcalendar.min.js"/>'></script>
@@ -282,9 +282,8 @@ html, #header {
 	font-size: 36px;
 }
 
-a[data-toggle="tab"] {
-	margin-left: 50px;
-	margin-right: 30px;
+li[role="presentation"] {
+	margin: 0 1%;
 }
 
 /* div { */
@@ -295,6 +294,20 @@ a[data-toggle="tab"] {
 	position: fixed;
 	top: 0;
 	z-index: 99999;
+}
+
+.navbar-nav {
+	margin: 0 auto;
+	display: table;
+	table-layout: auto;
+	float: none;
+	width: 100%;
+}
+
+.navbar-nav>li {
+	display: table-cell;
+	float: none;
+	text-align: center;
 }
 </style>
 <script type="text/javascript">
@@ -344,12 +357,10 @@ $( window ).scroll(function() {
 	<div id='nav-group' class="list-group-k">
 		<nav>
 		<ul>
-			<li><a href="<c:url value="/Tim/login/login.jsp"/>" data-toggle="modal"
-				data-target="login.jsp#login-modal">Login</a></li>
+			<li><a href="<c:url value="/Tim/login/login.jsp"/>">Login</a></li>
 			<li><a href="<c:url value='/pages/editMember.jsp'/>"> <img
 					src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>"
 					class="navimg">&nbsp&nbsp修改個人資料&nbsp
-
 			</a></li>
 
 			<li><a href="<c:url value='/Shop.controller'/>"> <img
@@ -391,7 +402,7 @@ $( window ).scroll(function() {
 		<nav id="navbar" class="navbar navbar-default shadow-navbar"
 			role="navigation" style="margin:0">
 		<div class="container">
-			<div class="navbar-header" style="float: right;">
+			<div class="navbar-header" style="width: 100%;">
 				<div onclick="" class="collapse navbar-collapse"
 					id="navbar-ex1-collapse">
 
@@ -412,8 +423,6 @@ $( window ).scroll(function() {
 							role="tab" data-toggle="tab" onclick="toggleTabcheckOver(this)">確認訂單</a></li>
 						<li role="presentation"><a href="#five" aria-controls="five"
 							role="tab" data-toggle="tab" onclick="openOrderDetail()">訂單明細</a></li>
-
-
 					</ul>
 				</div>
 			</div>
@@ -440,7 +449,8 @@ $( window ).scroll(function() {
 						'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/order/check.jsp"></iframe>');
 			}else if(a=='two'){
 				$('#two').empty();
-				$('#two')
+				$('#two') 
+				
 				.append(
 				'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/Shop/shoppingCar.jsp"></iframe>');
 				
@@ -506,7 +516,7 @@ $( window ).scroll(function() {
 		id="home">
 		<jsp:include page="/Tim/page/Shop/shopHome.jsp"></jsp:include>
 	</div>
-	<div class="container" style="margin: 0 70px; padding-left: 30px;">
+	<div class="container">
 		<div style="display: none" role="tabpanel" class="tab-pane a" id="one">
 			<jsp:include page="/Tim/page/Shop/list.jsp"></jsp:include>
 		</div>
@@ -595,7 +605,11 @@ $( window ).scroll(function() {
 		
 	</script>
 
-
+	<script type="text/javascript">
+$(window).resize(function() {
+	 console.log('a')
+	});
+</script>
 
 
 
@@ -778,6 +792,13 @@ $( window ).scroll(function() {
 								},
 							});
 				});
+		$(function(){
+			$(window).scroll(function(){
+				var scrollTop = $(document).scrollTop();
+				$('.shoppingBox').stop().animate({top:scrollTop+240},500);	
+			});
+			
+		});
 	</script>
 </body>
 </html>

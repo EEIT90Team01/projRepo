@@ -129,8 +129,8 @@ public class ShopController {
 			session.setAttribute("ALL", all + price);
 			// &#x76EE;&#x524D;&#x4EF6;&#x6578 == 目前件數
 			// &#x76EE;&#x524D;&#x91D1;&#x984D == 目前金額
-			response.getWriter().write("<font color='red'>&#x76EE;&#x524D;&#x91D1;&#x984D;" + (all + price)
-					+ "<br>&#x76EE;&#x524D;&#x4EF6;&#x6578;" + count + "</font>");
+			response.getWriter().write("<p>&#x4EE5;&#x9078;&#x8CFC;" + count +"&#x4EF6;"+
+			"<p>&#x7E3D;&#x91D1;&#x984D;$" + (all + price));
 			return null;
 		}
 

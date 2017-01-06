@@ -57,8 +57,8 @@
 	href='<c:url value="/Tim/css_Tim/cupertino/fullcalendar.print.min.css"/>'
 	rel='stylesheet' media='print' />
 
-<link rel="stylesheet" href="../css/pikaday.css">
-<link rel="stylesheet" href="../css/site.css">
+<!-- <link rel="stylesheet" href="../css/pikaday.css"> -->
+<!-- <link rel="stylesheet" href="../css/site.css"> -->
 <script src="../pikaday.js"></script>
 
 <%-- <script src='<c:url value="/Tim/js_Tim/fuck/jquery.min.js"/>'></script> --%>
