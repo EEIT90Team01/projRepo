@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.validator.routines.DateValidator;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ import com.google.gson.JsonObject;
 
 import model.MemberBean;
 import model.OrderBean;
+import model.OrderDetailBean;
+import model.OrderDetailPK;
+import model.RelationBean;
 import model.ShopBean;
 import model.bean.AdministratorBean;
 import model.bean.AuthorityBean;
@@ -31,6 +35,8 @@ import model.dao.AuthorityDTDAO;
 import model.dao.BackEndLogDTDAO;
 import model.dao.MemberDTDAO;
 import model.dao.OrderDTDAO;
+import model.dao.OrderDetailDTDAO;
+import model.dao.RelationDTDAO;
 import model.dao.ShopDTDAO;
 
 @Service(value = "dataTablesService")
@@ -41,6 +47,8 @@ public class DataTablesService {
 	private Gson gson;
 	@Autowired
 	private IntegerValidator integerValidator;
+	@Autowired
+	private DateValidator dateValidator;
 	@Autowired
 	private AuthorityDTDAO authorityDtdao;
 	@Autowired
@@ -53,6 +61,11 @@ public class DataTablesService {
 	private MemberDTDAO memberDtdao;
 	@Autowired
 	private OrderDTDAO orderDtdao;
+	@Autowired
+	private OrderDetailDTDAO orderDetailDtdao;
+	@Autowired
+	private RelationDTDAO relationDtdao;
+	
 
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
 			int draw, int start, int length) {
@@ -98,6 +111,9 @@ public class DataTablesService {
 	public boolean checkExistHandler(String table, String column, String value){
 		return (ajaxCountHandler("From "+table+"Bean where (" + column + " = '" + value + "')",table)>0);
 	}
+	public boolean checkExistHandler(String table, String column, String column2, String value, String value2){
+		return (ajaxCountHandler("From "+table+"Bean where (" + column + " = '" + value + "' and "+column2+" = '"+value2+"')",table)>0);
+	}
 	
 	@Transactional(readOnly = true)
 	int ajaxCountHandler(String hql, String table) {
@@ -114,11 +130,15 @@ public class DataTablesService {
 			return memberDtdao.ajaxCount(hql);
 		case "Order":
 			return orderDtdao.ajaxCount(hql);
+		case "OrderDetail":
+			return orderDetailDtdao.ajaxCount(hql);
+		case "Relation":
+			return relationDtdao.ajaxCount(hql);
 		default:
 			return 0;
 		}
 	}
-
+	//回傳給datatables
 	@Transactional(readOnly = true)
 	JsonArray ajaxQueryHandler(String hql, String table, int start, int length) {
 		JsonArray jArray = new JsonArray();
@@ -197,6 +217,43 @@ public class DataTablesService {
 				jArray.add(jObj);
 			}
 			return jArray;
+		case "OrderDetail":
+			//System.out.println(hql);
+			List<OrderDetailBean> ordtails = orderDetailDtdao.ajaxQuery(hql.toString(), start, length);
+			for (OrderDetailBean ordtail : ordtails) {
+
+				JsonObject jObj = gson.toJsonTree(ordtail).getAsJsonObject();
+				Integer orderSN = ordtail.getPK().getOrderSN().getOrderSN();
+				Integer gameSN = ordtail.getPK().getGameSN().getGameSN();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + orderSN +"_"+gameSN));
+				jObj.add("orderSN", gson.toJsonTree(orderSN));
+				jObj.add("gameSN", gson.toJsonTree(gameSN));
+				
+				jArray.add(jObj);
+			}
+			return jArray;
+		case "Relation":
+			List<RelationBean> rels = relationDtdao.ajaxQuery(hql.toString(), start, length);
+			for (RelationBean rel : rels) {
+
+				JsonObject jObj = gson.toJsonTree(rel).getAsJsonObject();
+				Integer mbrSN = rel.getMbrSN().getMbrSN();
+				String mbrSN_Dis = rel.getMbrSN().getMbrId();
+				Integer targetMbrSN = rel.getTargetMbrSN().getMbrSN();
+				String targetMbrSN_Dis = rel.getTargetMbrSN().getMbrId();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + mbrSN +"_"+targetMbrSN));
+				jObj.add("mbrSN", gson.toJsonTree(mbrSN));
+				jObj.add("mbrSN_Dis", gson.toJsonTree(mbrSN+"(id: "+mbrSN_Dis+")"));
+				jObj.add("targetMbrSN", gson.toJsonTree(targetMbrSN));
+				jObj.add("targetMbrSN_Dis", gson.toJsonTree(targetMbrSN+"(id: "+targetMbrSN_Dis+")"));
+				if (rel.getRelation()==1){
+					jObj.add("relation_Dis", gson.toJsonTree("好友"));
+				} else if (rel.getRelation()==2){
+					jObj.add("relation_Dis", gson.toJsonTree("拉黑"));
+				}
+				jArray.add(jObj);
+			}
+			return jArray;
 		default:
 			return jArray;
 		}
@@ -219,10 +276,10 @@ public class DataTablesService {
 			count = administratorDtdao.ajaxDelete(toDelete);
 			sql.append(" where admId in (");
 			break;
-		case "BackEndLog":
-			count = backEndLogDtdao.ajaxDelete(toDelete);
-			sql.append(" where composite id admId_executeTime in (");
-			break;
+//		case "BackEndLog":
+//			count = backEndLogDtdao.ajaxDelete(toDelete);
+//			sql.append(" where composite id admId_executeTime in (");
+//			break;
 		case "Shop":
 			count = shopDtdao.ajaxDelete(toDelete);
 			sql.append(" where GameSN in (");
@@ -234,6 +291,10 @@ public class DataTablesService {
 		case "Order":
 			count = orderDtdao.ajaxDelete(toDelete);
 			sql.append(" where orderSN in (");
+			break;
+		case "OrderDetail":
+			count = orderDetailDtdao.ajaxDelete(toDelete);
+			sql.append(" where composite id orderSN_gameSN in (");
 			break;
 		default:
 			break;
@@ -398,22 +459,50 @@ public class DataTablesService {
 		if (!forUpdate) {
 			bean = new OrderBean();
 			bean.setOrderSN(orderSN);
-			//bean.setOrderDate(cuParam.get("orderDate"));
+			bean.setOrderDate(new Date(System.currentTimeMillis()));
 		} else {
 			bean = orderDtdao.select(orderSN);
 		}
 		bean.setMbrSN(integerValidator.validate(cuParam.get("mbrSN")));
 		bean.setOrderAmount(integerValidator.validate(cuParam.get("orderAmount")));
-		//bean.setShippedDate(cuParam.get("shippedDate"));
+		bean.setShippedDate(dateValidator.validate(cuParam.get("shippedDate")));
 		bean.setProductDelivery(cuParam.get("productDelivery"));
 		bean.setFreight(integerValidator.validate(cuParam.get("freight")));
 		bean.setPaymentMethod(cuParam.get("paymentMethod"));
 		bean.setOrderState(cuParam.get("orderState"));
+		bean.setEmail(cuParam.get("email"));
+		bean.setAddress(cuParam.get("address"));
+		bean.setName(cuParam.get("name"));
+		bean.setTel(cuParam.get("tel"));
+		bean.setPhone(cuParam.get("phone"));
 		orderDtdao.cu(bean);
 		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 		result = gson.toJson(jObj);
 		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
 				(forUpdate) ? ("update ") : ("insert into ") + " Order1 : " + bean.toString()));
+		return result;
+	}
+	
+	@Transactional
+	public String ajaxOrderDetailCuHandler(Map<String, String> cuParam) {
+		String result = "";
+		JsonObject jObj = new JsonObject();
+		OrderBean orderSN = orderDtdao.select(integerValidator.validate(cuParam.get("orderSN")));
+		ShopBean gameSN = shopDtdao.select(integerValidator.validate(cuParam.get("gameSN")));
+		OrderDetailBean bean = null;
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate) {
+			bean = new OrderDetailBean();
+			bean.setPK(new OrderDetailPK(orderSN, gameSN));
+		} else {
+			bean = orderDetailDtdao.select(new OrderDetailPK(orderSN, gameSN));
+		}
+		bean.setQuantity((integerValidator.validate(cuParam.get("Quantity"))));
+		orderDetailDtdao.cu(bean);
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				(forUpdate) ? ("update ") : ("insert into ") + " OrderDetail : " + bean.toString()));
 		return result;
 	}
 

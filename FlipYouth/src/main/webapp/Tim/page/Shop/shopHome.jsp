@@ -19,6 +19,10 @@
 	});
 </script>
 <style type="text/css">
+body{
+font-family: 微軟正黑體;
+}
+
 .carousel-control {
 	position: absolute;
 	top: 40%;

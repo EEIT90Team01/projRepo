@@ -42,15 +42,15 @@
 	href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 <script
 	src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet"
-	href="<c:url value="/Tim/css_Tim/dataTable.css"/>">
+<!-- <link rel="stylesheet" -->
+<%-- 	href="<c:url value="/Tim/css_Tim/dataTable.css"/>"> --%>
 
 <link rel="stylesheet" href="<c:url value="/Tim/css_Tim/relation.css"/>">
 
 
 <!------------------------------------------- fullcalendar.io------------------------------------->
-<link rel="stylesheet"
-	href="<c:url value="/Tim/css_Tim/cupertino/fullcalendar.min.css"/>">
+<!-- <link rel="stylesheet" -->
+<%-- 	href="<c:url value="/Tim/css_Tim/cupertino/fullcalendar.min.css"/>"> --%>
 <link rel="stylesheet"
 	href="<c:url value="/Tim/css_Tim/cupertino/jquery-ui.min.css"/>">
 <link
@@ -290,7 +290,6 @@ a[data-toggle="tab"] {
 /* div { */
 /* 	border: 1px solid; */
 /* } */
-
 .scroll-300 {
 	width: 100%;
 	position: fixed;
@@ -319,6 +318,7 @@ function move_div() {
 </script>
 </head>
 <body style="margin: 0; padding: 0;">
+
 	<script type="text/javascript">
 $( window ).scroll(function() {
 	if(window.scrollY > 279)
@@ -388,7 +388,7 @@ $( window ).scroll(function() {
 		<nobr id="nobrtext" style="font-size:30px;color:red">訂單處理中</nobr>
 		<img src="<c:url value="/Tim/image/icon/gears.svg"/>">
 	</div>
-	<div id="shopTopRow" style="padding: 0;width: 100%;" class="row">
+	<div id="shopTopRow" style="padding: 0; width: 100%;" class="row">
 		<nav id="navbar" class="navbar navbar-default shadow-navbar"
 			role="navigation" style="margin:0">
 		<div class="container">
@@ -621,6 +621,8 @@ $( window ).scroll(function() {
 		$('.a').hide();
 		$('#five').show()
 	}
+	
+	
 	
 	function checkState(d) {
 		if (d.orderState == "出貨中") {
