@@ -91,11 +91,44 @@ iframe {
 	padding: 0px;
 	margin: 0px;
 }
+.shoppingBox {
+	display: block;
+	width: 206px;
+	height: 140px;
+	background: url(/FlipYouth/Tim/image/shopping.png) no-repeat;
+	position: absolute;
+	top: 95px;
+	right: 0px;
+	z-index: 100;
+	text-align: center;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+.shoppingBox h3 {
+    position: relative;
+    margin: 43px 0 6px 0;
+    padding-bottom: 5px;
+    color: #fff;
+    font-size: 17px;
+    font-weight: normal;
+}
+.shoppingBox p {
+    font-size: 13px;
+    color: #e9ee94;
+    line-height: 1.8;
+}
 </style>
 </head>
 <body>
 
 <%@ include file="/chatRoom.jsp" %>
+<div class="shoppingBox">
+<h3>購物清單</h3>
+<span id="car">
+<p>以選購${count}件
+<p>總金額\$${ALL}
+</span></div>
+
 	<div style="padding: 0% 5% 0% 20%;">
 
 
@@ -284,7 +317,13 @@ iframe {
 		$('#'+cmtSN).parent().remove();
 		
 	}
-	
+	$(function(){
+		$(window).scroll(function(){
+			var scrollTop = $(document).scrollTop();
+			$('.shoppingBox').stop().animate({top:scrollTop+240},500);	
+		});
+		
+	});
 	
 	function sendComment(mbrSN, gameSN){
 		var comment = $('#comment').val();
@@ -324,7 +363,7 @@ iframe {
 			xhrFields: {
 				withCredentials: false },
 			success:function(res) {
-				$('#span').html(res);
+				$('#car').html(res);
 			},
 			 
 		})

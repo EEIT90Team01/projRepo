@@ -726,7 +726,7 @@ font {
 												var i = '<div class="price"> <span class="btm-30px" style="font-family: fantasy;position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
 														+ data.price
 														+ '</span> </div>'
-												var j = '<div class="rating"><a href=""><img class="carimage" style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
+												var j = '<div class="rating"><a href=""><img  class="carimage" style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
 														+ data.gameSN
 														+ ','
 														+ data.price

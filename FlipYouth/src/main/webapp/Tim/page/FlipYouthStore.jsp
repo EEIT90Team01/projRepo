@@ -607,8 +607,13 @@ $( window ).scroll(function() {
 
 	<script type="text/javascript">
 $(window).resize(function() {
-	 console.log('a')
-	});
+	if($(window).width()<770){
+		$('#shopTopRow').hide();
+	}else{
+		$('#shopTopRow').show();
+	}
+	
+});
 </script>
 
 

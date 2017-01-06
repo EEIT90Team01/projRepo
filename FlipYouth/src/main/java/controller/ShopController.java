@@ -353,6 +353,14 @@ public class ShopController {
 	@RequestMapping(path = "/login/login.controller")
 	public String login(String kaptcha, HttpSession session, HttpServletResponse response, String user, String pass)
 			throws IOException, ParseException {
+		
+		if(session.getAttribute("count")==null||session.getAttribute("ALL")==null){
+			session.setAttribute("count", count);
+			session.setAttribute("ALL", all);
+			
+		}
+			
+			
 		String code = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 
 		if (kaptcha == null || kaptcha.trim().length() == 0) {
