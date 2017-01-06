@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import model.CommentBean;
 import model.MemberBean;
 import model.OrderBean;
 import model.OrderDetailBean;
@@ -33,6 +34,7 @@ import model.bean.BackEndLogBean;
 import model.dao.AdministratorDTDAO;
 import model.dao.AuthorityDTDAO;
 import model.dao.BackEndLogDTDAO;
+import model.dao.CommentDTDAO;
 import model.dao.MemberDTDAO;
 import model.dao.OrderDTDAO;
 import model.dao.OrderDetailDTDAO;
@@ -65,6 +67,8 @@ public class DataTablesService {
 	private OrderDetailDTDAO orderDetailDtdao;
 	@Autowired
 	private RelationDTDAO relationDtdao;
+	@Autowired
+	private CommentDTDAO commentDtdao;
 	
 
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
@@ -134,6 +138,8 @@ public class DataTablesService {
 			return orderDetailDtdao.ajaxCount(hql);
 		case "Relation":
 			return relationDtdao.ajaxCount(hql);
+		case "Comment":
+			return commentDtdao.ajaxCount(hql);
 		default:
 			return 0;
 		}
@@ -254,6 +260,17 @@ public class DataTablesService {
 				jArray.add(jObj);
 			}
 			return jArray;
+		case "Comment":
+			List<CommentBean> coms = commentDtdao.ajaxQuery(hql.toString(), start, length);
+			for (CommentBean com : coms) {
+
+				JsonObject jObj = gson.toJsonTree(com).getAsJsonObject();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + com.getCmtSN()));
+				jObj.add("mbrSN", gson.toJsonTree(com.getMbrSN().getMbrSN()));
+				jObj.add("mbrSN_Dis", gson.toJsonTree(com.getMbrSN().getMbrSN()+"( id ="+com.getMbrSN().getMbrId()+" )"));
+				jArray.add(jObj);
+			}
+			return jArray;
 		default:
 			return jArray;
 		}
@@ -296,6 +313,10 @@ public class DataTablesService {
 			count = orderDetailDtdao.ajaxDelete(toDelete);
 			sql.append(" where composite id orderSN_gameSN in (");
 			break;
+		case "Comment":
+			count = commentDtdao.ajaxDelete(toDelete);
+			sql.append(" where cmtSN in (");
+			break;
 		default:
 			break;
 		}
@@ -329,7 +350,7 @@ public class DataTablesService {
 		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 		result = gson.toJson(jObj);
 		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-				(forUpdate) ? ("update ") : ("insert into ") + " Authority : " + bean.toString()));
+				((forUpdate) ? ("update ") : ("insert into ")) + " Authority : " + bean.toString()));
 		return result;
 	}
 
@@ -352,7 +373,7 @@ public class DataTablesService {
 		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 		result = gson.toJson(jObj);
 		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-				(forUpdate) ? ("update ") : ("insert into ") + " Administrator : " + bean.toString()));
+				((forUpdate) ? ("update ") : ("insert into ")) + " Administrator : " + bean.toString()));
 		return result;
 	}
 
@@ -406,7 +427,7 @@ public class DataTablesService {
 		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 		result = gson.toJson(jObj);
 		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-				(forUpdate) ? ("update ") : ("insert into ") + " Game : " + bean.toString()));
+				((forUpdate) ? ("update ") : ("insert into ")) + " Game : " + bean.toString()));
 		return result;
 	}
 
@@ -444,7 +465,7 @@ public class DataTablesService {
 		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 		result = gson.toJson(jObj);
 		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-				(forUpdate) ? ("update ") : ("insert into ") + " Member : " + bean.toString()));
+				((forUpdate) ? ("update ") : ("insert into ")) + " Member : " + bean.toString()));
 
 		return result;
 	}
@@ -479,7 +500,7 @@ public class DataTablesService {
 		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 		result = gson.toJson(jObj);
 		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-				(forUpdate) ? ("update ") : ("insert into ") + " Order1 : " + bean.toString()));
+				((forUpdate) ? ("update ") : ("insert into ")) + " Order1 : " + bean.toString()));
 		return result;
 	}
 	
@@ -502,7 +523,32 @@ public class DataTablesService {
 		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 		result = gson.toJson(jObj);
 		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
-				(forUpdate) ? ("update ") : ("insert into ") + " OrderDetail : " + bean.toString()));
+				((forUpdate) ? ("update ") : ("insert into ")) + " OrderDetail : " + bean.toString()));
+		return result;
+	}
+	
+	@Transactional
+	public String ajaxCommentCuHandler(Map<String, String> cuParam) {
+		String result = "";
+		JsonObject jObj = new JsonObject();
+		Integer cmtSN = integerValidator.validate(cuParam.get("cmtSN"));
+		CommentBean bean = null;
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate) {
+			bean = new CommentBean();
+			bean.setCmtSN(cmtSN);
+			bean.setCmtTime(new Date(System.currentTimeMillis()));
+		} else {
+			bean = commentDtdao.select(cmtSN);
+		}
+		bean.setGameSN((integerValidator.validate(cuParam.get("gameSN"))));
+		bean.setMbrSN(memberDtdao.select(integerValidator.validate(cuParam.get("mbrSN"))));
+		bean.setText(cuParam.get("text"));
+		commentDtdao.cu(bean);
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				((forUpdate) ? ("update ") : ("insert into ")) + " Comment : " + bean.toString()));
 		return result;
 	}
 
