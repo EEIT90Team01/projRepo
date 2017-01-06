@@ -11,6 +11,13 @@
 	<property name="url" value="/admin/index.jsp" />
 	<property name="contextRelative" value="true" />
 </bean>
+<bean id="playgame.fail" class="org.springframework.web.servlet.view.InternalResourceView">
+	<property name="url" value="/home.jsp" />
+</bean>
+<bean id="playgame.ok" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/admin/index.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
 <!-- ************  Kelsey的設定  開始 *************** -->
 	<!-- 網址會整個改變 -->
 		<bean id="editMemberSuccess" class="org.springframework.web.servlet.view.RedirectView">
