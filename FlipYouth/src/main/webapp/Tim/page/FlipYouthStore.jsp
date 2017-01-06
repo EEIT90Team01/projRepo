@@ -42,15 +42,15 @@
 	href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 <script
 	src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-<!-- <link rel="stylesheet" -->
-<%-- 	href="<c:url value="/Tim/css_Tim/dataTable.css"/>"> --%>
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/dataTable.css"/>">
 
 <link rel="stylesheet" href="<c:url value="/Tim/css_Tim/relation.css"/>">
 
 
 <!------------------------------------------- fullcalendar.io------------------------------------->
-<!-- <link rel="stylesheet" -->
-<%-- 	href="<c:url value="/Tim/css_Tim/cupertino/fullcalendar.min.css"/>"> --%>
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/cupertino/fullcalendar.min.css"/>">
 <link rel="stylesheet"
 	href="<c:url value="/Tim/css_Tim/cupertino/jquery-ui.min.css"/>">
 <link
@@ -318,7 +318,6 @@ function move_div() {
 </script>
 </head>
 <body style="margin: 0; padding: 0;">
-
 	<script type="text/javascript">
 $( window ).scroll(function() {
 	if(window.scrollY > 279)
@@ -345,7 +344,7 @@ $( window ).scroll(function() {
 	<div id='nav-group' class="list-group-k">
 		<nav>
 		<ul>
-			<li><a href="login.jsp#login-modal" data-toggle="modal"
+			<li><a href="<c:url value="/Tim/login/login.jsp"/>" data-toggle="modal"
 				data-target="login.jsp#login-modal">Login</a></li>
 			<li><a href="<c:url value='/pages/editMember.jsp'/>"> <img
 					src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>"
@@ -507,11 +506,7 @@ $( window ).scroll(function() {
 		id="home">
 		<jsp:include page="/Tim/page/Shop/shopHome.jsp"></jsp:include>
 	</div>
-	<div class="container">
-
-
-
-
+	<div class="container" style="margin: 0 70px; padding-left: 30px;">
 		<div style="display: none" role="tabpanel" class="tab-pane a" id="one">
 			<jsp:include page="/Tim/page/Shop/list.jsp"></jsp:include>
 		</div>
@@ -543,7 +538,7 @@ $( window ).scroll(function() {
 			}
 			
 			</script>
-			<div id="dataTableTab" class="b container">
+			<div style="width: 90%" id="dataTableTab" class="b container">
 				<div class="row">
 					<div class="col-xs-12">
 						<table id="example" class="display" cellspacing="0" width="100%">
@@ -621,8 +616,6 @@ $( window ).scroll(function() {
 		$('.a').hide();
 		$('#five').show()
 	}
-	
-	
 	
 	function checkState(d) {
 		if (d.orderState == "出貨中") {

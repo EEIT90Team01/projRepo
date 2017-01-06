@@ -365,7 +365,7 @@ public class ShopController {
 			return "login";
 		} else {
 			if (session.getAttribute("loginOK") != null) {
-				return "list";
+				return "index";
 			}
 			if (pass == null || pass.trim().equals("") || user == null || user.trim().equals("")) {
 				session.setAttribute("loginError", "帳號或密碼輸入錯誤");
@@ -381,9 +381,9 @@ public class ShopController {
 					session.setAttribute("car", car);
 					session.removeAttribute("loginError");
 					if (url == null || url.trim().length() == 0) {
-						url = "list";
+						url = "index";
 					}
-					return url;
+					return "index";
 				} else {// 密碼錯誤
 					session.setAttribute("loginError", "帳號或密碼輸入錯誤");
 					return "login";
@@ -400,7 +400,7 @@ public class ShopController {
 		session.removeAttribute("loginOK");
 		car.clear();
 		count = 0;
-		return "home";
+		return "index";
 	}
 
 	String access_token = "";
