@@ -178,7 +178,6 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 
 
 </head>
-
 <%@ include file="/chatRoom.jsp" %>
 <body id="body">
 	<span id="wdth"></span>
