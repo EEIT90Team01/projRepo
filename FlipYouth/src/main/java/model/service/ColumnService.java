@@ -36,6 +36,7 @@ public class ColumnService {
 		colsMap.put("OrderDetail", new String[]{"orderSN","gameSN","Quantity"});
 		colsMap.put("Member", new String[]{"mbrSN","mbrId","gender","mbrName","createTime","phone","address","mbrEmail","mbrState","energy","nickName","image_Dis"});
 		colsMap.put("Relation", new String[]{"mbrSN_Dis","targetMbrSN_Dis","notes","relation_Dis","createTime"});
+		colsMap.put("Comment", new String[]{"cmtSN","gameSN","mbrSN_Dis","cmtTime","text"});
 		colStringsMap.put("Administrator", new String[]{"管理員帳號","密碼","Email","管理員權限"});
 		colStringsMap.put("Authority", new String[]{"權限編號","權限名稱"});
 		colStringsMap.put("BackEndLog", new String[]{"管理員帳號","執行時間","附註","SQL指令"});
@@ -44,7 +45,7 @@ public class ColumnService {
 		colStringsMap.put("OrderDetail", new String[]{"訂單編號","商品編號","數量"});
 		colStringsMap.put("Member", new String[]{"會員編號","會員帳號","性別","姓名","加入時間","電話","地址","Email","狀態碼","能量值","暱稱","大頭貼"});
 		colStringsMap.put("Relation", new String[]{"會員編號","目標會員編號","註記","關係","建立時間"});
-		
+		colStringsMap.put("Comment", new String[]{"留言編號","商品編號","會員編號","留言時間","內容"});
 	}
 	
 	public String getTableName() {

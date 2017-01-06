@@ -413,6 +413,31 @@ public class DataTablesController {
 			case "Relation":
 				result = gson.toJson("不對吧");
 				break;
+			case "Comment":
+				if (forUpdate && integerValidator.validate(cuParam.get("cmtSN")) == null) {
+					errMap.put("cmtSNE", "不可為空且需為整數");
+				} else if (!forUpdate
+						&& dataTablesService.checkExistHandler(table, "cmtSN", cuParam.get("cmtSN"))) {
+					errMap.put("cmtSNE", "已被使用");
+				}
+				if (integerValidator.validate(cuParam.get("gameSN")) == null) {
+					errMap.put("gameSNE", "不可為空且需為整數");
+				} else if (!dataTablesService.checkExistHandler("Shop", "GameSN", cuParam.get("gameSN"))) {
+					errMap.put("gameSNE", "該商品不存在");
+				}
+				if (integerValidator.validate(cuParam.get("mbrSN")) == null) {
+					errMap.put("mbrSNE", "不可為空且需為整數");
+				} else if (!dataTablesService.checkExistHandler("Member", "mbrSN", cuParam.get("mbrSN"))) {
+					errMap.put("mbrSNE", "該會員不存在");
+				}
+				if (cuParam.get("text") == null) {
+					errMap.put("miscE", "不該出現這錯誤啊");
+				}
+				if (errMap.size() != 0) {
+					return gson.toJson(errMap);
+				}
+				result = dataTablesService.ajaxCommentCuHandler(cuParam);
+				break;
 			default:
 				break;
 			}
