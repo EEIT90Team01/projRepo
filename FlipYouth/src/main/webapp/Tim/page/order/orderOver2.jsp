@@ -13,19 +13,10 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
-
-
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="<c:url value="/Tim/css_Tim/producHome.css"/>">
-<link rel="stylesheet"
-	href="<c:url value="/Tim/css_Tim/bootstrap-select.css"/>">
-<link rel="stylesheet"
-	href="<c:url value="/Tim/css_Tim/nouislider.css"/>">
-<!-- Optional theme -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
@@ -40,138 +31,93 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="<c:url value="/Tim/css_Tim/producHome.css"/>">
 <style type="text/css">
-/*  div {  */
-/*  	border-style: solid;  */
-/*  	border-width: 1px;  */
-/*  }  */
-/* .center { */
-/* 	text-align: center; */
-/* 	color: white; */
-/* 	font-family: Microsoft JhengHei; */
-/* 	/* 	font-weight: 600; */
-/* 	line-height: 1.5; */
-/* 	font-size: 17px; */
-/* } */
+.overfont {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 
-/* /* .center1 { */
-/* /* 	font-family: Microsoft JhengHei; */
-/* /* 	font-weight: 600; */
-/* /* 	line-height: 1.5; */
-/* /* 	font-size: 15px; */
-/* /* } */
-/* a { */
-/* 	font-size: 14px; */
-/* 	line-height: 1.3; */
-/* 	/* 	font-family: Microsoft JhengHei; */
-/* 	color: BLACK; */
-/* } */
+.title {
+	border-bottom: 3px solid #9fa8da;
+}
 
-/* .color1 { */
-/* 	color: #de9227; */
-/* } */
-
-/* .color2 { */
-/* 	line-height: 2.0; */
-/* 	font-weight: 600; */
-/* 	font-size: 19px; */
-/* 	background-color: #c7000b; */
-/* 	color: white; */
-/* } */
-
-/* b { */
-/* 	font-size: 16px; */
-/* 	color: #cd1f14; */
-/* } */
-
-/* .btn-danger { */
-/* 	background-image: linear-gradient(to bottom, #c7000b 0, #c12e2a 100%); */
-/* } */
-
-/* em { */
-/* 	font-family: 'Gloria Hallelujah', cursive; */
-/* 	font-size: 41px; */
-/* 	color: #000; */
-/* 	display: inline-block; */
-/* } */
-strong {
-	display: block;
-	padding: 0 0 0 13px;
+.title {
+	font-size: 18px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
 	font-weight: normal;
-	font-family: 'Noto Sans TC', sans-serif;
-	font-size: 15px;
-	color: #a51516;
-	margin-top: -5px;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
 }
 
-.orderStatus {
-	margin-bottom: 30px;
-	font-size: 15px;
-	color: #000;
-	line-height: 1.8;
+.bootstrap-select .dropdown-toggle {
+	border-color: #ccc;
+	border-radius: 0;
 }
 
-/* .px-100 { */
-/* 	height: 62px; */
-/* 	vertical-align: middle; */
-/* 	padding: 20px 5px; */
-/* 	text-align: center; */
-/* 	margin-top: 0px; */
-/* } */
-
-/* .whoOrder { */
-/* 	padding: 20px; */
-/* 	display: block; */
-/* } */
-
-/* .OrderTop { */
-/* 	display: block; */
-/* 	margin-bottom: 5px; */
-/* 	font-size: 14px; */
-/* 	color: #222; */
-/* 	height: 20px; */
-/* } */
-
-/* .Ordertotal { */
-/* 	font-size: 18px; */
-/* 	font-weight: normal; */
-/* 	color: #9e5f4d; */
-/* 	border-bottom: 1px solid #d9d9d9; */
-/* } */
-
-/* .center1 { */
-/* 	font-family: 'Noto Sans TC', sans-serif; */
-/* 	font-weight: normal; */
-/* 	line-height: 1.5; */
-/* 	font-size: 16px; */
-/* 	color: #ffffff; */
-/* } */
-
-/* .right { */
-/* 	padding-left: 0px; */
-/* } */
-
-/* .title { */
-/* 	padding: 5px 0px; */
-/* } */
+.title2 {
+	font-size: 15px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: "malgun gothic", simhei;
+	font-weight: 300;
+}
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 150px;
+}
+font{font-family: 
+Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 </style>
+<script type="text/javascript">
+	function loadab() {
+		console.log('four');
+		window.parent.$('#four iframe').css("height", $('body').height() + 50);
+	}
+
+	$(document).ready(function() {
+		loadab()
+	});
+</script>
+
 </head>
 
-<script type="text/javascript">
-	
-</script>
-<body>
+
+<body onload="loadab()">
 	<div id="orderOK" style="display: none;">
 		<div class="col-xs-12">
 			<h2 class="orderStatus">
 				<em>Complete</em><strong>訂購完成</strong>
 			</h2>
-			
+
 			<div class="col-xs-12" style="height: 30px"></div>
 			<div class="col-xs-12 orderStatus">
 				親愛的 ${loginOK.mbrName}先生，感謝您於本商店購物。您的訂單明細已同步發送至您的信箱。 <br>
-				歡迎使用「訂單查詢」功能查詢目前訂單狀態，謝謝。 <br>狀態：<b style="color:red">新單
-				</b><br>
+				歡迎使用「訂單查詢」功能查詢目前訂單狀態，謝謝。 <br>狀態：<b style="color: red">新單 </b><br>
 			</div>
 
 		</div>
@@ -185,7 +131,7 @@ strong {
 		<div class="row">
 
 			<!-- Shopping Cart List -->
-			<div class="col-md-9">
+			<div class="col-md-12">
 				<div style="background-color: white;" id="sendpictur">
 					<div class="title">
 						<span>聯絡人資料</span><img style="display: none" id="loadingIMG"
@@ -312,8 +258,9 @@ strong {
 				</div>
 				<nav aria-label="Shopping Cart Next Navigation">
 				<ul class="pager">
-					<li role="presentation" class="previous"><a href="javascript:void(0)"
-						onclick="parentHome(this)" aria-controls="three" myid="four" role="tab" data-toggle="tab"><span
+					<li role="presentation" class="previous"><a
+						href="javascript:void(0)" onclick="parentHome(this)"
+						aria-controls="three" myid="four" role="tab" data-toggle="tab"><span
 							aria-hidden="true">←</span>填寫聯絡人資料</a></li>
 					<li class="next"><a
 						onclick="ajax('${order.name}','${order.email}')"
@@ -323,9 +270,9 @@ strong {
 				</nav>
 			</div>
 			<script type="text/javascript">
-			function parentHome(me) {
-				parent.parentTab(me)
-			}
+				function parentHome(me) {
+					parent.parentTab(me)
+				}
 			</script>
 			<!-- End Shopping Cart List -->
 
@@ -397,7 +344,7 @@ strong {
 				alert('訂單出錯');
 			},
 			beforeSend : function() {
-				
+
 				parent.move_div();
 				window.parent.$('#loadingIMG').show();
 			},
@@ -405,7 +352,7 @@ strong {
 				setTimeout(function() {
 					window.parent.$('#loadingIMG').hide();
 				}, 500)
-				
+
 			},
 
 		})//end ajax

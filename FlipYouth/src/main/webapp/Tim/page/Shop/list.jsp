@@ -169,42 +169,100 @@ a:active {
 }
 
 .bootstrap-select
+
+
+
+
+
+
 :not
+
+
+
  
+
+
+
 (
 [
 class
 *=
 "col-"
 ]
+
+
+
  
+
+
+
 )
 :not
+
+
+
  
+
+
+
 (
 [
 class
 *=
 "form-control"
 ]
+
+
+
  
+
+
+
 )
 :not
 
+
+
+
 	
+
+
+
 (
 .input-group-btn
+
+
+
  
+
+
+
 )
 {
 width
+
+
+
+
+
+
 :
+
+
+
  
+
+
+
 150
 px
+
+
+
+
+
+
 ;
-
-
 }
 font {
 	font-family: Meiryo, "微軟正黑體", "Microsoft JhengHei"
@@ -238,18 +296,20 @@ font {
 	padding: 0 15px;
 	box-sizing: border-box;
 }
+
 .shoppingBox h3 {
-    position: relative;
-    margin: 43px 0 6px 0;
-    padding-bottom: 5px;
-    color: #fff;
-    font-size: 17px;
-    font-weight: normal;
+	position: relative;
+	margin: 43px 0 6px 0;
+	padding-bottom: 5px;
+	color: #fff;
+	font-size: 17px;
+	font-weight: normal;
 }
+
 .shoppingBox p {
-    font-size: 13px;
-    color: #e9ee94;
-    line-height: 1.8;
+	font-size: 13px;
+	color: #e9ee94;
+	line-height: 1.8;
 }
 </style>
 
@@ -264,11 +324,14 @@ font {
 
 <%@ include file="/chatRoom.jsp"%>
 <div class="shoppingBox">
-<h3>購物清單</h3>
-<span id="car">
-<p>以選購<font style="color: white;">${count}</font>件
-<p>總金額\$<font style="color: white;">${ALL}</font>
-</span></div>
+	<h3>購物清單</h3>
+	<img alt="" src="<c:url value="/Tim/image/border_shopBox.png"/>">
+	<span id="car">
+		<p>
+			以選購<font style="color: white;">${count}</font>件<br> 總金額\$<font
+				style="color: white;">${ALL}</font>
+	</span>
+</div>
 <body id="body">
 	<span id="wdth"></span>
 	<c:set var="ShopUrl" scope="session"
@@ -484,7 +547,6 @@ font {
 							</nav>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -545,6 +607,7 @@ font {
 			})
 		}
 		function car(gameSN, price) {
+			
 			$.ajax({
 				url : "/FlipYouth/Shop.controller",
 				type : "POST",
@@ -712,10 +775,10 @@ font {
 												var c = '<div class="box-product-outer"style="height: 400px; padding: 20px">';
 												var d = '<div class="box-product">';
 												var e = '<div class="img-wrapper">';
-												var f = '<a href="<c:url value="/Shop.controller?ID='
+												var f = '<a target="_blank" href="<c:url value="/Shop.controller?ID='
 														+ data.gameSN
 														+ '"/>"><img class="img-rounded" style="height: 200px"src="<c:url value="/Tim'+data.bigImage+'"/>"></a></div>';
-												var g = '<h6> <a style="" href="<c:url value="/Shop.controller?ID='
+												var g = '<h6> <a target="_blank" style="" href="<c:url value="/Shop.controller?ID='
 														+ data.gameSN
 														+ '"/>">'
 														+ data.gameName
@@ -726,11 +789,13 @@ font {
 												var i = '<div class="price"> <span class="btm-30px" style="font-family: fantasy;position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
 														+ data.price
 														+ '</span> </div>'
-												var j = '<div class="rating"><a href="<c:url value="/Shop.controller?ID='+data.gameSN+'"/>"><img  class="carimage" style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
+												var j = '<div class="rating"><a target="_blank" href="<c:url value="/Shop.controller?ID='
+														+ data.gameSN
+														+ '"/>"><img  class="carimage" style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
 														+ data.gameSN
 														+ ','
 														+ data.price
-														+ ')"><img class="carimage" style="width:30px;float:right"  src="<c:url value="/Tim/image/icon/car.png"/>"></a> </div>'
+														+ ')"><img  class="carimage" style="width:30px;float:right"  src="<c:url value="/Tim/image/icon/car.png"/>"></a> </div>'
 												var div = "</div></div></div></div></div>"
 												$('#forEach').append(
 														a + b + c + d + e + f
@@ -741,10 +806,6 @@ font {
 					})//end ajax
 		}
 	</script>
-	<script type="text/javascript">
-		function carshow() {
-			console.log('gggggg');
-		}
-	</script>
+	
 </body>
 </html>
