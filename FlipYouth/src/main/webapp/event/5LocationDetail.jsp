@@ -52,7 +52,7 @@ border: 1px solid;
 -->
 
 </head>
-<body>
+<body style="background-color:#FFBD45;">
 
 <div class="container-fluid">
 	
@@ -112,10 +112,10 @@ border: 1px solid;
 	
 	<tr class="active">
 		<td class="col-md-2">
-			位置流水號:
+			地址:
 		</td>
 		<td class="col-md-4">
-			#
+			北市松山區XX路XX號
 		</td>
 		<td class="col-md-6" rowspan="6">
 			<div>
@@ -124,22 +124,22 @@ border: 1px solid;
 			</div>
 		</td>
 	</tr>
-	<tr>
-		<td class="col-md-2">
-			地址:
-		</td>
-		<td class="col-md-4">
-			北市松山區XX路XX號
-		</td>
-	</tr>
-	<tr class="info">
-		<td class="col-md-2">
-			店名:
-		</td>
-		<td class="col-md-4">
-			瘋桌遊
-		</td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td class="col-md-2"> -->
+<!-- 			地址: -->
+<!-- 		</td> -->
+<!-- 		<td class="col-md-4"> -->
+<!-- 			北市松山區XX路XX號 -->
+<!-- 		</td> -->
+<!-- 	</tr> -->
+<!-- 	<tr class="info"> -->
+<!-- 		<td class="col-md-2"> -->
+<!-- 			地址: -->
+<!-- 		</td> -->
+<!-- 		<td class="col-md-4"> -->
+<!-- 			北市松山區XX路XX號 -->
+<!-- 		</td> -->
+<!-- 	</tr> -->
 	<tr class="danger">
 		<td class="col-md-2">
 			連絡電話:
