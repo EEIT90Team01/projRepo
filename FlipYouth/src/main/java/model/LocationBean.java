@@ -16,6 +16,10 @@ public class LocationBean implements Serializable{
 	private String locLat;
 	private String locPhone;
 	
+	
+	public LocationBean() {
+		super();
+	}
 	public Integer getLocSN() {
 		return locSN;
 	}
@@ -55,5 +59,18 @@ public class LocationBean implements Serializable{
 	public String toString() {
 		return "LocationBean [locSN=" + locSN + ", locName=" + locName + ", locLong=" + locLong + ", locLat=" + locLat
 				+ ", locPhone=" + locPhone + "]";
+	}
+	public LocationBean(String locName) {
+		super();
+		this.locName = locName;
+	}
+	
+	public LocationBean(Integer locSN, String locName, String locLong, String locLat, String locPhone) {
+		super();
+		this.locSN = locSN;
+		this.locName = locName;
+		this.locLong = locLong;
+		this.locLat = locLat;
+		this.locPhone = locPhone;
 	}
 }

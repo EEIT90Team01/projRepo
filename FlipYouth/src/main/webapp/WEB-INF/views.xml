@@ -67,5 +67,24 @@
 	</bean>
 
 <!--========================= 	Samuel 	檔案		========================= -->
+<!-- Federer -->
+<bean id="EventDetail4Host.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/3EventDetail4Host.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
 
+<bean id="EventGo.index" class="org.springframework.web.servlet.view.InternalResourceView">
+	<property name="url" value="/event/2EventGo.jsp" />
+</bean>
+
+<bean id="Eventing.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/1Eventing.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
+<bean id="EventDetail4Mbr.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/3EventDetail4Mbr.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+<!-- Federer -->
 </beans>
