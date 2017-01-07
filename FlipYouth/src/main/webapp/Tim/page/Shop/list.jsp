@@ -266,8 +266,8 @@ font {
 <div class="shoppingBox">
 <h3>購物清單</h3>
 <span id="car">
-<p>以選購${count}件
-<p>總金額\$${ALL}
+<p>以選購<font style="color: white;">${count}</font>件
+<p>總金額\$<font style="color: white;">${ALL}</font>
 </span></div>
 <body id="body">
 	<span id="wdth"></span>
@@ -726,7 +726,7 @@ font {
 												var i = '<div class="price"> <span class="btm-30px" style="font-family: fantasy;position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
 														+ data.price
 														+ '</span> </div>'
-												var j = '<div class="rating"><a href=""><img  class="carimage" style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
+												var j = '<div class="rating"><a href="<c:url value="/Shop.controller?ID='+data.gameSN+'"/>"><img  class="carimage" style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
 														+ data.gameSN
 														+ ','
 														+ data.price

@@ -306,8 +306,21 @@ li[role="presentation"] {
 
 .navbar-nav>li {
 	display: table-cell;
-	float: none;
+	float: none; */
 	text-align: center;
+}
+
+.menuIcon {
+	height: 70px;
+	width: 70px;
+	background: url(/FlipYouth/Tim/image/icon/menu_icon.png) no-repeat;
+	position: absolute;
+	top: 95px;
+	left: 50px;
+	z-index: 100;
+	text-align: center;
+	padding: 0 15px;
+	box-sizing: border-box;
 }
 </style>
 <script type="text/javascript">
@@ -336,10 +349,10 @@ $( window ).scroll(function() {
 	if(window.scrollY > 279)
 		{
 		$('#navbar').addClass("scroll-300");
-		
-	}else{
+		}else{
 		$('#navbar').removeClass("scroll-300");
 		$('.shopTopRow').animate({'padding':10},100);
+		
 	}
 	
 	});
@@ -347,6 +360,8 @@ $( window ).scroll(function() {
 
 
 </script>
+
+
 	<div class="hero">
 		<img class="header_left_img"
 			src="/FlipYouth/Kelsey/images/light_green/logo_06-02.png">
@@ -388,6 +403,7 @@ $( window ).scroll(function() {
 
 	</div>
 
+	<div class="menuIcon" style="display: none"></div>
 
 
 
@@ -606,14 +622,48 @@ $( window ).scroll(function() {
 	</script>
 
 	<script type="text/javascript">
+	$( document ).ready(function () {
+		$(window).trigger('resize')
+	});
 $(window).resize(function() {
 	if($(window).width()<770){
+
+		$('.navbar-nav').children().css("display","table-cell");
+		$('#lastli').remove();
 		$('#shopTopRow').hide();
+		$('.menuIcon').show();
 	}else{
+
+		$('.navbar-nav').children().css("display","table-cell");
+		$('#lastli').remove();
 		$('#shopTopRow').show();
+		$('.menuIcon').hide();
 	}
 	
-});
+	});
+	
+	$('.menuIcon').on('click',function(){
+		$('#lastli').remove();
+		$('<li role="presentation" id="lastli"  onclick="closeNav()"><a href="javascript:void(0)">\<--------</a></li>').appendTo($('.navbar-nav'));
+		$('.navbar-nav').children().css("display","block");
+// 		$('#shopTopRow').show();
+		$('#shopTopRow').show("slide", { direction: "left" }, 500);
+		$('.menuIcon').hide();
+	})
+	function closeNav(){
+		$('#lastli').remove();
+		$('.navbar-nav').children().css("display","table-cell");
+		$('#shopTopRow').hide("slide", { direction: "right" }, 500);
+		$('.menuIcon').show();
+	}
+	
+	$('#shopTopRow').on('click',function(){
+		if($(window).width()<770){
+		$(this).hide();
+		$('.menuIcon').show();}
+	})
+	
+	
 </script>
 
 
@@ -801,6 +851,14 @@ $(window).resize(function() {
 			$(window).scroll(function(){
 				var scrollTop = $(document).scrollTop();
 				$('.shoppingBox').stop().animate({top:scrollTop+240},500);	
+			});
+			
+		});
+		
+		$(function(){
+			$(window).scroll(function(){
+				var scrollTop = $(document).scrollTop();
+				$('.menuIcon').stop().animate({top:scrollTop+70},500);	
 			});
 			
 		});

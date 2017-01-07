@@ -125,8 +125,8 @@ iframe {
 <div class="shoppingBox">
 <h3>購物清單</h3>
 <span id="car">
-<p>以選購${count}件
-<p>總金額\$${ALL}
+<p>以選購<font style="color: white;">${count}</font>件
+<p>總金額\$<font style="color: white;">${ALL}</font>
 </span></div>
 
 	<div style="padding: 0% 5% 0% 20%;">
