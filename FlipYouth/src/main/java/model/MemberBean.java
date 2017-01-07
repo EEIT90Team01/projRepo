@@ -1,26 +1,20 @@
 package model;
 
-
-import java.io.Serializable;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name="Member")
-@Component(value="memberBean")
-public class MemberBean implements Serializable{
+public class MemberBean {
+	
 	private Integer mbrSN;
 	private String nickName;
 	private String mbrId;
@@ -31,28 +25,15 @@ public class MemberBean implements Serializable{
 	private String phone;
 	private String address;
 	private String mbrEmail;
-	@Column(name="image")
 	private byte[] image;
 	private Integer mbrState;
 	private Integer energy;
 	private Integer rptCounter;
-	@Column(name="activatedCode")
 	private byte[] activatedCode;
 	
 	public MemberBean() {
-		
 	}
 	
-	
-	//Set<> 不會有重覆值,但取出來時不一定會按照順序
-		@OneToMany(cascade=CascadeType.REMOVE , fetch=FetchType.EAGER , mappedBy="mbrSN")
-		private Set<RelationBean> mbrSNRelation =new HashSet<RelationBean>();
-		
-		@OneToMany(cascade=CascadeType.REMOVE , fetch=FetchType.EAGER , mappedBy="targetMbrSN")
-		private Set<RelationBean> targetMbrSN =new HashSet<RelationBean>();
-		
-		
-	 
 	@Id
 	@Column(name="mbrSN")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -122,7 +103,7 @@ public class MemberBean implements Serializable{
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	public Integer getMbrState() {
+	public int getMbrState() {
 		return mbrState;
 	}
 	public void setMbrState(Integer mbrState) {
@@ -154,4 +135,29 @@ public class MemberBean implements Serializable{
 				+ Arrays.toString(image) + ", mbrState=" + mbrState + ", energy=" + energy + ", rptCounter="
 				+ rptCounter + ", activatedCode=" + Arrays.toString(activatedCode) + "]";
 	}
+	public MemberBean(Integer mbrSN, String nickName, String mbrId, String mbrPassword, String mbrName, String gender,
+			Date createTime, String phone, String address, String mbrEmail, byte[] image, Integer mbrState,
+			Integer energy, Integer rptCounter, byte[] activatedCode) {
+		super();
+		this.mbrSN = mbrSN;
+		this.nickName = nickName;
+		this.mbrId = mbrId;
+		this.mbrPassword = mbrPassword;
+		this.mbrName = mbrName;
+		this.gender = gender;
+		this.createTime = createTime;
+		this.phone = phone;
+		this.address = address;
+		this.mbrEmail = mbrEmail;
+		this.image = image;
+		this.mbrState = mbrState;
+		this.energy = energy;
+		this.rptCounter = rptCounter;
+		this.activatedCode = activatedCode;
+	}
+	public MemberBean(Integer mbrSN) {
+		super();
+		this.mbrSN = mbrSN;
+	}
+
 }
