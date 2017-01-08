@@ -89,6 +89,7 @@ $(window).resize(function() {
 //	<!-- fullcalendar  iooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
 		$(document).ready(
 				function() {
+					
 					var date = new Date();
 					var d = date.getDate();
 					var m = date.getMonth();
@@ -104,6 +105,7 @@ $(window).resize(function() {
 					});
 					$('#calendar').fullCalendar(
 							{	editable : false,
+								 height: "auto",
 								header : {
 									left : 'myCustomButton,prev,next today',
 									center : 'title',

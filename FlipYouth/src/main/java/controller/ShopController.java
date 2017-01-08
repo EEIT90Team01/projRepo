@@ -492,13 +492,13 @@ public class ShopController {
 				return "addGMember";
 			} else {
 				session.setAttribute("loginOK", (MemberBean) shopServices.selectMbr(MemberId));
-				return "home";
+				return "index";
 			}
 		} else {
 			System.out.println("getUserConnection.getResponseCode() =  " + getUserConnection.getResponseCode());
 		}
 		System.out.println("maker3");
-		return "home";
+		return "index";
 	}
 
 	@RequestMapping(path = "/addGMember.controller")
@@ -516,7 +516,7 @@ public class ShopController {
 		String GID = (String) session.getAttribute("GID");
 		MemberBean MemberBean = shopServices.addGmber(Gmbr, GID);
 		session.setAttribute("loginOK", MemberBean);
-		return "home";
+		return "index";
 	}
 
 	@RequestMapping(path = "/FBLogin.controller")
@@ -568,10 +568,10 @@ public class ShopController {
 				return "/FlipYouth/Tim/login/addFBMember.jsp";
 			} else {
 				session.setAttribute("loginOK", (MemberBean) shopServices.selectMbr(mbrSN));
-				return "/FlipYouth/home.jsp";
+				return "/FlipYouth/index.jsp";
 			}
 		}
-		return "home";
+		return "index";
 	}
 
 	@RequestMapping(path = "/addFBMember.controller")
@@ -589,7 +589,7 @@ public class ShopController {
 		String FBID = (String) session.getAttribute("FBID");
 		MemberBean MemberBean = shopServices.addFBmber(FBmbr, FBID);
 		session.setAttribute("loginOK", MemberBean);
-		return "home";
+		return "index";
 	}
 
 	@RequestMapping(path = "/delectOrder.controller")

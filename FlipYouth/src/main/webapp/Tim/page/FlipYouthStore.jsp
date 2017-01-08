@@ -463,6 +463,9 @@
 		function toggledatatable() {
 			$('.b').toggle();
 			$('#calendar').fullCalendar('gotoDate', new Date());
+			$('#calendar').fullCalendar('removeEvents');
+		    $('#calendar').fullCalendar('refetchEvents');
+		    $('five').height($('.fc-content-skeleton').height()+100);
 		}
 	</script>
 
