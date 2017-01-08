@@ -22,6 +22,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import model.CommentBean;
+import model.EventBean;
+import model.EventDetailBean;
+import model.EventDetailPK;
+import model.LocationBean;
 import model.MemberBean;
 import model.OrderBean;
 import model.OrderDetailBean;
@@ -35,6 +39,9 @@ import model.dao.AdministratorDTDAO;
 import model.dao.AuthorityDTDAO;
 import model.dao.BackEndLogDTDAO;
 import model.dao.CommentDTDAO;
+import model.dao.EventDTDAO;
+import model.dao.EventDetailDTDAO;
+import model.dao.LocationDTDAO;
 import model.dao.MemberDTDAO;
 import model.dao.OrderDTDAO;
 import model.dao.OrderDetailDTDAO;
@@ -69,6 +76,12 @@ public class DataTablesService {
 	private RelationDTDAO relationDtdao;
 	@Autowired
 	private CommentDTDAO commentDtdao;
+	@Autowired
+	private EventDTDAO eventDtdao;
+	@Autowired
+	private EventDetailDTDAO eventDetailDtdao;
+	@Autowired
+	private LocationDTDAO locationDtdao;
 	
 
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
@@ -140,6 +153,12 @@ public class DataTablesService {
 			return relationDtdao.ajaxCount(hql);
 		case "Comment":
 			return commentDtdao.ajaxCount(hql);
+		case "Event":
+			return eventDtdao.ajaxCount(hql);
+		case "EventDetail":
+			return eventDetailDtdao.ajaxCount(hql);
+		case "Location":
+			return locationDtdao.ajaxCount(hql);
 		default:
 			return 0;
 		}
@@ -271,6 +290,41 @@ public class DataTablesService {
 				jArray.add(jObj);
 			}
 			return jArray;
+		case "Event":
+			List<EventBean> evts = eventDtdao.ajaxQuery(hql.toString(), start, length);
+			for (EventBean evt : evts) {
+
+				JsonObject jObj = gson.toJsonTree(evt).getAsJsonObject();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + evt.getEventSN()));
+				jObj.add("hostMbrSN", gson.toJsonTree(evt.getHostMbrSN().getMbrSN()));
+				jObj.add("hostMbrSN_Dis", gson.toJsonTree(evt.getHostMbrSN().getMbrSN()+"( id = "+evt.getHostMbrSN().getMbrId()+" )"));
+				jArray.add(jObj);
+			}
+			return jArray;
+		case "EventDetail":
+			//System.out.println(hql);
+			List<EventDetailBean> evtdtails = eventDetailDtdao.ajaxQuery(hql.toString(), start, length);
+			for (EventDetailBean evtdtail : evtdtails) {
+
+				JsonObject jObj = gson.toJsonTree(evtdtail).getAsJsonObject();
+				Integer eventSN = evtdtail.getEventDetailPK().getEventSN().getEventSN();
+				Integer mbrSN = evtdtail.getEventDetailPK().getMbrSN().getMbrSN();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + eventSN +"_"+mbrSN));
+				jObj.add("eventSN", gson.toJsonTree(eventSN));
+				jObj.add("mbrSN", gson.toJsonTree(mbrSN));
+				
+				jArray.add(jObj);
+			}
+			return jArray;
+		case "Location":
+			List<LocationBean> locs = locationDtdao.ajaxQuery(hql.toString(), start, length);
+			for (LocationBean loc : locs) {
+				JsonObject jObj = gson.toJsonTree(loc).getAsJsonObject();
+				jObj.add("DT_RowId", gson.toJsonTree("r_" +loc.getLocSN()));
+				jArray.add(jObj);
+			}
+			return jArray;
+
 		default:
 			return jArray;
 		}
@@ -316,6 +370,14 @@ public class DataTablesService {
 		case "Comment":
 			count = commentDtdao.ajaxDelete(toDelete);
 			sql.append(" where cmtSN in (");
+			break;
+		case "Event":
+			count = eventDtdao.ajaxDelete(toDelete);
+			sql.append(" where orderSN in (");
+			break;
+		case "EventDetail":
+			count = eventDetailDtdao.ajaxDelete(toDelete);
+			sql.append(" where composite id eventSN_mbrSN in (");
 			break;
 		default:
 			break;
@@ -479,14 +541,13 @@ public class DataTablesService {
 		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
 		if (!forUpdate) {
 			bean = new OrderBean();
-			bean.setOrderSN(orderSN);
 			bean.setOrderDate(new Date(System.currentTimeMillis()));
 		} else {
 			bean = orderDtdao.select(orderSN);
 		}
 		bean.setMbrSN(integerValidator.validate(cuParam.get("mbrSN")));
 		bean.setOrderAmount(integerValidator.validate(cuParam.get("orderAmount")));
-		bean.setShippedDate(dateValidator.validate(cuParam.get("shippedDate")));
+		bean.setShippedDate(dateValidator.validate(cuParam.get("shippedDate"), "yyyy/MM/dd HH:mm"));
 		bean.setProductDelivery(cuParam.get("productDelivery"));
 		bean.setFreight(integerValidator.validate(cuParam.get("freight")));
 		bean.setPaymentMethod(cuParam.get("paymentMethod"));
@@ -536,7 +597,6 @@ public class DataTablesService {
 		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
 		if (!forUpdate) {
 			bean = new CommentBean();
-			bean.setCmtSN(cmtSN);
 			bean.setCmtTime(new Date(System.currentTimeMillis()));
 		} else {
 			bean = commentDtdao.select(cmtSN);
@@ -551,5 +611,78 @@ public class DataTablesService {
 				((forUpdate) ? ("update ") : ("insert into ")) + " Comment : " + bean.toString()));
 		return result;
 	}
-
+	
+	@Transactional
+	public String ajaxEventCuHandler(Map<String, String> cuParam) {
+		String result = "";
+		JsonObject jObj = new JsonObject();
+		Integer eventSN = integerValidator.validate(cuParam.get("eventSN"));
+		EventBean bean = null;
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate) {
+			bean = new EventBean();
+		} else {
+			bean = eventDtdao.select(eventSN);
+		}
+		bean.setHostMbrSN(memberDtdao.select(integerValidator.validate(cuParam.get("hostMbrSN"))));
+		bean.setLocSN(integerValidator.validate(cuParam.get("locSN")));
+		bean.setMinMember(integerValidator.validate(cuParam.get("minMember")));
+		bean.setBeginTime(dateValidator.validate(cuParam.get("beginTime"), "yyyy/MM/dd HH:mm"));
+		bean.setEndTime(dateValidator.validate(cuParam.get("endTime"), "yyyy/MM/dd HH:mm"));
+		bean.setEventState(integerValidator.validate(cuParam.get("eventState")));
+		bean.setMaxMember(integerValidator.validate(cuParam.get("maxMember")));
+		bean.setDeadline(dateValidator.validate(cuParam.get("deadline"), "yyyy/MM/dd HH:mm"));
+		eventDtdao.cu(bean);
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				((forUpdate) ? ("update ") : ("insert into ")) + " Event : " + bean.toString()));
+		return result;
+	}
+	
+	@Transactional
+	public String ajaxEventDetailCuHandler(Map<String, String> cuParam) {
+		String result = "";
+		JsonObject jObj = new JsonObject();
+		EventBean eventSN = eventDtdao.select(integerValidator.validate(cuParam.get("eventSN")));
+		MemberBean mbrSN = memberDtdao.select(integerValidator.validate(cuParam.get("mbrSN")));
+		EventDetailBean bean = null;
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate) {
+			bean = new EventDetailBean();
+			bean.setEventDetailPK(new EventDetailPK(eventSN, mbrSN));
+		} else {
+			bean = eventDetailDtdao.select(new EventDetailPK(eventSN, mbrSN));
+		}
+		eventDetailDtdao.cu(bean);
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				((forUpdate) ? ("update ") : ("insert into ")) + " EventDetail : " + bean.toString()));
+		return result;
+	}
+	
+	@Transactional
+	public String ajaxLocationCuHandler(Map<String, String> cuParam) {
+		String result = "";
+		JsonObject jObj = new JsonObject();
+		Integer locSN = integerValidator.validate(cuParam.get("locSN"));
+		LocationBean bean = null;
+		boolean forUpdate = Boolean.parseBoolean(cuParam.get("forUpdate"));
+		if (!forUpdate) {
+			bean = new LocationBean();
+		} else {
+			bean = locationDtdao.select(locSN);
+		}
+		bean.setLocName(cuParam.get("locName"));
+		bean.setLocLong(cuParam.get("locLong"));
+		bean.setLocLat(cuParam.get("locLat"));
+		bean.setLocPhone(cuParam.get("locPhone"));
+		locationDtdao.cu(bean);
+		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
+		result = gson.toJson(jObj);
+		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
+				((forUpdate) ? ("update ") : ("insert into ")) + " Location : " + bean.toString()));
+		return result;
+	}
 }

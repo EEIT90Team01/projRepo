@@ -346,17 +346,15 @@ public class DataTablesController {
 				if (integerValidator.validate(cuParam.get("orderAmount")) == null) {
 					errMap.put("orderAmountE", "不可為空且需為整數");
 				}
-				if (dateValidator.validate(cuParam.get("shippedDate")) == null
-						&& dateValidator.validate(cuParam.get("shippedDate"), "yyyy年MM月dd日 HH點mm分") == null) {
-					errMap.put("shippedDateE", "日期格式不符");
+				if (dateValidator.validate(cuParam.get("shippedDate"), "yyyy/MM/dd HH:mm") == null) {
+					errMap.put("shippedDateE", "日期格式不符 (請參考: 2017/01/01 13:01)");
 				}
 				// if (dateValidator.validate(cuParam.get("orderDate")) == null)
 				// {
-				// errMap.put("orderDateE", "日期格式不符");
+				// errMap.put("orderDateE", "日期格式不符 (請參考: 2017/01/01 13:01)");
 				// }
-				if (dateValidator.validate(cuParam.get("productDelivery")) == null
-						&& dateValidator.validate(cuParam.get("productDelivery"), "yyyy年MM月dd日 HH點mm分") == null) {
-					errMap.put("productDeliveryE", "日期格式不符");
+				if (dateValidator.validate(cuParam.get("productDelivery"), "yyyy/MM/dd HH:mm") == null) {
+					errMap.put("productDeliveryE", "日期格式不符 (請參考: 2017/01/01 13:01)");
 				}
 				if (integerValidator.validate(cuParam.get("freight")) == null) {
 					errMap.put("freightE", "不可為空且需為整數");
@@ -437,6 +435,89 @@ public class DataTablesController {
 					return gson.toJson(errMap);
 				}
 				result = dataTablesService.ajaxCommentCuHandler(cuParam);
+				break;
+			case "Event":
+				if (forUpdate && integerValidator.validate(cuParam.get("eventSN")) == null) {
+					errMap.put("eventSNE", "不可為空且需為整數");
+				} else if (!forUpdate
+						&& dataTablesService.checkExistHandler(table, "eventSN", cuParam.get("eventSN"))) {
+					errMap.put("eventSNE", "已被使用");
+				}
+				if (integerValidator.validate(cuParam.get("hostMbrSN")) == null) {
+					errMap.put("hostMbrSNE", "不可為空且需為整數");
+				} else if (!dataTablesService.checkExistHandler("Member", "mbrSN", cuParam.get("hostMbrSN"))) {
+					errMap.put("hostMbrSNE", "該會員不存在");
+				}
+				if (!cuParam.get("locSN").isEmpty()){
+					if (integerValidator.validate(cuParam.get("locSN")) == null) {
+						errMap.put("locSNE", "需為整數");
+					} else if (!dataTablesService.checkExistHandler("Location", "locSN", cuParam.get("locSN"))){
+						errMap.put("locSNE", "該地點不存在");
+					}
+				}
+				if (!cuParam.get("minMember").isEmpty() && integerValidator.validate(cuParam.get("minMember")) == null) {
+					errMap.put("minMemberE", "需為整數");
+				}
+				if (!cuParam.get("beginTime").isEmpty() && dateValidator.validate(cuParam.get("beginTime"), "yyyy/MM/dd HH:mm") == null) {
+					errMap.put("beginTimeE", "日期格式不符 (請參考: 2017/01/01 13:01)");
+				}
+				if (!cuParam.get("endTime").isEmpty() && dateValidator.validate(cuParam.get("endTime"), "yyyy/MM/dd HH:mm") == null) {
+					errMap.put("endTimeE", "日期格式不符 (請參考: 2017/01/01 13:01)");
+				}
+				if (!cuParam.get("eventState").isEmpty() && integerValidator.validate(cuParam.get("eventState")) == null) {
+					errMap.put("eventStateE", "需為整數");
+				}
+				if (!cuParam.get("maxMember").isEmpty() && integerValidator.validate(cuParam.get("maxMember")) == null) {
+					errMap.put("maxMemberE", "需為整數");
+				}
+				if (!cuParam.get("deadline").isEmpty() && dateValidator.validate(cuParam.get("deadline"), "yyyy/MM/dd HH:mm") == null) {
+					errMap.put("deadlineE", "日期格式不符 (請參考: 2017/01/01 13:01)");
+				}
+				if (errMap.size() != 0) {
+					return gson.toJson(errMap);
+				}
+				result = dataTablesService.ajaxEventCuHandler(cuParam);
+				break;
+			case "EventDetail":
+				if (forUpdate && integerValidator.validate(cuParam.get("eventSN")) == null) {
+					errMap.put("eventSNE", "不可為空且需為整數");
+				} 
+				if (forUpdate && integerValidator.validate(cuParam.get("mbrSN")) == null) {
+					errMap.put("mbrSNE", "不可為空且需為整數");
+				} 
+				if (!forUpdate
+						&& dataTablesService.checkExistHandler(table, "eventSN", "mbrSN", cuParam.get("eventSN"), cuParam.get("mbrSN"))) {
+					errMap.put("eventSNE", "複合主鍵已被使用");
+					errMap.put("mbrSNE", "複合主鍵已被使用");
+				}
+				if (errMap.size() != 0) {
+					return gson.toJson(errMap);
+				}
+				result = dataTablesService.ajaxEventDetailCuHandler(cuParam);
+				break;
+			case "Location":
+				if (forUpdate && integerValidator.validate(cuParam.get("locSN")) == null) {
+					errMap.put("locSNE", "不可為空且需為整數");
+				} else if (!forUpdate
+						&& dataTablesService.checkExistHandler(table, "locSN", cuParam.get("locSN"))) {
+					errMap.put("locSNE", "已被使用");
+				}
+				if (cuParam.get("locName") == null ||  cuParam.get("locName").length() > 50) {
+					errMap.put("locNameE", "長度不可超過50字");
+				}
+				if (cuParam.get("locLong") == null ||  cuParam.get("locLong").length() > 50) {
+					errMap.put("locLongE", "長度不可超過50字");
+				}
+				if (cuParam.get("locLat") == null ||  cuParam.get("locLat").length() > 50) {
+					errMap.put("locLatE", "長度不可超過50字");
+				}
+				if (cuParam.get("locPhone") == null ||  cuParam.get("locPhone").length() > 50) {
+					errMap.put("locPhoneE", "長度不可超過50字");
+				}
+				if (errMap.size() != 0) {
+					return gson.toJson(errMap);
+				}
+				result = dataTablesService.ajaxLocationCuHandler(cuParam);
 				break;
 			default:
 				break;
