@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import model.EventDetailBean;
 import model.EventDetailDao;
 import model.EventDetailPK;
+import model.MemberBean;
 
 @Repository(value="eventDetailDao")
 public class EventDetailDaoImpl implements EventDetailDao{
@@ -62,5 +63,13 @@ public class EventDetailDaoImpl implements EventDetailDao{
 	public int select(Integer a){
 		return this.getSession().createNativeQuery("select * from EventDetail where eventSN = '"+ a+"'").getResultList().size();
 	}
+	
+	/////輸入userSN 取出memberBean/////
+	public MemberBean mbrselect(Integer userSN){
+		MemberBean memberBean = null;
+		memberBean = (MemberBean) getSession().get(MemberBean.class, userSN);
+		return memberBean;
+	}
+	/////輸入userSN 取出memberBean/////
 	
 }

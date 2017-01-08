@@ -173,7 +173,7 @@ border: 1px solid;
 			
 			</div>
 			<div class="col-md-4">
-				<button type="button" class="btn btn-block btn-primary" style="font-size:22px">
+				<button type="button" class="btn btn-block btn-primary" style="font-size:22px" onclick="window.history.back()">
 					返回
 				</button>
 			</div>

@@ -70,7 +70,14 @@ public class EventService {
 		return eventDetailBean;
 	}
 	//333EventGo新增到eventSN mbrSN 到 EventDetail table//
-	//Eventing選擇位置與時間
-		
-	//Eventing選擇位置與時間
+	//Event從Member TABLE 選擇室長
+//	@Autowired
+//	@Resource(name="MemberInsertDao")
+//	MemberInsertDaoH memberInsertDaoH;
+//	public MemberBean eventGoSelect(int mbrSN){
+////		MemberBean memberBean = new MemberBean(mbrSN);
+//		MemberBean memberBean = memberInsertDaoH.select(mbrSN);
+//		return memberBean;
+//	}
+	//Event從Member TABLE 選擇室長
 }
