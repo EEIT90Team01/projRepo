@@ -1,0 +1,210 @@
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.open>a,
+	.navbar-header a:hover {
+	background-image: -o-linear-gradient(top, #3f51b5 0, #3f51b5 100%);
+	background-image: linear-gradient(to bottom, #3f51b5 0, #3f51b5 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdbdbdb',
+		endColorstr='#ffe2e2e2', GradientType=0);
+}
+
+.navbar-collapse.collapse {
+	display: block !important;
+	height: auto !important;
+	padding-bottom: 0;
+	overflow: visible !important;
+}
+
+.navbar-default { /*長條背景*/
+	background-image: -webkit-linear-gradient(top, #FFFFFF 0, #FFFFFF 100%);
+	background-image: -o-linear-gradient(top, #FFFFFF 0, #FFFFFF 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff),
+		to(#f8f8f8));
+	background-image: linear-gradient(to bottom, #FFFFFF 0, #FFFFFF 100%);
+}
+
+.middle-header {
+	border-color: #FFFFFF;
+}
+
+.navbar {
+	position: relative;
+	min-height: 0px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	/* font-size: 14px; */
+	line-height: 1.42857143;
+	color: #333;
+	background-color: #fff;
+}
+
+.title {
+	font-size: 18px;
+	line-height: 1;
+	margin: 0 0 10px;
+	padding: 0;
+	font-family: malgun gothic;
+}
+
+a {
+	font-family: "malgun gothic", simhei;
+}
+
+.title3 {
+	font-family: "malgun gothic", simhei;
+}
+
+#loadingIMG {
+	position: absolute;
+	height: 150px;
+	width: 150px;
+}
+
+td.details-control {
+	background: url('/FlipYouth/Tim/image/icon/open.png') no-repeat center
+		center;
+	cursor: pointer;
+}
+
+tr.details td.details-control {
+	background: url('/FlipYouth/Tim/image/icon/close.png') no-repeat center
+		center;
+}
+
+td.details-control {
+	background: url('/FlipYouth/Tim/image/icon/open.png') no-repeat center
+		center;
+	cursor: pointer;
+}
+
+tr.details td.details-control {
+	background: url('/FlipYouth/Tim/image/icon/close.png') no-repeat center
+		center;
+}
+
+.fc-time {
+	display: none;
+}
+
+.ui-datepicker-month, .ui-datepicker-year {
+	color: black
+}
+
+#ui-datepicker-div {
+	width: 216px
+}
+
+.colortitle {
+	margin: 10px;
+	height: 34px;
+	opacity: 0.85 !important;
+	font-size: 24px;
+	color: white;
+	padding: 0 29px;
+}
+
+.fc-today {
+	opacity: 0;
+	border: none;
+}
+/* Styling for each event from Schedule */
+.fc-time-grid-event.fc-v-event.fc-event {
+	border-radius: 4px;
+	border: none;
+	padding: 5px;
+	opacity: .65;
+	left: 5% !important;
+	right: 5% !important;
+}
+/* Bolds the name of the event and inherits the font size */
+.fc-event {
+	font-size: inherit !important;
+	font-weight: bold !important;
+}
+/* Remove the header border from Schedule */
+.fc td, .fc th {
+	border-style: none !important;
+	border-width: 1px !important;
+	padding: 0 !important;
+	vertical-align: top !important;
+}
+/* Inherits background for each event from Schedule. */
+.fc-event .fc-bg {
+	z-index: 1 !important;
+	background: inherit !important;
+	opacity: .25 !important;
+}
+/* Normal font weight for the time in each event */
+.fc-time-grid-event .fc-time {
+	font-weight: normal !important;
+}
+/* Apply same opacity to all day events */
+.fc-ltr .fc-h-event.fc-not-end, .fc-rtl .fc-h-event.fc-not-start {
+	opacity: .65 !important;
+	margin-left: 12px !important;
+	padding: 5px ! important;
+}
+/* Apply same opacity to all day events */
+.fc-day-grid-event.fc-h-event.fc-event.fc-not-start.fc-end {
+	opacity: .65 !important;
+	margin-left: 12px !important;
+	padding: 5px ! important;
+}
+
+html, #header {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.shopTopTitle {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	font-weight: 600;
+	font-family: Microsoft JhengHei;
+	color: #D6FF79;
+	font-size: 36px;
+}
+
+li[role="presentation"] {
+	margin: 0 1%;
+}
+.scroll-300 {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 99999;
+}
+
+.navbar-nav {
+	margin: 0 auto;
+	display: table;
+	table-layout: auto;
+	float: none;
+	width: 100%;
+}
+
+.navbar-nav>li {
+	display: table-cell;
+	float: none; */
+	text-align: center;
+}
+
+.menuIcon {
+	height: 70px;
+	width: 70px;
+	background: url(/FlipYouth/Tim/image/icon/menu_icon.png) no-repeat;
+	position: absolute;
+	top: 95px;
+	left: 50px;
+	z-index: 100;
+	text-align: center;
+	padding: 0 15px;
+	box-sizing: border-box;
+}

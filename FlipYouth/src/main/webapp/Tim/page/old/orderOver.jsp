@@ -176,7 +176,7 @@ strong {
 				<div class="col-xs-12" style="height: 30px"></div>
 				<div class="col-xs-12 orderStatus">
 					親愛的 ${loginOK.mbrName}先生，感謝您於本商店購物。您的訂單明細已同步發送至您的信箱。 <br>
-					歡迎使用「訂單查詢」功能查詢目前訂單狀態，謝謝。 <br> 訂單編號：<b>${order.orderSN}</b> 狀態：<b>新單
+					歡迎使用「訂單明細」功能查詢目前訂單狀態，謝謝。 <br> 訂單編號：<b>${order.orderSN}</b> 狀態：<b>新單
 					</b><br>
 				</div>
 

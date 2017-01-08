@@ -49,7 +49,13 @@ $(document)
 		$(e.target).find('form')[0].reset();}
 		$(e.target).find('img').attr('src','').removeData('temp');
 		$(e.target).find('.form-control').removeData('temp'); //清除初始值
-	})
+	}).on('shown.bs.modal', function (e){
+		$toFocus = $(e.target).find('input.isPk');
+		while ($toFocus.prop('readonly')===true){
+			$toFocus = $toFocus.parent().next().find('input');
+		}
+		$toFocus.focus();
+	});
 
 	//依table 顯示create/update form
 	function cuHandler(table, data) {

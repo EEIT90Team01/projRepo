@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>翻桌商城</title>
 
 <link href="<c:url value="/Tim/css_Tim/one-page-wonder.css"/>"
 	rel="stylesheet">
