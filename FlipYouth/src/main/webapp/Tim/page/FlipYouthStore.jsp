@@ -70,6 +70,8 @@
 	rel="stylesheet">
 
 <style type="text/css">
+#ui-datepicker-div{
+display: none}
 </style>
 <script type="text/javascript">
 	
@@ -93,7 +95,7 @@
 	<div id='nav-group' class="list-group-k">
 		<nav>
 		<ul>
-			<li><a href="<c:url value="/Tim/login/login.jsp"/>">Login</a></li>
+			<li><a href="<c:url value="/login/login.controller"/>">Login</a></li>
 			<li><a href="<c:url value='/pages/editMember.jsp'/>"> <img
 					src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>"
 					class="navimg">&nbsp&nbsp修改個人資料&nbsp
@@ -299,6 +301,7 @@
 			$('.a').hide();
 			var a = $(thiss).attr('aria-controls')
 			$('#' + a).show();
+			changeCar();
 		}
 		function toggleTabCar(thiss) {
 			$('#two').empty();
@@ -463,6 +466,9 @@
 		function toggledatatable() {
 			$('.b').toggle();
 			$('#calendar').fullCalendar('gotoDate', new Date());
+			$('#calendar').fullCalendar('removeEvents');
+		    $('#calendar').fullCalendar('refetchEvents');
+		    $('five').height($('.fc-content-skeleton').height()+100);
 		}
 	</script>
 

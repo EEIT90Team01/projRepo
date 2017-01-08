@@ -84,11 +84,21 @@ $(window).resize(function() {
 		     'left': (window_width / 2) - (obj_width / 2)
 		 });
 		}
-
+		function changeCar(){
+			$.ajax({
+				url : "/FlipYouth/writeCar.controller",
+				success :function(response){
+					$('#car').html(response);
+				}
+				
+			})	
+			
+		}
 
 //	<!-- fullcalendar  iooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
 		$(document).ready(
 				function() {
+					
 					var date = new Date();
 					var d = date.getDate();
 					var m = date.getMonth();
@@ -104,6 +114,7 @@ $(window).resize(function() {
 					});
 					$('#calendar').fullCalendar(
 							{	editable : false,
+								 height: "auto",
 								header : {
 									left : 'myCustomButton,prev,next today',
 									center : 'title',

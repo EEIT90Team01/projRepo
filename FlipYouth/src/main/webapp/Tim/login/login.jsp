@@ -56,7 +56,8 @@
 	<div class="container" id="login-block">
 		<div class="row">
 			<div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-				<h3 class="animated bounceInDown">Login</h3>
+				<h3
+					class="animated bhttp://localhost:8080/FlipYouth/login/login.controller#ounceInDown">Login</h3>
 				<div class="login-box clearfix animated flipInY">
 					<div class="login-logo">
 						<a href="#"><img style="height: 100px; width: 100px"
@@ -65,19 +66,21 @@
 
 					<hr />
 					<div class="login-form">
-						<div class="alert alert-error hide">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<div class="row">
-								<div class="col-sm-12 "
-									style="font-family: Microsoft JhengHei; color: red; text-align: center;">${loginError}</div>
-								<div class="col-sm-12 "
-									style="font-family: Microsoft JhengHei; color: #00b707; text-align: center;">
-									<c:out
-										value="${empty loginOK.nickName ? '' : loginOK.nickName+='已登入'}" />
-								</div>
+						<div class="row">
+<!-- 							<div class="col-sm-12 " -->
+<!-- 								style="font-family: Microsoft JhengHei; color: red; text-align: center;"> -->
+								
+<%-- 								<c:out --%>
+<%-- 									value="${empty loginOK.nickName ? '' : loginOK.nickName+='已登入'}" /> --%>
+<!-- 								</div> -->
+							<div class="col-sm-12 "
+								style="font-family: Microsoft JhengHei; color: red; text-align: center;">
+								<c:out
+									value="${empty loginOK.nickName ? loginError : loginOK.nickName+='已登入'}" />
 							</div>
-
 						</div>
+
+
 						<form action="<c:out value="/FlipYouth/login/login.controller"/>"
 							id="LoginForm" method="post">
 							<div class="row">
@@ -200,7 +203,7 @@
 					withCredentials : false
 				},
 				success : function(res) {
-					window.location.href=res
+					window.location.href = res
 				},
 
 			})
