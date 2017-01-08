@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import model.EventBean;
 import model.EventDao;
+import model.MemberBean;
 
 @Repository(value = "eventDao")
 public class EventDaoImpl implements EventDao {
@@ -65,4 +66,5 @@ public class EventDaoImpl implements EventDao {
 		bean = (EventBean) getSession().get(EventBean.class, beginTime);
 		return bean;
 	}
+	
 }

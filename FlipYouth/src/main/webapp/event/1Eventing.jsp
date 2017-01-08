@@ -135,7 +135,7 @@ border: 1px solid;
 												</div>
 												<div style="float: right">
 													<a
-														href="<c:url value="/events/eventDetail4Mbr.controller"/>?eventSN=${element.EventBean.eventSN}"><button
+														href="<c:url value="/events/eventDetail4Mbr.controller"/>?eventSN=${element.EventBean.eventSN}&locName=${element.Location.locName}&hostName=${element.EventBean.hostMbrSN.mbrName}"><button
 															class="btn btn-lg btn-primary btn-block" type="button">&gt;&gt;&gt;加入此團&lt;&lt;&lt;</button></a>
 												</div>
 											</td>
@@ -239,9 +239,9 @@ border: 1px solid;
 					創建揪團啦</button>
 			</div>
 			<div class="col-md-4">
-<!--TODO 這裡有會員登入的話要把11改掉!!!!!!!!!!!!!! -->
-				<a href="<c:url value="/events/myEvent.controller"/>?mbrSN=11">
-<!--TODO 這裡有會員登入的話要把11改掉!!!!!!!!!!!!!! -->
+<!--TODO 這裡有會員登入的話要把11改掉 1Eventing.jsp EventGoController.java!!!!!!!!!!!!!! -->
+				<a href="<c:url value="/events/myEvent.controller"/>?mbrSN=11&eventSN=null">
+<!--TODO 這裡有會員登入的話要把11改掉 1Eventing.jsp EventGoController.java!!!!!!!!!!!!!! -->
 					<button type="button" class="btn btn-primary btn-block">我的揪團</button>
 				</a>
 			</div>

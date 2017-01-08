@@ -23,7 +23,7 @@
 			<version>1.5.1</version>
 		</dependency>
 
-		
+
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
@@ -163,13 +163,22 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.microsoft.sqlserver.jdbc</groupId>
 			<artifactId>sqljdbc</artifactId>
 			<version>42</version>
 		</dependency>
-
+		
+		<!-- ///Federer/// -->
+		<!-- https://mvnrepository.com/artifact/com.google.code.geocoder-java/geocoder-java -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.code.geocoder-java</groupId> -->
+<!-- 			<artifactId>geocoder-java</artifactId> -->
+<!-- 			<version>0.16</version> -->
+<!-- 		</dependency> -->
+		<!-- ///Federer/// -->
+		
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>

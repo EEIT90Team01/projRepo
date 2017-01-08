@@ -67,7 +67,8 @@
 	</bean>
 
 <!--========================= 	Samuel 	檔案		========================= -->
-<!-- Federer -->
+
+<!-- Federer --> <!-- Federer --> <!-- Federer --> <!-- Federer --> <!-- Federer -->
 <bean id="EventDetail4Host.index" class="org.springframework.web.servlet.view.RedirectView">
 	<property name="url" value="/event/3EventDetail4Host.jsp" />
 	<property name="contextRelative" value="true" />
@@ -97,5 +98,11 @@
 	<property name="contextRelative" value="true" />
 </bean>
 
-<!-- Federer -->
+<bean id="EventSNDetail.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/4EventSNDetail.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
+<!-- Federer --> <!-- Federer --> <!-- Federer --> <!-- Federer --> <!-- Federer -->
+
 </beans>

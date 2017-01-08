@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -104,19 +105,12 @@ body {
 			<div class="col-md-12">
 				<h1 style="text-align: center">&nbsp;揪團中&nbsp;</h1>
 				<table class="table">
-					<thead>
-						<tr>
-							<th>建立時間:</th>
-							<th></th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
+					
 					<tbody>
 
 						<tr class="active">
 							<td class="col-md-2">揪團流水號:</td>
-							<td class="col-md-5">#</td>
+							<td class="col-md-5"># ${eventDetail4Mbr.eventSN}</td>
 							<td class="col-md-3">
 								<!-- 							<div class="col-md-7"> --> <!-- 								<button type="button" class="btn btn-primary btn-block"> -->
 								<!-- 									&gt;&gt;&gt;揪團明細&lt;&lt;&lt; --> <!-- 								</button> -->
@@ -127,30 +121,37 @@ body {
 
 						<tr class="info">
 							<td class="col-md-2">房主:</td>
-							<td class="col-md-5"><span> <img width="50"
-									height="50" alt="Bootstrap Image Preview"
-									src="http://lorempixel.com/140/140/" class="img-circle" />
-							</span> <span> 輕功水上漂 </span></td>
+							<td class="col-md-5"><span> 
+													<img width="50" height="50"
+														alt="Bootstrap Image Preview"
+														src="data:image/png;base64,${eventDetail4Mbr.hostimage} "
+														class="img-circle" />
+							</span> <span> ${eventDetail4Mbr.hostName} </span></td>
 							<td class="col-md-3">
 								<div class="col-md-7">
+<!-- 				連結到碩言的會員資料 -->
+									<a href="<c:url value='/events/myEvent.controller'/>?mbrName=${eventDetail4Mbr.hostName}">
+<!-- 				連結到碩言的會員資料 -->
 									<button type="button" class="btn btn-primary btn-block">
 										&gt;&gt;&gt;房主資料&lt;&lt;&lt;</button>
+									</a>
 								</div>
 							</td>
 							<td class="col-md-3" rowspan="6"><iframe width="350"
 									height="350" frameborder="0" style="border: 0"
-									src="https://www.google.com/maps/embed/v1/search?q=台灣台北市大安區仁愛路四段345巷4弄24號&key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw"
+									src="https://www.google.com/maps/embed/v1/search?q=${eventDetail4Mbr.locName}&key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw"
 									allowfullscreen></iframe></td>
 						</tr>
 
 						<tr>
 							<td class="col-md-2">位置:</td>
-							<td class="col-md-5">北市松山區XX路XX號(店名)</td>
+							<td class="col-md-5">${eventDetail4Mbr.locName}</td>
 							<td class="col-md-3">
 								<div class="col-md-7">
-									<button type="submit" class="btn btn-primary btn-block"
-										onclick="window.location.href='5LocationDetail.jsp'">
+								<a href="<c:url value="/events/locationDetail.controller"/>?locName=${eventDetail4Mbr.locName}">
+									<button type="button" class="btn btn-primary btn-block">
 										&gt;&gt;&gt;位置明細&lt;&lt;&lt;</button>
+								</a>
 								</div>
 							</td>
 
@@ -158,48 +159,74 @@ body {
 
 						<tr class="success">
 							<td>成員:</td>
-							<td><img width="50" height="50"
-								alt="Bootstrap Image Preview"
-								src="http://lorempixel.com/140/140/" class="img-circle" /> <img
-								width="50" height="50" alt="Bootstrap Image Preview"
-								src="http://lorempixel.com/140/140/" class="img-circle" /> <img
-								width="50" height="50" alt="Bootstrap Image Preview"
-								src="http://lorempixel.com/140/140/" class="img-circle" /> <img
-								width="50" height="50" alt="Bootstrap Image Preview"
-								src="http://lorempixel.com/140/140/" class="img-circle" /> <img
-								width="50" height="50" alt="Bootstrap Image Preview"
-								src="http://lorempixel.com/140/140/" class="img-circle" /></td>
+							<td>
+								<div>
+									<c:forEach items="${eventDetail4MbrData}" var="element">
+											<span><img width="50" height="50"
+														alt="Bootstrap Image Preview"
+														src="data:image/png;base64,${element.image} "
+														class="img-circle" /></span>
+									</c:forEach>
+								</div>
+							</td>
 							<td>
 								<div class="col-md-7">
-									<button type="submit" class="btn btn-primary btn-block"
-										onclick="window.location.href='4EventSNDetail.jsp'">
+								<a href="<c:url value="/events/eventSNDetail.controller"/>?eventSN=${eventDetail4Mbr.eventSN}&locName=${eventDetail4Mbr.locName}">
+									<button type="button" class="btn btn-primary btn-block">
 										&gt;&gt;&gt;揪團明細&lt;&lt;&lt;</button>
+								</a>
 								</div>
 							</td>
 						</tr>
 
 						<tr class="warning">
 							<td>人數:</td>
-							<td>XX~OO人</td>
+							<td>
+								<c:if test="${eventDetail4Mbr.downNumber=='0'}">
+								無人數下限 
+								</c:if>
+								<c:if test="${eventDetail4Mbr.downNumber!='0'}">
+								${eventDetail4Mbr.downNumber}
+								</c:if>
+								<span> ~ </span>
+								<c:if test="${eventDetail4Mbr.upNumber=='9999'}">
+								無人數上限 
+								</c:if>
+								<c:if test="${eventDetail4Mbr.upNumber!='9999'}">
+								${eventDetail4Mbr.upNumber} 人
+								</c:if>
+							</td>
 							<td>
 								<div class="progress active progress-striped">
 									<div class="progress-bar progress-success" role="progressbar"
 										aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-										style="width: 50%"></div>
+										style="width: 30%"></div>
 								</div>
 							</td>
 						</tr>
 
 						<tr class="danger">
 							<td>開戰時間:</td>
-							<td>XXXX~OOOO</td>
-							<td>狀態:XXX中</td>
+							<td>
+							 	<fmt:formatDate value="${eventDetail4Mbr.startTime}" pattern=" yyyy年  MM月  dd日  HH:mm " />
+								~
+								<fmt:formatDate value="${eventDetail4Mbr.endTime}" pattern=" HH:mm" />
+							</td>
+							<td>
+<!-- 							狀態:XXX中 -->
+							</td>
 						</tr>
 
 						<tr bgcolor="pink">
 							<td>揪團截止時間:</td>
-							<td>XXXXXX</td>
-							<td>狀態:XXX中</td>
+							<td>
+								<fmt:formatDate value="${eventDetail4Mbr.closetTime}" pattern=" yyyy年  MM月  dd日  HH:mm " />
+							</td>
+							<td>
+								<c:if test="${eventDetail4Mbr.eventState=='1'}">
+									狀態:揪團中
+								</c:if>
+							</td>
 						</tr>
 
 					</tbody>
@@ -210,9 +237,11 @@ body {
 		<!-- /////bottom//// -->
 		<div class="row">
 			<div class="col-md-6">
-				<button type="submit" class="btn btn-primary btn-block"
-					style="font-size: 22px"
-					onclick="window.location.href='<c:url value='/event/6MyEvent.jsp' />'">加入</button>
+<!-- 				會員登入後要改!!!! -->
+				<a href="<c:url value="/events/3EventDetail4Mbrto6MyEvent.controller"/>?eventSN=${eventDetail4Mbr.eventSN}&mbrSN=12">
+<!-- 				會員登入後要改!!!! -->
+					<button type="button" class="btn btn-primary btn-block" style="font-size: 22px">加入</button>
+				</a>
 			</div>
 
 			<div class="col-md-6">

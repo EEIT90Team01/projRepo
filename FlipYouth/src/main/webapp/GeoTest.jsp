@@ -31,9 +31,13 @@
                     if (status == google.maps.GeocoderStatus.OK) {
                         var content = $("#target").val();
                         $("#target").val(results[0].geometry.location.lat() + "," + results[0].geometry.location.lng());
+                        $("#targetlat").val(results[0].geometry.location.lat());
+                        $("#targetlong").val(results[0].geometry.location.lng());
                     } else {
                         var content = $("#target").val();
-                        $("#target").val("NULL");
+                        $("#target").val("Null");
+                        $("#targetlat").val("Null");
+                        $("#targetlong").val("Null");
                     }
                 });
             }
@@ -52,6 +56,7 @@
 		<p>
 			<textarea rows="9" name="S2" cols="67" id="target"></textarea>
 		</p>
-
+		<input type="text" id="targetlat"></input>
+		<input type="text" id="targetlong"></input>
 	</body>
 </html>

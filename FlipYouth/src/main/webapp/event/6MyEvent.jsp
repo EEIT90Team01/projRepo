@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -105,58 +106,92 @@ border: 1px solid;
 		<div class="col-md-12">
 			<h1 style="text-align: center">&nbsp;我的揪團&nbsp;</h1>
 		</div>
-
-		<!-- /////第一個TABLE///// -->
+<!-- /////////////// -->
+<%-- 		<c:forEach items="${myEventData}" var="eventDetail"> --%>
+<%-- 			${eventDetail.EventDetailBean}<br> --%>
+<%-- 			${eventDetail.EventDetailBean}<br> --%>
+<%-- 			${eventDetail.EventBean}<br> --%>
+<%-- 			${eventDetail.locName}<br> --%>
+<%-- 			${eventDetail.image}<br> --%>
+<%-- 		</c:forEach> --%>
+<%-- 		<c:remove var="myEventData"></c:remove> --%>
+<!-- /////////////// -->
+	<div>
+		<c:forEach items="${myEventData}" var="element" varStatus="theCount">
+		<c:if test="${element.EventBean.eventState=='1'}">
+<%-- 		${element.EventDetailBean.eventDetailPK.mbrSN.mbrSN} --%>
+		<!-- /////TABLE///// -->
 		<div class="row">
 			<div class="col-md-12">
 				<table class="table">
 					<tbody>
 
-						<tr class="active">
-							<td class="col-md-1" rowspan="3"><span> #1 </span></td>
+						<tr class="info">
+							<td class="col-md-1" rowspan="3">
+								<span> 第 ${theCount.count} 團 </span>
+							</td>
 							<td colspan="3">
 								<div style="float: left" class="col-md-3">
-									揪團流水號: <span> #123456 </span>
+									揪團流水號: <span> # ${element.EventBean.eventSN} </span>
 								</div>
 								<div style="float: left">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">
+									<a href="<c:url value="/events/myEvent.controller"/>?eventSN=${element.EventBean.eventSN}&mbrSN=${element.EventDetailBean.eventDetailPK.mbrSN.mbrSN}">
+									<button class="btn btn-lg btn-primary btn-block" type="button">
 										&gt;&gt;&gt;退出此團&lt;&lt;&lt;</button>
+									</a>
 								</div>
 								<div style="float: left; margin-left: 30px">
+									<a href="<c:url value="/events/eventSNDetail.controller"/>?eventSN=${element.EventBean.eventSN}&locName=${element.locName}">
 									<button class="btn btn-lg btn-primary btn-block" type="submit">
 										&gt;&gt;&gt;揪團明細&lt;&lt;&lt;</button>
+									</a>
 								</div>
 							</td>
 							<td class="col-md-1" rowspan="3"></td>
 						</tr>
 
-						<tr class="active">
+						<tr class="info">
 							<td class="col-md-5">
 								<div style="float: left">
-									<span>房主:</span> <img width="50" height="50"
-										alt="Bootstrap Image Preview"
-										src="http://lorempixel.com/140/140/" class="img-circle" /> <span>輕功水上漂</span>
+									<span>房主:</span> 
+									<img width="50" height="50"
+														alt="Bootstrap Image Preview"
+														src="data:image/png;base64,${element.image} "
+														class="img-circle" /> 
+										<span>${element.EventBean.hostMbrSN.mbrName}</span>
 								</div>
 							</td>
 							<td class="col-md-5">
 								<div style="float: left">
-									<span>位置:</span> <span>北市松山區XX路XX號</span>
+									<span>位置:</span> 
+									<span>${element.locName}</span>
 								</div>
 							</td>
 						</tr>
-						<tr class="active">
+						<tr class="info">
 							<td class="col-md-5">
 								<div style="float: left">
-									<span>日期:&nbsp;</span> <span>2016/12/25</span>
+									<span>日期:&nbsp;</span> <span><fmt:formatDate
+															value="${element.EventBean.beginTime}"
+															pattern=" yyyy年  MM月  dd日" /></span>
 								</div>
 								<div style="float: left">
-									<span>&nbsp;&nbsp;</span> <span>時間:&nbsp;</span> <span>10:25</span>
-									<span>&nbsp;~&nbsp;</span> <span>22:00</span>
+									<span>&nbsp;&nbsp;</span> <span>時間:&nbsp;</span> <span><fmt:formatDate
+															value="${element.EventBean.beginTime}"
+															pattern=" HH:mm" /></span>
+									<span>&nbsp;~&nbsp;</span> <span><fmt:formatDate
+															value="${element.EventBean.endTime}"
+															pattern=" HH:mm" /></span>
 								</div>
 							</td>
 							<td class="col-md-5">
 								<div style="float: left">
-									<span>狀態:&nbsp;</span> <span>開團中</span>
+									<span>狀態:&nbsp;</span> 
+									<span>
+<%-- 										<c:if test="${element.EventBean.eventState=='1'}"> --%>
+											開團中
+<%-- 										</c:if> --%>
+									</span>
 								</div>
 							</td>
 						</tr>
@@ -166,91 +201,38 @@ border: 1px solid;
 			</div>
 		</div>
 		<!-- //////////////////// -->
-
-		<!-- /////第二個TABLE///// -->
-		<div class="row">
-			<div class="col-md-12">
-				<table class="table">
-					<tbody>
-
-						<tr class="info">
-							<td class="col-md-1" rowspan="3"><span> #2 </span></td>
-							<td colspan="3">
-								<div style="float: left" class="col-md-3">
-									揪團流水號: <span> #123457 </span>
-								</div>
-								<div style="float: left">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">
-										&gt;&gt;&gt;退出此團&lt;&lt;&lt;</button>
-								</div>
-								<div style="float: left; margin-left: 30px">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">
-										&gt;&gt;&gt;揪團明細&lt;&lt;&lt;</button>
-								</div>
-							</td>
-							<td class="col-md-1" rowspan="3"></td>
-						</tr>
-
-						<tr class="info">
-							<td class="col-md-5">
-								<div style="float: left">
-									<span>房主:</span> <img width="50" height="50"
-										alt="Bootstrap Image Preview"
-										src="http://lorempixel.com/140/140/" class="img-circle" /> <span>輕功水上漂</span>
-								</div>
-							</td>
-							<td class="col-md-5">
-								<div style="float: left">
-									<span>位置:</span> <span>北市松山區XX路XX號</span>
-								</div>
-							</td>
-						</tr>
-						<tr class="info">
-							<td class="col-md-5">
-								<div style="float: left">
-									<span>日期:&nbsp;</span> <span>2016/12/25</span>
-								</div>
-								<div style="float: left">
-									<span>&nbsp;&nbsp;</span> <span>時間:&nbsp;</span> <span>10:25</span>
-									<span>&nbsp;~&nbsp;</span> <span>22:00</span>
-								</div>
-							</td>
-							<td class="col-md-5">
-								<div style="float: left">
-									<span>狀態:&nbsp;</span> <span>開團中</span>
-								</div>
-							</td>
-						</tr>
-
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<!-- //////////////////// -->
+		</c:if>
+		</c:forEach>
+		
+	</div>
 
 		<div class="col-md-12">
 			<h1 style="text-align: center">&nbsp;歷史揪團&nbsp;</h1>
 		</div>
 
-		<!-- /////第一個TABLE///// -->
+		<div>
+		<c:forEach items="${myEventData}" var="element">
+		<c:if test="${element.EventBean.eventState=='0'}">
+<%-- 		${element.EventDetailBean.eventDetailPK.mbrSN.mbrSN} --%>
+		<!-- /////TABLE///// -->
 		<div class="row">
 			<div class="col-md-12">
 				<table class="table">
 					<tbody>
 
 						<tr class="active">
-							<td class="col-md-1" rowspan="3"><span> #1 </span></td>
+							<td class="col-md-1" rowspan="3">
+<%-- 								<span>第 ${theCount1.count} 團</span> --%>
+							</td>
 							<td colspan="3">
 								<div style="float: left" class="col-md-3">
-									揪團流水號: <span> #111111 </span>
+									揪團流水號: <span> # ${element.EventBean.eventSN} </span>
 								</div>
-<!-- 								<div style="float: left"> -->
-<!-- 									<button class="btn btn-lg btn-primary btn-block" type="submit"> -->
-<!-- 										&gt;&gt;&gt;評比此團&lt;&lt;&lt;</button> -->
-<!-- 								</div> -->
-								<div style="float: left; margin-left: 30px">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">
+								<div style="float: left">
+									<a href="<c:url value="/events/myEvent.controller"/>?eventSN=${element.EventBean.eventSN}&mbrSN=${element.EventDetailBean.eventDetailPK.mbrSN.mbrSN}">
+									<button class="btn btn-lg btn-primary btn-block" type="button">
 										&gt;&gt;&gt;刪除紀錄&lt;&lt;&lt;</button>
+									</a>
 								</div>
 							</td>
 							<td class="col-md-1" rowspan="3"></td>
@@ -259,30 +241,43 @@ border: 1px solid;
 						<tr class="active">
 							<td class="col-md-5">
 								<div style="float: left">
-									<span>房主:</span> <img width="50" height="50"
-										alt="Bootstrap Image Preview"
-										src="http://lorempixel.com/140/140/" class="img-circle" /> <span>輕功水上漂</span>
+									<span>房主:</span> 
+									<img width="50" height="50"
+														alt="Bootstrap Image Preview"
+														src="data:image/png;base64,${element.image} "
+														class="img-circle" /> 
+										<span>${element.EventBean.hostMbrSN.mbrName}</span>
 								</div>
 							</td>
 							<td class="col-md-5">
 								<div style="float: left">
-									<span>位置:</span> <span>北市松山區XX路XX號</span>
+									<span>位置:</span> 
+									<span>${element.locName}</span>
 								</div>
 							</td>
 						</tr>
 						<tr class="active">
 							<td class="col-md-5">
 								<div style="float: left">
-									<span>日期:&nbsp;</span> <span>2016/12/25</span>
+									<span>日期:&nbsp;</span> <span><fmt:formatDate
+															value="${element.EventBean.beginTime}"
+															pattern=" yyyy年  MM月  dd日" /></span>
 								</div>
 								<div style="float: left">
-									<span>&nbsp;&nbsp;</span> <span>時間:&nbsp;</span> <span>10:25</span>
-									<span>&nbsp;~&nbsp;</span> <span>22:00</span>
+									<span>&nbsp;&nbsp;</span> <span>時間:&nbsp;</span> <span><fmt:formatDate
+															value="${element.EventBean.beginTime}"
+															pattern=" HH:mm" /></span>
+									<span>&nbsp;~&nbsp;</span> <span><fmt:formatDate
+															value="${element.EventBean.endTime}"
+															pattern=" HH:mm" /></span>
 								</div>
 							</td>
 							<td class="col-md-5">
 								<div style="float: left">
-									<span>狀態:&nbsp;</span> <span>結束</span>
+									<span>狀態:&nbsp;</span> 
+									<span>
+											已結束
+									</span>
 								</div>
 							</td>
 						</tr>
@@ -292,67 +287,10 @@ border: 1px solid;
 			</div>
 		</div>
 		<!-- //////////////////// -->
-
-		<!-- /////第二個TABLE///// -->
-		<div class="row">
-			<div class="col-md-12">
-				<table class="table">
-					<tbody>
-
-						<tr class="info">
-							<td class="col-md-1" rowspan="3"><span> #2 </span></td>
-							<td colspan="3">
-								<div style="float: left" class="col-md-3">
-									揪團流水號: <span> #111110 </span>
-								</div>
-<!-- 								<div style="float: left"> -->
-<!-- 									<button class="btn btn-lg btn-primary btn-block" type="submit"> -->
-<!-- 										&gt;&gt;&gt;評比此團&lt;&lt;&lt;</button> -->
-<!-- 								</div> -->
-								<div style="float: left; margin-left: 30px">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">
-										&gt;&gt;&gt;刪除紀錄&lt;&lt;&lt;</button>
-								</div>
-							</td>
-							<td class="col-md-1" rowspan="3"></td>
-						</tr>
-
-						<tr class="info">
-							<td class="col-md-5">
-								<div style="float: left">
-									<span>房主:</span> <img width="50" height="50"
-										alt="Bootstrap Image Preview"
-										src="http://lorempixel.com/140/140/" class="img-circle" /> <span>輕功水上漂</span>
-								</div>
-							</td>
-							<td class="col-md-5">
-								<div style="float: left">
-									<span>位置:</span> <span>北市松山區XX路XX號</span>
-								</div>
-							</td>
-						</tr>
-						<tr class="info">
-							<td class="col-md-5">
-								<div style="float: left">
-									<span>日期:&nbsp;</span> <span>2016/12/25</span>
-								</div>
-								<div style="float: left">
-									<span>&nbsp;&nbsp;</span> <span>時間:&nbsp;</span> <span>10:25</span>
-									<span>&nbsp;~&nbsp;</span> <span>22:00</span>
-								</div>
-							</td>
-							<td class="col-md-5">
-								<div style="float: left">
-									<span>狀態:&nbsp;</span> <span>結束</span>
-								</div>
-							</td>
-						</tr>
-
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<!-- //////////////////// -->
+		</c:if>
+		</c:forEach>
+		<c:remove var="myEventData"></c:remove>
+	</div>
 
 		<!-- /////bottom//// -->
 		<div class="row">

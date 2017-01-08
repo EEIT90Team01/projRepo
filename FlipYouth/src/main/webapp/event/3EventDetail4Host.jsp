@@ -298,9 +298,11 @@
 		<!-- /////bottom//// -->
 		<div class="row">
 			<div class="col-md-6">
-				<button type="submit" class="btn btn-primary btn-block" style="font-size:22px" name="buttonState" value="Insert" onclick="window.location.href='<c:url value='/event/6MyEvent.jsp' />'">
+				<a href="<c:url value='/events/myEvent.controller'/>?mbrSN=${eventGo.userSN}">
+				<button type="submit" class="btn btn-primary btn-block" style="font-size:22px" name="buttonState" value="Insert">
 					確定無誤
 				</button>
+				</a>
 			</div>
 
 <!-- 			<div class="col-md-4"> -->

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -115,18 +116,18 @@ border: 1px solid;
 			揪團流水號:
 		</td>
 		<td class="col-md-4">
-			#
+			# ${eventSNDetail.eventSN}
 		</td>
 		<td class="col-md-6" rowspan="3">
 			<div>
-			地點: 北市松山區XX路XX號(店名)
+			地點: ${eventSNDetail.locName}
 			</div>
 			<div>
-			時間: XXXX~OOOO
+			時間: <fmt:formatDate value="${eventSNDetail.startTime}" pattern=" yyyy年  MM月  dd日  HH:mm " /> ~ <fmt:formatDate value="${eventSNDetail.endTime}" pattern=" HH:mm" />
 			</div>
 			<div>
 			<iframe width="630" height="380" frameborder="0" style="border:0"
-								src="https://www.google.com/maps/embed/v1/search?q=台灣台北市大安區仁愛路四段345巷4弄24號&key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw" allowfullscreen></iframe>	
+								src="https://www.google.com/maps/embed/v1/search?q=${eventSNDetail.locName}&key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw" allowfullscreen></iframe>	
 			</div>
 		</td>
 	</tr>
@@ -136,14 +137,17 @@ border: 1px solid;
 		</td>
 		<td class="col-md-4">
 			<div style="float:right">
+<!-- 				連結到碩言的會員資料 -->
+				<a href="<c:url value='/events/myEvent.controller'/>?mbrName=${eventSNDetail.hostName}">
+<!-- 				連結到碩言的會員資料 -->
 				<button type="button" class="btn btn-primary btn-block">
 					&gt;&gt;&gt;房主資料&lt;&lt;&lt;
-					<!-- 					碩言會員資料 -->
 				</button>
+				</a>
 			</div>
-			<img width="50" height="50" alt="Bootstrap Image Preview" 
-							src="http://lorempixel.com/140/140/" class="img-circle" />
-			<span>輕功水上漂</span>
+			<img width="50" height="50" alt="Bootstrap Image Preview"
+					src="data:image/png;base64,${eventSNDetail.hostimage} " class="img-circle" />
+			<span>${eventSNDetail.hostName}</span>
 		</td>		
 	</tr>
 	<tr class="success">
@@ -151,58 +155,29 @@ border: 1px solid;
 			成員:
 		</td>
 		<td class="col-md-4">
-			<p>
+		
+			<c:forEach items="${eventSNDetailData}" var="element">
+<%-- 			${element.mbrName} --%>
+<%-- 			${element.image} --%>
+<%-- 			<c:when test="${element.mbrName eq eventSNDetail.hostName}"> --%>
+			<div>
 			<div style="float:right">
+<!-- 				連結到碩言的會員資料 -->
+				<a href="<c:url value='/events/myEvent.controller'/>?mbrName=${element.mbrName}">
+<!-- 				連結到碩言的會員資料 -->
 				<button type="button" class="btn btn-danger btn-block">
 					&gt;&gt;&gt;會員資料&lt;&lt;&lt;
 					<!-- 					碩言會員資料 -->
 				</button>
+				</a>
 			</div>
-			<img width="50" height="50" alt="Bootstrap Image Preview" 
-							src="http://lorempixel.com/140/140/" class="img-circle" />
-			<span>輕功水上漂</span>
-			</p>
-			<p>
-			<div style="float:right">
-				<button type="button" class="btn btn-danger btn-block">
-					&gt;&gt;&gt;會員資料&lt;&lt;&lt;
-<!-- 					碩言會員資料 -->
-				</button>
+				<img width="50" height="50" alt="Bootstrap Image Preview"
+					src="data:image/png;base64,${element.image} " class="img-circle" />
+			<span>${element.mbrName}</span>
 			</div>
-			<img width="50" height="50" alt="Bootstrap Image Preview" 
-							src="http://lorempixel.com/140/140/" class="img-circle" />
-			<span>顆顆邊緣人</span>
-			</p>
-			<p>
-			<div style="float:right">
-				<button type="button" class="btn btn-danger btn-block">
-					&gt;&gt;&gt;會員資料&lt;&lt;&lt;
-				</button>
-			</div>
-			<img width="50" height="50" alt="Bootstrap Image Preview" 
-							src="http://lorempixel.com/140/140/" class="img-circle" />
-			<span>樹林烤雞腿</span>
-			</p>
-			<p>
-			<div style="float:right">
-				<button type="button" class="btn btn-danger btn-block">
-					&gt;&gt;&gt;會員資料&lt;&lt;&lt;
-				</button>
-			</div>
-			<img width="50" height="50" alt="Bootstrap Image Preview" 
-							src="http://lorempixel.com/140/140/" class="img-circle" />
-			<span>滿滿大平台</span>
-			</p>
-			<p>
-			<div style="float:right">
-				<button type="button" class="btn btn-danger btn-block">
-					&gt;&gt;&gt;會員資料&lt;&lt;&lt;
-				</button>
-			</div>
-			<img width="50" height="50" alt="Bootstrap Image Preview" 
-							src="http://lorempixel.com/140/140/" class="img-circle" />
-			<span>雷蒂嘎嘎嘎</span>
-			</p>
+<%-- 			</c:when> --%>
+			</c:forEach>
+			
 		</td>
 	</tr>
 	</tbody>

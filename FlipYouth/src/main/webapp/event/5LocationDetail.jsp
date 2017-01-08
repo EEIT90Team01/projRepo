@@ -43,6 +43,9 @@
       }
 </style>
 
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
 <!-- 
 <style type="text/css">
 div{
@@ -115,13 +118,14 @@ border: 1px solid;
 			地址:
 		</td>
 		<td class="col-md-4">
-			北市松山區XX路XX號
+			${locationDetail.locName}
 		</td>
 		<td class="col-md-6" rowspan="6">
 			<div>
 			<iframe width="630" height="380" frameborder="0" style="border:0"
-								src="https://www.google.com/maps/embed/v1/search?q=台灣台北市大安區仁愛路四段345巷4弄24號&key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw" allowfullscreen></iframe>	
+								src="https://www.google.com/maps/embed/v1/search?q=${locationDetail.locName}&key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw" allowfullscreen></iframe>	
 			</div>
+			<input type="hidden" id="address" value="${locationDetail.locName}" />
 		</td>
 	</tr>
 <!-- 	<tr> -->
@@ -145,15 +149,17 @@ border: 1px solid;
 			連絡電話:
 		</td>
 		<td class="col-md-4">
-			<span>XXXX-XXXXXXXXX</span>
+			<span>查無資料</span>
 		</td>
 	</tr>
+	
 	<tr class="warning">
 		<td class="col-md-2">
 			經度long:
 		</td>
 		<td class="col-md-4">
-			<span>XXXX</span>
+			<div id="long"></div>
+			24.1374957
 		</td>
 	</tr>
 	<tr class="success">
@@ -161,7 +167,8 @@ border: 1px solid;
 			緯度lat:
 		</td>
 		<td class="col-md-4">
-			<span>XXXX</span>
+			<div id="lat"></div>
+			120.68659930000001
 		</td>
 	</tr>
 	</tbody>
@@ -183,6 +190,19 @@ border: 1px solid;
 <!-- ////////// -->
 
 </div>
+<script type="text/javascript">
+// var geocoder = new google.maps.Geocoder();
+// var addr = $("#address").val();
+// geocoder.geocode({
+//         'address': addr
+//     }, function (results, status) {
+//         if (status == google.maps.GeocoderStatus.OK) {
+//             $('#lat').text(results[0].geometry.location.lat());
+//             $('#lng').text(results[0].geometry.location.lng());
+//     }
+// });
+/////////////////
 
+</script>
 </body>
 </html>

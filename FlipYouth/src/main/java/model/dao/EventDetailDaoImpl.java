@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import model.EventBean;
 import model.EventDetailBean;
 import model.EventDetailDao;
 import model.EventDetailPK;
@@ -72,4 +73,18 @@ public class EventDetailDaoImpl implements EventDetailDao{
 	}
 	/////輸入userSN 取出memberBean/////
 	
+	/////輸入mbrSN 取出EventDetailBean/////
+	public List<EventDetailBean> select(String mbrSN) {
+		List<EventDetailBean> beans = null;
+		beans = (List<EventDetailBean>) getSession().createQuery("from EventDetailBean where mbrSN="+mbrSN, EventDetailBean.class).getResultList();
+		return beans;
+	}
+	/////輸入mbrSN 取出EventDetailBean/////
+	/////輸入eventSN 取出EventDetailBean/////
+	public List<EventDetailBean> selecteventSN(String eventSN) {
+		List<EventDetailBean> eventDetailBeans = null;
+		eventDetailBeans = (List<EventDetailBean>) getSession().createQuery("from EventDetailBean where eventSN="+eventSN, EventDetailBean.class).getResultList();
+		return eventDetailBeans;
+	}
+	/////輸入eventSN 取出EventDetailBean/////	
 }
