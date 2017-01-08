@@ -86,5 +86,16 @@
 	<property name="url" value="/event/3EventDetail4Mbr.jsp" />
 	<property name="contextRelative" value="true" />
 </bean>
+
+<bean id="MyEvent.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/6MyEvent.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
+<bean id="LocationDetail.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/5LocationDetail.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
 <!-- Federer -->
 </beans>

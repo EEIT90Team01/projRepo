@@ -137,10 +137,7 @@ border: 1px solid;
 													<a
 														href="<c:url value="/events/eventDetail4Mbr.controller"/>?eventSN=${element.EventBean.eventSN}"><button
 															class="btn btn-lg btn-primary btn-block" type="button">&gt;&gt;&gt;加入此團&lt;&lt;&lt;</button></a>
-												</div> <!-- 											<div style="float: left; margin-left: 30px"> -->
-												<!-- 												<button class="btn btn-lg btn-primary btn-block" -->
-												<!-- 													type="submit">&gt;&gt;&gt;揪團明細&lt;&lt;&lt;</button> -->
-												<!-- 											</div> -->
+												</div>
 											</td>
 											<td class="col-md-1" rowspan="3"></td>
 										</tr>
@@ -190,6 +187,7 @@ border: 1px solid;
 						</div>
 					<!-- //////////////////// -->
 				</c:forEach>
+				
 			</div>
 
 			<!-- 			///////////////////////////// -->
@@ -240,10 +238,12 @@ border: 1px solid;
 				<button type="button" class="btn btn-primary btn-block">
 					創建揪團啦</button>
 			</div>
-			<div class="col-md-4"
-				onclick="window.location.href='<c:url value='/event/6MyEvent.jsp' />'">
-				<button type="submit" class="btn btn-primary btn-block">
-					我的揪團</button>
+			<div class="col-md-4">
+<!--TODO 這裡有會員登入的話要把11改掉!!!!!!!!!!!!!! -->
+				<a href="<c:url value="/events/myEvent.controller"/>?mbrSN=11">
+<!--TODO 這裡有會員登入的話要把11改掉!!!!!!!!!!!!!! -->
+					<button type="button" class="btn btn-primary btn-block">我的揪團</button>
+				</a>
 			</div>
 			<div class="col-md-4">
 				<button type="button" class="btn btn-block btn-primary"

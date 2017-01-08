@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -104,44 +105,61 @@
 			<h1 style="text-align: center">
 				&nbsp;揪團中&nbsp;
 			</h1>
+			
+			<div>
+		<!-- 			////FbBean沒有Address -->
+<%-- 		Address= 					${eventGo.Address}<br/> --%>
+		<!-- 			////FbBean沒有Address -->
+<%-- 		mbrName=					${listNameImg.hostName}<br/> --%>
+<%-- 		mbrimg=						${listNameImg.image}<br/> --%>
+<%-- 		userInputAddress= 			${eventGo.userInputAddress}<br/> --%>
+<%-- 		userSN=						${eventGo.userSN}<br/> --%>
+<%-- 		userAddAddress to locSN= 	${eventGo.userAddAddress}<br/> --%>
+<%-- 		startDateTime= 				${eventGo.startDateTime}<br/> --%>
+<%-- 		endDateTime= 				${eventGo.endDateTime}<br/> --%>
+<%-- 		closeDateTime= 				${eventGo.closeDateTime}<br/> --%>
+<%-- 		userAddUpLimit= 			${eventGo.userAddUpLimit}<br/> --%>
+<%-- 		userAddDownLimit= 			${eventGo.userAddDownLimit}<br/> --%>
+			</div>
+			
 			<table class="table">
-				<thead>
-					<tr>
-						<th>
-							建立時間:
-						</th>
-						<th>
+<!-- 				<thead> -->
+<!-- 					<tr> -->
+<!-- 						<th> -->
+<!-- 							建立時間: -->
+<!-- 						</th> -->
+<!-- 						<th> -->
 							
-						</th>
-						<th>
+<!-- 						</th> -->
+<!-- 						<th> -->
 							
-						</th>
-						<th>
+<!-- 						</th> -->
+<!-- 						<th> -->
 							
-						</th>
-					</tr>
-				</thead>
+<!-- 						</th> -->
+<!-- 					</tr> -->
+<!-- 				</thead> -->
 				<tbody>
 				
-					<tr class="active">
-						<td class="col-md-2">
-							揪團流水號:
-						</td>
-						<td class="col-md-5">
-							# <p>${eventSN}</p>
+<!-- 					<tr class="active"> -->
+<!-- 						<td class="col-md-2"> -->
+<!-- 							揪團流水號: -->
+<!-- 						</td> -->
+<!-- 						<td class="col-md-5"> -->
+<%-- 							# <p>${eventSN}</p> --%>
 <!-- 						從資料庫拉一個流水號出來 -->
-						</td>
-						<td class="col-md-3">
+<!-- 						</td> -->
+<!-- 						<td class="col-md-3"> -->
 <!-- 							<div class="col-md-7"> -->
 <!-- 								<button type="button" class="btn btn-primary btn-block"> -->
 <!-- 									&gt;&gt;&gt;揪團明細&lt;&lt;&lt; -->
 <!-- 								</button> -->
 <!-- 							</div> -->
-						</td>
-						<td  class="col-md-3">
+<!-- 						</td> -->
+<!-- 						<td  class="col-md-3"> -->
 							
-						</td>
-					</tr>
+<!-- 						</td> -->
+<!-- 					</tr> -->
 				
 					<tr  class="info">
 						<td class="col-md-2">
@@ -149,38 +167,41 @@
 						</td>
 						<td class="col-md-5">
 							<span>
-								<img width="50" height="50" alt="Bootstrap Image Preview" 
-								src="http://lorempixel.com/140/140/" class="img-circle" />
+								<img width="50" height="50"
+														alt="Bootstrap Image Preview"
+														src="data:image/png;base64,${listNameImg.image} "
+														class="img-circle" />
 							</span>
-							<span>輕功水上漂</span>
+							<span>${listNameImg.hostName}</span>
 						</td>
 						<td class="col-md-3">
 							<div class="col-md-7">
-								<button type="submit" class="btn btn-primary btn-block">
-									&gt;&gt;&gt;房主資料&lt;&lt;&lt;
-									
+<!-- 								<button type="submit" class="btn btn-primary btn-block"> -->
+<!-- 									&gt;&gt;&gt;房主資料&lt;&lt;&lt; -->
+<!-- 								</button> -->
 <!-- 									連結到碩言的會員資料名稱跟大頭貼 -->
-								</button>
 							</div>
 						</td>
 						<td class="col-md-3" rowspan="6">
 							<iframe width="350" height="350" frameborder="0" style="border:0"
-								src="https://www.google.com/maps/embed/v1/search?q=台灣台北市大安區仁愛路四段345巷4弄24號&key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw" allowfullscreen></iframe>	
+								src="https://www.google.com/maps/embed/v1/search?q=${eventGo.userInputAddress}&key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw" allowfullscreen></iframe>	
 						</td>
 					</tr>
 					
-					<tr>
+					<tr class="active">
 						<td class="col-md-2">
 							位置:
 						</td>
 						<td class="col-md-5">
-							北市松山區XX路XX號(店名)
+							${eventGo.userInputAddress}
 						</td>
 						<td class="col-md-3">
 							<div class="col-md-7">
-								<button type="submit" class="btn btn-primary btn-block" onclick="window.location.href='5LocationDetail.jsp'">
+							<a href="<c:url value="/events/locationDetail.controller"/>?locName=${eventGo.userInputAddress}">
+								<button type="button" class="btn btn-primary btn-block">
 									&gt;&gt;&gt;位置明細&lt;&lt;&lt;
 								</button>
+							</a>
 							</div>
 						</td>
 					
@@ -216,13 +237,28 @@
 							人數:
 						</td>
 						<td>
-							XX~OO人
+							<c:if test="${eventGo.userAddDownLimit=='0'}">
+								無人數下限 
+							</c:if>
+							<c:if test="${eventGo.userAddDownLimit!='0'}">
+								${eventGo.userAddDownLimit}
+							</c:if>
+								<span> ~ </span>
+							<c:if test="${eventGo.userAddUpLimit=='9999'}">
+								無人數上限 
+							</c:if>
+							<c:if test="${eventGo.userAddUpLimit!='9999'}">
+								${eventGo.userAddUpLimit} 人
+							</c:if>
 						</td>
 						<td>
+								<span>
+									目前人數: 1人
+								</span>
 								<div class="progress active progress-striped">
 									<div class="progress-bar progress-success" role="progressbar"
 											aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-											style="width:50%">
+											style="width:10%">
 									</div>
 								</div>
 						</td>
@@ -233,10 +269,12 @@
 							開戰時間:
 						</td>
 						<td>
-							XXXX~OOOO
+							<fmt:formatDate value="${eventGo.startDateTime}" pattern=" yyyy年  MM月  dd日  HH:mm " />
+							~
+							<fmt:formatDate value="${eventGo.endDateTime}" pattern=" HH:mm" />
 						</td>
 						<td>
-							狀態:XXX中
+<!-- 							狀態:XXX中 -->
 						</td>
 					</tr>
 					
@@ -245,10 +283,10 @@
 							揪團截止時間:
 						</td>
 						<td>
-							XXXXXX
+							<fmt:formatDate value="${eventGo.closeDateTime}" pattern=" yyyy年  MM月  dd日  HH:mm " />
 						</td>
 						<td>
-							狀態:XXX中
+<!-- 							狀態:XXX中 -->
 						</td>
 					</tr>
 					
