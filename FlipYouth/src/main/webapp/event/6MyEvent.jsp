@@ -244,10 +244,10 @@ border: 1px solid;
 								<div style="float: left" class="col-md-3">
 									揪團流水號: <span> #111111 </span>
 								</div>
-								<div style="float: left">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">
-										&gt;&gt;&gt;評比此團&lt;&lt;&lt;</button>
-								</div>
+<!-- 								<div style="float: left"> -->
+<!-- 									<button class="btn btn-lg btn-primary btn-block" type="submit"> -->
+<!-- 										&gt;&gt;&gt;評比此團&lt;&lt;&lt;</button> -->
+<!-- 								</div> -->
 								<div style="float: left; margin-left: 30px">
 									<button class="btn btn-lg btn-primary btn-block" type="submit">
 										&gt;&gt;&gt;刪除紀錄&lt;&lt;&lt;</button>
@@ -305,10 +305,10 @@ border: 1px solid;
 								<div style="float: left" class="col-md-3">
 									揪團流水號: <span> #111110 </span>
 								</div>
-								<div style="float: left">
-									<button class="btn btn-lg btn-primary btn-block" type="submit">
-										&gt;&gt;&gt;評比此團&lt;&lt;&lt;</button>
-								</div>
+<!-- 								<div style="float: left"> -->
+<!-- 									<button class="btn btn-lg btn-primary btn-block" type="submit"> -->
+<!-- 										&gt;&gt;&gt;評比此團&lt;&lt;&lt;</button> -->
+<!-- 								</div> -->
 								<div style="float: left; margin-left: 30px">
 									<button class="btn btn-lg btn-primary btn-block" type="submit">
 										&gt;&gt;&gt;刪除紀錄&lt;&lt;&lt;</button>

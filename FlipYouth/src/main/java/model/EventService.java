@@ -42,7 +42,7 @@ public class EventService {
 		if(!"null".equals(userAddAddress)){
 			locSN = Integer.parseInt(userAddAddress);
 		}///////////////////////////////////會員加進來就要改了///////////
-		EventBean eventBean = new EventBean(new MemberBean(2) ,locSN,eventGoFbBean.getUserAddDownLimit(),eventGoFbBean.getStartDateTime(),eventGoFbBean.getEndDateTime(),1,eventGoFbBean.getUserAddUpLimit(),eventGoFbBean.getCloseDateTime());
+		EventBean eventBean = new EventBean(new MemberBean(11) ,locSN,eventGoFbBean.getUserAddDownLimit(),eventGoFbBean.getStartDateTime(),eventGoFbBean.getEndDateTime(),1,eventGoFbBean.getUserAddUpLimit(),eventGoFbBean.getCloseDateTime());
 		eventDaoImpl.insert(eventBean);
 		System.out.println("service's result="+eventBean);
 		return eventBean;
