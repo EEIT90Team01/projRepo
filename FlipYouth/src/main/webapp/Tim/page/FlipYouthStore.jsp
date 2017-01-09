@@ -70,8 +70,9 @@
 	rel="stylesheet">
 
 <style type="text/css">
-#ui-datepicker-div{
-display: none}
+#ui-datepicker-div {
+	display: none
+}
 </style>
 <script type="text/javascript">
 	
@@ -177,9 +178,7 @@ display: none}
 			id="three"></div>
 
 		<div style="display: none" role="tabpanel" class="tab-pane a"
-			id="four">
-			
-			</div>
+			id="four"></div>
 
 		<div style="display: none" role="tabpanel" class="tab-pane a"
 			id="five">
@@ -467,9 +466,15 @@ display: none}
 			$('.b').toggle();
 			$('#calendar').fullCalendar('gotoDate', new Date());
 			$('#calendar').fullCalendar('removeEvents');
-		    $('#calendar').fullCalendar('refetchEvents');
-		    $('five').height($('.fc-content-skeleton').height()+100);
+			$('#calendar').fullCalendar('refetchEvents');
+			$('five').height($('.fc-content-skeleton').height() + 100);
 		}
+		function scrolltoTop() {
+			$(window).scrollTop(0);
+		}
+		$('*[data-toggle="tab"]').click(function() {
+			scrolltoTop(0)
+		});
 	</script>
 
 	<!-- 	import  js -->
