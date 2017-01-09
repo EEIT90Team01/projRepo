@@ -74,7 +74,6 @@
 
 </style>
 </head>
-
 <body id="body" style="height: 1500px">
 
 	<header class="shopHome">

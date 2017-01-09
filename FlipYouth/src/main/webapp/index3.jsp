@@ -46,6 +46,7 @@ session.setAttribute("user_photo", user_photo);
 <link href="/Kelsey/css/nav_motion.css" rel="stylesheet">
 
 </head>
+<%@ include file="/chatRoom.jsp" %>
 <body>
 <%-- <span>Wellcome ${loginOK.nickName}</span> --%>
 	<div class="hero">

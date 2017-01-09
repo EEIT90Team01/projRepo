@@ -36,6 +36,7 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
 
 
 	<!-- 各種需要new的映射檔設定 減少IoC的干擾 -->

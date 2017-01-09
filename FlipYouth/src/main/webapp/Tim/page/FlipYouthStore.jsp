@@ -306,6 +306,7 @@ function move_div() {
 </script>
 </head>
 <body style="margin: 0;padding: 0;">
+<%@ include file="/chatRoomWithoutUI.jsp" %>
 	<div id="loadingIMG" style="display: none; z-index: 9999;">
 		<nobr id="nobrtext" style="font-size:30px;color:red">訂單處理中</nobr>
 		<img src="<c:url value="/Tim/image/icon/gears.svg"/>">
@@ -437,9 +438,7 @@ function move_div() {
 		}
 		function toggleTabCar(thiss) {
 			$('#two').empty();
-			$('#two')
-					.append(
-							'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/Shop/shoppingCar.jsp"></iframe>');
+			$('#two').append('<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/Shop/shoppingCar.jsp"></iframe>');
 			$('.a').hide();
 			var a = $(thiss).attr('aria-controls')
 			$('#' + a).show();

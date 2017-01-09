@@ -113,10 +113,10 @@
 		 console.log("進入check");
 		var event = this.id;
 		if( $(this).val() == "" ){
-			if(event == "nickname"){$('#nameSP').html("<img src= image/error.png /><span style = 'color:red'>必要輸入</span>")}
-			if(event == "id"){$('#idSP').html("<img src= image/error.png /><span style = 'color:red'>必要輸入</span>")}
-			if(event == "password"){$('#pswSP').html("<img src= image/error.png /><span style = 'color:red'>必要輸入</span>")}
-			if(event == "email"){$('#emailSP').html("<img src= image/error.png /><span style = 'color:red'>必要輸入</span>")}
+			if(event == "nickname"){$('#nameSP').html("<img src= Samuel/error.png /><span style = 'color:red'>必要輸入</span>")}
+			if(event == "id"){$('#idSP').html("<img src= Samuel/error.png /><span style = 'color:red'>必要輸入</span>")}
+			if(event == "password"){$('#pswSP').html("<img src= Samuel/error.png /><span style = 'color:red'>必要輸入</span>")}
+			if(event == "email"){$('#emailSP').html("<img src= Samuel/error.png /><span style = 'color:red'>必要輸入</span>")}
 		}else{
 			if(event == "password"){$('#pswSP').html("")}
 			if(event == "nickname"){

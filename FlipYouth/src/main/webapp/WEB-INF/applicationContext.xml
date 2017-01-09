@@ -37,6 +37,7 @@
 				<value>model.CommentBean</value>
 				<value>model.GoogleMemberBean</value>
 				<value>model.FBMemberBean</value>
+				<value>model.ChatBean</value>
 			</array>
 		</property>
 	</bean>

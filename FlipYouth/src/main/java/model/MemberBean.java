@@ -53,6 +53,10 @@ public class MemberBean implements Serializable{
 		
 		
 	 
+	public MemberBean(Integer mbrSN) {
+			super();
+			this.mbrSN = mbrSN;
+		}
 	@Id
 	@Column(name="mbrSN")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
