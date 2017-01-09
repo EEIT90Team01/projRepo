@@ -6,6 +6,18 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function() {
+    $('#FriendSelect').click(function() {
+    	console.log(" $('#FriendSelect').click");
+        $(this).toggleClass('openSelect');
+        $('#FriendSelectUL').toggleClass('openSelected');
+    });
+});
+
+
+
+
+
 // var openIO = false
 
 // $(document).ready(function() {

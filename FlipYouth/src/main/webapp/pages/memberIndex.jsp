@@ -20,39 +20,13 @@
 
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
 <%-- <link href="<c:url value="/Kelsey/css/index3.css"/>" rel="stylesheet"> --%>
+<link href="<c:url value="/Kelsey/css/nav_motion_page.css"/>" rel="stylesheet">
+<link rel="stylesheet" href="<c:url value='/Kelsey/css/member.css'/>">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member Index</title>
 
-<style type="text/css">
-.st1 {
-	border-bottom: 1.5px solid pink;
-	margin: 10px;
-	padding: 10px;
-}
-
-fieldset {
-	margin: 15px;
-	border: 5px solid #FFC8B4;
-	border-radius: 10px;
-	width: 400px;
-	min-height: 350px;
-	padding: 20px;
-}
-
-.st2 {
-	margin: 20px;
-	text-align: center;
-}
-
-.title {
-	text-align: right;
-	width: 80px;
-	padding-right: 5px;
-}
-
-</style>
 </head>
 <body>
 <%@ page import="model.MemberBean"%>
@@ -72,66 +46,31 @@ session.setAttribute("user_photo", user_photo);
 
 												
 						<div class="hero">
+						
+						<c:if test="${loginOK != null }">
+							<img class="header_right_img" src="data:image/jpg;base64,${user_photo}" >
+							<div class="memberContentIndexPage">
+									<blockquote class="blockquote_k">
+		<!-- 							<p>翻桌唷 -- 會員專區</p> -->
+										<span class="memberContentIndex_usr_name">使用者：${loginOK.nickName}</span><br>
+									</blockquote>
+							</div>
+							
+						</c:if>
+						
 								 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
 									<h1>
 											會&nbsp員&nbsp資&nbsp料&nbsp&nbsp<strong>Flip Youth</strong>
 									</h1>
 						</div>
 						
-	<!-- ***************	導覽列   開始  ******************************-->
-<!-- 	<a href="#menu" id="toggle"><span></span></a> -->
-
-<!--   <div id="menu"> -->
-<!--     <ul> -->
-<!--       <li><a href="#home">Home</a></li> -->
-<!--       <li><a href="#about">About</a></li> -->
-<!--       <li><a href="#contact">Contact</a></li> -->
-<!--     </ul> -->
-<!--   </div> -->
-<!-- </div> -->
-	
-<!-- <a href="#menu" id="toggle"><span></span></a> -->
-<!-- 	<div id='menu' class="list-group-k"> -->
-	<div id='nav-group' class="list-group-k">
-		<nav>
-		<ul>
-			<li ><a href="login.jsp#login-modal"
-				data-toggle="modal" data-target="login.jsp#login-modal">Login</a></li>
-			<li ><a
-				href="<c:url value='/pages/editMember.jsp'/>" >
-					<img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" class="navimg">&nbsp&nbsp修改個人資料&nbsp
-					
-			</a></li>
-
-			<li ><a href="<c:url value='/Shop.controller'/>"> <img
-					src="<c:url value='/Kelsey/images/basic_gray/shopping-cart.png'/>" class="navimg">&nbsp&nbsp翻桌唷&nbsp商城&nbsp
-			</a></li>
-
-			<li ><a href="" > <img
-					src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>" class="navimg">&nbsp&nbsp我的揪團&nbsp
-			</a></li>
-
-			<li ><a
-				href="<c:url value='/searchRelation.controller' />"> <img
-					src="<c:url value='/Kelsey/images/basic_gray/stick-man.png'/>" class="navimg">&nbsp&nbsp我的好友&nbsp
-			</a></li>
-
-			<li ><a href="" > <img
-					src="<c:url value='/Kelsey/images/basic_gray/time.png'/>" class="navimg">&nbsp&nbsp我的月曆&nbsp
-			</a></li>
-		</ul>
-		</nav>
-
-	</div>
-    
-
-
-
-	<!-- ***************	導覽列   結束  ******************************-->
+						
+<!-- ********	導入導覽列   **************************************-->
+	<jsp:include page="/nav.jsp"></jsp:include>
 
 		<fieldset>
 
-			<legend>個人資料</legend>
+			<legend  class= "legend_k">個人資料</legend>
 						<div class="st1">
 				<label class="title">暱稱：</label><span>${loginOK.nickName}</span></div>
 			<div class="st1">
@@ -150,13 +89,10 @@ session.setAttribute("user_photo", user_photo);
 			</div>
 
 		</fieldset>
-		    <!-- ********* container 結束 *******************************-->
+<!-- ********* container 結束 *******************************-->
 	
-	<div id="footer">
-    
-	<!--<img class="footer_left_img" src="images/light_green/logo_02-02.png">-->
-	
-    </div>
+<!--****** 	導入footer  *****************************-->
+<jsp:include page="/footer.jsp"></jsp:include>
 	
 
 <!-- ************javascript 開始 ************************************************************************-->
@@ -172,6 +108,11 @@ session.setAttribute("user_photo", user_photo);
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+
+	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
 
 </body>
 </html>
