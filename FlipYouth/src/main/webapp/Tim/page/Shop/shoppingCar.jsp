@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>購物車</title>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -100,6 +100,7 @@
 <script type="text/javascript">
 
 function loadaa() {
+	window.parent.$('#two iframe').css("height",$('body').height()+50);
 	var c =0;
 	var b=$('.sub').children().next();
 	console.log(b.length)
@@ -118,7 +119,7 @@ function loadaa() {
 		<div class="row">
 
 			<!-- Shopping Cart List -->
-			<div class="col-md-9">
+			<div class="col-md-12">
 				<div class="title">
 					<span>購物車</span>
 				</div>
@@ -150,7 +151,7 @@ function loadaa() {
 									</a></td>
 									<td>
 										<p>
-											<a
+											<a target="_blank"
 												href="<c:url value="/Shop.controller?ID=${data.value.PK.gameSN.gameSN}"/>"
 												class="d-block">${data.value.PK.gameSN.gameName}</a>
 										</p> <small>${data.value.PK.gameSN.introduction}</small>
@@ -181,19 +182,19 @@ function loadaa() {
 									</td>
 									<td class="unit">\$${data.value.PK.gameSN.price}</td>
 									<td class="sub"><span>$</span><span>${data.value.PK.gameSN.price*data.value.quantity}</span></td>
-									<td class="action"><a href="javascript:void(0)"
+									<td class="action"><a class="tooltip_top"  href="javascript:void(0)"
 										data-toggle="tooltip"
 										onclick="CShopCar(${data.value.PK.gameSN.gameSN},${data.value.PK.gameSN.price},${data.value.quantity},this)"
-										data-placement="top" data-original-title="Update"> <i
+										data-placement="top" data-original-title="更新商品"> <i
 											class="fa fa-refresh"><img data-original-title="Update"
 												data-toggle="tooltip" style="width: 25px"
 												data-placement="top"
 												src="<c:url value="/Tim/image/icon/update.png"/>"
-												class="img-thumbnail"></i></a>&nbsp; <a
+												class="img-thumbnail"></i></a>&nbsp; <a 
 										onclick="delectCar(${data.value.PK.gameSN.gameSN},this)"
-										href="javascript:void(0)" class="text-danger"
+										href="javascript:void(0)" class="text-danger tooltip_top"
 										data-toggle="tooltip" data-placement="top"
-										data-original-title="Remove"><i class="fa fa-trash-o">
+										data-original-title="刪除商品"><i class="fa fa-trash-o">
 												<img style="width: 25px"
 												src="<c:url value="/Tim/image/icon/delete.png"/>"
 												class="img-thumbnail">
@@ -226,183 +227,15 @@ function loadaa() {
 			}
 			</script>
 			<!-- End Shopping Cart List -->
-
-			<!-- New Arrivals -->
-			<div class="col-md-3 hidden-sm hidden-xs">
-				<!-- 			<div class="title"> -->
-				<!-- 				<span><a href="products.html">New Arrivals <i -->
-				<!-- 						class="fa fa-chevron-circle-right"></i></a></span> -->
-				<!-- 			</div> -->
-				<!-- 			<div -->
-				<!-- 				class="widget-slider owl-controls-top-offset owl-carousel owl-theme owl-loaded"> -->
-
-
-
-
-				<!-- 				<div class="owl-stage-outer"> -->
-				<!-- 					<div class="owl-stage" -->
-				<!-- 						style="transform: translate3d(0px, 0px, 0px); transition: 0s; width: 1052px;"> -->
-				<!-- 						<div class="owl-item active" -->
-				<!-- 							style="width: 263px; margin-right: 0px;"> -->
-				<!-- 							<div class="box-product-outer"> -->
-				<!-- 								<div class="box-product"> -->
-				<!-- 									<div class="img-wrapper"> -->
-				<!-- 										<a href="detail.html"> <img alt="Product" -->
-				<!-- 											src="images/demo/p1-1.jpg"> -->
-				<!-- 										</a> -->
-				<!-- 										<div class="tags tags-left"> -->
-				<!-- 											<span class="label-tags"><a href="products.html"><span -->
-				<!-- 													class="label label-success arrowed-right">New -->
-				<!-- 														Arrivals</span></a></span> -->
-				<!-- 										</div> -->
-				<!-- 										<div class="option"> -->
-				<!-- 											<a href="#" data-toggle="tooltip" title="" -->
-				<!-- 												data-original-title="Add to Cart"><i -->
-				<!-- 												class="fa fa-shopping-cart"></i></a> <a href="#" -->
-				<!-- 												data-toggle="tooltip" title="" -->
-				<!-- 												data-original-title="Add to Compare"><i -->
-				<!-- 												class="fa fa-align-left"></i></a> <a href="#" -->
-				<!-- 												data-toggle="tooltip" title="" class="wishlist" -->
-				<!-- 												data-original-title="Add to Wishlist"><i -->
-				<!-- 												class="fa fa-heart"></i></a> -->
-				<!-- 										</div> -->
-				<!-- 									</div> -->
-				<!-- 									<h6> -->
-				<!-- 										<a href="detail.html">WranglerGrey Printed Slim Fit Round -->
-				<!-- 											Neck T-Shirt</a> -->
-				<!-- 									</h6> -->
-				<!-- 									<div class="price"> -->
-				<!-- 										<div>$15.00</div> -->
-				<!-- 									</div> -->
-				<!-- 								</div> -->
-				<!-- 							</div> -->
-				<!-- 						</div> -->
-				<!-- 						<div class="owl-item" style="width: 263px; margin-right: 0px;"> -->
-				<!-- 							<div class="box-product-outer"> -->
-				<!-- 								<div class="box-product"> -->
-				<!-- 									<div class="img-wrapper"> -->
-				<!-- 										<a href="detail.html"> <img alt="Product" -->
-				<!-- 											src="images/demo/p2-1.jpg"> -->
-				<!-- 										</a> -->
-				<!-- 										<div class="tags tags-left"> -->
-				<!-- 											<span class="label-tags"><a href="products.html"><span -->
-				<!-- 													class="label label-success arrowed-right">New -->
-				<!-- 														Arrivals</span></a></span> -->
-				<!-- 										</div> -->
-				<!-- 										<div class="option"> -->
-				<!-- 											<a href="#" data-toggle="tooltip" title="" -->
-				<!-- 												data-original-title="Add to Cart"><i -->
-				<!-- 												class="fa fa-shopping-cart"></i></a> <a href="#" -->
-				<!-- 												data-toggle="tooltip" title="" -->
-				<!-- 												data-original-title="Add to Compare"><i -->
-				<!-- 												class="fa fa-align-left"></i></a> <a href="#" -->
-				<!-- 												data-toggle="tooltip" title="" class="wishlist" -->
-				<!-- 												data-original-title="Add to Wishlist"><i -->
-				<!-- 												class="fa fa-heart"></i></a> -->
-				<!-- 										</div> -->
-				<!-- 									</div> -->
-				<!-- 									<h6> -->
-				<!-- 										<a href="detail.html">CelioKhaki Printed Round Neck -->
-				<!-- 											T-Shirt</a> -->
-				<!-- 									</h6> -->
-				<!-- 									<div class="price"> -->
-				<!-- 										<div>$15.00</div> -->
-				<!-- 									</div> -->
-				<!-- 								</div> -->
-				<!-- 							</div> -->
-				<!-- 						</div> -->
-				<!-- 						<div class="owl-item" style="width: 263px; margin-right: 0px;"> -->
-				<!-- 							<div class="box-product-outer"> -->
-				<!-- 								<div class="box-product"> -->
-				<!-- 									<div class="img-wrapper"> -->
-				<!-- 										<a href="detail.html"> <img alt="Product" -->
-				<!-- 											src="images/demo/p3-1.jpg"> -->
-				<!-- 										</a> -->
-				<!-- 										<div class="tags tags-left"> -->
-				<!-- 											<span class="label-tags"><a href="products.html"><span -->
-				<!-- 													class="label label-success arrowed-right">New -->
-				<!-- 														Arrivals</span></a></span> -->
-				<!-- 										</div> -->
-				<!-- 										<div class="option"> -->
-				<!-- 											<a href="#" data-toggle="tooltip" title="" -->
-				<!-- 												data-original-title="Add to Cart"><i -->
-				<!-- 												class="fa fa-shopping-cart"></i></a> <a href="#" -->
-				<!-- 												data-toggle="tooltip" title="" -->
-				<!-- 												data-original-title="Add to Compare"><i -->
-				<!-- 												class="fa fa-align-left"></i></a> <a href="#" -->
-				<!-- 												data-toggle="tooltip" title="" class="wishlist" -->
-				<!-- 												data-original-title="Add to Wishlist"><i -->
-				<!-- 												class="fa fa-heart"></i></a> -->
-				<!-- 										</div> -->
-				<!-- 									</div> -->
-				<!-- 									<h6> -->
-				<!-- 										<a href="detail.html">CelioOff White Printed Round Neck -->
-				<!-- 											T-Shirt</a> -->
-				<!-- 									</h6> -->
-				<!-- 									<div class="price"> -->
-				<!-- 										<div>$15.00</div> -->
-				<!-- 									</div> -->
-				<!-- 								</div> -->
-				<!-- 							</div> -->
-				<!-- 						</div> -->
-				<!-- 						<div class="owl-item" style="width: 263px; margin-right: 0px;"> -->
-				<!-- 							<div class="box-product-outer"> -->
-				<!-- 								<div class="box-product"> -->
-				<!-- 									<div class="img-wrapper"> -->
-				<!-- 										<a href="detail.html"> <img alt="Product" -->
-				<!-- 											src="images/demo/p4-1.jpg"> -->
-				<!-- 										</a> -->
-				<!-- 										<div class="tags tags-left"> -->
-				<!-- 											<span class="label-tags"><a href="products.html"><span -->
-				<!-- 													class="label label-success arrowed-right">New -->
-				<!-- 														Arrivals</span></a></span> -->
-				<!-- 										</div> -->
-				<!-- 										<div class="option"> -->
-				<!-- 											<a href="#" data-toggle="tooltip" title="" -->
-				<!-- 												data-original-title="Add to Cart"><i -->
-				<!-- 												class="fa fa-shopping-cart"></i></a> <a href="#" -->
-				<!-- 												data-toggle="tooltip" title="" -->
-				<!-- 												data-original-title="Add to Compare"><i -->
-				<!-- 												class="fa fa-align-left"></i></a> <a href="#" -->
-				<!-- 												data-toggle="tooltip" title="" class="wishlist" -->
-				<!-- 												data-original-title="Add to Wishlist"><i -->
-				<!-- 												class="fa fa-heart"></i></a> -->
-				<!-- 										</div> -->
-				<!-- 									</div> -->
-				<!-- 									<h6> -->
-				<!-- 										<a href="detail.html">Levi'sNavy Blue Printed Round Neck -->
-				<!-- 											T-Shirt</a> -->
-				<!-- 									</h6> -->
-				<!-- 									<div class="price"> -->
-				<!-- 										<div>$15.00</div> -->
-				<!-- 									</div> -->
-				<!-- 								</div> -->
-				<!-- 							</div> -->
-				<!-- 						</div> -->
-				<!-- 					</div> -->
-				<!-- 				</div> -->
-				<!-- 				<div class="owl-controls"> -->
-				<!-- 					<div class="owl-nav"> -->
-				<!-- 						<div class="owl-prev" style=""> -->
-				<!-- 							<i class="fa fa-angle-left"></i> -->
-				<!-- 						</div> -->
-				<!-- 						<div class="owl-next" style=""> -->
-				<!-- 							<i class="fa fa-angle-right"></i> -->
-				<!-- 						</div> -->
-				<!-- 					</div> -->
-				<!-- 					<div class="owl-dots" style="display: none;"></div> -->
-				<!-- 				</div> -->
-				<!-- 			</div> -->
-			</div>
-			<!-- End New Arrivals -->
-
 		</div>
 	</div>
 
 
 	<script type="text/javascript">
 
-
+	$(function() {
+		$('.tooltip_top').tooltip({placement: "top"});
+	});
 
 		var gameCount;
 		
@@ -469,18 +302,6 @@ function loadaa() {
 					},
 			})
 		}
-// 		function delectCar(gameSN){
-// 			$.ajax({
-// 				url:"/FlipYouth/order.controller?delectCar="+gameSN,
-// 				type:"POST",
-// 				async: true,
-// 				xhrFields: {
-// 					withCredentials: false },
-// 				success:function(res) {
-// 					$('body').html(res);
-// 					},
-// 			})
-// 		}
 	</script>
 
 

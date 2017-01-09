@@ -26,8 +26,10 @@
 	</div>
 </c:if>
 </body>
+
 <c:if test="${not empty loginOK}">
 <script type="text/javascript"	src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 
 <script type="text/javascript" src="<c:url value="/Samuel/js/jquery-ui.min.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/Samuel/js/jquery-ui-1.8.2.custom.min.js"/>"></script>

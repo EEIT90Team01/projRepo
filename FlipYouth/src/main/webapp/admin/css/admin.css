@@ -5,13 +5,13 @@ body {
 }
 
 td.icon-edit {
-	background: url('/FlipYouth/images/basic_orange/edit.png') no-repeat
+	background: url('/FlipYouth/Kelsey/images/basic_orange/edit.png') no-repeat
 		center center;
 	cursor: pointer;
 }
 
 .icon-new {
-	background: url('/FlipYouth/images/basic_orange/communication-6.png')
+	background: url('/FlipYouth/Kelsey/images/basic_orange/communication-6.png')
 		no-repeat center center;
 	cursor: pointer;
 	height: 24px;
@@ -20,7 +20,7 @@ td.icon-edit {
 }
 
 .icon-delete {
-	background: url('/FlipYouth/images/basic_orange/garbage.png') no-repeat
+	background: url('/FlipYouth/Kelsey/images/basic_orange/garbage.png') no-repeat
 		center center;
 	cursor: pointer;
 	height: 24px;
@@ -29,7 +29,7 @@ td.icon-edit {
 }
 
 .icon-save {
-	background: url('/FlipYouth/images/basic_orange/save.png') no-repeat
+	background: url('/FlipYouth/Kelsey/images/basic_orange/save.png') no-repeat
 		center left;
 	height: 24px;
 	width: 24px;
@@ -37,7 +37,7 @@ td.icon-edit {
 }
 
 .icon-config {
-	background: url('/FlipYouth/images/basic_orange/settings.png') no-repeat
+	background: url('/FlipYouth/Kelsey/images/basic_orange/settings.png') no-repeat
 		center center;
 	height: 24px;
 	width: 24px;

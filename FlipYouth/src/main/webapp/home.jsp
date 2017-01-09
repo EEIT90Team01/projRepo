@@ -82,7 +82,8 @@
 						<h5>巫迪功能</h5>
 						<!-- 已下加入 -->
 						<a href="<c:url value="/admin/index.jsp"/>">後台(方便測試用正式版前後台不會有連結)</a><br>
-						<a href="#"/>卡個位希望生得出遊戲</a>
+						<a href="<c:url value="/playGame.controller"/>">卡個位希望生得出遊戲</a><br>
+						<h3 class="text-danger">${playGameError}</h3>
 					</div>
 				</div>
 			</div>

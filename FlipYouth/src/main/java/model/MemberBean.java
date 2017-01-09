@@ -53,10 +53,6 @@ public class MemberBean implements Serializable{
 		
 		
 	 
-	public MemberBean(Integer mbrSN) {
-			super();
-			this.mbrSN = mbrSN;
-		}
 	@Id
 	@Column(name="mbrSN")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -126,7 +122,7 @@ public class MemberBean implements Serializable{
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	public int getMbrState() {
+	public Integer getMbrState() {
 		return mbrState;
 	}
 	public void setMbrState(Integer mbrState) {
@@ -158,4 +154,29 @@ public class MemberBean implements Serializable{
 				+ Arrays.toString(image) + ", mbrState=" + mbrState + ", energy=" + energy + ", rptCounter="
 				+ rptCounter + ", activatedCode=" + Arrays.toString(activatedCode) + "]";
 	}
+		public MemberBean(Integer mbrSN, String nickName, String mbrId, String mbrPassword, String mbrName, String gender,
+				java.util.Date createTime, String phone, String address, String mbrEmail, byte[] image, Integer mbrState,
+			Integer energy, Integer rptCounter, byte[] activatedCode) {
+		super();
+		this.mbrSN = mbrSN;
+		this.nickName = nickName;
+		this.mbrId = mbrId;
+		this.mbrPassword = mbrPassword;
+		this.mbrName = mbrName;
+		this.gender = gender;
+		this.createTime = createTime;
+		this.phone = phone;
+		this.address = address;
+		this.mbrEmail = mbrEmail;
+		this.image = image;
+		this.mbrState = mbrState;
+		this.energy = energy;
+		this.rptCounter = rptCounter;
+		this.activatedCode = activatedCode;
+	}
+	public MemberBean(Integer mbrSN) {
+		super();
+		this.mbrSN = mbrSN;
+	}
+	
 }

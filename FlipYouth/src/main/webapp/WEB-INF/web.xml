@@ -84,5 +84,16 @@
     	<servlet-name>simple</servlet-name>
     	<url-pattern>*.servlet</url-pattern>
   	</servlet-mapping>
-  
+  	
+  	<!-- 強制轉https -->
+  	<!-- <security-constraint>
+  		<web-resource-collection>
+  			<web-resource-name>FlipYouth</web-resource-name>
+  			<url-pattern>/*</url-pattern>
+  		</web-resource-collection>
+  		<user-data-constraint>
+  			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  		</user-data-constraint>
+  	</security-constraint> -->
+  	
 </web-app>

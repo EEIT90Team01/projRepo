@@ -1,0 +1,56 @@
+<div class="form-group">
+	<label for="eventSN">揪團編號</label><input type="number" class="form-control isPk"
+		placeholder="自動生成" name="eventSN" id="eventSN">
+		<span class="text-danger" id="eventSNE"></span>
+</div>
+<div class="form-group">
+	<label for="hostMbrSN">主揪會員編號</label><input type="number" class="form-control"
+		name="hostMbrSN" id="hostMbrSN">
+		<span class="text-danger" id="hostMbrSNE"></span>
+</div>
+<div class="form-group">
+	<label for="locSN">地點編號</label><input type="number" class="form-control"
+		name="locSN" id="locSN">
+		<span class="text-danger" id="locSNE"></span>
+</div>
+<div class="form-group">
+	<label for="minMember">最小人數</label><input type="number" class="form-control"
+		name="minMember" id="minMember">
+		<span class="text-danger" id="minMemberE"></span>
+</div>
+<div class="form-group">
+	<label for="beginTime">開始時間</label><input type="text" class="form-control"
+		name="beginTime" id="beginTime">
+		<span class="text-danger" id="beginTimeE"></span>
+</div>
+<div class="form-group">
+	<label for="endTime">結束時間</label><input type="text" class="form-control"
+		name="endTime" id="endTime">
+		<span class="text-danger" id="endTimeE"></span>
+</div>
+<div class="form-group">
+	<label for="eventState">揪團狀態</label><input type="number" class="form-control"
+		name="eventState" id=eventState>
+		<span class="text-danger" id="eventStateE"></span>
+</div>
+<div class="form-group">
+	<label for="maxMember">最大人數</label><input type="number" class="form-control"
+		name="maxMember" id="maxMember">
+		<span class="text-danger" id="maxMemberE"></span>
+</div>
+<div class="form-group">
+	<label for="deadline">截止時間</label><input type="text" class="form-control"
+		name="deadline" id="deadline">
+		<span class="text-danger" id="deadlineE"></span>
+</div>
+<hr>
+<div class="form-group">
+	<label for="belInput">管理者備註</label><input type="text" class="form-control"
+		name="belInput" id="belInput">
+</div>
+<div class="form-group">
+	<span id="miscE" class="text-danger"></span>
+	<h3 id="cuSuccess" class="text-success"></h3>
+</div>
+<button type="submit" class="btn btn-primary cu-confirm">送出</button>
+<button type="reset" class="btn btn-warning cu-reset">重置</button>

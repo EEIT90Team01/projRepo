@@ -15,8 +15,6 @@
 	href="<c:url value="/Tim/css_Tim/producHome.css"/>">
 <link rel="stylesheet"
 	href="<c:url value="/Tim/css_Tim/bootstrap-select.css"/>">
-<link rel="stylesheet"
-	href="<c:url value="/Tim/css_Tim/nouislider.css"/>">
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -36,9 +34,6 @@
 <script src="<c:url value="/Tim/js_Tim/nouislider.js"/>"></script>
 <script src="<c:url value="/Tim/js_Tim/range.js"/>"></script>
 <style type="text/css">
-/* div { */
-/* 	border: 1px solid; */
-/* } */
 .overfont {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -101,6 +96,7 @@ Meiryo, "微軟正黑體", "Microsoft JhengHei"}
 <script type="text/javascript">
 
 function loadaa() {
+	window.parent.$('#three iframe').css("height",$('body').height()+50);
 	var c =0;
 	var b=$('.sub').children().next();
 	console.log(b.length)
@@ -152,7 +148,7 @@ function changeData(){
 		<div class="row">
 
 			<!-- Shopping Cart List -->
-			<div class="col-md-9">
+			<div class="col-md-12">
 				<div class="title">
 					<span>聯絡人資料</span>
 				</div>
@@ -191,7 +187,7 @@ function changeData(){
 							<!-- 							</div> -->
 						</div>
 						<div class="form-group col-md-6">
-							<input id="putMemberDataCount"
+							<input checked id="putMemberDataCount"
 								onclick="putMemberData('${loginOK.mbrName}','${loginOK.phone}','${loginOK.phone}','${loginOK.mbrEmail}','${loginOK.address}')"
 								type="checkbox"><label> 同會員資料 </label>
 						</div>

@@ -1,0 +1,46 @@
+.legend_k{
+	width: auto;
+	border-bottom: none;
+	font-family: Microsoft JhengHei;
+	color: gray;
+    /*#ECC8AE 灰粉 #D6FF79亮綠 #84C0C6灰藍  #46B1C9深藍 #DCDCDC灰  logo--#CCFF33   .hero:#63D7D4;*/
+}
+.st1 {
+	border-bottom: 1.5px solid pink;
+	margin: 10px;
+	padding: 10px;
+}
+
+fieldset {
+	border: 5px solid #FFC8B4;
+	border-radius: 10px;
+	width: 400px;
+	min-height: 350px;
+	padding: 20px;
+	margin:0 auto;
+	font-family: Microsoft JhengHei;
+	color: gray;
+}
+
+.st2 {
+	margin-top: 0px;
+	text-align: center;
+}
+
+.title {
+	
+	width: 80px;
+	padding-right: 5px;
+}
+
+.st3{
+	text-align: center;
+}
+.img_k{
+	
+	margin-right: 10px;
+}
+#member_photo{
+	width: 170px;
+	margin: 10px auto;
+}

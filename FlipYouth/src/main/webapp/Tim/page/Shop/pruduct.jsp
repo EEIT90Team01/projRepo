@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
+<title>${pruduct.gameName}</title>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -33,7 +33,8 @@
 	crossorigin="anonymous"></script>
 
 
-<link rel="stylesheet" type="text/css" href="<c:url value="/Tim/css_Tim/Tim.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/Tim/css_Tim/Tim.css"/>">
 <style type="text/css">
 /* div {   */
 /*   	border-style: solid;   */
@@ -61,7 +62,7 @@ body {
 
 img {
 	width: 96%;
-	height: 100%;
+/* 	height: 100%; */
 	padding-top: 1%;
 }
 
@@ -91,10 +92,51 @@ iframe {
 	padding: 0px;
 	margin: 0px;
 }
+
+.shoppingBox {
+!important;
+	display: block;
+	width: 206px;
+	height: 140px;
+	background: url(/FlipYouth/Tim/image/shopping.png) no-repeat;
+	position: absolute;
+	top: 95px;
+	right: 0px;
+	z-index: 100;
+	text-align: center;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+
+.shoppingBox h3 {
+	position: relative;
+	margin: 43px 0 6px 0;
+	padding-bottom: 5px;
+	color: #fff;
+	font-size: 17px;
+	font-weight: normal;
+}
+
+.shoppingBox p {
+	font-size: 13px;
+	color: #e9ee94;
+	line-height: 1.8;
+}
 </style>
 </head>
 <%@ include file="/chatRoom.jsp" %>
 <body>
+
+	<%@ include file="/chatRoom.jsp"%>
+	<div class="shoppingBox">
+		<h3>購物清單</h3>
+		<img src="<c:url value="/Tim/image/border_shopBox.png"/>">
+		<span id="car">
+			<p>
+				以選購<font style="color: white;">${count}</font>件<br> 總金額\$<font
+					style="color: white;">${ALL}</font>
+		</span>
+	</div>
 
 	<div style="padding: 0% 5% 0% 20%;">
 
@@ -292,9 +334,14 @@ iframe {
 	function deleteComment(cmtSN){
 		console.log("deleteComment方法的cmtSN = "+cmtSN);
 		$('#'+cmtSN).parent().remove();
-		
 	}
-	
+	$(function(){
+		$(window).scroll(function(){
+			var scrollTop = $(document).scrollTop();
+			$('.shoppingBox').stop().animate({top:scrollTop+240},500);	
+		});
+		
+	});
 	
 	function sendComment(mbrSN, gameSN){
 		var comment = $('#comment').val();
@@ -337,7 +384,7 @@ iframe {
 			xhrFields: {
 				withCredentials: false },
 			success:function(res) {
-				$('#span').html(res);
+				$('#car').html(res);
 			},
 			 
 		})
