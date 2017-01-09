@@ -54,9 +54,74 @@
 	color: #6c6c6c;
 	padding: 8px;
 }
+
+video {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -100;
+	transform: translateX(-50%) translateY(-50%);
+	background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
+	background-size: cover;
+	transition: 1s opacity;
+}
+
+.stopfade {
+	opacity: .5;
+}
+
+#polina {
+	font-family: Agenda-Light, Agenda Light, Agenda, Arial Narrow,
+		sans-serif;
+	font-weight: 100;
+	color: white;
+	padding: 2rem;
+	width: 33%;
+	margin: 2rem;
+	float: right;
+	font-size: 1.2rem;
+}
+
+h1 {
+	font-size: 3rem;
+	text-transform: uppercase;
+	margin-top: 0;
+	letter-spacing: .3rem;
+}
+
+#polina button {
+	display: block;
+	width: 80%;
+	padding: .4rem;
+	border: none;
+	margin: 1rem auto;
+	font-size: 1.3rem;
+	background: rgba(255, 255, 255, 0.23);
+	color: #fff;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: .3s background;
+}
+
+a {
+	display: inline-block;
+	color: #fff;
+	text-decoration: none;
+	padding: .5rem;
+	transition: .6s background;
+}
 </style>
 </head>
 <body>
+
+	<video poster="" id="bgvid" playsinline autoplay muted loop> <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+	<!-- <source src="http://thenewcode.com/assets/videos/polina.webm" type="video/webm"> -->
+	<source src="/FlipYouth/Tim/video/Underground-Traffic.mp4"
+		type="video/mp4"></video>
 	<!-- start Login box -->
 	<div class="container" id="login-block">
 		<div class="row">
@@ -83,17 +148,17 @@
 						</div>
 						<form action="<c:out value="/FlipYouth/addGMember.controller"/>"
 							id="LoginForm" method="post">
-							<div class="col-xs-12 "style="">
-								<input class="input" type="text" name="nickName"style="width: 75%"
-									placeholder="請輸入暱稱" required>
+							<div class="col-xs-12 " style="">
+								<input class="input" type="text" name="nickName"
+									style="width: 75%" placeholder="請輸入暱稱" required>
 							</div>
 							<div class="col-xs-12">
-								<input class="input" type="text" name="phone"style="width: 75%"
+								<input class="input" type="text" name="phone" style="width: 75%"
 									placeholder="請輸入手機" required>
 							</div>
 							<div class="col-xs-12">
-								<input class="input" type="text" name="address" style="width: 75%"
-									placeholder="請輸入地址" required>
+								<input class="input" type="text" name="address"
+									style="width: 75%" placeholder="請輸入地址" required>
 							</div>
 
 							<div class="row">
@@ -142,7 +207,7 @@
 			var googleURL = 'https://accounts.google.com/o/oauth2/auth?';
 			var client_id = 'client_id=451639246634-4m1oh7enkiqquk8hje60mfm9ve47onfs.apps.googleusercontent.com&'
 			var response_type = 'response_type=code&'
-			var redirect_uri = 'redirect_uri=http://localhost:8080/FlipYouth/googleLogin.controller&'
+			var redirect_uri = 'redirect_uri=https://flipyouth.azurewebsites.net/FlipYouth/googleLogin.controller&'
 			var scope = 'scope=email%20profile'
 			var url = googleURL + client_id + response_type + redirect_uri
 					+ scope;
