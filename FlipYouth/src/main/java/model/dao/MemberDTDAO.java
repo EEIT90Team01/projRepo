@@ -49,6 +49,12 @@ public class MemberDTDAO {
 		return beans;
 	}
 	
+	public List<MemberBean> queryAll(String hql) {
+		List<MemberBean> beans = null;
+		beans = getSession().createQuery(hql, MemberBean.class).getResultList();
+		return beans;
+	}
+	
 	public int ajaxCount(String hql){
 		
 		Query query = getSession().createQuery("select count(*) "+hql);

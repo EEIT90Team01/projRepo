@@ -1,20 +1,23 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
-import org.hibernate.*;
-import org.springframework.context.*;
-import org.springframework.context.support.*;
-
 @Entity
-@Table(name = "Event")
-public class EventBean implements Serializable {
+@Table(name="Event")
+public class EventBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer eventSN;
-	private Integer hostMbrSN;
+	@ManyToOne //有很多不同的會員
+	@JoinColumn(name = "hostMbrSN") //join到Member Table
+	private MemberBean hostMbrSN;
+//	@ManyToOne //有很多不同的位置
+//	@JoinColumn(name="locSN") //join到Location Table
 	private Integer locSN;
 	private Integer minMember;
 	private java.util.Date beginTime;
@@ -22,34 +25,29 @@ public class EventBean implements Serializable {
 	private Integer eventState;
 	private Integer maxMember;
 	private java.util.Date deadline;
+	
+	public EventBean() {
+	}
 
-	@ManyToOne
-	@JoinColumn(name = "eventSN")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getEventSN() {
 		return eventSN;
 	}
-
 	public void setEventSN(Integer eventSN) {
 		this.eventSN = eventSN;
 	}
 
-	@OneToOne
-	@JoinColumn(name = "mbrSN")
-	public Integer getHostMbrSN() {
+//	@ManyToOne //有很多房主
+//	@JoinColumn(name="mbrSN")
+	public MemberBean getHostMbrSN() {
 		return hostMbrSN;
 	}
-
-	public void setHostMbrSN(Integer hostMbrSN) {
+	public void setHostMbrSN(MemberBean hostMbrSN) {
 		this.hostMbrSN = hostMbrSN;
 	}
-
-	@OneToOne
-	@JoinColumn(name = "locSN")
+	
 	public Integer getLocSN() {
 		return locSN;
 	}
-
 	public void setLocSN(Integer locSN) {
 		this.locSN = locSN;
 	}
@@ -57,7 +55,6 @@ public class EventBean implements Serializable {
 	public Integer getMinMember() {
 		return minMember;
 	}
-
 	public void setMinMember(Integer minMember) {
 		this.minMember = minMember;
 	}
@@ -65,7 +62,6 @@ public class EventBean implements Serializable {
 	public java.util.Date getBeginTime() {
 		return beginTime;
 	}
-
 	public void setBeginTime(java.util.Date beginTime) {
 		this.beginTime = beginTime;
 	}
@@ -73,7 +69,6 @@ public class EventBean implements Serializable {
 	public java.util.Date getEndTime() {
 		return endTime;
 	}
-
 	public void setEndTime(java.util.Date endTime) {
 		this.endTime = endTime;
 	}
@@ -81,7 +76,6 @@ public class EventBean implements Serializable {
 	public Integer getEventState() {
 		return eventState;
 	}
-
 	public void setEventState(Integer eventState) {
 		this.eventState = eventState;
 	}
@@ -89,7 +83,6 @@ public class EventBean implements Serializable {
 	public Integer getMaxMember() {
 		return maxMember;
 	}
-
 	public void setMaxMember(Integer maxMember) {
 		this.maxMember = maxMember;
 	}
@@ -97,40 +90,29 @@ public class EventBean implements Serializable {
 	public java.util.Date getDeadline() {
 		return deadline;
 	}
-
 	public void setDeadline(java.util.Date deadline) {
 		this.deadline = deadline;
 	}
 
 	@Override
 	public String toString() {
-		return "EvenBean [eventSN=" + eventSN + ", hostMbrSN=" + hostMbrSN + ", locSN=" + locSN + ", minMember="
+		return "EventBean [eventSN=" + eventSN + ", hostMbrSN=" + hostMbrSN + ", locSN=" + locSN + ", minMember="
 				+ minMember + ", beginTime=" + beginTime + ", endTime=" + endTime + ", eventState=" + eventState
 				+ ", maxMember=" + maxMember + ", deadline=" + deadline + "]";
 	}
-
-	public static void main(String[] args) {
-
-		ApplicationContext context = new ClassPathXmlApplicationContext("beans.config.xml");
-		SessionFactory sessionFactory = (SessionFactory) context.getBean("sessionFactory");
-		Session session = sessionFactory.getCurrentSession();
-
-		EventBean bean = new EventBean();
-
-		try {
-			session.beginTransaction();
-
-			bean = session.get(EventBean.class, "A123");
-			System.out.println(bean.getEventSN() + "," + bean.getEventState() + "," + bean.getHostMbrSN() + ","
-					+ bean.getLocSN() + "," + bean.getMaxMember() + "," + bean.getMinMember() + ","
-					+ bean.getBeginTime() + "," + bean.getDeadline() + "," + bean.getEndTime() + ",");
-
-			session.getTransaction().commit();
-			((ConfigurableApplicationContext) context).close();
-		} catch (RuntimeException e) {
-			session.getTransaction().rollback();
-			throw e;
-		}
-		session.close();
+	
+	public EventBean( MemberBean hostMbrSN, Integer locSN, Integer minMember, Date beginTime, Date endTime,
+			Integer eventState, Integer maxMember, Date deadline) {
+		super();
+		
+		this.hostMbrSN = hostMbrSN;
+		this.locSN = locSN;
+		this.minMember = minMember;
+		this.beginTime = beginTime;
+		this.endTime = endTime;
+		this.eventState = eventState;
+		this.maxMember = maxMember;
+		this.deadline = deadline;
 	}
+	
 }

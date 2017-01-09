@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
@@ -37,6 +40,13 @@
 				<value>model.CommentBean</value>
 				<value>model.GoogleMemberBean</value>
 				<value>model.FBMemberBean</value>
+			<!--Federer -->
+				<value>model.EventBean</value>
+				<value>model.EventDetailBean</value>
+				<value>model.EventDetailPK</value>
+				<value>model.LocationBean</value>
+				<value>model.MemberBean</value>
+			<!--Federer -->
 			</array>
 		</property>
 	</bean>
@@ -49,8 +59,10 @@
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
 	<tx:annotation-driven transaction-manager="txMgr" />
+	
+	<task:scheduler id="taskScheduler" pool-size="42"/>
+	<task:annotation-driven scheduler="taskScheduler"/>
 
 	<context:annotation-config />
 	<context:component-scan base-package="model" />

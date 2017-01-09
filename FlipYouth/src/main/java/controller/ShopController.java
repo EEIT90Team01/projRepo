@@ -53,6 +53,7 @@ import model.dao.MemberDAO;
 public class ShopController {
 	int count = 0;
 	int all = 0;
+	int price =0;
 	Map<String, List<ShopBean>> shopBean = new HashMap<String, List<ShopBean>>();
 	Map<String, ShopBean> pruduct = new HashMap<String, ShopBean>();
 	Map<String, OrderDetailBean> car = new HashMap<String, OrderDetailBean>();
@@ -63,21 +64,31 @@ public class ShopController {
 	@Resource(name = "memberDAO")
 	MemberDAO memberDao;
 	@Autowired
-	@Resource(name="commentDao")
+	@Resource(name = "commentDao")
 	CommentDao cmtDao;
-	
-	@RequestMapping(path="/fullcalendar.controller", produces = "application/json; charset=utf-8")
+
+	@RequestMapping(path = "/writeCar.controller")
 	@ResponseBody
-	public String fullcalendar(HttpSession session){
-		MemberBean ok = (MemberBean)session.getAttribute("loginOK");
+	public String writeCar(HttpServletResponse response) throws IOException {
+		
+		response.getWriter()
+		.write("<p>&#x4EE5;&#x9078;&#x8CFC;<font style=\"color: white;\">" + count + "&#x4EF6;</font><br>"
+				+ "&#x7E3D;&#x91D1;&#x984D;$<font style=\"color: white;\">" + (all + price) + "</font>");
+		return null;
+	}
+
+	@RequestMapping(path = "/fullcalendar.controller", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String fullcalendar(HttpSession session) {
+		MemberBean ok = (MemberBean) session.getAttribute("loginOK");
 		System.out.println(ok);
 		String JSON = shopServices.getOrderData(ok.getMbrSN());
-//		System.out.println(JSON);
-		
-//		System.out.println(ok.getMbrSN());
+		// System.out.println(JSON);
+
+		// System.out.println(ok.getMbrSN());
 		return JSON;
 	}
-	
+
 	// shop controller
 	@RequestMapping(path = "/Shop.controller")
 	public String Shop(Model model, HttpServletResponse response, HttpSession session, String gameClass, String ID,
@@ -129,8 +140,10 @@ public class ShopController {
 			session.setAttribute("ALL", all + price);
 			// &#x76EE;&#x524D;&#x4EF6;&#x6578 == 目前件數
 			// &#x76EE;&#x524D;&#x91D1;&#x984D == 目前金額
-			response.getWriter().write("<p>&#x4EE5;&#x9078;&#x8CFC;" + count +"&#x4EF6;"+
-			"<p>&#x7E3D;&#x91D1;&#x984D;$" + (all + price));
+			this.price=price;
+			response.getWriter()
+					.write("<p>&#x4EE5;&#x9078;&#x8CFC;<font style=\"color: white;\">" + count + "&#x4EF6;</font><br>"
+							+ "&#x7E3D;&#x91D1;&#x984D;$<font style=\"color: white;\">" + (all + price) + "</font>");
 			return null;
 		}
 
@@ -146,20 +159,24 @@ public class ShopController {
 		} else {// 第幾筆商品
 			pruduct.put("pruduct", shopServices.select(Integer.parseInt(ID)));
 			model.addAllAttributes(pruduct);
-			
-			//======================================================================
+
+			// ======================================================================
 			int gameSN = Integer.parseInt(ID);
-			List<CommentBean> result = cmtDao.select(gameSN);		//result為一個 List<CommentBean>
-			List<Map> img64  = new ArrayList<Map>();				//設定一個List<Map>
-			for(int i = 0 ; i < result.size();i++){					//用迴圈取出result的值(CommentBean)
-				Map<String,Object> ob = new HashMap<String,Object>();
-				ob.put("CommentBean", result.get(i));				//將第i個CommentBean放進 Map 的"CommentBean"
-				ob.put("img",Base64.getEncoder().encodeToString(result.get(i).getMbrSN().getImage()));	//將第i個 轉為base64格式的CommentBean的MemberBean的image(byte[])放入Map的 img
-				img64.add(ob);					//將這Map放入 List<Map> img64
+			List<CommentBean> result = cmtDao.select(gameSN); // result為一個
+																// List<CommentBean>
+			List<Map> img64 = new ArrayList<Map>(); // 設定一個List<Map>
+			for (int i = 0; i < result.size(); i++) { // 用迴圈取出result的值(CommentBean)
+				Map<String, Object> ob = new HashMap<String, Object>();
+				ob.put("CommentBean", result.get(i)); // 將第i個CommentBean放進 Map
+														// 的"CommentBean"
+				ob.put("img", Base64.getEncoder().encodeToString(result.get(i).getMbrSN().getImage())); // 將第i個
+																										// 轉為base64格式的CommentBean的MemberBean的image(byte[])放入Map的
+																										// img
+				img64.add(ob); // 將這Map放入 List<Map> img64
 			}
 			session.setAttribute("Comment", img64);
-			
-			//======================================================================			
+
+			// ======================================================================
 			return "pruduct";
 		}
 	}
@@ -208,7 +225,7 @@ public class ShopController {
 			}
 		});
 		thread.start();
-//		shopServices.sendMain(name, image, email);
+		// shopServices.sendMain(name, image, email);
 		OrderBean aOrderBean = null;
 
 		car = (Map<String, OrderDetailBean>) session.getAttribute("cars");
@@ -264,13 +281,11 @@ public class ShopController {
 				int c = car.get(a).getPK().getGameSN().getPrice();
 				all += (b * c);
 				count += b;
-
 			}
 			session.setAttribute("count", count);
 			session.setAttribute("ALL", all);
 			return "checkOut";
 		}
-		System.out.println("要更新的商品  = " + GameSN);
 		if (change != null) {
 			// all = 0; //??
 			// count = 0;//??
@@ -278,6 +293,7 @@ public class ShopController {
 			OrderDetailBean orderDetailBean = car.get(GameSN);
 			System.out.println("要更新的商品  = " + GameSN);
 			System.out.println("要更新的商品的名稱  = " + orderDetailBean.getPK().getGameSN());
+
 			// System.out.println("原本的數量 = "+);
 			System.out.println("要改成的數量 =  " + value);
 			if (Integer.parseInt(value) > (orderDetailBean.getPK().getGameSN().getStockQuantity().intValue())) {
@@ -287,14 +303,15 @@ public class ShopController {
 			;
 			orderDetailBean.setQuantity(Integer.parseInt(value));
 			car.put(GameSN, orderDetailBean);
-
+			all=0;
+			count=0;
 			for (String a : car.keySet()) {
 				int b = car.get(a).getQuantity();
 				int c = car.get(a).getPK().getGameSN().getPrice();
 				all += (b * c);
 				count += b;
-
 			}
+			
 			session.setAttribute("count", count);
 			session.setAttribute("ALL", all);
 			return "checkOut";
@@ -353,18 +370,17 @@ public class ShopController {
 	@RequestMapping(path = "/login/login.controller")
 	public String login(String kaptcha, HttpSession session, HttpServletResponse response, String user, String pass)
 			throws IOException, ParseException {
-		
-		if(session.getAttribute("count")==null||session.getAttribute("ALL")==null){
+		session.removeAttribute("loginError");
+		if (session.getAttribute("count") == null || session.getAttribute("ALL") == null) {
 			session.setAttribute("count", count);
 			session.setAttribute("ALL", all);
-			
+
 		}
-			
-			
+
 		String code = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 
 		if (kaptcha == null || kaptcha.trim().length() == 0) {
-			session.setAttribute("loginError", "驗證碼輸入錯誤");
+			session.setAttribute("loginError","");
 			return "login";
 		}
 		if (!code.equals(kaptcha) && kaptcha.trim().length() != 0) {
@@ -373,6 +389,7 @@ public class ShopController {
 			return "login";
 		} else {
 			if (session.getAttribute("loginOK") != null) {
+				session.setAttribute("loginError","");
 				return "index";
 			}
 			if (pass == null || pass.trim().equals("") || user == null || user.trim().equals("")) {
@@ -380,7 +397,7 @@ public class ShopController {
 				return "login";
 			}
 			if (user != null && pass != null) {
-				System.out.println("checkMember");
+				session.setAttribute("loginError","");
 				MemberBean memberBean = shopServices.checkMember(user, pass);
 				String url = (String) session.getAttribute("url");
 				if (memberBean != null) {
@@ -391,6 +408,7 @@ public class ShopController {
 					if (url == null || url.trim().length() == 0) {
 						url = "index";
 					}
+					session.setAttribute("loginError","");
 					return "index";
 				} else {// 密碼錯誤
 					session.setAttribute("loginError", "帳號或密碼輸入錯誤");
@@ -492,13 +510,13 @@ public class ShopController {
 				return "addGMember";
 			} else {
 				session.setAttribute("loginOK", (MemberBean) shopServices.selectMbr(MemberId));
-				return "home";
+				return "index";
 			}
 		} else {
 			System.out.println("getUserConnection.getResponseCode() =  " + getUserConnection.getResponseCode());
 		}
 		System.out.println("maker3");
-		return "home";
+		return "index";
 	}
 
 	@RequestMapping(path = "/addGMember.controller")
@@ -516,7 +534,7 @@ public class ShopController {
 		String GID = (String) session.getAttribute("GID");
 		MemberBean MemberBean = shopServices.addGmber(Gmbr, GID);
 		session.setAttribute("loginOK", MemberBean);
-		return "home";
+		return "index";
 	}
 
 	@RequestMapping(path = "/FBLogin.controller")
@@ -568,10 +586,10 @@ public class ShopController {
 				return "/FlipYouth/Tim/login/addFBMember.jsp";
 			} else {
 				session.setAttribute("loginOK", (MemberBean) shopServices.selectMbr(mbrSN));
-				return "/FlipYouth/home.jsp";
+				return "/FlipYouth/index.jsp";
 			}
 		}
-		return "home";
+		return "index";
 	}
 
 	@RequestMapping(path = "/addFBMember.controller")
@@ -589,7 +607,7 @@ public class ShopController {
 		String FBID = (String) session.getAttribute("FBID");
 		MemberBean MemberBean = shopServices.addFBmber(FBmbr, FBID);
 		session.setAttribute("loginOK", MemberBean);
-		return "home";
+		return "index";
 	}
 
 	@RequestMapping(path = "/delectOrder.controller")

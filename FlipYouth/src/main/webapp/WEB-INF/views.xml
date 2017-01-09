@@ -11,6 +11,13 @@
 	<property name="url" value="/admin/index.jsp" />
 	<property name="contextRelative" value="true" />
 </bean>
+<bean id="playgame.fail" class="org.springframework.web.servlet.view.InternalResourceView">
+	<property name="url" value="/home.jsp" />
+</bean>
+<bean id="playgame.ok" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/admin/index.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
 <!-- ************  Kelsey的設定  開始 *************** -->
 	<!-- 網址會整個改變 -->
 		<bean id="editMemberSuccess" class="org.springframework.web.servlet.view.RedirectView">
@@ -60,5 +67,42 @@
 	</bean>
 
 <!--========================= 	Samuel 	檔案		========================= -->
+
+<!-- Federer --> <!-- Federer --> <!-- Federer --> <!-- Federer --> <!-- Federer -->
+<bean id="EventDetail4Host.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/3EventDetail4Host.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
+<bean id="EventGo.index" class="org.springframework.web.servlet.view.InternalResourceView">
+	<property name="url" value="/event/2EventGo.jsp" />
+</bean>
+
+<bean id="Eventing.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/1Eventing.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
+<bean id="EventDetail4Mbr.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/3EventDetail4Mbr.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
+<bean id="MyEvent.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/6MyEvent.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
+<bean id="LocationDetail.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/5LocationDetail.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
+<bean id="EventSNDetail.index" class="org.springframework.web.servlet.view.RedirectView">
+	<property name="url" value="/event/4EventSNDetail.jsp" />
+	<property name="contextRelative" value="true" />
+</bean>
+
+<!-- Federer --> <!-- Federer --> <!-- Federer --> <!-- Federer --> <!-- Federer -->
 
 </beans>
