@@ -13,7 +13,7 @@ import model.MbrtoMyEventFbBean;
 @Controller
 @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 @SessionAttributes(names = { "eventDetail4MbrtoMyEvent" })
-public class EventDetail4MbrtoMyEvent {
+public class EventDetail4MbrtoMyEventController {
 	
 	@RequestMapping(path = { "/events/3EventDetail4Mbrto6MyEvent.controller" })  //接3EventDetail4Mbr.jsp
 	public String eventDetail4MbrtoMyEventProcess(String mbrSN,String eventSN,MbrtoMyEventFbBean mbrtoMyEventFbBean,Model model,HttpSession session){
