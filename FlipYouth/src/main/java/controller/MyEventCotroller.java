@@ -9,14 +9,18 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-
+import model.EventBean;
+import model.EventDeleteService;
 import model.EventDetailBean;
+import model.EventDetailPK;
+import model.MemberBean;
 import model.dao.EventDaoImpl;
 import model.dao.EventDetailDaoImpl;
 import model.dao.LocationDaoImpl;
@@ -26,6 +30,9 @@ import model.dao.LocationDaoImpl;
 @SessionAttributes(names = { "myEvent" })
 public class MyEventCotroller {
 
+	@Autowired
+	EventDeleteService eventDeleteService;
+	
 	@Resource(name = "eventDao")
 	EventDaoImpl eventDaoImpl;
 	@Resource(name = "eventDetailDao")
@@ -56,6 +63,16 @@ public class MyEventCotroller {
 		}
 		session.setAttribute("myEventData", myEventData);
 		
+		return "MyEvent.index";
+	}
+	
+	@RequestMapping(path = { "/events/myEvent2.controller" }) //接6MyEvent.jsp的退除此團 以及 刪除紀錄用
+	public String myEventdelete(String mbrSN,String eventSN,HttpSession session){
+		
+		eventDeleteService.myEventDeleteUse(mbrSN, eventSN);
+		session.setAttribute("eventSN", "null");
+		session.setAttribute("mbrSN", mbrSN);
+		System.out.println("session = "+session.getAttribute(eventSN)+" & "+session.getAttribute(mbrSN));
 		return "MyEvent.index";
 	}
 }
