@@ -36,7 +36,7 @@
 <link rel="stylesheet"
 	href="<c:url value="/Tim/css_Tim/dataTable.css"/>">
 
-<link rel="stylesheet" href="<c:url value="/Tim/css_Tim/relation.css"/>">
+<%-- <link rel="stylesheet" href="<c:url value="/Tim/css_Tim/relation.css"/>"> --%>
 
 
 <!------------------------------------------- fullcalendar.io------------------------------------->
