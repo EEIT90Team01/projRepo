@@ -70,6 +70,7 @@ public class ShopDao {
 	}
 
 	public List<ShopBean> getGameData(String Query,int maxGameSN,int mixGameSN) {
+		System.out.println(Query);
 		Query<ShopBean> gameList = this.getSession().createQuery(Query).setFirstResult(mixGameSN-1).setMaxResults(maxGameSN);
 		
 		return gameList.getResultList();

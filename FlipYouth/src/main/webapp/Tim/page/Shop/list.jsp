@@ -552,12 +552,8 @@ font {
 		</div>
 
 	</div>
-
-
-
-
 	<script type="text/javascript">
-		$(document).ready(function() {
+	$(document).ready(function() {
 			wdth = $(window).width();
 			if (wdth < 975) {
 				$('#shop-left').hide();
@@ -789,9 +785,9 @@ font {
 												var i = '<div class="price"> <span class="btm-30px" style="font-family: fantasy;position: absolute; bottom: 40px; margin: 0px auto;">NT\$'
 														+ data.price
 														+ '</span> </div>'
-												var j = '<div class="rating"><a target="_blank" href="<c:url value="/Shop.controller?ID='
+												var j = '<div class="rating" ><a data-toggle="tooltip" title="查看詳情" target="_blank" href="<c:url value="/Shop.controller?ID='
 														+ data.gameSN
-														+ '"/>"><img  class="carimage" style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a href="javascript:void(0)"  onclick="car('
+														+ '"/>"><img  class="carimage" style="width:30px;float:right" src="<c:url value="/Tim/image/icon/look.png"/>"></a> <a data-toggle="tooltip" title="加入購物車" href="javascript:void(0)"  onclick="car('
 														+ data.gameSN
 														+ ','
 														+ data.price
@@ -805,6 +801,7 @@ font {
 						},
 					})//end ajax
 		}
+		
 	</script>
 	
 </body>
