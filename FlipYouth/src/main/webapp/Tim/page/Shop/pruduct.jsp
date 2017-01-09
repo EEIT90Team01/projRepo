@@ -193,7 +193,7 @@ iframe {
 						
 								<div role="tabpanel" class="tab-pane" id="profile">
 								<div id="commentDiv">
-									<h1>${pruduct.gameSN},${loginOK.mbrSN}</h1>
+									<h1></h1>
 									<!-- ================================================================================================================================ -->
 
 
