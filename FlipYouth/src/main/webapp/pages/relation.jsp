@@ -68,14 +68,16 @@ session.setAttribute("user_photo", user_photo);
 					<img  class="img-rounded memberAvatar" alt="Bootstrap Image Preview"
 							src="data:image/png;base64,${user_photo}"  />
 					<div class="memberContent">
-					<blockquote class="blockquote_k">
+						<blockquote class="blockquote_k">
 							<p>翻桌唷 -- 會員專區</p>
 							<span class="usr_name">使用者：${loginOK.nickName}</span><br>
 						</blockquote>
-						</div>
+					</div>
 						
 					</div>
 				</div>
+				
+				
 				
 
 
@@ -159,7 +161,7 @@ session.setAttribute("user_photo", user_photo);
 												
 						<div style="display:none;" id="searchMemberArea" class="searchMemberAreaClass">
 								<figure> 
-								<img  alt="Thumb" id="searchMemberImage"/>
+								<img  alt="Thumb" id="searchMemberImage" width=120	height=auto/>
 								
 								<figcaption>
 								<div id="searchMemberNickname"></div>
@@ -180,7 +182,7 @@ session.setAttribute("user_photo", user_photo);
 <!-- <div style="display:table; width:300px; height:300px; border:solid 1px #ccc; "> -->
 
 
-							<div style="border: 3px solid #63D7D4; width:100%;height:auto; overflow:hidden">
+							<div class="showAllFriend">
 								
 								
 								<c:forEach var="friend"
@@ -195,14 +197,12 @@ session.setAttribute("user_photo", user_photo);
 										</figcation>
 									</figure>
 									
-									<div style="display:none;"  id="${searchRelationMap.searchRelationFriendSN[status.index] }" class="searchMemberAreaClass">						
+									<div style="display:none;" name="inputDiv"  id="${searchRelationMap.searchRelationFriendSN[status.index] }" class="searchMemberAreaClass">						
 										<input type="button" value="刪除好友"  onclick="deleteFriendImageButton( '${friend}')" /> 
 										<input type="button" value="封鎖會員"  onclick="BlockadeMemberImageButton ('${friend}')" />
 									</div>
 								</div>
-									
-									
-									<!-- box over-->
+								<!-- box over-->
 									
 									</c:forEach>
 								</div>
@@ -212,35 +212,41 @@ session.setAttribute("user_photo", user_photo);
 
 						</div>
 
-						<ul class="pagination">
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
+<!-- 						<ul class="pagination"> -->
+<!-- 							<li><a href="#">Prev</a></li> -->
+<!-- 							<li><a href="#">1</a></li> -->
+<!-- 							<li><a href="#">2</a></li> -->
+<!-- 							<li><a href="#">3</a></li> -->
+<!-- 							<li><a href="#">4</a></li> -->
+<!-- 							<li><a href="#">5</a></li> -->
+<!-- 							<li><a href="#">Next</a></li> -->
+<!-- 						</ul> -->
 					</div>
 				</div>
 
 
 
-				<div class="row">
-					<div class="col-md-12">
-						<blockquote>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Integer posuere erat a ante.</p>
-							<small>Someone famous <cite>Source Title</cite></small>
-						</blockquote>
-					</div>
-				</div>
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-md-12"> -->
+<!-- 						<blockquote> -->
+<!-- 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. -->
+<!-- 								Integer posuere erat a ante.</p> -->
+<%-- 							<small>Someone famous <cite>Source Title</cite></small> --%>
+<!-- 						</blockquote> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
 
 
 			</div>
 		</div>
 	</div>
+	
+	    
+    <!-- ********* container 結束 *******************************-->
+	
+<!--****** 	導入footer  *****************************-->
+<jsp:include page="/footer.jsp"></jsp:include>
 
 
 <!-- ************javascript 開始 ************************************************************************-->

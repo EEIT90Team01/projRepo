@@ -23,6 +23,11 @@
 
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
 
+<!--*********** 下排按鈕x2個link  ********************************-->
+<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="<c:url value='/Kelsey/css/button.css' />" > 
+
+
 <%@ page import="model.MemberBean"%>
 <%@ page import="java.util.*"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
@@ -38,6 +43,12 @@ if(user != null){
 session.setAttribute("user_photo", user_photo);
 %>
 </head>
+<style>
+*{
+font-family:"微軟正黑體";
+}
+</style>
+
 <body>
 
 <%-- 					利用一個type="hidden" 隱藏需要抓取${loginOK.mbrSN}的標籤,並利用此標籤送出查詢 --%>
@@ -45,33 +56,35 @@ session.setAttribute("user_photo", user_photo);
 								
 																
 						<div class="hero">
-								 <img class="header_left_img" src="images/light_green/logo_06-02.png" />
+								 <img class="header_left_img" src="<c:url value='/Kelsey/images/light_green/logo_06-02.png'/>" />
 									<h1>
 											封&nbsp鎖&nbsp名&nbsp單&nbsp&nbsp<strong>Flip Youth</strong>
 									</h1>
 						</div>
+						
 						
 								
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="row">
+						
 					<div class="col-md-12">
-						<h3>封鎖名單</h3>
 					</div>
 				</div>
 
 
 				<div class="row">
-					<div class="col-md-8">
-						<blockquote>
-							<p>翻桌唷 會員專區</p>
-							<footer>xxxxx，使用者：<cite title="Source Title">${loginOK.nickName}</cite></footer>
+					<div class="col-md-12">
+					<img  class="img-rounded memberAvatar" alt="Bootstrap Image Preview"
+							src="data:image/png;base64,${user_photo}"  />
+					<div class="memberContent">
+					<blockquote class="blockquote_k">
+							<p>翻桌唷 -- 會員專區</p>
+							<span class="usr_name">使用者：${loginOK.nickName}</span><br>
 						</blockquote>
-					</div>
-					<div class="col-md-4">
-						<img alt="Bootstrap Image Preview"
-							src="data:image/png;base64,${user_photo}" class="img-rounded"   width=150	height=auto/>
+						</div>
+						
 					</div>
 				</div>
 
@@ -79,32 +92,32 @@ session.setAttribute("user_photo", user_photo);
 
 				<!-- ********** 左邊下拉列表   開始  **********************************************-->
 				<div class="row">
-					<div class="col-md-6">
-						<div class="panel-group" id="panel-734557">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<a class="panel-title collapsed" data-toggle="collapse"
-										data-parent="#panel-734557" href="#panel-element-705642">Collapsible
-										Group Item #1</a>
-								</div>
-								<div id="panel-element-705642" class="panel-collapse collapse">
-									<div class="panel-body">Anim pariatur cliche...</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<a class="panel-title collapsed" data-toggle="collapse"
-										data-parent="#panel-734557" href="#panel-element-572918">Collapsible
-										Group Item #2</a>
-								</div>
-								<div id="panel-element-572918" class="panel-collapse collapse">
-									<div class="panel-body">Anim pariatur cliche...</div>
-								</div>
-							</div>
-						</div>
-					</div>
+<!-- 					<div class="col-md-6"> -->
+<!-- 						<div class="panel-group" id="panel-734557"> -->
+<!-- 							<div class="panel panel-default"> -->
+<!-- 								<div class="panel-heading"> -->
+<!-- 									<a class="panel-title collapsed" data-toggle="collapse" -->
+<!-- 										data-parent="#panel-734557" href="#panel-element-705642">Collapsible -->
+<!-- 										Group Item #1</a> -->
+<!-- 								</div> -->
+<!-- 								<div id="panel-element-705642" class="panel-collapse collapse"> -->
+<!-- 									<div class="panel-body">Anim pariatur cliche...</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							<div class="panel panel-default"> -->
+<!-- 								<div class="panel-heading"> -->
+<!-- 									<a class="panel-title collapsed" data-toggle="collapse" -->
+<!-- 										data-parent="#panel-734557" href="#panel-element-572918">Collapsible -->
+<!-- 										Group Item #2</a> -->
+<!-- 								</div> -->
+<!-- 								<div id="panel-element-572918" class="panel-collapse collapse"> -->
+<!-- 									<div class="panel-body">Anim pariatur cliche...</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 					<!-- ********** 搜尋會員   開始  **********************************************-->
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<nav class="navbar navbar-default" role="navigation">
 						<div class="navbar-header">
 
@@ -120,20 +133,42 @@ session.setAttribute("user_photo", user_photo);
 						<div class="collapse navbar-collapse"
 							id="bs-example-navbar-collapse-1">
 							<ul class="nav navbar-nav">
+							<c:if test="${loginOK == null}">
+									<li ><a href="<c:url value="/Tim/login/login.jsp"/>">Sign In</a></li>
+							</c:if>
+							<c:if test="${loginOK != null}">
+									<li><a href="<c:url value="/logout.controller"/>">Sign Up</a></li>
+							</c:if>
+								<li ><a
+									href="<c:url value='/pages/memberIndex.jsp'/>" >
+										<img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" style="width: 18px; height: auto;" class="navimg">&nbsp&nbsp會員中心&nbsp
+										
+								</a></li>
+					
+								<li ><a href="<c:url value='/Shop.controller'/>"> <img
+										src="<c:url value='/Kelsey/images/basic_gray/shopping-cart.png'/>" class="navimg">&nbsp&nbsp翻桌唷&nbsp商城&nbsp
+								</a></li>
+					
+								<li ><a href="" > <img
+										src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>" class="navimg">&nbsp&nbsp我的揪團&nbsp
+								</a></li>					
+								<li ><a href="" > <img
+										src="<c:url value='/Kelsey/images/basic_gray/time.png'/>" class="navimg">&nbsp&nbsp我的月曆&nbsp
+								</a></li>
 								<li ><a href="<c:url value="index3.jsp"/>">回首頁</a></li>
-								<li ><a href="<c:url value="/showBlockadeMember.controller"/>">封鎖名單</a></li>
-								<li><a href="<c:url value="/searchRelation.controller"/>">好友列表</a></li>
-								<li class="dropdown"><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+								
+								<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Friend<strong class="caret"></strong></a>
 									<ul class="dropdown-menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
+										<li ><a	href="<c:url value='/searchRelation.controller' />"> 
+											<img src="<c:url value='/Kelsey/images/basic_gray/stick-man.png'/>" class="navimg">&nbsp&nbsp我的好友&nbsp</a></li>
+										<li ><a href="<c:url value="/showBlockadeMember.controller"/>">封鎖名單</a></li>
+										<li><a href="<c:url value="/searchRelation.controller"/>">好友列表</a></li>
 										<li class="divider"></li>
 										<li><a href="#">Separated link</a></li>
 										<li class="divider"></li>
 										<li><a href="#">One more separated link</a></li>
-									</ul></li>
+									</ul>
+								</li>
 							</ul>
 								<div class="form-group">
 									<input type="text" class="form-control" placeholder="請輸入會員名稱" id="nickName" />
@@ -155,7 +190,7 @@ session.setAttribute("user_photo", user_photo);
 												
 						<div style="display:none;" id="searchMemberArea" class="searchMemberAreaClass">
 								<figure> 
-								<img  alt="Thumb" id="searchMemberImage"/>
+								<img  alt="Thumb" id="searchMemberImage" width=120	height=auto/>
 								
 								<figcaption>
 								<div id="searchMemberNickname"></div>
@@ -172,9 +207,14 @@ session.setAttribute("user_photo", user_photo);
 						<!-- ********** 顯示搜尋會員  結束 **********************************************-->
 						
 									<!--**************** 顯示出所有封鎖名單    開始*******************************-->
-
+						<div class="showAllFriend">
+									
 							<c:forEach var="blockadeMember"
 								items="${showBlockadeMemberMap.searchBlockadeMember}" varStatus="status">
+								
+								<!-- box start-->
+								<div class="boxContainer">
+								
 								<figure  onclick="blockadeMemberArea('${showBlockadeMemberMap.searchBlockadeMemberSN[status.index] }')"> 
 									<img src="data:image/jpg;base64,${showBlockadeMemberMap.searchBlockadeMemberImage[status.index]}"
 									alt="Thumb"  width=120	height=auto />
@@ -183,11 +223,22 @@ session.setAttribute("user_photo", user_photo);
 									</figcation>
 								</figure>
 								
-								<div style="display:none;" id="${showBlockadeMemberMap.searchBlockadeMemberSN[status.index] }" class="searchMemberAreaClass">						
+								<div style="display:none;"  name="inputDiv"  id="${showBlockadeMemberMap.searchBlockadeMemberSN[status.index] }" class="searchMemberAreaClass">						
 									<input type="button" value="解除封鎖" id="unBlockadeMemberImageButton"  onclick="unBlockadeMemberImageButton ('${blockadeMember}')"/>
 								</div>
+								<div class="social-buttons">
+								    <a class="social-button facebook" href="#"><i class="fa fa-facebook"></i></a>
+								    <a class="social-button twitter" href="#"><i class="fa fa-twitter"></i></a>
+								    <a class="social-button google" href="#"><i class="fa fa-google"></i></a>
+								    <a class="social-button dribbble" href="#"><i class="fa fa-dribbble"></i></a>
+								    <a class="social-button skype" href="#"><i class="fa fa-skype"></i></a>
+								</div>
+								
+								</div>
+								<!-- box over-->
 								
 							</c:forEach>
+						</div>
 
 							<!--**************** 顯示出所有封鎖名單    結束*******************************-->
 						</div>
@@ -206,21 +257,26 @@ session.setAttribute("user_photo", user_photo);
 
 
 
-				<div class="row">
-					<div class="col-md-12">
-						<blockquote>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Integer posuere erat a ante.</p>
-							<small>Someone famous <cite>Source Title</cite></small>
-						</blockquote>
-					</div>
-				</div>
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-md-12"> -->
+<!-- 						<blockquote> -->
+<!-- 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. -->
+<!-- 								Integer posuere erat a ante.</p> -->
+<%-- 							<small>Someone famous <cite>Source Title</cite></small> --%>
+<!-- 						</blockquote> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
 
 
 			</div>
 		</div>
 	</div>
+	
+	 <!-- ********* container 結束 *******************************-->
+	
+<!--****** 	導入footer  *****************************-->
+<jsp:include page="/footer.jsp"></jsp:include>
 	
 <!-- ************javascript 開始 ************************************************************************-->	
 

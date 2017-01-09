@@ -1,89 +1,343 @@
 * {
-  margin: 0;
-  padding: 0; 
+	margin: 0;
+	padding: 0;
 }
 
-
-
+/*-------- 全部大選單  --------------------------------------*/
 #nav-icon3 {
-  width: 30px;
-  height: 25px;
-  margin: 50px auto;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: .5s ease-in-out;
-  -moz-transition: .5s ease-in-out;
-  -o-transition: .5s ease-in-out;
-  transition: .5s ease-in-out;
-  cursor: pointer;
+	width: 30px;
+	height: 25px;
+	margin: 50px auto;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+	cursor: pointer;
 }
 
 #nav-icon3 span {
-  display: block;
-  position: absolute;
-  height: 3px;
-  width: 100%;
-  background: #d3531a;
-  border-radius: 9px;
-  opacity: 1;
-  left: 0;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: .25s ease-in-out;
-  -moz-transition: .25s ease-in-out;
-  -o-transition: .25s ease-in-out;
-  transition: .25s ease-in-out;
+	display: block;
+	position: absolute;
+	height: 4px;
+	width: 100%;
+	background: white;
+	border-radius: 9px;
+	opacity: 1;
+	left: 0;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .25s ease-in-out;
+	-moz-transition: .25s ease-in-out;
+	-o-transition: .25s ease-in-out;
+	transition: .25s ease-in-out;
 }
-
-
-
 
 /* Icon 3 */
-
 #nav-icon3 span:nth-child(1) {
-  top: 0px;
+	top: -30px;
 }
 
-#nav-icon3 span:nth-child(2),#nav-icon3 span:nth-child(3) {
-  top: 10px;
+#nav-icon3 span:nth-child(2), #nav-icon3 span:nth-child(3) {
+	top: -20px;
 }
 
 #nav-icon3 span:nth-child(4) {
-  top: 20px;
+	top: -10px;
 }
 
 #nav-icon3.open span:nth-child(1) {
-  top: 10px;
-  width: 0%;
-  left: 50%;
+	top: -20px;
+	width: 0%;
+	left: 50%;
 }
 
 #nav-icon3.open span:nth-child(2) {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
 }
 
 #nav-icon3.open span:nth-child(3) {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 #nav-icon3.open span:nth-child(4) {
-  top: 18px;
-  width: 0%;
-  left: 50%;
+	top: -12px;
+	width: 0%;
+	left: 50%;
+}
+
+/*--------- Shop下方選單------------------------------------ */
+#MemberUL {
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+	cursor: pointer;
+}
+
+#MemberUL ul {
+	display: block;
+	position: absolute;
+	height: 4px;
+	width: 100%;
+	background: white;
+	border-radius: 9px;
+	opacity: 1;
+	left: 0;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .25s ease-in-out;
+	-moz-transition: .25s ease-in-out;
+	-o-transition: .25s ease-in-out;
+	transition: .25s ease-in-out;
+}
+
+#MemberUL.MemberOpenSelect {
+	display: none;
+}
+
+#MemberUL.MemberOpenSelected {
+	display: block;
+}
+
+#MemberUL.MemberOpenSelected img {
+	width: 18px;
+	height: auto;
+}
+
+#MemberUL.MemberOpenSelected a {
+	font-size: 16px;
+    color: #aaa;
+}
+
+	/* #FriendSelectUL.openSelected ul { */
+	/* 	position: absolute; */
+	/* 	display: block; */
+	/* 	text-align: center; */
+	/* 	flaot: left; */
+	/* } */
+	/* #FriendSelectUL.openSelected li { */
+	/* 	position: relative; */
+	/* } */ 
+
+.MemberDIV {
+	display: table;
 }
 
 
 
 
+/*--------- Shop下方選單------------------------------------ */
+#ShopUL {
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+	cursor: pointer;
+}
+
+#ShopUL ul {
+	display: block;
+	position: absolute;
+	height: 4px;
+	width: 100%;
+	background: white;
+	border-radius: 9px;
+	opacity: 1;
+	left: 0;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .25s ease-in-out;
+	-moz-transition: .25s ease-in-out;
+	-o-transition: .25s ease-in-out;
+	transition: .25s ease-in-out;
+}
+
+#ShopUL.ShopOpenSelect {
+	display: none;
+}
+
+#ShopUL.ShopOpenSelected {
+	display: block;
+}
+
+#ShopUL.ShopOpenSelected img {
+	width: 18px;
+	height: auto;
+}
+
+#ShopUL.ShopOpenSelected a {
+	font-size: 16px;
+    color: #aaa;
+}
+
+	/* #FriendSelectUL.openSelected ul { */
+	/* 	position: absolute; */
+	/* 	display: block; */
+	/* 	text-align: center; */
+	/* 	flaot: left; */
+	/* } */
+	/* #FriendSelectUL.openSelected li { */
+	/* 	position: relative; */
+	/* } */ 
+
+.ShopDIV {
+	display: table;
+}
 
 
+
+
+/*--------- Team下方選單------------------------------------ */
+#TeamUL {
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+	cursor: pointer;
+}
+
+#TeamUL ul {
+	display: block;
+	position: absolute;
+	height: 4px;
+	width: 100%;
+	background: white;
+	border-radius: 9px;
+	opacity: 1;
+	left: 0;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .25s ease-in-out;
+	-moz-transition: .25s ease-in-out;
+	-o-transition: .25s ease-in-out;
+	transition: .25s ease-in-out;
+}
+
+#TeamUL.TeamOpenSelect {
+	display: none;
+}
+
+#TeamUL.TeamOpenSelected {
+	display: block;
+}
+
+#TeamUL.TeamOpenSelected img {
+	width: 18px;
+	height: auto;
+}
+
+#TeamUL.TeamOpenSelected a {
+	font-size: 16px;
+    color: #aaa;
+}
+
+	/* #FriendSelectUL.openSelected ul { */
+	/* 	position: absolute; */
+	/* 	display: block; */
+	/* 	text-align: center; */
+	/* 	flaot: left; */
+	/* } */
+	/* #FriendSelectUL.openSelected li { */
+	/* 	position: relative; */
+	/* } */ 
+
+.TeamDIV {
+	display: table;
+}
+
+
+/*--------- 好友下方選單------------------------------------ */
+#FriendSelectUL {
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-o-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+	cursor: pointer;
+}
+
+#FriendSelectUL ul {
+	display: block;
+	position: absolute;
+	height: 4px;
+	width: 100%;
+	background: white;
+	border-radius: 9px;
+	opacity: 1;
+	left: 0;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	-webkit-transition: .25s ease-in-out;
+	-moz-transition: .25s ease-in-out;
+	-o-transition: .25s ease-in-out;
+	transition: .25s ease-in-out;
+}
+
+#FriendSelectUL.openSelect {
+	display: none;
+	transition:3s;
+}
+
+#FriendSelectUL.openSelected {
+	display: block;
+	transition:3s;
+}
+
+#FriendSelectUL.openSelected img {
+	width: 18px;
+	height: auto;
+}
+
+#FriendSelectUL.openSelected a {
+	font-size: 16px;
+    color: #aaa;
+}
+
+	/* #FriendSelectUL.openSelected ul { */
+	/* 	position: absolute; */
+	/* 	display: block; */
+	/* 	text-align: center; */
+	/* 	flaot: left; */
+	/* } */
+	/* #FriendSelectUL.openSelected li { */
+	/* 	position: relative; */
+	/* } */ 
+
+.FriendSelectDIV {
+	display: table;
+}
