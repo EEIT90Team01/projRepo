@@ -20,53 +20,17 @@
 
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
 <%-- <link href="<c:url value="/Kelsey/css/index3.css"/>" rel="stylesheet"> --%>
+<link rel="stylesheet" href="<c:url value='/Kelsey/css/member.css'/>">
+<link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
+
+<!--*********** 下排按鈕x2個link  ********************************-->
+<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="<c:url value='/Kelsey/css/button.css' />" > 
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Edit Member</title>
-<style type="text/css">
-.st1 {
-	border-bottom: 1.5px solid pink;
-	margin: 10px;
-	padding: 10px;
-}
 
-fieldset {
-	border: 5px solid #FFC8B4;
-	border-radius: 10px;
-	width: 400px;
-	min-height: 350px;
-	padding: 20px;
-	margin:0 auto;
-}
-
-.st2 {
-	margin-top: 0px;
-	text-align: center;
-}
-
-.title {
-	
-	width: 80px;
-	padding-right: 5px;
-}
-
-.legend_k{
-	width: auto;
-	border-bottom: none;
-}
-.st3{
-	text-align: center;
-}
-.img_k{
-	
-	margin-right: 10px;
-}
-#member_photo{
-	width: 170px;
-	margin: 10px auto;
-}
-</style>
 </head>
 <body>
 <%@ page import="model.MemberBean"%>
@@ -86,57 +50,26 @@ session.setAttribute("user_photo", user_photo);
 
 												
 						<div class="hero">
+						
+						<c:if test="${loginOK != null }">
+							<img class="header_right_img" src="data:image/jpg;base64,${user_photo}" >
+							<div class="memberContentIndexPage">
+									<blockquote class="blockquote_k">
+		<!-- 							<p>翻桌唷 -- 會員專區</p> -->
+										<span class="memberContentIndex_usr_name">使用者：${loginOK.nickName}</span><br>
+									</blockquote>
+							</div>
+							
+						</c:if>
 								 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
 									<h1>
-											會&nbsp員&nbsp資&nbsp料&nbsp&nbsp<strong>Flip Youth</strong>
+											修&nbsp改&nbsp會&nbsp員&nbsp資&nbsp料&nbsp&nbsp<strong>Flip Youth</strong>
 									</h1>
 						</div>
 						
-	<!-- ***************	導覽列   開始  ******************************-->
-<!-- 	<a href="#menu" id="toggle"><span></span></a> -->
-
-<!--   <div id="menu"> -->
-<!--     <ul> -->
-<!--       <li><a href="#home">Home</a></li> -->
-<!--       <li><a href="#about">About</a></li> -->
-<!--       <li><a href="#contact">Contact</a></li> -->
-<!--     </ul> -->
-<!--   </div> -->
-<!-- </div> -->
-	
-<!-- <a href="#menu" id="toggle"><span></span></a> -->
-<!-- 	<div id='menu' class="list-group-k"> -->
-	<div id='nav-group' class="list-group-k">
-		<nav>
-		<ul>
-			<li ><a href="login.jsp#login-modal"
-				data-toggle="modal" data-target="login.jsp#login-modal">Login</a></li>
-			<li ><a
-				href="<c:url value='/pages/memberIndex.jsp'/>" >
-					<img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" class="navimg">&nbsp&nbsp會員中心&nbsp
-					
-			</a></li>
-
-			<li ><a href="<c:url value='/Shop.controller'/>"> <img
-					src="<c:url value='/Kelsey/images/basic_gray/shopping-cart.png'/>" class="navimg">&nbsp&nbsp翻桌唷&nbsp商城&nbsp
-			</a></li>
-
-			<li ><a href="" > <img
-					src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>" class="navimg">&nbsp&nbsp我的揪團&nbsp
-			</a></li>
-
-			<li ><a
-				href="<c:url value='/searchRelation.controller' />"> <img
-					src="<c:url value='/Kelsey/images/basic_gray/stick-man.png'/>" class="navimg">&nbsp&nbsp我的好友&nbsp
-			</a></li>
-
-			<li ><a href="" > <img
-					src="<c:url value='/Kelsey/images/basic_gray/time.png'/>" class="navimg">&nbsp&nbsp我的月曆&nbsp
-			</a></li>
-		</ul>
-		</nav>
-
-	</div>
+						
+<!-- ********	導入導覽列   **************************************-->
+	<jsp:include page="/nav.jsp"></jsp:include>
     
 						
 
@@ -144,7 +77,7 @@ session.setAttribute("user_photo", user_photo);
 		enctype="multipart/form-data">
 		<fieldset>
 
-			<legend>修改個人資料</legend>
+			<legend class= "legend_k">修改個人資料</legend>
 			<div class="st1">
 				<label class="title">暱稱：</label> <input type="text" name="nickName"
 					id="nickName" value="${loginOK.nickName}"  required /><span id="idspName"><span>${errors.nickName}</span>
@@ -168,7 +101,7 @@ session.setAttribute("user_photo", user_photo);
 			</div>
 			<div class="st3">
 			<label class="title">大頭貼</label><br>
-			<img src="data:image/jpg;base64,${loginOK.image}" id="imgPreview" class="img-thumbnail img_k" width=150	height=auto>
+			<img src="data:image/jpg;base64,${user_photo}" id="imgPreview" class="img-thumbnail img_k" width=150	height=auto>
 				 <input type="file" name="image"
 					id="member_photo" accept="image/jpeg,image/png"
 					value=" ${loginOK.image}" /><br>
@@ -188,7 +121,25 @@ session.setAttribute("user_photo", user_photo);
 	<!-- 	表格輸入時, 想即時檢查資料庫有没有相同記錄時，不用多問大家都會選用 Ajax 。 -->
 	<!-- 可以令你行 JavaScript 時不會因 loading 停頓，又不用重新整理頁面 ， 迅捷回應  -->
 	
+	<div class="social-buttons">
+	    <a class="social-button facebook" href="#"><i class="fa fa-facebook"></i></a>
+	    <a class="social-button twitter" href="#"><i class="fa fa-twitter"></i></a>
+	    <a class="social-button google" href="#"><i class="fa fa-google"></i></a>
+	    <a class="social-button dribbble" href="#"><i class="fa fa-dribbble"></i></a>
+	    <a class="social-button skype" href="#"><i class="fa fa-skype"></i></a>
+	</div>
+	    
+	    
+    <!-- ********* container 結束 *******************************-->
+	
+<!--****** 	導入footer  *****************************-->
+<jsp:include page="/footer.jsp"></jsp:include>
+	
 <!-- ************javascript 開始 ************************************************************************-->
+
+ <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+ <script src="<c:url value='/Kelsey/js/button.js'/>"></script>
 
 <!-- Bootstrap-jquery CDN -->
 <script src="https://code.jquery.com/jquery-3.1.1.js"
@@ -201,6 +152,15 @@ session.setAttribute("user_photo", user_photo);
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+	
+<!-- <script src="/Kelsey/js/easing/EasePack.min.js"></script> -->
+<!-- 	<script src="/Kelsey/js/plugins/CSSPlugin.min.js"></script> -->
+<!-- 	<script src="/Kelsey/js/TweenMax.min.js"></script> -->
+<!-- 	<script src="/Kelsey/js/nav_motion.js"></script> -->
+	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
 	
 	<script type="text/javascript">
 		//     window.onload = function () {

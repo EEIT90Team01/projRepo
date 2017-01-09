@@ -107,7 +107,7 @@ public class RelationController {
 		// list 有順序且可重复
 		List<RelationBean> list = null;// 使用者的封鎖名單
 		List<String> nicknameList = new ArrayList<>();// 裝轉使用者封鎖名單nickname 的
-														// "list")
+		List<Integer> mbrSNList = new ArrayList<>();// 裝轉使用者封鎖名單SN 的 "list")												// "list")
 		List<String> imageList = new ArrayList<>();// 裝轉成base64 Image的
 													// "list"(使用者封鎖名單的image)
 
@@ -125,7 +125,10 @@ public class RelationController {
 				// nicknameList放入所有好友的暱稱
 				nicknameList.add(list.get(i).getTargetMbrSN().getNickName());
 				System.out.println("List<RelationBean> (使用者所有的封鎖名單   暱稱)= " + list.get(i).getTargetMbrSN().getNickName());
-
+				
+				// mbrSNList放入所有封鎖的編號
+				mbrSNList.add(list.get(i).getTargetMbrSN().getMbrSN());
+				
 				// 將所有好友圖片轉成base64 放入imageList
 				imageBase64 = Base64.getEncoder().encodeToString(list.get(i).getTargetMbrSN().getImage());
 				// System.out.println("List<RelationBean> (使用者所有的好友圖片編碼)= " +
@@ -134,8 +137,9 @@ public class RelationController {
 			}
 			// System.out.println("imageList = " + imageList);
 
-			Map<String, List<String>> showBlockadeMemberMap = new HashMap<String, List<String>>();
+			Map<String, List<?>> showBlockadeMemberMap = new HashMap<String, List<?>>();
 			showBlockadeMemberMap.put("searchBlockadeMember", nicknameList);
+			showBlockadeMemberMap.put("searchBlockadeMemberSN", mbrSNList);
 			showBlockadeMemberMap.put("searchBlockadeMemberImage", imageList);
 
 			// 將所有好友關聯放進 session
@@ -216,6 +220,24 @@ public class RelationController {
 
 		} else {
 			System.out.println("deleteFriend.controller 失敗---mbrSN 或 targetNickname 是空的");
+		}
+	}//end of deleteFriend.controller
+	
+//	***************** 解除封鎖    ***************************************************************************************
+	@RequestMapping(path = "/unBlockadeMember.controller")
+	public @ResponseBody void unBlockadeMember(String mbrSN, String targetNickname) {
+		System.out.println("unBlockadeMember.controller的mbrSN = " + mbrSN + ", targetNickname = " + targetNickname);
+
+		if (!(targetNickname.isEmpty() || mbrSN.isEmpty())) {
+
+			int targetMbrSN = memberDAO.selectOne(targetNickname).getMbrSN();
+
+			System.out.println("unBlockadeMember.controller 開始");
+			relationDAO.unBlockadeMember(mbrSN, targetMbrSN);
+			System.out.println("unBlockadeMember.controller 成功");
+
+		} else {
+			System.out.println("unBlockadeMember.controller 失敗---mbrSN 或 targetNickname 是空的");
 		}
 	}//end of deleteFriend.controller
 

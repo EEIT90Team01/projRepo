@@ -7,6 +7,7 @@
 			if(searchMemberNickname.val().length == 0 || searchMemberNickname.val()== "" 
 					|| searchMemberNickname.val() == null || searchMemberNickname.val()== " "){
 // 				if(isEmpty( searchMemberNickname.val() ) ){
+				alert("輸入錯誤");
 				return;
 			}//end of if
 			
@@ -169,6 +170,7 @@
 		
  			function clickFriend(targetMbrSN){
 			console.log("進入friendArea, targetMbrSN = "+targetMbrSN);
+			$('div[name="inputDiv"]').css('display', 'none');
  				$('#'+targetMbrSN).css("display" ,"");
  			};//end of clickFriend(targetMbrSN)
  			
@@ -199,6 +201,7 @@
 				
 					function blockadeMemberArea(targetMbrSN){
 					console.log("blockadeMemberArea, targetMbrSN = "+targetMbrSN);
+					$('div[name="inputDiv"]').css('display', 'none');
 		 				$('#'+targetMbrSN).css("display" ,"");
 		 			};//end of clickFriend(targetMbrSN)
 				

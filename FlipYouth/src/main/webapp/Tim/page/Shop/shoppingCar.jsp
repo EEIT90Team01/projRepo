@@ -182,19 +182,19 @@ function loadaa() {
 									</td>
 									<td class="unit">\$${data.value.PK.gameSN.price}</td>
 									<td class="sub"><span>$</span><span>${data.value.PK.gameSN.price*data.value.quantity}</span></td>
-									<td class="action"><a href="javascript:void(0)"
+									<td class="action"><a class="tooltip_top"  href="javascript:void(0)"
 										data-toggle="tooltip"
 										onclick="CShopCar(${data.value.PK.gameSN.gameSN},${data.value.PK.gameSN.price},${data.value.quantity},this)"
-										data-placement="top" data-original-title="Update"> <i
+										data-placement="top" data-original-title="更新商品"> <i
 											class="fa fa-refresh"><img data-original-title="Update"
 												data-toggle="tooltip" style="width: 25px"
 												data-placement="top"
 												src="<c:url value="/Tim/image/icon/update.png"/>"
-												class="img-thumbnail"></i></a>&nbsp; <a
+												class="img-thumbnail"></i></a>&nbsp; <a 
 										onclick="delectCar(${data.value.PK.gameSN.gameSN},this)"
-										href="javascript:void(0)" class="text-danger"
+										href="javascript:void(0)" class="text-danger tooltip_top"
 										data-toggle="tooltip" data-placement="top"
-										data-original-title="Remove"><i class="fa fa-trash-o">
+										data-original-title="刪除商品"><i class="fa fa-trash-o">
 												<img style="width: 25px"
 												src="<c:url value="/Tim/image/icon/delete.png"/>"
 												class="img-thumbnail">
@@ -233,7 +233,9 @@ function loadaa() {
 
 	<script type="text/javascript">
 
-
+	$(function() {
+		$('.tooltip_top').tooltip({placement: "top"});
+	});
 
 		var gameCount;
 		

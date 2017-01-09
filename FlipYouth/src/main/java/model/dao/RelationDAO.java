@@ -94,6 +94,7 @@ public class RelationDAO {
 	
 	
 //	***************** 刪除好友    ***************************************************************************************	
+	
 	public void deleteFriend(String mbrSN , int targetMbrSN){
 		
 		System.out.println("deleteFriend relationDAO開始");
@@ -107,6 +108,16 @@ public class RelationDAO {
 //		this.getSession().delete(relationBean);
 	}
 	
-
+//	***************** 解除封鎖(黑名單)    ***************************************************************************
+	public void  unBlockadeMember (String mbrSN , int targetMbrSN){
+		
+		System.out.println("unBlockadeMember relationDAO開始 targetMbrSN= "+targetMbrSN);
+		Query query 
+		= this.getSession().createQuery("delete  RelationBean where mbrSN =" + mbrSN + " and targetMbrSN =" + targetMbrSN + " and relation = 2 ");
+		//使用HQL指令時.新增.更新.刪除時都需再加  query.executeUpdate();
+		int results = query.executeUpdate();
+	
+	}
+	
 
 }

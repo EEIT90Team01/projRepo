@@ -83,11 +83,12 @@ public class MemberDAO {
 
 	// 單獨搜尋一個會員
 	public MemberBean selectOne(String nickName) {
-
+		System.out.println(nickName);
 		if (!nickName.isEmpty()) {
 			Query query = this.getSession().createQuery("from MemberBean where nickName = '" + nickName + "'");
-			
-			return (MemberBean) query.getSingleResult();
+			MemberBean MemberBean=(MemberBean)query.getResultList().get(0);
+			System.out.println(MemberBean.getNickName());
+			return (MemberBean) query.getResultList().get(0);
 			//.getResultList();  -----  list
 			//.getSingleResult(); ----  一個單獨的東西
 

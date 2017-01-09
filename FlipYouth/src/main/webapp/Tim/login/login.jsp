@@ -19,7 +19,7 @@
 <link href="<c:url value="/Tim/css_Tim/bootstrap.css"/>"
 	rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="<c:url value="/Tim/css_Tim/login.css"/>" rel="stylesheet">
+
 <link href=<c:url value="/Tim/css_Tim/animate-custom.css"/>
 	rel="stylesheet">
 <script src="<c:url value="/Tim/js_Tim/custom.js"/>"
@@ -34,7 +34,7 @@
 	display: block;
 	/*     margin: 0 auto 15px; */
 	width: 50%;
-	background: #d6d6d6;
+/* 	background: #d6d6d6; */
 	border: 1px solid #bfbfbf;
 	color: #6c6c6c;
 	padding: 8px;
@@ -49,9 +49,73 @@
 	color: #6c6c6c;
 	padding: 8px;
 }
+video { 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+ background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
+  background-size: cover;
+  transition: 1s opacity;
+}
+.stopfade { 
+   opacity: .5;
+}
+
+#polina { 
+  font-family: Agenda-Light, Agenda Light, Agenda, Arial Narrow, sans-serif;
+  font-weight:100; 
+  color: white;
+  padding: 2rem;
+  width: 33%;
+  margin:2rem;
+  float: right;
+  font-size: 1.2rem;
+}
+h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin-top: 0;
+  letter-spacing: .3rem;
+}
+#polina button { 
+  display: block;
+  width: 80%;
+  padding: .4rem;
+  border: none; 
+  margin: 1rem auto; 
+  font-size: 1.3rem;
+  background: rgba(255,255,255,0.23);
+  color: #fff;
+  border-radius: 3px; 
+  cursor: pointer;
+  transition: .3s background;
+}
+
+
+a {
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  padding: .5rem;
+  transition: .6s background; 
+}
+
+
 </style>
+<link href="<c:url value="/Tim/css_Tim/login.css"/>" rel="stylesheet">
 </head>
 <body>
+<video poster="" id="bgvid" playsinline autoplay muted loop>
+  <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+<!-- <source src="http://thenewcode.com/assets/videos/polina.webm" type="video/webm"> -->
+<source src="/FlipYouth/Tim/video/Underground-Traffic.mp4" type="video/mp4">
+</video>
 	<!-- start Login box -->
 	<div class="container" id="login-block">
 		<div class="row">
@@ -60,8 +124,8 @@
 					class="animated bhttp://localhost:8080/FlipYouth/login/login.controller#ounceInDown">Login</h3>
 				<div class="login-box clearfix animated flipInY">
 					<div class="login-logo">
-						<a href="#"><img style="height: 100px; width: 100px"
-							src="<c:url value="/Tim/image/icon/apple.png"/>" /></a>
+						<a href="#"><img style="height: 157px; width: 172px"
+							src="<c:url value="/Tim/image/logo/logo05.png"/>" /></a>
 					</div>
 
 					<hr />

@@ -4,11 +4,11 @@
   
 /*Change Backgound image here */
 html{	
-	background: #000 url(../image/login/102.jpg) top center;
+/* 	background: #000 url(../image/login/102.jpg) top center; */
 	height:100%; 
 }
 body{
-	background: transparent url(../image/login/login-bg-overlay.png) repeat;
+/* 	background: transparent url(../image/login/login-bg-overlay.png) repeat; */
 	min-height:100%; 
 }
 .alert{
