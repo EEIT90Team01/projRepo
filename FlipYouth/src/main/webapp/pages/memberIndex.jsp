@@ -20,7 +20,7 @@
 
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
 <%-- <link href="<c:url value="/Kelsey/css/index3.css"/>" rel="stylesheet"> --%>
-<link href="<c:url value="/Kelsey/css/nav_motion_page.css"/>" rel="stylesheet">
+<link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/member.css'/>">
 
 <head>
