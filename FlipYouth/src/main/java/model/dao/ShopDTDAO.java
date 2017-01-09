@@ -26,19 +26,12 @@ public class ShopDTDAO {
 		return bean;
 	}
 
-//	@Override
-//	public List<Object> select() {
-//		
-//		List<ShopBean> beans = null;
-//		beans = (List<ShopBean>) getSession().createQuery("from ShopBean", ShopBean.class).getResultList();
-//		return beans;
-//	}
-
 	public ShopBean cu(ShopBean bean) {
 		
 		getSession().saveOrUpdate(bean);
 		return bean;
 	}
+	
 	public int ajaxDelete(String[] toDelete) {
 		int result = 0;
 		ShopBean bean;

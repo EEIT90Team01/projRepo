@@ -64,7 +64,7 @@ public class MailSenderBean implements Runnable {
 			mailMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(this.email));
 			mailMessage.setContent("<h1>你好!" + id + "</h1> <a href='" + url + "'>請點擊以激活帳號</a> ",
 					"text/html;charset=UTF-8");
-			mailMessage.setSubject("FlipYouth測試");
+			mailMessage.setSubject("FlipYouth會員 帳號激活");
 
 			Transport transport = mailSession.getTransport("smtp");
 

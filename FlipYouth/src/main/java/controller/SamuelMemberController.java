@@ -3,11 +3,11 @@ package controller;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import model.MailSenderBean;
 import model.MemberBean;
+import model.MemberInsertDao;
 import model.MemberInsertService;
 @Controller
 @RequestMapping(method = { RequestMethod.POST, RequestMethod.GET })
@@ -28,6 +29,9 @@ public class SamuelMemberController {
 
 	@Autowired
 	private MemberInsertService mis;
+	@Autowired
+	@Resource(name="MemberInsertDao")
+	MemberInsertDao mbrDao ;
 
 	@RequestMapping(path = { "/memberInsert.controller" })
 	public String data(
@@ -37,7 +41,7 @@ public class SamuelMemberController {
 			@RequestParam(name = "action") String action,
 			@RequestParam(name = "email") String mbrEmail,
 			Model model, HttpSession session) throws IOException {
-		
+		System.out.println("===========================nickname = "+nickname);
 		MemberBean bean = new MemberBean();
 		Map<String, String> errors = new HashMap<String, String>();
 		model.addAttribute("errors", errors);
@@ -69,14 +73,14 @@ public class SamuelMemberController {
 				errors.put("password", "please enter your password! ");
 			}
 
-//			if (mbrEmail == null || mbrEmail.length() == 0) {
-//				errors.put("email", "please enter your email! ");
-//			}else{
-//				Cbean.setMbrEmail(mbrEmail);
-//				if(mis.check(checkBean, "email")==null){
+			if (mbrEmail == null || mbrEmail.length() == 0) {
+				errors.put("email", "please enter your email! ");
+			}else{
+				bean.setMbrEmail(mbrEmail);
+//				if(mis.check(bean, "email")==null){
 //					errors.put("email", "the email is used");
 //				}
-//			}
+			}
 			if (errors != null && !errors.isEmpty()) {
 				return "fail";
 
@@ -105,7 +109,6 @@ public class SamuelMemberController {
 			@RequestParam(name = "name") String mbrName,
 			@RequestParam(name = "gender") String gender,
 			@RequestParam(name = "phone") String phone,
-			@RequestParam(name = "address") String address,
 			@RequestParam(name = "image") MultipartFile image,
 			@RequestParam(name = "action") String action,
 			Model model, HttpSession session) throws IOException{
@@ -140,9 +143,7 @@ public class SamuelMemberController {
 		Map<String, String> errors = new HashMap<String, String>();
 		model.addAttribute("errors", errors);
 		
-		msb = new MailSenderBean(sessionBean.getMbrEmail(), activatedCode, sessionBean.getMbrId());
-		
-		address = address.trim();
+		msb = new MailSenderBean(sessionBean.getMbrEmail(), activatedCode, sessionBean.getNickName());
 		
 		if("confirm".equals(action)){
 			sessionBean.setMbrName(mbrName);
@@ -151,7 +152,6 @@ public class SamuelMemberController {
 			sessionBean.setMbrState(0);
 			sessionBean.setEnergy(10);
 			sessionBean.setRptCounter(0);
-			sessionBean.setAddress(address);
 			sessionBean.setCreateTime(date);
 			sessionBean.setImage(image.getBytes());
 			sessionBean.setActivatedCode(activatedCode);
@@ -200,14 +200,14 @@ public class SamuelMemberController {
  				return "success";
 			}
 		}
-		if(email!=null){
-			temp.setMbrEmail(email);
-			if(mis.check(temp, "email") == null){
-				return "the email is used";
-			}else{
- 				return "success";
-			}
-		}
+//		if(email!=null){
+//			temp.setMbrEmail(email);
+//			if(mis.check(temp, "email") == null){
+//				return "the email is used";
+//			}else{
+// 				return "success";
+//			}
+//		}
 		return "";
 	}
 	
@@ -222,11 +222,6 @@ public class SamuelMemberController {
 		//mis.check(bean, "codeCheck")拿回一個MemberBean型態物件
 		MemberBean userBean = (MemberBean)mis.check(temp, "codeCheck");
 		StringBuilder userActCode = new StringBuilder();			//建立一個StringBuilder hashCode 用以轉換 byte[] activatedCode(不然會有亂碼)
-		
-//		for ( byte b : userBean.getActivatedCode())
-//	       {
-//			 userActCode.append(Integer.toHexString(b));
-//	       }
 		System.out.println(userBean.getActivatedCode());
 		for(byte b : userBean.getActivatedCode())
         {
@@ -238,7 +233,7 @@ public class SamuelMemberController {
             userActCode.append(actTemp);
         }
 		System.out.println(userActCode);
-	   System.out.println(userActCode.toString());
+	    System.out.println(userActCode.toString());
 		if(activatedCode.equals(userActCode.toString())){
 			userBean.setMbrState(1);
 			mis.stateUpdate(userBean);
@@ -249,7 +244,15 @@ public class SamuelMemberController {
 		return "fail";
 	}
 	
-	
+	//*****************************************************************************************************
+	    
+	@RequestMapping(path={"/getMbrSNByNickName.controller"})
+	public @ResponseBody int getMbrSNByNickName(String nickName){
+		System.out.println("mbrController的getMbrSNByNickName ");
+		int mbrSN = mbrDao.selectMbrSNByNickName(nickName);
+		System.out.println(mbrSN);
+		return mbrSN;
+	}
 	
 	
 }
