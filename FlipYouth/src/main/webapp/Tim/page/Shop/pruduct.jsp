@@ -323,7 +323,6 @@ iframe {
 	function deleteComment(cmtSN){
 		console.log("deleteComment方法的cmtSN = "+cmtSN);
 		$('#'+cmtSN).parent().remove();
-		
 	}
 	$(function(){
 		$(window).scroll(function(){
