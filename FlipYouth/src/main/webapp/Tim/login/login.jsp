@@ -116,7 +116,7 @@ a {
 <video poster="" id="bgvid" playsinline autoplay muted loop>
   <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
 <!-- <source src="http://thenewcode.com/assets/videos/polina.webm" type="video/webm"> -->
-<source src="/FlipYouth/Tim/video/Underground-Traffic.mp4" type="video/mp4">
+<source src="/FlipYouth/Tim/video/Boat-Lapse.mp4" type="video/mp4">
 </video>
 	<!-- start Login box -->
 	<div class="container" id="login-block">
@@ -221,7 +221,7 @@ a {
 			var googleURL = 'https://accounts.google.com/o/oauth2/auth?';
 			var client_id = 'client_id=451639246634-4m1oh7enkiqquk8hje60mfm9ve47onfs.apps.googleusercontent.com&'
 			var response_type = 'response_type=code&'
-			var redirect_uri = 'redirect_uri=https://flipyouth.azurewebsites.net/FlipYouth/googleLogin.controller&'
+			var redirect_uri = 'redirect_uri=https://flipyouth.southeastasia.cloudapp.azure.com/FlipYouth/googleLogin.controller&'
 			var scope = 'scope=email%20profile'
 			var url = googleURL + client_id + response_type + redirect_uri
 					+ scope;

@@ -444,7 +444,7 @@ public class ShopController {
 		writer.write("code=" + code + "&"); // 取得Google回傳的參數code
 		writer.write("client_id=451639246634-4m1oh7enkiqquk8hje60mfm9ve47onfs.apps.googleusercontent.com&"); // 這裡請將xxxx替換成自己的client_id
 		writer.write("client_secret=Dhm_JQEV5en-oyRYoXeshyAc&"); // 這裡請將xxxx替換成自己的client_serect
-		writer.write("redirect_uri=https://flipyouth.azurewebsites.net/FlipYouth/googleLogin.controller&");
+		writer.write("redirect_uri=https://flipyouth.southeastasia.cloudapp.azure.com/FlipYouth/googleLogin.controller&");
 		writer.write("grant_type=authorization_code");
 		writer.close();
 		JSONObject jo = null;
