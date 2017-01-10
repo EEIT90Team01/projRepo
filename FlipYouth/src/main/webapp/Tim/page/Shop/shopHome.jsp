@@ -82,6 +82,7 @@ font-family: 微軟正黑體;
 /* } */
 </style>
 </head>
+
 <body id="body" style="height: 1500px">
 
 	<header class="shopHome">

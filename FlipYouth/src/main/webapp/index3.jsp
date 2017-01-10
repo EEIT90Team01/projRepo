@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 <!-- 加favicon -->
 <link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
-
 <%@ page import="model.MemberBean"%>
 <%@ page import="java.util.*"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>

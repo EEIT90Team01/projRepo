@@ -324,7 +324,6 @@ font {
 
 </head>
 
-
 <div class="shoppingBox">
 	<h3>購物清單</h3>
 	<img alt="" src="<c:url value="/Tim/image/border_shopBox.png"/>">
