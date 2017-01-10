@@ -212,9 +212,9 @@ public class DataTablesService {
 				JsonObject jObj = gson.toJsonTree(shop).getAsJsonObject();
 				jObj.add("DT_RowId", gson.toJsonTree("r_" + shop.getGameSN()));
 				jObj.add("BigImage_Dis", gson.toJsonTree(
-						"<img src='/FlipYouth/Tim" + shop.getBigImage() + "?" + System.currentTimeMillis() + "' />"));
+						"<img width='150px' src='/FlipYouth/Tim" + shop.getBigImage() + "?" + System.currentTimeMillis() + "' />"));
 				jObj.add("SmallImage_Dis", gson.toJsonTree(
-						"<img src='/FlipYouth/Tim" + shop.getSmallImage() + "?" + System.currentTimeMillis() + "' />"));
+						"<img width='150px' src='/FlipYouth/Tim" + shop.getSmallImage() + "?" + System.currentTimeMillis() + "' />"));
 				// jObj.add("div1Dis",
 				// gson.toJsonTree(HtmlUtils.htmlEscape(shop.getDiv1())));
 				jArray.add(jObj);

@@ -3,12 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>FlipYouth後台管理系統</title>
+<title>FlipYouth 後台管理系統</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -54,8 +56,8 @@
 		<!-- Main component for a primary marketing message or call to action -->
 		<div role="tabpanel" class="tab-pane active" id="home">
 			<div class="jumbotron">
-				<h1>FlipYouth Content Management</h1>
-				<h3>Hi! ${admin.admId}</h3>
+				<h1>FlipYouth 後台管理系統</h1>
+				<h3>嗨！ 管理員 ${admin.admId}</h3>
 			</div>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="tables">
