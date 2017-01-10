@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,10 @@ public class ColumnService {
 	@Autowired
 	private Gson gson;
 	
-	String tableName;
-	String[] cols;
+	@Autowired
+	private HttpSession session;
+	
+	
 	Map<String, String[]> colsMap;
 	Map<String, String[]> colStringsMap;
 	
@@ -55,17 +58,16 @@ public class ColumnService {
 	}
 	
 	public String getTableName() {
-		return tableName;
+		return (String) session.getAttribute("tableName");
 	}
 
 	public String[] getCols() {
-		return cols;
+		return (String[]) session.getAttribute("cols");
 	}
 
 	public String getColumnInfo(String tableName) {
-		
-		this.tableName = tableName;
-		cols=colsMap.get(tableName);
+		String[] cols = colsMap.get(tableName);
+		session.setAttribute("tableName", tableName);
 		JsonArray jArray = new JsonArray();
 		for (String col:cols){
 			JsonObject colDef = new JsonObject();
@@ -73,6 +75,7 @@ public class ColumnService {
 			colDef.add("defaultContent", gson.toJsonTree(""));
 			jArray.add(colDef); 
 		}
+		session.setAttribute("cols",cols);
 		JsonObject jObj = new JsonObject();
 		jObj.add("cols", jArray);
 		jObj.add("colStrings", gson.toJsonTree(colStringsMap.get(tableName)));

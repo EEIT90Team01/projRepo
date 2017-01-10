@@ -226,9 +226,10 @@ public class DataTablesService {
 
 				JsonObject jObj = gson.toJsonTree(mbr).getAsJsonObject();
 				jObj.add("DT_RowId", gson.toJsonTree("r_" + mbr.getMbrSN()));
-				if (mbr.getImage() != null) {
-					jObj.add("image_Dis", gson.toJsonTree(tempService.getBase64Src(mbr.getImage())));
-				}
+//				if (mbr.getImage() != null) {
+//					jObj.add("image_Dis", gson.toJsonTree(tempService.getBase64Src(mbr.getImage())));
+//				}
+				jObj.remove("image");
 				jArray.add(jObj);
 			}
 			return jArray;

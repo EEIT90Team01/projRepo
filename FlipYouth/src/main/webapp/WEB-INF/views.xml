@@ -8,7 +8,7 @@
 	<property name="url" value="/admin/secure/login.jsp" />
 </bean>
 <bean id="adminLogin.index" class="org.springframework.web.servlet.view.RedirectView">
-	<property name="url" value="/admin/index.jsp" />
+	<property name="url" value="/admin/" />
 	<property name="contextRelative" value="true" />
 </bean>
 <bean id="playgame.fail" class="org.springframework.web.servlet.view.InternalResourceView">
