@@ -110,7 +110,7 @@ public class DataTablesService {
 
 		hql.append(" order by " + cols[col.get(0)].replace("_Dis", "") + " " + dir.get(0));
 		if (col.size() > 1) {
-			for (int i = 1; i < cols.length; i++) {
+			for (int i = 1; i < col.size(); i++) {
 				hql.append(", " + cols[col.get(i)].replace("_Dis", "") + " " + dir.get(i));
 			}
 		}
@@ -239,6 +239,7 @@ public class DataTablesService {
 
 				JsonObject jObj = gson.toJsonTree(ord).getAsJsonObject();
 				jObj.add("DT_RowId", gson.toJsonTree("r_" + ord.getOrderSN()));
+				jObj.add("mbrSN_Dis", gson.toJsonTree(ord.getMbrSN()+" ( id = "+memberDtdao.select(ord.getMbrSN()).getMbrId()+" )"));
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -253,6 +254,7 @@ public class DataTablesService {
 				jObj.add("DT_RowId", gson.toJsonTree("r_" + orderSN +"_"+gameSN));
 				jObj.add("orderSN", gson.toJsonTree(orderSN));
 				jObj.add("gameSN", gson.toJsonTree(gameSN));
+				jObj.add("gameSN_Dis", gson.toJsonTree(gameSN+" ( name = "+shopDtdao.select(gameSN).getGameName()+" )"));
 				
 				jArray.add(jObj);
 			}
@@ -268,9 +270,9 @@ public class DataTablesService {
 				String targetMbrSN_Dis = rel.getTargetMbrSN().getMbrId();
 				jObj.add("DT_RowId", gson.toJsonTree("r_" + mbrSN +"_"+targetMbrSN));
 				jObj.add("mbrSN", gson.toJsonTree(mbrSN));
-				jObj.add("mbrSN_Dis", gson.toJsonTree(mbrSN+"(id: "+mbrSN_Dis+")"));
+				jObj.add("mbrSN_Dis", gson.toJsonTree(mbrSN+" ( id = "+mbrSN_Dis+" )"));
 				jObj.add("targetMbrSN", gson.toJsonTree(targetMbrSN));
-				jObj.add("targetMbrSN_Dis", gson.toJsonTree(targetMbrSN+"(id: "+targetMbrSN_Dis+")"));
+				jObj.add("targetMbrSN_Dis", gson.toJsonTree(targetMbrSN+" ( id = "+targetMbrSN_Dis+" )"));
 				if (rel.getRelation()==1){
 					jObj.add("relation_Dis", gson.toJsonTree("好友"));
 				} else if (rel.getRelation()==2){
