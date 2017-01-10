@@ -423,7 +423,11 @@ figure:hover img {
 	font-size: 13px;
 	padding-top: 20px;
 }
-
+/* #footer{ */
+/* 	position:fixed; */
+/* 	bottom:0; */
+/* 	left:0; */
+/* } */
 #footer p  {
 	color:white;
 	text-align: center;

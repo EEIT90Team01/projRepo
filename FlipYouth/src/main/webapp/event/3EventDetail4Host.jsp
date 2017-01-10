@@ -221,7 +221,7 @@
 							${eventGo.userInputAddress}
 						</td>
 						<td class="col-md-3">
-							<div class="col-md-7">
+							<div>
 							<a href="<c:url value="/events/locationDetail.controller"/>?locName=${eventGo.userInputAddress}">
 								<button type="button" class="btn btn-primary btn-block">
 									&gt;&gt;&gt;位置明細&lt;&lt;&lt;
