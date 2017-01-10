@@ -56,7 +56,7 @@
 		<property name="url" value="/MemberInformation.jsp"></property>
 	</bean>
 	<bean id="fail" class="org.springframework.web.servlet.view.InternalResourceView">
-		<property name="url" value="/index.jsp"></property>
+		<property name="url" value="/signUp2.jsp"></property>
 	</bean>
 	
 	<bean id="check" class="org.springframework.web.servlet.view.InternalResourceView">
