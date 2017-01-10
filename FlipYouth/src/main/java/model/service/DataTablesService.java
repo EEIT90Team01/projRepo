@@ -94,12 +94,12 @@ public class DataTablesService {
 		//
 		total = ajaxCountHandler(hql.toString(), table);
 		if (!search.equals("")) {
-			hql.append(" where (" + cols[0] + " like '%" + search + "%'");
+			hql.append(" where (" + cols[0] + " like N'%" + search + "%'");
 			for (int i = 1; i < cols.length; i++) {
 				if (cols[i].lastIndexOf("_Dis") != -1) {
 					continue;
 				} else {
-					hql.append(" or " + cols[i] + " like '%" + search + "%'");
+					hql.append(" or " + cols[i] + " like N'%" + search + "%'");
 				}
 			}
 			hql.append(")");
