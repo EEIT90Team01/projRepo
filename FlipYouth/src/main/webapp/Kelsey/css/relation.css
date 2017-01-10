@@ -183,6 +183,7 @@ h1 strong {
 	border-radius: 20px;
 	width: 100%;
 	height: auto;
+	min-height: 200px;
 	overflow: hidden;
 	padding-bottom: 40px;
 }
