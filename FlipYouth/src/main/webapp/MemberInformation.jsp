@@ -151,6 +151,7 @@
 
 
 
+<%@ include file="/chatRoom.jsp" %>
 
 
 

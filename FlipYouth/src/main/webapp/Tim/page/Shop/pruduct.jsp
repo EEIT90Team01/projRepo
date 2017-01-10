@@ -126,8 +126,8 @@ iframe {
 }
 </style>
 </head>
+<%@ include file="/chatRoom.jsp" %>
 <body>
-
 	<%@ include file="/chatRoom.jsp"%>
 	<div class="shoppingBox">
 		<h3>購物清單</h3>
@@ -233,9 +233,9 @@ iframe {
 								<div style="width: 80%; padding: 0% 10% 0% 10%" role="tabpanel"
 									class="tab-pane active" id="home">${pruduct.div1}</div>
 
-
+						
 								<div role="tabpanel" class="tab-pane" id="profile">
-									<h1>${pruduct.gameSN},${loginOK.mbrSN}</h1>
+								<div id="commentDiv">
 									<!-- ================================================================================================================================ -->
 
 
@@ -252,7 +252,7 @@ iframe {
 																<h3 class="panel-title">
 																	<img style="width: 50px; height: 50px"
 																		src='data:image/png;base64,${element.img}' /> <input
-																		type="hidden" id="${element.CommentBean.mbrSN.mbrSN}"
+																		type="hidden" 
 																		value="${element.CommentBean.mbrSN.image}" /> <span
 																		style="color: blue;">${element.CommentBean.mbrSN.nickName}</span><br>
 																</h3>
@@ -266,11 +266,12 @@ iframe {
 																		<span>${element.CommentBean.cmtTime }</span>
 																	</div>
 																	<div class="col-md-1">
-																		<%-- 															<c:if test="${element.CommentBean.mbrSN.mbrSN == loginOK.mbrSN}"> --%>
+																	
+																	<c:if test="${element.CommentBean.mbrSN.mbrSN == loginOK.mbrSN}">
 																		<button class="btn btn-xs btn-link active"
 																			type="submit"
-																			onclick="deleteComment(${element.CommentBean.cmtSN })">delete</button>
-																		<%-- 															</c:if> --%>
+																			onclick="deleteSQLComment(${element.CommentBean.cmtSN })">delete</button>
+																	</c:if>
 																	</div>
 																</div>
 															</div>
@@ -281,17 +282,23 @@ iframe {
 											</div>
 										</c:forEach>
 									</c:if>
-									<div id="insertComment" class="container-fluid"></div>
-									<%-- 								<c:if test="${not empty loginOK}"> --%>
-									<input type="text" id="comment" size="70" />
-									<button type="submit" id="button" class="btn"
-										onclick="sendComment(1,${pruduct.gameSN})">送出</button>
-									<!-- 									=============================================================1其實是${loginOK.mbrSN} -->
-									<!-- 									===============================================================c -->
-									<%-- 								</c:if> 	--%>
-
+									
+										
+									</div>
+									<c:if test="${not empty loginOK}">
+										<div  class="row">
+											<div class="col-md-1"></div>
+											<div class="col-md-10">
+												<textarea  id="comment" class="form-control" style="margin:15px 0;resize: none;" placeholder="請輸入留言訊息"></textarea>
+										    	<div style="text-align:right;">
+											    	<button type="submit" id="button" class="btn"
+													onclick="sendComment(${loginOK.mbrSN},${pruduct.gameSN})">送出</button>
+												</div>
+											</div>
+										</div>
+									</c:if>
 								</div>
-
+									 
 
 
 
@@ -306,9 +313,11 @@ iframe {
 		</div>
 	</div>
 
+
 	<script type="text/javascript">
 	
 	function deleteSQLComment(cmtSN){
+		$('#'+cmtSN).parent().remove();
 		console.log("留言板的刪除鍵onclick 進入deleteSQLComment, cmtSN = "+cmtSN);
 		$.ajax({
 			url:"/FlipYouth/CommentDelete.controller",
@@ -336,6 +345,9 @@ iframe {
 	
 	function sendComment(mbrSN, gameSN){
 		var comment = $('#comment').val();
+		if(comment == ""){
+			return;
+		}
 		$.ajax({
 			url:"/FlipYouth/CommentInsert.controller",
 			type:'POST',

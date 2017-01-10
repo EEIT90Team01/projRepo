@@ -329,9 +329,7 @@ display: none
 		}
 		function toggleTabCar(thiss) {
 			$('#two').empty();
-			$('#two')
-					.append(
-							'<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/Shop/shoppingCar.jsp"></iframe>');
+			$('#two').append('<iframe marginheight="0" frameborder="0" style="width: 100% ;height: 900px" name="frame1" src="/FlipYouth/Tim/page/Shop/shoppingCar.jsp"></iframe>');
 			$('.a').hide();
 			var a = $(thiss).attr('aria-controls')
 			$('#' + a).show();
@@ -525,5 +523,7 @@ display: none
 
 	<script type="text/javascript"
 		src="<c:url value="/Tim/js_Tim/FlipYouthStore.js"/>"></script>
+		<%@ include file="/chatRoomWithoutUI.jsp" %>
+		
 </body>
 </html>

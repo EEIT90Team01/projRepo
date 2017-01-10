@@ -4,11 +4,12 @@
     bottom:0;
     padding: 2px;
     background:  #CCCCCC;
+    z-index: 9999999;
 }
 
 .ui-chatbox-titlebar {
     padding: 3px;
-    height: 20px;
+    height: 30px;
     cursor: pointer;
 }
 
@@ -34,10 +35,11 @@
 }
 
 .ui-chatbox-input-box {
-    margin: 5px;
+    margin: 1px;
     border: 2px solid lightgrey;/* #6699FF */
     padding: 2px;
     height: 50px;
+    resize: none;
 }
 
 .ui-chatbox-icon {

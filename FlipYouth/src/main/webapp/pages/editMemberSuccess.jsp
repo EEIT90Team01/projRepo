@@ -106,6 +106,6 @@
 	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
 	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
 	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>	
-
+<%@ include file="/chatRoom.jsp" %>
 </body>
 </html>

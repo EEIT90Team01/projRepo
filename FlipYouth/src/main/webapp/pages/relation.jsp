@@ -215,6 +215,6 @@ session.setAttribute("user_photo", user_photo);
 	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
 
 <script type="text/javascript" src="<c:url value="/Kelsey/js/relation.js"/>"></script>
-
+<%@ include file="/chatRoom.jsp" %>
 </body>
 </html>

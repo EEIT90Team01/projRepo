@@ -207,5 +207,6 @@ session.setAttribute("user_photo", user_photo);
 // 					})
 // 				}
 	</script>
+	<%@ include file="/chatRoom.jsp" %>
 </body>
 </html>

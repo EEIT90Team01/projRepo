@@ -182,7 +182,7 @@ a {
 
 						<div class="login-links">
 							<a href="#"> 忘記密碼? </a> <br /> <a
-								href="<c:url value="/index.jsp"/>"> 還沒有帳號?<strong>註冊</strong>
+								href="<c:url value="/signUp2.jsp"/>"> 還沒有帳號?<strong>註冊</strong>
 							</a>
 						</div>
 					</div>

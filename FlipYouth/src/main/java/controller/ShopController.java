@@ -11,6 +11,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -530,6 +531,7 @@ public class ShopController {
 		Gmbr.setMbrState(0);
 		Gmbr.setEnergy(10);
 		Gmbr.setRptCounter(0);
+		Gmbr.setCreateTime(new Date());
 		Gmbr.setActivatedCode(new byte[] { 0 });
 		String GID = (String) session.getAttribute("GID");
 		MemberBean MemberBean = shopServices.addGmber(Gmbr, GID);
@@ -602,6 +604,7 @@ public class ShopController {
 		FBmbr.setPhone(phone);
 		FBmbr.setMbrState(0);
 		FBmbr.setEnergy(10);
+		FBmbr.setCreateTime(new Date());
 		FBmbr.setRptCounter(0);
 		FBmbr.setActivatedCode(new byte[] { 0 });
 		String FBID = (String) session.getAttribute("FBID");

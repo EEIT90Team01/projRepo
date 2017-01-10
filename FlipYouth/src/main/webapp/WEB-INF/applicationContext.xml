@@ -40,6 +40,7 @@
 				<value>model.CommentBean</value>
 				<value>model.GoogleMemberBean</value>
 				<value>model.FBMemberBean</value>
+				<value>model.ChatBean</value>
 			<!--Federer -->
 				<value>model.EventBean</value>
 				<value>model.EventDetailBean</value>
@@ -47,6 +48,7 @@
 				<value>model.LocationBean</value>
 				<value>model.MemberBean</value>
 			<!--Federer -->
+
 			</array>
 		</property>
 	</bean>

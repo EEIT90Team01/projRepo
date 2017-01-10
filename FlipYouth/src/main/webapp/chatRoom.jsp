@@ -16,6 +16,7 @@
 <link type="text/css" href="<c:url value="/Samuel/css/chatbox/jquery.ui.chatbox.css"/>" rel="stylesheet" />
 
 <body>
+<c:if test="${not empty loginOK}">
 	<div class="chat_room_box">
 		<input type="hidden" id="websocketUserNickName" value="${loginOK.nickName}">
 		<input type="hidden" id="websocketUserSN" value="${loginOK.mbrSN}">		
@@ -23,17 +24,19 @@
 		<div class="chat_room_body">			
 		</div>
 	</div>
-
+</c:if>
 </body>
 
-<!-- <script type="text/javascript"	src="http://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+<c:if test="${not empty loginOK}">
+<script type="text/javascript"	src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<%-- <script type="text/javascript" src="<c:url value="/Samuel/js/jquery-ui.min.js"/>"></script> --%>
-<%-- <script type="text/javascript" src="<c:url value="/Samuel/js/jquery-ui-1.8.2.custom.min.js"/>"></script> --%>
+
+<script type="text/javascript" src="<c:url value="/Samuel/js/jquery-ui.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/Samuel/js/jquery-ui-1.8.2.custom.min.js"/>"></script>
 
 <script type="text/javascript" src="<c:url value="/Samuel/js/chatboxManager.js"/>"></script>
 
 <script type="text/javascript" src="<c:url value="/Samuel/js/jquery.ui.chatbox.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/Samuel/js/chatRoom.js"/>"></script>
-
+</c:if>
 </html>
