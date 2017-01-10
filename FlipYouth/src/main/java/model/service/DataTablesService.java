@@ -110,7 +110,7 @@ public class DataTablesService {
 
 		hql.append(" order by " + cols[col.get(0)].replace("_Dis", "") + " " + dir.get(0));
 		if (col.size() > 1) {
-			for (int i = 1; i < cols.length; i++) {
+			for (int i = 1; i < col.size(); i++) {
 				hql.append(", " + cols[col.get(i)].replace("_Dis", "") + " " + dir.get(i));
 			}
 		}
