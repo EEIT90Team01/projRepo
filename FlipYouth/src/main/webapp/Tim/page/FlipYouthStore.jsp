@@ -488,8 +488,9 @@ display: none
 		function toggledatatable() {
 			$('.b').toggle();
 			$('#calendar').fullCalendar('gotoDate', new Date());
-			$('#calendar').fullCalendar('removeEvents');
+			if(!$('#calendar').is(":hidden")){
 			$('#calendar').fullCalendar('refetchEvents');
+			}
 			$('five').height($('.fc-content-skeleton').height() + 100);
 		}
 		function scrolltoTop() {
