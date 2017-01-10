@@ -36,7 +36,7 @@
 <link rel="stylesheet" type="text/css"
 	href="http://fonts.googleapis.com/earlyaccess/cwtexyen.css">
 	
-	<link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
+<link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
 <link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
 	
 <style>
@@ -72,7 +72,7 @@ border: 1px solid;
 						
 		 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
 			<h1>
-			好&nbsp友&nbsp列&nbsp表&nbsp&nbsp<strong>Flip Youth</strong>
+			揪&nbsp團&nbsp!&nbsp!&nbsp&nbsp<strong>Flip Youth</strong>
 			</h1>
 		</div>
 		<!-- ********	導入導覽列   **************************************-->
@@ -126,7 +126,7 @@ border: 1px solid;
 		</div>
 		<div class="row">
 			<div class="container" style="text-align: center">
-				<h1 style="color:black;">揪團!!!</h1>
+				<h2>揪團!!!</h2>
 			</div>
 			<!-- //////資料庫生成揪團表///// -->
 			<!-- 			<div> -->

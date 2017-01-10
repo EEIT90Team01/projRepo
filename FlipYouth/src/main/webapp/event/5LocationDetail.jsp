@@ -34,6 +34,10 @@
  <!-- 	Web fonts -->
 <link rel="stylesheet" type="text/css"
           href="http://fonts.googleapis.com/earlyaccess/cwtexyen.css">
+          
+<link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
+<link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
+
 <style>
       body{
         font-family: 'cwTeXYen';
@@ -55,7 +59,28 @@ border: 1px solid;
 -->
 
 </head>
-<body style="background-color:#FFBD45;">
+<div class="hero">
+						
+		<c:if test="${loginOK != null }">
+			<img class="header_right_img" src="data:image/jpg;base64,${user_photo}" >
+			<div class="memberContentIndexPage">
+					<blockquote class="blockquote_k">
+			<!-- 			<p>翻桌唷 -- 會員專區</p> -->
+						<span class="memberContentIndex_usr_name">使用者：${loginOK.nickName}</span><br>
+						</blockquote>
+			</div>
+							
+		</c:if>
+						
+		 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
+			<h1>
+			位&nbsp置&nbsp明&nbsp細&nbsp&nbsp<strong>Flip Youth</strong>
+			</h1>
+		</div>
+		<!-- ********	導入導覽列   **************************************-->
+	<jsp:include page="/nav.jsp"></jsp:include>	
+
+<body>
 
 <div class="container-fluid">
 	
@@ -106,10 +131,10 @@ border: 1px solid;
 		</div>
 <!-- /////////////// -->
 
-<div class="col-md-12">
-			<h1 style="text-align: center">
+<div class="container" style="text-align:center">
+			<h2>
 				&nbsp;位置明細&nbsp;
-			</h1>
+			</h2>
 <table class="table">
 	<tbody>
 	
@@ -204,5 +229,12 @@ border: 1px solid;
 /////////////////
 
 </script>
+<!--****** 	導入footer  *****************************-->
+<jsp:include page="/footer.jsp"></jsp:include>
+
+	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
 </body>
 </html>
