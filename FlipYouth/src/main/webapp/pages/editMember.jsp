@@ -121,13 +121,6 @@ session.setAttribute("user_photo", user_photo);
 	<!-- 	表格輸入時, 想即時檢查資料庫有没有相同記錄時，不用多問大家都會選用 Ajax 。 -->
 	<!-- 可以令你行 JavaScript 時不會因 loading 停頓，又不用重新整理頁面 ， 迅捷回應  -->
 	
-	<div class="social-buttons">
-	    <a class="social-button facebook" href="#"><i class="fa fa-facebook"></i></a>
-	    <a class="social-button twitter" href="#"><i class="fa fa-twitter"></i></a>
-	    <a class="social-button google" href="#"><i class="fa fa-google"></i></a>
-	    <a class="social-button dribbble" href="#"><i class="fa fa-dribbble"></i></a>
-	    <a class="social-button skype" href="#"><i class="fa fa-skype"></i></a>
-	</div>
 	    
 	    
     <!-- ********* container 結束 *******************************-->

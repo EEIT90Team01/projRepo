@@ -138,6 +138,7 @@ p {
 .hero {
 	/*     margin-top: 35px; */
 	min-height: 150px;
+	max-height: 150px;
 	width: 100%;
 	height: 22%;
 	background: #63D7D4;
@@ -183,19 +184,21 @@ h1 strong {
 	width: 100%;
 	height: auto;
 	overflow: hidden;
+	padding-bottom: 40px;
 }
 
 .boxContainer {
 	/*background-color: lightblue;*/
 	width: 200px;
 	height: 200px;
-	margin: 0px 10px;
+/* 	margin: 0px 10px; */
+	margin: 0px 0px 0px 32px;
 	float: left;
 }
 
 figure {
-	width: 120px;
-	height: 120px;
+	width: 150px;
+	height: 150px;
 	overflow: hidden;
 	position: relative;
 	display: inline-block;
@@ -225,8 +228,10 @@ figcaption div {
 	position: relative;
 	top: 20px;
 	opacity: 0;
-	color: #2c3e50;
-	text-transform: uppercase;
+	font-size: xx-large;
+    color: #63D7D4;
+/* 	color: #2c3e50; */
+/* 	text-transform: uppercase; */
 }
 
 figcaption div:after {
@@ -239,7 +244,7 @@ figcaption div:after {
 	margin: auto;
 	width: 0%;
 	height: 2px;
-	background: #2c3e50;
+/* 	background: #2c3e50; 去掉底線*/
 }
 
 figure img {
