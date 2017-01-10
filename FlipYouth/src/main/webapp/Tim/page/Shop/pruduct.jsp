@@ -126,7 +126,6 @@ iframe {
 }
 </style>
 </head>
-<%@ include file="/chatRoom.jsp" %>
 <body>
 	<%@ include file="/chatRoom.jsp"%>
 	<div class="shoppingBox">

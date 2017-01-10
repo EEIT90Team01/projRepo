@@ -410,7 +410,11 @@ figure:hover img {
 	font-family:"微軟正黑體";
 	padding-top: 20px;
 }
-
+/* #footer{ */
+/* 	position:fixed; */
+/* 	bottom:0; */
+/* 	left:0; */
+/* } */
 #footer p  {
 	color:white;
 	text-align: center;
