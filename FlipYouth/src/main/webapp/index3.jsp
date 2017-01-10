@@ -54,6 +54,9 @@
 
 </head>
 <body>
+<%-- 					利用一個type="hidden" 隱藏需要抓取${loginOK.mbrSN}的標籤,並利用此標籤送出查詢 --%>
+								<input type="hidden" value="${loginOK.mbrSN}" id="mbrSN"/>
+
 	<div class="hero">
 		<img class="header_left_img"
 			src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />

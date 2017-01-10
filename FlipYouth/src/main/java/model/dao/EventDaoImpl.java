@@ -66,12 +66,12 @@ public class EventDaoImpl implements EventDao {
 		bean = (EventBean) getSession().get(EventBean.class, beginTime);
 		return bean;
 	}
-	
-	/////從MemberDTDAO幹來的程式碼 回傳MemberBean用/////
+
+	///// 從MemberDTDAO幹來的程式碼 回傳MemberBean用/////
 	public MemberBean selectmbr(Integer mbrSN) {
 		MemberBean bean = null;
 		bean = getSession().get(MemberBean.class, mbrSN);
 		return bean;
 	}
-	/////從MemberDTDAO幹來的程式碼 回傳MemberBean用/////
+	///// 從MemberDTDAO幹來的程式碼 回傳MemberBean用/////
 }

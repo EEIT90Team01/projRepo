@@ -59,7 +59,7 @@
 			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="TeamSelect"><img src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>" >&nbsp&nbspTeam<strong class="caret"></strong></a>
 				<div class="TeamDIV">
 				<ul id="TeamUL" class="TeamOpenSelect">
-					<li ><a href="<c:url value='/events/eventing.controller'/>">&nbsp&nbsp我的揪團&nbsp</a></li>
+					<li ><a href="<c:url value="/events/eventing.controller"/>?mbrSN=${loginOK.mbrSN}">&nbsp&nbsp我的揪團&nbsp</a></li>
 				</ul>
 				</div>
 			</li>
