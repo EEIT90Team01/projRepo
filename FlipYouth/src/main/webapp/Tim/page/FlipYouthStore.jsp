@@ -111,7 +111,6 @@ display: none
 </head>
 
 <body style="margin: 0;padding: 0;">
-<%@ include file="/chatRoomWithoutUI.jsp" %>
 
 	<div id="loadingIMG" style="display: none; z-index: 9999;">
 		<nobr id="nobrtext" style="font-size:30px;color:red">訂單處理中</nobr>
@@ -523,5 +522,7 @@ display: none
 
 	<script type="text/javascript"
 		src="<c:url value="/Tim/js_Tim/FlipYouthStore.js"/>"></script>
+		<%@ include file="/chatRoomWithoutUI.jsp" %>
+		
 </body>
 </html>

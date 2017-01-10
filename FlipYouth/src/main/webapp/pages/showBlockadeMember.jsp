@@ -293,6 +293,7 @@ font-family:"微軟正黑體";
 
 
 <script type="text/javascript" src="<c:url value="/Kelsey/js/relation.js"/>"></script>
+<%@ include file="/chatRoom.jsp" %>
 
 </body>
 </html>

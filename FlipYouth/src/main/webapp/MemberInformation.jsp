@@ -26,6 +26,7 @@
 
 
 </head>
+
 <body>
 <!-- 	<div class="container-fluid"> -->
 <!-- 		<div class="row"> -->
@@ -150,6 +151,7 @@
 
 
 
+<%@ include file="/chatRoom.jsp" %>
 
 
 </body>
