@@ -1,4 +1,3 @@
-<%@page import="com.sun.prism.impl.Disposer.Target"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -70,22 +69,19 @@ session.setAttribute("user_photo", user_photo);
 
 												
 	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
 
-
-
-				<!-- ********** 左邊下拉列表   開始  **********************************************-->
-				<div class="row">
 					<!-- ********** 搜尋會員   開始  **********************************************-->
+				<div class="row">
 					<div class="col-md-12">
+					
 						<nav class="navbar navbar-default" role="navigation">
 						<div class="navbar-header">
-
-							<a class="navbar-brand" href="#">搜尋會員</a>
+					 
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+							</button> <a class="navbar-brand" href="#">搜尋會員</a>
 						</div>
-						<div class="collapse navbar-collapse"
-							id="bs-example-navbar-collapse-1">
+						<div class="collapse navbar-collapse"	id="bs-example-navbar-collapse-1">
 								<div class="form-group">
 									<input type="text" class="form-control" placeholder="請輸入會員名稱" id="nickName" />
 								</div>
@@ -93,13 +89,9 @@ session.setAttribute("user_photo", user_photo);
 						</div>
 						</nav>
 					</div>
-					<!-- ********** 搜尋會員  結束 **********************************************-->
 				</div>
+<!-- 					********** 搜尋會員  結束 ********************************************** -->
 
-
-
-				<div class="row">
-					<div class="col-md-12">
 						<div class="container">
 						
 						<!-- ********** 顯示搜尋會員  開始 **********************************************-->
@@ -114,10 +106,12 @@ session.setAttribute("user_photo", user_photo);
 								
 								</figure>
 								
-
-								<input type="button" value="加入好友" id="insertFriendButton" />
-								<input type="button" value="刪除好友" id="deleteFriendButton" />
-								<input type="button" value="封鎖會員" id="BlockadeMemberButton" />
+								<div id="searchMemberButtonArea">
+								<input type="button" value="加入好友" id="insertFriendButton" class="searchMemberButton" />
+								<input type="button" value="刪除好友" id="deleteFriendButton" class="searchMemberButton"/>
+								<input type="button" value="封鎖會員" id="BlockadeMemberButton" class="searchMemberButton"/>
+								<input type="button" value="解除封鎖" id="unBlockadeMemberButton" class="searchMemberButton"/>
+								</div>
 						</div>
 						
 						<!-- ********** 顯示搜尋會員  結束 **********************************************-->
@@ -153,38 +147,9 @@ session.setAttribute("user_photo", user_photo);
 								</div>
 <!-- </div> -->
 							<!--**************** 顯示出所有好友名單    結束*******************************-->
-							
 
 						</div>
 
-<!-- 						<ul class="pagination"> -->
-<!-- 							<li><a href="#">Prev</a></li> -->
-<!-- 							<li><a href="#">1</a></li> -->
-<!-- 							<li><a href="#">2</a></li> -->
-<!-- 							<li><a href="#">3</a></li> -->
-<!-- 							<li><a href="#">4</a></li> -->
-<!-- 							<li><a href="#">5</a></li> -->
-<!-- 							<li><a href="#">Next</a></li> -->
-<!-- 						</ul> -->
-					</div>
-				</div>
-
-
-
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-12"> -->
-<!-- 						<blockquote> -->
-<!-- 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. -->
-<!-- 								Integer posuere erat a ante.</p> -->
-<%-- 							<small>Someone famous <cite>Source Title</cite></small> --%>
-<!-- 						</blockquote> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-
-
-
-			</div>
-		</div>
 	</div>
 	
 	    

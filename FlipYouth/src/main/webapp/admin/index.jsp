@@ -46,7 +46,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a
-						href="<c:url value='/admin/secure/adminLogout.servlet'/>">Logout</a></li>
+						href="<c:url value='/admin/secure/adminLogout.servlet'/>">登出</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->

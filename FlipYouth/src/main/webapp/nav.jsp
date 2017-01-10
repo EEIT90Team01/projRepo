@@ -33,7 +33,7 @@
 				<li ><a href="<c:url value="/Tim/login/login.jsp"/>">Sign In</a></li>
 			</c:if>
 			<c:if test="${loginOK != null}">
-				<li><a href="<c:url value="/logout.controller"/>">Sign Up</a></li>
+				<li><a href="<c:url value="/logout.controller"/>">Sign Out</a></li>
 			</c:if>
 			<li ><a href="<c:url value="/index3.jsp"/>">Home</a></li>
 			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="MemberSelect"><img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" >&nbsp&nbspMember<strong class="caret"></strong></a>
@@ -41,8 +41,7 @@
 				<ul id="MemberUL" class="MemberOpenSelect">
 					<li ><a	href="<c:url value='/pages/memberIndex.jsp'/>" >
 					&nbsp&nbsp會員中心&nbsp</a></li>
-					<li ><a href="<c:url value='/pages/editMember.jsp'/>" >
-					<img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" >&nbsp&nbsp修改個人資料&nbsp</a></li>
+					<li ><a href="<c:url value='/pages/editMember.jsp'/>" >&nbsp&nbsp修改個人資料&nbsp</a></li>
 				</ul>
 				</div>
 			</li>
@@ -60,7 +59,7 @@
 			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="TeamSelect"><img src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>" >&nbsp&nbspTeam<strong class="caret"></strong></a>
 				<div class="TeamDIV">
 				<ul id="TeamUL" class="TeamOpenSelect">
-					<li ><a href="" >&nbsp&nbsp我的揪團&nbsp</a></li>
+					<li ><a href="<c:url value='/events/eventing.controller'/>">&nbsp&nbsp我的揪團&nbsp</a></li>
 				</ul>
 				</div>
 			</li>

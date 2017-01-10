@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Game")
 public class ShopBean implements Serializable {
+	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name = "GameSN")
@@ -170,4 +171,13 @@ public class ShopBean implements Serializable {
 		this.div1 = div1;
 	}
 
+	@Override
+	public String toString() {
+		return "ShopBean [GameSN=" + GameSN + ", GameName=" + GameName + ", Introduction=" + Introduction
+				+ ", PlayingTime=" + PlayingTime + ", PlayerNumber=" + PlayerNumber + ", BigImage=" + BigImage
+				+ ", SmallImage=" + SmallImage + ", StockQuantity=" + StockQuantity + ", Gameclass=" + Gameclass
+				+ ", Ages=" + Ages + ", StrGameTheme=" + StrGameTheme + ", StrGameMechanics=" + StrGameMechanics
+				+ ", StrLanguage=" + StrLanguage + ", Price=" + Price + ", Discount=" + Discount + ", Freight="
+				+ Freight + "]";
+	}
 }

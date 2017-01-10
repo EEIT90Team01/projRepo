@@ -3,6 +3,8 @@ package model;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import model.dao.MemberDAO;
+import model.dao.RelationDAO;
 
 
 @Service(value="memberService")
@@ -19,8 +22,12 @@ public class MemberService {
 	@Autowired
 	MemberDAO memberDAO;
 	@Autowired
+	RelationDAO relationDAO;
+	@Autowired
 	@Resource(name= "memberBean")
 	MemberBean memberBean;
+	
+
 
 	// 一開始顯示會員資料
 	public void select(String mbrId){
@@ -44,20 +51,24 @@ public class MemberService {
 	}
 	
 	
-	//單獨搜尋一個會員
-	public MemberBean selectOne(String nickName){
-		
-		if(!nickName.isEmpty()){
-			
-			memberBean = memberDAO.selectOne(nickName);
-			
-		}else{
-			System.out.println(" MemberService selectOne() 沒有輸入會員暱稱");
-			return null;
-		}
-				
-		return memberBean;
-	}
+	//單獨搜尋一個會員--轉移到MemberController
+//	public HttpSession selectOne(String nickName, Integer mbrSN ,HttpSession session){
+//		
+//		if(!nickName.isEmpty()){
+//			
+//			memberBean = memberDAO.selectOne(nickName);
+//			RelationBean relationBean = relationDAO.selectOne( mbrSN, memberBean.getMbrSN());
+//			
+//			session.setAttribute("selectOneRelation", relationBean);
+//			session.setAttribute("selectOneMember", memberBean);
+//			
+//		}else{
+//			System.out.println(" MemberService selectOne() 沒有輸入會員暱稱");
+//			return null;
+//		}
+//				
+//		return session;
+//	}
 	
 	
 }

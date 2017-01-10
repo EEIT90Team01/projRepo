@@ -35,6 +35,10 @@
 <!-- 	Web fonts -->
 <link rel="stylesheet" type="text/css"
 	href="http://fonts.googleapis.com/earlyaccess/cwtexyen.css">
+	
+<link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
+<link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
+	
 <style>
 body {
 	font-family: 'cwTeXYen';
@@ -53,7 +57,28 @@ border: 1px solid;
 -->
 
 </head>
-<body style="background-color:#FFBD45;">
+<div class="hero">
+						
+		<c:if test="${loginOK != null }">
+			<img class="header_right_img" src="data:image/jpg;base64,${user_photo}" >
+			<div class="memberContentIndexPage">
+					<blockquote class="blockquote_k">
+			<!-- 			<p>翻桌唷 -- 會員專區</p> -->
+						<span class="memberContentIndex_usr_name">使用者：${loginOK.nickName}</span><br>
+						</blockquote>
+			</div>
+							
+		</c:if>
+						
+		 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
+			<h1>
+			揪&nbsp團&nbsp!&nbsp!&nbsp&nbsp<strong>Flip Youth</strong>
+			</h1>
+		</div>
+		<!-- ********	導入導覽列   **************************************-->
+	<jsp:include page="/nav.jsp"></jsp:include>	
+
+<body>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -101,7 +126,7 @@ border: 1px solid;
 		</div>
 		<div class="row">
 			<div class="container" style="text-align: center">
-				<h1>揪團!!!</h1>
+				<h2>揪團!!!</h2>
 			</div>
 			<!-- //////資料庫生成揪團表///// -->
 			<!-- 			<div> -->
@@ -119,6 +144,7 @@ border: 1px solid;
 			<!-- //////資料庫生成揪團表///// -->
 			<div>
 				<c:forEach var="element" items="${eventing}" varStatus="theCount">
+				<c:if test="${element.EventBean.eventState=='1'}">
 					<!-- /////第一個TABLE///// -->
 						<div class="row">
 							<div class="col-md-12">
@@ -186,6 +212,7 @@ border: 1px solid;
 							</div>
 						</div>
 					<!-- //////////////////// -->
+					</c:if>
 				</c:forEach>
 				
 			</div>
@@ -240,7 +267,7 @@ border: 1px solid;
 			</div>
 			<div class="col-md-4">
 <!--TODO 這裡有會員登入的話要把11改掉 1Eventing.jsp EventGoController.java!!!!!!!!!!!!!! -->
-				<a href="<c:url value="/events/myEvent.controller"/>?mbrSN=11&eventSN=null">
+				<a href="<c:url value="/events/myEvent.controller"/>?mbrSN=1&eventSN=null">
 <!--TODO 這裡有會員登入的話要把11改掉 1Eventing.jsp EventGoController.java!!!!!!!!!!!!!! -->
 					<button type="button" class="btn btn-primary btn-block">我的揪團</button>
 				</a>
@@ -254,5 +281,13 @@ border: 1px solid;
 		</div>
 		<!-- ////////// -->
 	</div>
+	<!--****** 	導入footer  *****************************-->
+<jsp:include page="/footer.jsp"></jsp:include>
+
+	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
+	
 </body>
 </html>

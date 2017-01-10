@@ -170,7 +170,7 @@ public class RelationController {
 	// 雖然沒有回傳值 但還是寫一下@ResponseBody 比較保險
 	public @ResponseBody void insertFriend(String mbrSN, String targetNickname) {
 
-		//
+		//因接收到的值皆是String  要做型別轉換
 		MemberBean tempSN = new MemberBean();
 		int mbrSNTemp = Integer.parseInt(mbrSN);
 		tempSN.setMbrSN(mbrSNTemp);

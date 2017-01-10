@@ -18,14 +18,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import model.MemberBean;
 import model.MemberService;
+import model.RelationBean;
+import model.dao.MemberDAO;
+import model.dao.RelationDAO;
 
 @Controller
 @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 public class MemberController {
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	MemberDAO memberDAO;
+	@Autowired
+	RelationDAO relationDAO;
 	
 	@Autowired
 	@Resource(name="memberBean")
@@ -78,21 +89,33 @@ public class MemberController {
 	}// end of editMember.controller
 
 	// 搜尋單一會員
-	@RequestMapping(path = "/searchMember.controller")
+	@RequestMapping(path = "/searchMember.controller", produces = "application/json; charset=utf-8")
 	
 	//在SpringMVC 中   如果沒有寫@ResponseBody  就會回傳一個頁面,若是想要回傳指定的類別(如 String Bean List Boolean等)  則需要寫這項
-	public @ResponseBody String searchFriend(String nickName, HttpSession session) {
+	public @ResponseBody String searchFriend(String nickName, String mbrSN , HttpSession session) {
 
 		if (!nickName.isEmpty()) {
 			
 			System.out.println("進入searchMember");
-			MemberBean memberBean = memberService.selectOne(nickName);
+			memberBean = memberDAO.selectOne(nickName);
+			
+			//因接收到的值皆是String  要做型別轉換
+			Integer mbrSNTemp = Integer.parseInt(mbrSN);
+			System.out.println("mbrSNTemp = " + mbrSNTemp);
+			
+			RelationBean relationBean = relationDAO.selectOne( mbrSNTemp, memberBean.getMbrSN());
 			System.out.println("搜尋membert成功");
 			
 			String memberImageBase64 = Base64.getEncoder().encodeToString(memberBean.getImage());
-			//
-			// session.setAttribute("member", memberBean);
-			return memberImageBase64;
+			
+			//轉成json
+			Map<String, Object> jsonAll = new HashMap<String, Object>();
+			jsonAll.put("selectOneRelation",relationBean);
+			System.out.println("selectOneRelation (查詢是否為好友)= " + relationBean );
+			jsonAll.put("selectOneMember",memberBean);
+			jsonAll.put("memberImageBase64",memberImageBase64);
+		
+			return 	new Gson().toJson(jsonAll);
 
 		} else {
 			return null;

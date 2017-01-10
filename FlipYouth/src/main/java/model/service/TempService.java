@@ -46,6 +46,6 @@ public class TempService {
 				&& Arrays.equals(JPEGENDMAGNUM, Arrays.copyOfRange(image, image.length - 3, image.length - 1))) {
 			ext = "jpeg";
 		}
-		return "<img src='data:image/" + ext + ";base64, " + Base64Utils.encodeToString(image) + "' />";
+		return "<img width='150px' src='data:image/" + ext + ";base64, " + Base64Utils.encodeToString(image) + "' />";
 	}
 }

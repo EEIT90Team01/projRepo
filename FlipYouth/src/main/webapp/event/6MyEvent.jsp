@@ -35,7 +35,19 @@
 <!-- 	Web fonts -->
 <link rel="stylesheet" type="text/css"
 	href="http://fonts.googleapis.com/earlyaccess/cwtexyen.css">
+
+<link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
+<link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
+
+	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
+
 <style>
+
+
+
 body {
 	font-family: 'cwTeXYen';
 	font-size: 22px;
@@ -53,7 +65,28 @@ border: 1px solid;
 -->
 
 </head>
-<body style="background-color:#FFBD45;">
+<div class="hero">
+						
+		<c:if test="${loginOK != null }">
+			<img class="header_right_img" src="data:image/jpg;base64,${user_photo}" >
+			<div class="memberContentIndexPage">
+					<blockquote class="blockquote_k">
+			<!-- 			<p>翻桌唷 -- 會員專區</p> -->
+						<span class="memberContentIndex_usr_name">使用者：${loginOK.nickName}</span><br>
+						</blockquote>
+			</div>
+							
+		</c:if>
+						
+		 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
+			<h1>
+			我&nbsp的&nbsp揪&nbsp團&nbsp&nbsp<strong>Flip Youth</strong>
+			</h1>
+		</div>
+		<!-- ********	導入導覽列   **************************************-->
+	<jsp:include page="/nav.jsp"></jsp:include>	
+
+<body>
 
 	<div class="container-fluid">
 		<!-- /////跑馬燈///// -->
@@ -103,8 +136,8 @@ border: 1px solid;
 		</div>
 		<!-- /////////////// -->
 
-		<div class="col-md-12">
-			<h1 style="text-align: center">&nbsp;我的揪團&nbsp;</h1>
+		<div class="container" style="text-align:center">
+			<h2>&nbsp;我的揪團&nbsp;</h2>
 		</div>
 <!-- /////////////// -->
 <%-- 		<c:forEach items="${myEventData}" var="eventDetail"> --%>
@@ -206,8 +239,8 @@ border: 1px solid;
 		
 	</div>
 
-		<div class="col-md-12">
-			<h1 style="text-align: center">&nbsp;歷史揪團&nbsp;</h1>
+		<div class="container" style="text-align:center">
+			<h2>&nbsp;歷史揪團&nbsp;</h2>
 		</div>
 
 		<div>
@@ -305,5 +338,13 @@ border: 1px solid;
 		<br />
 		<!-- ////////// -->
 	</div>
+	<!--****** 	導入footer  *****************************-->
+<jsp:include page="/footer.jsp"></jsp:include>
+
+<%-- 	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script> --%>
+<%-- 	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script> --%>
+<%-- 	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script> --%>
+<%-- 	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script> --%>
+	
 </body>
 </html>

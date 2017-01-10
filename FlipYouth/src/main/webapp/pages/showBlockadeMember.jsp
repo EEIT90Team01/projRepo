@@ -1,4 +1,3 @@
-<%@page import="com.sun.prism.impl.Disposer.Target"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -90,11 +89,13 @@ font-family:"微軟正黑體";
 					<!-- ********** 搜尋會員   開始  **********************************************-->
 					<div class="col-md-12">
 						<nav class="navbar navbar-default" role="navigation">
-						<div class="collapse navbar-collapse"	id="bs-example-navbar-collapse-1">
-							
 						<div class="navbar-header">
-							<a class="navbar-brand" href="#">搜尋會員</a>
+					 
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+							</button> <a class="navbar-brand" href="#">搜尋會員</a>
 						</div>
+						<div class="collapse navbar-collapse"	id="bs-example-navbar-collapse-1">
 								<div class="form-group">
 									<input type="text" class="form-control" placeholder="請輸入會員名稱" id="nickName" />
 								</div>
@@ -120,13 +121,14 @@ font-family:"微軟正黑體";
 								<figcaption>
 								<div id="searchMemberNickname"></div>
 								</figcation>
-								
 								</figure>
 								
-
-								<input type="button" value="加入好友" id="insertFriendButton" />
-								<input type="button" value="刪除好友" id="deleteFriendButton" />
-								<input type="button" value="封鎖會員" id="BlockadeMemberButton" />
+								<div id="searchMemberButtonArea">
+								<input type="button" value="加入好友" id="insertFriendButton" class="searchMemberButton" />
+								<input type="button" value="刪除好友" id="deleteFriendButton" class="searchMemberButton"/>
+								<input type="button" value="封鎖會員" id="BlockadeMemberButton" class="searchMemberButton"/>
+								<input type="button" value="解除封鎖" id="unBlockadeMemberButton" class="searchMemberButton"/>	
+								</div>
 						</div>
 						
 						<!-- ********** 顯示搜尋會員  結束 **********************************************-->

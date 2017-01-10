@@ -67,7 +67,7 @@ public class EventGoController {
 
 		String userAddAddress = eventGoFbBean.getUserAddAddress();
 	///////TODO暫時用會員11來做/////1Eventing.jsp EventGoController.java
-		eventGoFbBean.setUserSN(11);
+		eventGoFbBean.setUserSN(1);
 	///////TODO暫時用會員11來做/////1Eventing.jsp EventGoController.java
 		if (userAddAddress == null || userAddAddress.length() == 0 || "elseMap".equals(userAddAddress)) {
 			errors.put("userAddAddress", "地址為必填(Address cannot be empty)!");
@@ -107,7 +107,10 @@ public class EventGoController {
 		System.out.println("controller's LocationBean=" + locationBean);
 		//// 111呼叫EventService 做FormBackingBean 位置Insert到Location///
 		//// 222呼叫EventService 做FormBackingBean Insert///
+		System.out.println("進入EventGoController 準備做insert event table");
+		System.out.println("EventGoController typeof locationBean.getLocSN()=="+locationBean.getLocSN().getClass().getSimpleName());
 		EventBean eventBean = eventService.eventGoInsert(eventGoFbBean, locationBean.getLocSN());
+		System.out.println("做完 insert event table");
 //		System.out.println("controller's eventGoFbBean.getUserAddAddress()=" + eventGoFbBean.getUserAddAddress());
 		System.out.println("controller's EventBean=" + eventBean);
 		//// 222呼叫EventService 做FormBackingBean Insert///
