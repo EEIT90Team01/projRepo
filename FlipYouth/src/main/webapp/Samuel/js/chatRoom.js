@@ -1,7 +1,9 @@
 
 var userSN = $('#websocketUserSN').val();
 var userNickName = $('#websocketUserNickName').val();
-var webSocket = new WebSocket("ws://localhost:8080/FlipYouth/privateChatServer/"+userNickName);
+
+//var webSocket = new WebSocket("ws://localhost:8080/FlipYouth/privateChatServer/"+userNickName);
+var webSocket = new WebSocket("ws://flipyouth.azurewebsites.net/FlipYouth/privateChatServer/"+userNickName);
 		webSocket.onmessage = function(data) {processMessage(data)};
 		webSocket.onopen = function(){
 			console.log("userNickName : "+userNickName+"已連上webSocket userSN="+userSN);

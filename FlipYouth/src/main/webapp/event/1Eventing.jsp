@@ -57,6 +57,7 @@ border: 1px solid;
 -->
 
 </head>
+<%@ include file="/chatRoom.jsp"%>
 <div class="hero">
 						
 		<c:if test="${loginOK != null }">
@@ -267,7 +268,7 @@ border: 1px solid;
 			</div>
 			<div class="col-md-4">
 <!--TODO 這裡有會員登入的話要把11改掉 1Eventing.jsp EventGoController.java!!!!!!!!!!!!!! -->
-				<a href="<c:url value="/events/myEvent.controller"/>?mbrSN=1&eventSN=null">
+				<a href="<c:url value="/events/myEvent.controller"/>?mbrSN=${loginOK.mbrSN}&eventSN=null">
 <!--TODO 這裡有會員登入的話要把11改掉 1Eventing.jsp EventGoController.java!!!!!!!!!!!!!! -->
 					<button type="button" class="btn btn-primary btn-block">我的揪團</button>
 				</a>
