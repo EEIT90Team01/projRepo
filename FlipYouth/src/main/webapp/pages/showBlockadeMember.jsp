@@ -89,11 +89,13 @@ font-family:"微軟正黑體";
 					<!-- ********** 搜尋會員   開始  **********************************************-->
 					<div class="col-md-12">
 						<nav class="navbar navbar-default" role="navigation">
-						<div class="collapse navbar-collapse"	id="bs-example-navbar-collapse-1">
-							
 						<div class="navbar-header">
-							<a class="navbar-brand" href="#">搜尋會員</a>
+					 
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+							</button> <a class="navbar-brand" href="#">搜尋會員</a>
 						</div>
+						<div class="collapse navbar-collapse"	id="bs-example-navbar-collapse-1">
 								<div class="form-group">
 									<input type="text" class="form-control" placeholder="請輸入會員名稱" id="nickName" />
 								</div>
