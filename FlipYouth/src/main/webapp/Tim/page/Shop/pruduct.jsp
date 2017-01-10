@@ -11,6 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${pruduct.gameName}</title>
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -126,6 +127,7 @@ iframe {
 }
 </style>
 </head>
+
 <body>
 	<%@ include file="/chatRoom.jsp"%>
 	<div class="shoppingBox">
@@ -223,7 +225,7 @@ iframe {
 								<li role="presentation" class="active"><a href="#home"
 									aria-controls="home" role="tab" data-toggle="tab">遊戲介紹</a></li>
 								<li role="presentation"><a href="#profile"
-									aria-controls="profile" role="tab" data-toggle="tab">碩延專區</a></li>
+									aria-controls="profile" role="tab" data-toggle="tab">留言版 </a></li>
 
 							</ul>
 
@@ -406,7 +408,7 @@ iframe {
 	
 	
 	
-	
+
 
 	</script>
 </body>
