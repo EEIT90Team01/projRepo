@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-Hant-TW">
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -214,6 +216,6 @@ session.setAttribute("user_photo", user_photo);
 	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
 
 <script type="text/javascript" src="<c:url value="/Kelsey/js/relation.js"/>"></script>
-
+<%@ include file="/chatRoom.jsp" %>
 </body>
 </html>

@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <script type="text/javascript"src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" href="css_Samuel/bootstrap.min.css">
 <link rel="stylesheet" href="css_Samuel/jasny-bootstrap.css">
@@ -149,6 +151,7 @@
 
 
 
+<%@ include file="/chatRoom.jsp" %>
 
 
 

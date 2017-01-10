@@ -178,4 +178,5 @@ public class MemberBean implements Serializable{
 		super();
 		this.mbrSN = mbrSN;
 	}
+	
 }

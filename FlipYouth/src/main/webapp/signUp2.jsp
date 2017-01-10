@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" href="css_Samuel/bootstrap.min.css">
@@ -113,10 +115,10 @@
 		 console.log("進入check");
 		var event = this.id;
 		if( $(this).val() == "" ){
-			if(event == "nickname"){$('#nameSP').html("<img src= image/error.png /><span style = 'color:red'>必要輸入</span>")}
-			if(event == "id"){$('#idSP').html("<img src= image/error.png /><span style = 'color:red'>必要輸入</span>")}
-			if(event == "password"){$('#pswSP').html("<img src= image/error.png /><span style = 'color:red'>必要輸入</span>")}
-			if(event == "email"){$('#emailSP').html("<img src= image/error.png /><span style = 'color:red'>必要輸入</span>")}
+			if(event == "nickname"){$('#nameSP').html("<img src= Samuel/error.png /><span style = 'color:red'>必要輸入</span>")}
+			if(event == "id"){$('#idSP').html("<img src= Samuel/error.png /><span style = 'color:red'>必要輸入</span>")}
+			if(event == "password"){$('#pswSP').html("<img src= Samuel/error.png /><span style = 'color:red'>必要輸入</span>")}
+			if(event == "email"){$('#emailSP').html("<img src= Samuel/error.png /><span style = 'color:red'>必要輸入</span>")}
 		}else{
 			if(event == "password"){$('#pswSP').html("")}
 			if(event == "nickname"){

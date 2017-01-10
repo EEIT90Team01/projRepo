@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 </head>
 <body>
 <h1>success</h1>

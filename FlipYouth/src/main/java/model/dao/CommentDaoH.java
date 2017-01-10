@@ -52,6 +52,7 @@ public class CommentDaoH implements CommentDao {
 	@Transactional
 	@Override
 	public boolean delete(int cmtSN) {
+		System.out.println("cmtSN="+cmtSN);
 		this.getSession().delete(this.getSession().get(CommentBean.class, cmtSN));
 		return false;
 	}

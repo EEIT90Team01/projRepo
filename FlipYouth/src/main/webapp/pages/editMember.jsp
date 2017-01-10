@@ -26,7 +26,8 @@
 <!--*********** 下排按鈕x2個link  ********************************-->
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/button.css' />" > 
-
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Edit Member</title>
@@ -206,5 +207,6 @@ session.setAttribute("user_photo", user_photo);
 // 					})
 // 				}
 	</script>
+	<%@ include file="/chatRoom.jsp" %>
 </body>
 </html>

@@ -29,6 +29,7 @@
 								this.boxManager.addMsg(user.first_name, msg,userImage);
 							},
 							boxClosed : function(id) {
+								
 							}, // called when the close icon is clicked
 							boxManager : {
 								// thanks to the widget factory facility
@@ -39,15 +40,101 @@
 								
 								
 								
+							addLoadDiv : function(){
+								console.log("進入ui.chat的addLoadDiv");
+								var self = this;
+								var box = self.elem.uiChatboxLog;
+								var e = document.createElement('div');
+								box.prepend(e);
+								var sp = document.createElement('span');
+								$(sp).text("LoadMore...");
+								$(sp).attr("margin-left",100);
+								$(e).append(sp);
+//								
+							},	
+							addMsgScroll : function(peer, msg, mbrSNImage){
+								console.log("進入addMsgScroll方法");
+								var self = this;
+								var box = self.elem.uiChatboxLog;
+								var e = document.createElement('div');
+								box.prepend(e);
+								var chatImg = "<img style='width:40px;height:40px;' src='data:image/png;base64,"+mbrSNImage+"'/>";
+								var picDiv =  "<div class='picture'>"+chatImg+"</div>";
+								var msgDiv = "<div class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+								$(e).prepend(picDiv);
 								
+								if(peer === userNickName){
+									var msgDiv = "<div style='margin-left:27px;' class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+									$(e).append(msgDiv);
+									$(e).addClass("message-box right-img");
+								}else{
+									var msgDiv = "<div class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+									$(e).append(msgDiv);
+									$(e).addClass("message-box left-img");
+								}
+								$(e).css({"maxWidth":$(box).width(),"margin-bottom":"5px"});
+								$(e).fadeIn();
+								self.elem.uiChatboxLog.scrollTop(500);
+							},
+							addMsgS : function(peer, msg, mbrSNImage){		//append 改成prepend，為了歷史對話記錄用的
+									console.log("成功進入覆寫的addMsgS");	
+									
+									var self = this;
+									var box = self.elem.uiChatboxLog;
+									var e = document.createElement('div');
+									box.prepend(e);
+									var chatImg = "<img style='width:40px;height:40px;' src='data:image/png;base64,"+mbrSNImage+"'/>";
+									var picDiv =  "<div class='picture'>"+chatImg+"</div>";
+									var msgDiv = "<div class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+									$(e).prepend(picDiv);
+									
+									if(peer === userNickName){
+										var msgDiv = "<div style='margin-left:27px;' class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+										$(e).append(msgDiv);
+										$(e).addClass("message-box right-img");
+									}else{
+										var msgDiv = "<div class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+										$(e).append(msgDiv);
+										$(e).addClass("message-box left-img");
+									}
+									$(e).css({"maxWidth":$(box).width(),"margin-bottom":"5px"});
+									$(e).fadeIn();
+									self._scrollToBottom();
+
+									
+									
+							},	
 								
+							addMsgSelf	 : function(peer, msg, mbrSNImage){ //使用者的其他分頁用
+								
+								var self = this;
+								var box = self.elem.uiChatboxLog;
+								var e = document.createElement('div');
+								box.append(e);
+								var chatImg = "<img style='width:40px;height:40px;' src='data:image/png;base64,"+mbrSNImage+"'/>";
+								var picDiv =  "<div class='picture'>"+chatImg+"</div>";
+								var msgDiv = "<div class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+								$(e).append(picDiv);
+								
+								if(peer === userNickName){
+									var msgDiv = "<div style='margin-left:27px;' class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+									$(e).append(msgDiv);
+									$(e).addClass("message-box right-img");
+								}else{
+									var msgDiv = "<div class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+									$(e).append(msgDiv);
+									$(e).addClass("message-box left-img");
+								}
+								$(e).css({"maxWidth":$(box).width(),"margin-bottom":"5px"});
+								$(e).fadeIn();
+								self._scrollToBottom();
+							},
 								
 //================================		修改addMsg方法	================================================
 								
 								
-								
 							addMsg : function(peer, msg, mbrSNImage) {
-								console.log("進入jquery.ui.chatbox.js的addMsg方法 peer= "+peer+", msg= "+msg +", mbrSNImage = "+mbrSNImage);
+								console.log("進入jquery.ui.chatbox.js的addMsg方法 peer= "+peer+", msg= "+msg );
 //									var self = this;
 //									var box = self.elem.uiChatboxLog;
 //									var e = document.createElement('div');
@@ -100,18 +187,17 @@
 								$(e).append(picDiv);
 								
 								if(peer === userNickName){
-									var msgDiv = "<div class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
-									$(e).append(msgDiv);
-									$(e).addClass("message-box left-img");
-								}else{
 									var msgDiv = "<div style='margin-left:27px;' class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
 									$(e).append(msgDiv);
 									$(e).addClass("message-box right-img");
+								}else{
+									var msgDiv = "<div class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+									$(e).append(msgDiv);
+									$(e).addClass("message-box left-img");
 								}
 								$(e).css({"maxWidth":$(box).width(),"margin-bottom":"5px"});
 								$(e).fadeIn();
 								self._scrollToBottom();
-
 								if (!self.elem.uiChatboxTitlebar
 										.hasClass("ui-state-focus")
 										&& !self.highlightLock) {
@@ -140,13 +226,18 @@
 									var self = this;
 									self.elem.uiChatboxTitlebar.effect(
 											"highlight", {}, 300);
-			
-									self.elem.uiChatbox.effect("shake", { 
+									
+									self.elem.uiChatbox.effect("pulsate", { 
 										times : 3
 									}, 300, function() {
 										self.highlightLock = false;
+										
 										self._scrollToBottom();
+										
+										
 									});
+									console.log("self.elem.uiChatboxLog.scrollTop()="+self.elem.uiChatboxLog.scrollTop());
+									
 								},
 								toggleBox : function() {
 									this.elem.uiChatbox.toggle();
@@ -260,7 +351,7 @@
 									.appendTo(uiChatbox), uiChatboxLog = (self.uiChatboxLog = self.element)
 									.addClass(
 											'ui-widget-content '
-													+ 'ui-chatbox-log')
+													+ 'ui-chatbox-log').attr("name","chatContent")
 									.appendTo(uiChatboxContent), uiChatboxInput = (self.uiChatboxInput = $('<div></div>'))
 									.addClass(
 											'ui-widget-content '

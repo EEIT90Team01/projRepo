@@ -22,7 +22,8 @@
 <%-- <link href="<c:url value="/Kelsey/css/index3.css"/>" rel="stylesheet"> --%>
 <link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/member.css'/>">
-
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member Index</title>
@@ -113,6 +114,6 @@ session.setAttribute("user_photo", user_photo);
 	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
 	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
 	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
-
+<%@ include file="/chatRoom.jsp" %>
 </body>
 </html>

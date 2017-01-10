@@ -5,7 +5,8 @@
 	version="3.1">
 	<display-name>FlipYouth</display-name>
 	<welcome-file-list>
-		<welcome-file>home.jsp</welcome-file>
+		<welcome-file>index3.jsp</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
 	<!-- 產生sessionFactory -->
@@ -36,6 +37,7 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
 
 
 	<!-- 各種需要new的映射檔設定 減少IoC的干擾 -->
@@ -85,7 +87,7 @@
   	</servlet-mapping>
   	
   	<!-- 強制轉https -->
-  	<!-- <security-constraint>
+<!--   	<security-constraint>
   		<web-resource-collection>
   			<web-resource-name>FlipYouth</web-resource-name>
   			<url-pattern>/*</url-pattern>

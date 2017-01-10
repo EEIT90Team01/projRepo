@@ -7,6 +7,8 @@
 <%@page import="javax.servlet.http.HttpSession"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商城系統</title>

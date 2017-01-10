@@ -30,6 +30,7 @@
 </style>
 </head>
 
+
 <body>
 	<div style="text-align: center;">
 	<font style="font-size :40px;font-family: Microsoft JhengHei; color:#00b707; text-align: center;"><h3></h3><c:out value="${empty loginOK.nickName ? '' : loginOK.nickName+='已登入'}" /></h3></div>

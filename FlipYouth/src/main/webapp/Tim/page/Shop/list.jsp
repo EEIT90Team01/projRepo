@@ -4,6 +4,8 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -322,7 +324,6 @@ font {
 
 </head>
 
-<%@ include file="/chatRoom.jsp"%>
 <div class="shoppingBox">
 	<h3>購物清單</h3>
 	<img alt="" src="<c:url value="/Tim/image/border_shopBox.png"/>">

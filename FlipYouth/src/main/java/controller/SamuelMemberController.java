@@ -157,7 +157,7 @@ public class SamuelMemberController {
 			sessionBean.setActivatedCode(activatedCode);
 			MemberBean result = mis.insert(sessionBean);
 			new Thread(msb).start();
-			return "success";
+			return "homepage";
 		}
 		return "fail";
 	}
@@ -189,7 +189,7 @@ public class SamuelMemberController {
 			if(mis.check(temp, "nickname") == null){
 				return "the nickname is used";
 			}else{
- 				return "success";
+ 				return null;
 			}
 		}
 		if(id!=null){
@@ -197,7 +197,7 @@ public class SamuelMemberController {
 			if(mis.check(temp, "id") == null){
 				return "the id is used";
 			}else{
- 				return "success";
+ 				return null;
 			}
 		}
 //		if(email!=null){
@@ -237,7 +237,7 @@ public class SamuelMemberController {
 		if(activatedCode.equals(userActCode.toString())){
 			userBean.setMbrState(1);
 			mis.stateUpdate(userBean);
-			return "success";
+			return "homepage";
 		}
 		
 		
@@ -247,11 +247,19 @@ public class SamuelMemberController {
 	//*****************************************************************************************************
 	    
 	@RequestMapping(path={"/getMbrSNByNickName.controller"})
-	public @ResponseBody int getMbrSNByNickName(String nickName){
+	public @ResponseBody int getMbrSNByNickName(@RequestParam(name="nickName")String nickName){
 		System.out.println("mbrController的getMbrSNByNickName ");
 		int mbrSN = mbrDao.selectMbrSNByNickName(nickName);
 		System.out.println(mbrSN);
 		return mbrSN;
+	}
+	
+															
+	@RequestMapping(path={"/getNickNameByMbrSN.controller"},produces="text/plain;charset=UTF-8")
+	public @ResponseBody String getNickNameByMbrSN(@RequestParam(name="mbrSN")String mbrSNTemp){
+		int mbrSN = Integer.parseInt(mbrSNTemp);
+		System.out.println( "mbrSN="+mbrSN+",getNickName="+mbrDao.select(mbrSN).getNickName());
+		return mbrDao.select(mbrSN).getNickName();
 	}
 	
 	
