@@ -119,6 +119,7 @@ border: 1px solid;
 			<!-- //////資料庫生成揪團表///// -->
 			<div>
 				<c:forEach var="element" items="${eventing}" varStatus="theCount">
+				<c:if test="${element.EventBean.eventState=='1'}">
 					<!-- /////第一個TABLE///// -->
 						<div class="row">
 							<div class="col-md-12">
@@ -186,6 +187,7 @@ border: 1px solid;
 							</div>
 						</div>
 					<!-- //////////////////// -->
+					</c:if>
 				</c:forEach>
 				
 			</div>

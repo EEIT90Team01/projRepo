@@ -39,10 +39,18 @@ public class EventService {
 	EventDaoImpl eventDaoImpl;
 	public EventBean eventGoInsert(EventGoFbBean eventGoFbBean,Integer locSN){
 		String userAddAddress = eventGoFbBean.getUserAddAddress();
+		System.out.println("印出userAddAddress=="+userAddAddress+"&"+"印出locSN=="+locSN);
+		System.out.println("locSN type ==="+locSN.getClass().getSimpleName());
 		if(!"null".equals(userAddAddress)){
-			locSN = Integer.parseInt(userAddAddress);
+			System.out.println("userAddAddress不為空 = "+ userAddAddress);
+			System.out.println("userAddAddress type ==="+userAddAddress.getClass().getSimpleName());
+//			locSN = Integer.parseInt(userAddAddress);
+			System.out.println("locSN type ==="+locSN.getClass().getSimpleName());
+			System.out.println("所以locSN = "+locSN);
+			EventBean eventBean = new EventBean(new MemberBean(11) ,locSN,eventGoFbBean.getUserAddDownLimit(),eventGoFbBean.getStartDateTime(),eventGoFbBean.getEndDateTime(),1,eventGoFbBean.getUserAddUpLimit(),eventGoFbBean.getCloseDateTime());
 		}///////////////////////////////////會員加進來就要改了///////////
-		EventBean eventBean = new EventBean(new MemberBean(11) ,locSN,eventGoFbBean.getUserAddDownLimit(),eventGoFbBean.getStartDateTime(),eventGoFbBean.getEndDateTime(),1,eventGoFbBean.getUserAddUpLimit(),eventGoFbBean.getCloseDateTime());
+			EventBean eventBean = new EventBean(new MemberBean(11) ,locSN,eventGoFbBean.getUserAddDownLimit(),eventGoFbBean.getStartDateTime(),eventGoFbBean.getEndDateTime(),1,eventGoFbBean.getUserAddUpLimit(),eventGoFbBean.getCloseDateTime());
+		System.out.println("印出待輸入的eventBean=="+eventBean);
 		eventDaoImpl.insert(eventBean);
 		System.out.println("service's result="+eventBean);
 		return eventBean;

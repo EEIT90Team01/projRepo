@@ -107,7 +107,10 @@ public class EventGoController {
 		System.out.println("controller's LocationBean=" + locationBean);
 		//// 111呼叫EventService 做FormBackingBean 位置Insert到Location///
 		//// 222呼叫EventService 做FormBackingBean Insert///
+		System.out.println("進入EventGoController 準備做insert event table");
+		System.out.println("EventGoController typeof locationBean.getLocSN()=="+locationBean.getLocSN().getClass().getSimpleName());
 		EventBean eventBean = eventService.eventGoInsert(eventGoFbBean, locationBean.getLocSN());
+		System.out.println("做完 insert event table");
 //		System.out.println("controller's eventGoFbBean.getUserAddAddress()=" + eventGoFbBean.getUserAddAddress());
 		System.out.println("controller's EventBean=" + eventBean);
 		//// 222呼叫EventService 做FormBackingBean Insert///
