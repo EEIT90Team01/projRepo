@@ -75,7 +75,7 @@
 		</div>
 		<!-- ********	導入導覽列   **************************************-->
 	<jsp:include page="/nav.jsp"></jsp:include>	
-
+<%@ include file="/chatRoom.jsp"%>
 <body>
 	<div class="container-fluid">
 		<!-- /////跑馬燈///// -->
