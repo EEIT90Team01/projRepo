@@ -3,7 +3,7 @@ var userSN = $('#websocketUserSN').val();
 var userNickName = $('#websocketUserNickName').val();
 
 //var webSocket = new WebSocket("ws://localhost:8080/FlipYouth/privateChatServer/"+userNickName);
-var webSocket = new WebSocket("ws://flipyouth.azurewebsites.net/FlipYouth/privateChatServer/"+userNickName);
+var webSocket = new WebSocket("wss://flipyouth.southeastasia.cloudapp.azure.com/FlipYouth/privateChatServer/"+userNickName);
 		webSocket.onmessage = function(data) {processMessage(data)};
 		webSocket.onopen = function(){
 			console.log("userNickName : "+userNickName+"已連上webSocket userSN="+userSN);
@@ -221,9 +221,9 @@ var webSocket = new WebSocket("ws://flipyouth.azurewebsites.net/FlipYouth/privat
 							showChatHistoryAndScroll(dataJson[index],clickedMbrName,received);
 						}
 						console.log("有幾個ChatBean countChatTimes="+countChatTimes);
-						if(countChatTimes == 10){
+						if(countChatTimes == 5){
 							var hiddenInput = $('#'+received+'hidden').val();
-							$('#'+received+'hidden').val((hiddenInput/10+1)*10);
+							$('#'+received+'hidden').val((hiddenInput/5+1)*5);
 	//						console.log("hiddenInput="+hiddenInput);
 						}else{
 							$('#'+received+'hidden').remove();
@@ -236,9 +236,9 @@ var webSocket = new WebSocket("ws://flipyouth.azurewebsites.net/FlipYouth/privat
 							showChatHistory(dataJson[index],clickedMbrName,received);
 						}
 						console.log("有幾個ChatBean countChatTimes="+countChatTimes);
-						if(countChatTimes == 10){
+						if(countChatTimes == 5){
 							var hiddenInput = $('#'+received+'hidden').val();
-							$('#'+received+'hidden').val((hiddenInput/10+1)*10);
+							$('#'+received+'hidden').val((hiddenInput/5+1)*5);
 	//						console.log("hiddenInput="+hiddenInput);
 						}else{
 							$('#'+received+'hidden').remove();
@@ -253,11 +253,12 @@ var webSocket = new WebSocket("ws://flipyouth.azurewebsites.net/FlipYouth/privat
 //		}
 		
 		
-		
+		var userImage = mbrImageBymbrSN(userSN);
 		function showChatHistory(chatBean,clickedMbrName,receivedMbrSN){
 //			console.log("showChatHistory拿到的chatBean="+JSON.stringify(chatBean)+", clickedMbrName="+clickedMbrName+", receivedMbrSN="+receivedMbrSN+",userSN="+userSN);
+			
 			if(chatBean.sendMbrSN == userSN){		//當sendMbr就是使用者本人，對話在右邊
-				$("#" + receivedMbrSN).chatbox("option", "boxManager").addMsgS(userNickName, chatBean.message,mbrImageBymbrSN(userSN) );
+				$("#" + receivedMbrSN).chatbox("option", "boxManager").addMsgS(userNickName, chatBean.message,userImage );
 																			// 使用者暱稱		*訊息內容				*使用者大頭貼
 			}else{
 				$("#" + receivedMbrSN).chatbox("option", "boxManager").addMsgS(clickedMbrName, chatBean.message,mbrImageBymbrSN(chatBean.sendMbrSN) );
@@ -268,7 +269,7 @@ var webSocket = new WebSocket("ws://flipyouth.azurewebsites.net/FlipYouth/privat
 		function showChatHistoryAndScroll(chatBean,clickedMbrName,receivedMbrSN){		
 //			console.log("showChatHistory拿到的chatBean="+JSON.stringify(chatBean)+", clickedMbrName="+clickedMbrName+", receivedMbrSN="+receivedMbrSN+",userSN="+userSN);
 			if(chatBean.sendMbrSN == userSN){		//當sendMbr就是使用者本人，對話在右邊
-				$("#" + receivedMbrSN).chatbox("option", "boxManager").addMsgScroll(userNickName, chatBean.message,mbrImageBymbrSN(userSN) );
+				$("#" + receivedMbrSN).chatbox("option", "boxManager").addMsgScroll(userNickName, chatBean.message,userImage );
 																			// 使用者暱稱		*訊息內容				*使用者大頭貼
 			}else{
 				$("#" + receivedMbrSN).chatbox("option", "boxManager").addMsgScroll(clickedMbrName, chatBean.message,mbrImageBymbrSN(chatBean.sendMbrSN) );

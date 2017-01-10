@@ -28,7 +28,7 @@ public class PrivateChatDao {
 		Query query = this.getSession().createQuery("from ChatBean where (sendMbrSN="+sendMbrSN+"or sendMbrSN="+ receivedMbrSN+" ) and (receivedMbrSN="+receivedMbrSN+"or receivedMbrSN="+sendMbrSN+")order by createTime desc");
 //		Query query = this.getSession().createQuery("from ChatBean where sendMbrSN="+sendMbrSN+"and receivedMbrSN ="+receivedMbrSN+"order by createTime");
 		query.setFirstResult(counter);
-		query.setMaxResults(10);
+		query.setMaxResults(5);
 		List<ChatBean> resultList = query.getResultList();
 		for(ChatBean bean: resultList){
 			System.out.println(bean);

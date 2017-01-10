@@ -53,7 +53,7 @@
 //								
 							},	
 							addMsgScroll : function(peer, msg, mbrSNImage){
-								console.log("進入addMsgScroll方法");
+								console.log("進入addMsgScroll方法~~~~");
 								var self = this;
 								var box = self.elem.uiChatboxLog;
 								var e = document.createElement('div');
@@ -74,7 +74,7 @@
 								}
 								$(e).css({"maxWidth":$(box).width(),"margin-bottom":"5px"});
 								$(e).fadeIn();
-								self.elem.uiChatboxLog.scrollTop(500);
+								self.elem.uiChatboxLog.scrollTop(200);
 							},
 							addMsgS : function(peer, msg, mbrSNImage){		//append 改成prepend，為了歷史對話記錄用的
 									console.log("成功進入覆寫的addMsgS");	
