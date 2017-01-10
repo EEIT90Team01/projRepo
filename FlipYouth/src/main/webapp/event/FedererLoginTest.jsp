@@ -32,6 +32,7 @@
 	crossorigin="anonymous"></script>
 
 </head>
+<%@ include file="/chatRoom.jsp"%>
 <body>
 
 <!-- ////////////// -->
