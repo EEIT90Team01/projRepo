@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Flip Youth</title>
 <!-- 加favicon -->
 <link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <%@ page import="model.MemberBean"%>

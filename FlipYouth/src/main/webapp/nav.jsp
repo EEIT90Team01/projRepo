@@ -35,7 +35,7 @@
 			<c:if test="${loginOK != null}">
 				<li><a href="<c:url value="/logout.controller"/>">Sign Out</a></li>
 			</c:if>
-			<li ><a href="<c:url value="/index3.jsp"/>">Home</a></li>
+			<li ><a href="<c:url value="/index.jsp"/>">Home</a></li>
 			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="MemberSelect"><img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" >&nbsp&nbspMember<strong class="caret"></strong></a>
 				<div class="MemberDIV">
 				<ul id="MemberUL" class="MemberOpenSelect">
