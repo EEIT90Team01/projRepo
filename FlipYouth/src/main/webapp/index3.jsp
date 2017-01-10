@@ -113,6 +113,10 @@ session.setAttribute("user_photo", user_photo);
 <jsp:include page="/footer.jsp"></jsp:include>
 
 <!-- ************javascript 開始 ************************************************************************-->
+<!--  Bootstrap-jquery CDN  -->
+<script src="https://code.jquery.com/jquery-3.1.1.js"
+	integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+	crossorigin="anonymous"></script>
 
 <!--  最新編譯和最佳化的 Latest compiled and minified JavaScript -->
 <script
@@ -120,10 +124,6 @@ session.setAttribute("user_photo", user_photo);
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 
-<!--  Bootstrap-jquery CDN  -->
-<script src="https://code.jquery.com/jquery-3.1.1.js"
-	integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-	crossorigin="anonymous"></script>
 
 <!-- <script src="/Kelsey/js/easing/EasePack.min.js"></script> -->
 <!-- 	<script src="/Kelsey/js/plugins/CSSPlugin.min.js"></script> -->

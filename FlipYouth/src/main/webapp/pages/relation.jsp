@@ -1,4 +1,3 @@
-<%@page import="com.sun.prism.impl.Disposer.Target"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -112,10 +111,12 @@ session.setAttribute("user_photo", user_photo);
 								
 								</figure>
 								
-
-								<input type="button" value="加入好友" id="insertFriendButton" />
-								<input type="button" value="刪除好友" id="deleteFriendButton" />
-								<input type="button" value="封鎖會員" id="BlockadeMemberButton" />
+								<div id="searchMemberButtonArea">
+								<input type="button" value="加入好友" id="insertFriendButton" class="searchMemberButton" />
+								<input type="button" value="刪除好友" id="deleteFriendButton" class="searchMemberButton"/>
+								<input type="button" value="封鎖會員" id="BlockadeMemberButton" class="searchMemberButton"/>
+								<input type="button" value="解除封鎖" id="unBlockadeMemberButton" class="searchMemberButton"/>
+								</div>
 						</div>
 						
 						<!-- ********** 顯示搜尋會員  結束 **********************************************-->
