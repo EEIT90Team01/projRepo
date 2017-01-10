@@ -36,7 +36,7 @@
 <link rel="stylesheet"
 	href="<c:url value="/Tim/css_Tim/dataTable.css"/>">
 
-<link rel="stylesheet" href="<c:url value="/Tim/css_Tim/relation.css"/>">
+<%-- <link rel="stylesheet" href="<c:url value="/Tim/css_Tim/relation.css"/>"> --%>
 
 
 <!------------------------------------------- fullcalendar.io------------------------------------->
@@ -68,10 +68,42 @@
 
 <link href="<c:url value="/Tim/css_Tim/FlipYouthStore.css"/>"
 	rel="stylesheet">
+	
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,200' rel='stylesheet' type='text/css'> 
+  
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  
+<%-- <link href="<c:url value="/Kelsey/css/nav-group.css"/>" rel="stylesheet"> --%>
+
+
+<%-- <link href="<c:url value="/Kelsey/css/relation.css"/>" rel="stylesheet"> --%>
+<link href="<c:url value="/Kelsey/css/index3.css"/>" rel="stylesheet">
+<link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
+
 
 <style type="text/css">
+
 #ui-datepicker-div{
-display: none}
+display: none
+}
+
+.hero {
+	margin-top: 0px;
+	min-height: 150px;
+	width: 100%;
+	height: 22%;
+	background: #63D7D4;
+	box-shadow: 4px 4px 12px -2px rgba(204, 204, 204, 0.97);
+	display: table;
+	position: relative;
+}
+.container {
+    width: 1024px;
+    max-width: 100%;
+    margin: auto;
+    display: block;
+     text-align: left; 
+}
 </style>
 <script type="text/javascript">
 	
@@ -84,47 +116,31 @@ display: none}
 		<img src="<c:url value="/Tim/image/icon/gears.svg"/>">
 	</div>
 
-	<!-- header -->
-	<div class="hero">
-		<img class="header_left_img"
-			src="/FlipYouth/Kelsey/images/light_green/logo_06-02.png">
-		<h1 class="shopTopTitle">
+<div class="hero">
+ <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
+
+ 			<c:if test="${loginOK != null }">
+				<img class="header_right_img" src="data:image/jpg;base64,${user_photo}" >
+				<div class="memberContentIndex">
+						<blockquote class="blockquote_k">
+<!-- 							<p>翻桌唷 -- 會員專區</p> -->
+							<span class="memberContentIndex_usr_name">使用者：${loginOK.nickName}</span><br>
+						</blockquote>
+				</div>
+				
+			</c:if>
+		<h1>
 			商&nbsp;城&nbsp;系&nbsp;統&nbsp;&nbsp;<strong>Flip Youth</strong>
 		</h1>
+		
 	</div>
-	<div id='nav-group' class="list-group-k">
-		<nav>
-		<ul>
-			<li><a href="<c:url value="/login/login.controller"/>">Login</a></li>
-			<li><a href="<c:url value='/pages/editMember.jsp'/>"> <img
-					src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>"
-					class="navimg">&nbsp&nbsp修改個人資料&nbsp
-			</a></li>
 
-			<li><a href="<c:url value='/Shop.controller'/>"> <img
-					src="<c:url value='/Kelsey/images/basic_gray/shopping-cart.png'/>"
-					class="navimg">&nbsp&nbsp翻桌唷&nbsp商城&nbsp
-			</a></li>
+<!-- ********	導入導覽列   **************************************-->
+<%-- <jsp:include page="<c:url value="/nav.jsp"/>"></jsp:include> --%>
+	<jsp:include page="/nav.jsp"></jsp:include>
 
-			<li><a href=""> <img
-					src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>"
-					class="navimg">&nbsp&nbsp我的揪團&nbsp
-			</a></li>
 
-			<li><a href="<c:url value='/searchRelation.controller' />">
-					<img src="<c:url value='/Kelsey/images/basic_gray/stick-man.png'/>"
-					class="navimg">&nbsp&nbsp我的好友&nbsp
-			</a></li>
 
-			<li><a href=""> <img
-					src="<c:url value='/Kelsey/images/basic_gray/time.png'/>"
-					class="navimg">&nbsp&nbsp我的月曆&nbsp
-			</a></li>
-
-		</ul>
-		</nav>
-
-	</div>
 	<div class="menuIcon" style="display: none"></div>
 
 	<div id="shopTopRow" style="padding: 0; width: 100%;" class="row">
@@ -177,9 +193,7 @@ display: none}
 			id="three"></div>
 
 		<div style="display: none" role="tabpanel" class="tab-pane a"
-			id="four">
-			
-			</div>
+			id="four"></div>
 
 		<div style="display: none" role="tabpanel" class="tab-pane a"
 			id="five">
@@ -245,8 +259,16 @@ display: none}
 
 		</div>
 	</div>
+	
+	
+<!--****** 	導入footer  *****************************-->
+<jsp:include page="/footer.jsp"></jsp:include>
 
-
+<!-- ************javascript 開始 ************************************************************************-->
+	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
 
 	<script type="text/javascript">
 	<!-- changetabCode -->
@@ -467,9 +489,15 @@ display: none}
 			$('.b').toggle();
 			$('#calendar').fullCalendar('gotoDate', new Date());
 			$('#calendar').fullCalendar('removeEvents');
-		    $('#calendar').fullCalendar('refetchEvents');
-		    $('five').height($('.fc-content-skeleton').height()+100);
+			$('#calendar').fullCalendar('refetchEvents');
+			$('five').height($('.fc-content-skeleton').height() + 100);
 		}
+		function scrolltoTop() {
+			$(window).scrollTop(0);
+		}
+		$('*[data-toggle="tab"]').click(function() {
+			scrolltoTop(0)
+		});
 	</script>
 
 	<!-- 	import  js -->

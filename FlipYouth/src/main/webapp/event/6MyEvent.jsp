@@ -135,7 +135,7 @@ border: 1px solid;
 									揪團流水號: <span> # ${element.EventBean.eventSN} </span>
 								</div>
 								<div style="float: left">
-									<a href="<c:url value="/events/myEvent.controller"/>?eventSN=${element.EventBean.eventSN}&mbrSN=${element.EventDetailBean.eventDetailPK.mbrSN.mbrSN}">
+									<a href="<c:url value="/events/myEvent2.controller"/>?eventSN=${element.EventBean.eventSN}&mbrSN=${element.EventDetailBean.eventDetailPK.mbrSN.mbrSN}">
 									<button class="btn btn-lg btn-primary btn-block" type="button">
 										&gt;&gt;&gt;退出此團&lt;&lt;&lt;</button>
 									</a>
@@ -229,7 +229,7 @@ border: 1px solid;
 									揪團流水號: <span> # ${element.EventBean.eventSN} </span>
 								</div>
 								<div style="float: left">
-									<a href="<c:url value="/events/myEvent.controller"/>?eventSN=${element.EventBean.eventSN}&mbrSN=${element.EventDetailBean.eventDetailPK.mbrSN.mbrSN}">
+									<a href="<c:url value="/events/myEvent2.controller"/>?eventSN=${element.EventBean.eventSN}&mbrSN=${element.EventDetailBean.eventDetailPK.mbrSN.mbrSN}">
 									<button class="btn btn-lg btn-primary btn-block" type="button">
 										&gt;&gt;&gt;刪除紀錄&lt;&lt;&lt;</button>
 									</a>

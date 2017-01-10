@@ -219,7 +219,7 @@ a {
 			var googleURL = 'https://accounts.google.com/o/oauth2/auth?';
 			var client_id = 'client_id=451639246634-4m1oh7enkiqquk8hje60mfm9ve47onfs.apps.googleusercontent.com&'
 			var response_type = 'response_type=code&'
-			var redirect_uri = 'redirect_uri=http://localhost:8080/FlipYouth/googleLogin.controller&'
+			var redirect_uri = 'redirect_uri=https://flipyouth.azurewebsites.net/FlipYouth/googleLogin.controller&'
 			var scope = 'scope=email%20profile'
 			var url = googleURL + client_id + response_type + redirect_uri
 					+ scope;

@@ -1,3 +1,4 @@
+//最大的下方選單------------------------------------
 $(document).ready(function() {
     $('#nav-icon3').click(function() {
         $(this).toggleClass('open');
@@ -5,6 +6,32 @@ $(document).ready(function() {
     });
 });
 
+//會員下方選單------------------------------------
+$(document).ready(function() {
+    $('#MemberSelect').click(function() {
+        $(this).toggleClass('MemberOpenSelect');
+        $('#MemberUL').toggleClass('MemberOpenSelected');
+    });
+});
+
+//商城下方選單------------------------------------
+$(document).ready(function() {
+    $('#ShopSelect').click(function() {
+        $(this).toggleClass('ShopOpenSelect');
+        $('#ShopUL').toggleClass('ShopOpenSelected');
+    });
+});
+
+//揪團下方選單------------------------------------
+$(document).ready(function() {
+    $('#TeamSelect').click(function() {
+        $(this).toggleClass('TeamOpenSelect');
+        $('#TeamUL').toggleClass('TeamOpenSelected');
+    });
+});
+
+
+//好友下方選單------------------------------------
 
 $(document).ready(function() {
     $('#FriendSelect').click(function() {

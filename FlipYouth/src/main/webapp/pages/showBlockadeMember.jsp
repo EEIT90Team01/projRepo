@@ -22,6 +22,7 @@
 	crossorigin="anonymous">
 
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
+<link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
 
 <!--*********** 下排按鈕x2個link  ********************************-->
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
@@ -56,120 +57,42 @@ font-family:"微軟正黑體";
 								
 																
 						<div class="hero">
-								 <img class="header_left_img" src="<c:url value='/Kelsey/images/light_green/logo_06-02.png'/>" />
+						
+						<c:if test="${loginOK != null }">
+							<img class="header_right_img" src="data:image/jpg;base64,${user_photo}" >
+							<div class="memberContentIndexPage">
+									<blockquote class="blockquote_k">
+		<!-- 							<p>翻桌唷 -- 會員專區</p> -->
+										<span class="memberContentIndex_usr_name">使用者：${loginOK.nickName}</span><br>
+									</blockquote>
+							</div>
+							
+						</c:if>
+						
+								 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
 									<h1>
 											封&nbsp鎖&nbsp名&nbsp單&nbsp&nbsp<strong>Flip Youth</strong>
 									</h1>
 						</div>
-						
+		<!-- ********	導入導覽列   **************************************-->
+	<jsp:include page="/nav.jsp"></jsp:include>				
 						
 								
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="row">
-						
-					<div class="col-md-12">
-					</div>
-				</div>
-
-
-				<div class="row">
-					<div class="col-md-12">
-					<img  class="img-rounded memberAvatar" alt="Bootstrap Image Preview"
-							src="data:image/png;base64,${user_photo}"  />
-					<div class="memberContent">
-					<blockquote class="blockquote_k">
-							<p>翻桌唷 -- 會員專區</p>
-							<span class="usr_name">使用者：${loginOK.nickName}</span><br>
-						</blockquote>
-						</div>
-						
-					</div>
-				</div>
-
 
 
 				<!-- ********** 左邊下拉列表   開始  **********************************************-->
 				<div class="row">
-<!-- 					<div class="col-md-6"> -->
-<!-- 						<div class="panel-group" id="panel-734557"> -->
-<!-- 							<div class="panel panel-default"> -->
-<!-- 								<div class="panel-heading"> -->
-<!-- 									<a class="panel-title collapsed" data-toggle="collapse" -->
-<!-- 										data-parent="#panel-734557" href="#panel-element-705642">Collapsible -->
-<!-- 										Group Item #1</a> -->
-<!-- 								</div> -->
-<!-- 								<div id="panel-element-705642" class="panel-collapse collapse"> -->
-<!-- 									<div class="panel-body">Anim pariatur cliche...</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="panel panel-default"> -->
-<!-- 								<div class="panel-heading"> -->
-<!-- 									<a class="panel-title collapsed" data-toggle="collapse" -->
-<!-- 										data-parent="#panel-734557" href="#panel-element-572918">Collapsible -->
-<!-- 										Group Item #2</a> -->
-<!-- 								</div> -->
-<!-- 								<div id="panel-element-572918" class="panel-collapse collapse"> -->
-<!-- 									<div class="panel-body">Anim pariatur cliche...</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
 					<!-- ********** 搜尋會員   開始  **********************************************-->
 					<div class="col-md-12">
 						<nav class="navbar navbar-default" role="navigation">
+						<div class="collapse navbar-collapse"	id="bs-example-navbar-collapse-1">
+							
 						<div class="navbar-header">
-
-							<button type="button" class="navbar-toggle"
-								data-toggle="collapse"
-								data-target="#bs-example-navbar-collapse-1">
-								<span class="sr-only">Toggle navigation</span><span
-									class="icon-bar"></span><span class="icon-bar"></span><span
-									class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="#">功能選單</a>
+							<a class="navbar-brand" href="#">搜尋會員</a>
 						</div>
-						<div class="collapse navbar-collapse"
-							id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-							<c:if test="${loginOK == null}">
-									<li ><a href="<c:url value="/Tim/login/login.jsp"/>">Sign In</a></li>
-							</c:if>
-							<c:if test="${loginOK != null}">
-									<li><a href="<c:url value="/logout.controller"/>">Sign Up</a></li>
-							</c:if>
-								<li ><a
-									href="<c:url value='/pages/memberIndex.jsp'/>" >
-										<img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" style="width: 18px; height: auto;" class="navimg">&nbsp&nbsp會員中心&nbsp
-										
-								</a></li>
-					
-								<li ><a href="<c:url value='/Shop.controller'/>"> <img
-										src="<c:url value='/Kelsey/images/basic_gray/shopping-cart.png'/>" class="navimg">&nbsp&nbsp翻桌唷&nbsp商城&nbsp
-								</a></li>
-					
-								<li ><a href="" > <img
-										src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>" class="navimg">&nbsp&nbsp我的揪團&nbsp
-								</a></li>					
-								<li ><a href="" > <img
-										src="<c:url value='/Kelsey/images/basic_gray/time.png'/>" class="navimg">&nbsp&nbsp我的月曆&nbsp
-								</a></li>
-								<li ><a href="<c:url value="index3.jsp"/>">回首頁</a></li>
-								
-								<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Friend<strong class="caret"></strong></a>
-									<ul class="dropdown-menu">
-										<li ><a	href="<c:url value='/searchRelation.controller' />"> 
-											<img src="<c:url value='/Kelsey/images/basic_gray/stick-man.png'/>" class="navimg">&nbsp&nbsp我的好友&nbsp</a></li>
-										<li ><a href="<c:url value="/showBlockadeMember.controller"/>">封鎖名單</a></li>
-										<li><a href="<c:url value="/searchRelation.controller"/>">好友列表</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-										<li class="divider"></li>
-										<li><a href="#">One more separated link</a></li>
-									</ul>
-								</li>
-							</ul>
 								<div class="form-group">
 									<input type="text" class="form-control" placeholder="請輸入會員名稱" id="nickName" />
 								</div>
@@ -217,22 +140,22 @@ font-family:"微軟正黑體";
 								
 								<figure  onclick="blockadeMemberArea('${showBlockadeMemberMap.searchBlockadeMemberSN[status.index] }')"> 
 									<img src="data:image/jpg;base64,${showBlockadeMemberMap.searchBlockadeMemberImage[status.index]}"
-									alt="Thumb"  width=120	height=auto />
+									alt="Thumb"  width=160	height=auto />
 									<figcaption>
 									<div>${blockadeMember}</div>
 									</figcation>
 								</figure>
 								
-								<div style="display:none;"  name="inputDiv"  id="${showBlockadeMemberMap.searchBlockadeMemberSN[status.index] }" class="searchMemberAreaClass">						
-									<input type="button" value="解除封鎖" id="unBlockadeMemberImageButton"  onclick="unBlockadeMemberImageButton ('${blockadeMember}')"/>
+								<div  style="display:none;"  name="inputDiv"  id="${showBlockadeMemberMap.searchBlockadeMemberSN[status.index] }" class="searchMemberAreaClass ">						
+									<input type="button" value="解除封鎖" id="unBlockadeMemberImageButton"  onclick="unBlockadeMemberImageButton ('${blockadeMember}')" />
 								</div>
-								<div class="social-buttons">
-								    <a class="social-button facebook" href="#"><i class="fa fa-facebook"></i></a>
-								    <a class="social-button twitter" href="#"><i class="fa fa-twitter"></i></a>
-								    <a class="social-button google" href="#"><i class="fa fa-google"></i></a>
-								    <a class="social-button dribbble" href="#"><i class="fa fa-dribbble"></i></a>
-								    <a class="social-button skype" href="#"><i class="fa fa-skype"></i></a>
-								</div>
+<!-- 								<div class="social-buttons"> -->
+<!-- 								    <a class="social-button facebook" href="#"><i class="fa fa-facebook"></i></a> -->
+<!-- 								    <a class="social-button twitter" href="#"><i class="fa fa-twitter"></i></a> -->
+<!-- 								    <a class="social-button google" href="#"><i class="fa fa-google"></i></a> -->
+<!-- 								    <a class="social-button dribbble" href="#"><i class="fa fa-dribbble"></i></a> -->
+<!-- 								    <a class="social-button skype" href="#"><i class="fa fa-skype"></i></a> -->
+<!-- 								</div> -->
 								
 								</div>
 								<!-- box over-->
@@ -242,30 +165,8 @@ font-family:"微軟正黑體";
 
 							<!--**************** 顯示出所有封鎖名單    結束*******************************-->
 						</div>
-
-						<ul class="pagination">
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
 					</div>
 				</div>
-
-
-
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-12"> -->
-<!-- 						<blockquote> -->
-<!-- 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. -->
-<!-- 								Integer posuere erat a ante.</p> -->
-<%-- 							<small>Someone famous <cite>Source Title</cite></small> --%>
-<!-- 						</blockquote> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
 
 
 
@@ -291,6 +192,11 @@ font-family:"微軟正黑體";
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 
+
+	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
 
 <script type="text/javascript" src="<c:url value="/Kelsey/js/relation.js"/>"></script>
 
