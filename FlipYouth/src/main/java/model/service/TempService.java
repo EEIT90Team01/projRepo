@@ -34,7 +34,7 @@ public class TempService {
 
 	@PostConstruct
 	public void init() {
-		this.rootPath = (System.getProperty("catalina.base") + "/wtpwebapps" + context.getContextPath()).replace("/",
+		this.rootPath = (System.getProperty("catalina.base") + "/webapps" + context.getContextPath()).replace("/",
 				File.separator);
 	}
 
