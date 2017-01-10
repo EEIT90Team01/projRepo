@@ -67,7 +67,7 @@ public class EventGoController {
 
 		String userAddAddress = eventGoFbBean.getUserAddAddress();
 	///////TODO暫時用會員11來做/////1Eventing.jsp EventGoController.java
-		eventGoFbBean.setUserSN(11);
+		eventGoFbBean.setUserSN(1);
 	///////TODO暫時用會員11來做/////1Eventing.jsp EventGoController.java
 		if (userAddAddress == null || userAddAddress.length() == 0 || "elseMap".equals(userAddAddress)) {
 			errors.put("userAddAddress", "地址為必填(Address cannot be empty)!");

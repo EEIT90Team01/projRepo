@@ -29,7 +29,7 @@ public class EventDetail4MbrtoMyEventController {
 		
 		eventDeleteService.eventDetail4MbrJoinUse(mbrSN, eventSN);
 	///////有會員登錄後要改//////
-		String mbrSN1 = "11";
+		String mbrSN1 = "1";
 		session.setAttribute("mbrSN", mbrSN1);
 	///////有會員登錄後要改//////
 		session.setAttribute("eventSN", "null");
