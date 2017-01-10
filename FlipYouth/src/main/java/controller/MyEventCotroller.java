@@ -42,7 +42,7 @@ public class MyEventCotroller {
 	
 	@RequestMapping(path = { "/events/myEvent.controller" }) //接1Eventing.jsp //接3EventDetail4Host.jsp
 	public String myEventProcess(String mbrSN,String eventSN,Model model,HttpSession session){
-		System.out.println("上個網頁接的mbrSN = "+mbrSN);
+		System.out.println("MyEventCotroller's 上個網頁接的mbrSN = "+mbrSN);
 		model.addAttribute("myEvent", mbrSN);
 		
 		

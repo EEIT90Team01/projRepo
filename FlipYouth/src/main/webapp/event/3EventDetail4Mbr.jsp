@@ -265,7 +265,7 @@ body {
 		<div class="row">
 			<div class="col-md-6">
 <!-- 				會員登入後要改!!!! -->
-				<a href="<c:url value="/events/3EventDetail4Mbrto6MyEvent.controller"/>?eventSN=${eventDetail4Mbr.eventSN}&mbrSN=12">
+				<a href="<c:url value="/events/3EventDetail4Mbrto6MyEvent.controller"/>?eventSN=${eventDetail4Mbr.eventSN}&mbrSN=${loginOK.mbrSN}">
 <!-- 				會員登入後要改!!!! -->
 					<button type="button" class="btn btn-primary btn-block" style="font-size: 22px">加入</button>
 				</a>

@@ -89,7 +89,7 @@
 		<div class="col-md-4 " style="margin-top:100px;" >
 			<form class="well form-horizontal" style="background-color: rgba(72, 72, 72, 0.4);border:0px;"
 				action="<c:url value="/information.controller"/>" method="POST" enctype="multipart/form-data">
-				<h3 style="margin-top:0;margin-bottom:0;text-align:center;color:white;font-weight:bolder;font-family: Microsoft JhengHei;">會員資料</h3>
+				<h3 style="margin-top:0;margin-bottom:0;text-align:center;color:white;font-family:fantasy;">Sign Up</h3>
 				<fieldset style="padding-top: 25px;">
 					<div class="col-md-3"></div>
 					<div class="fileinput fileinput-new" data-provides="fileinput"> 
