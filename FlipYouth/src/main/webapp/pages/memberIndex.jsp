@@ -22,7 +22,8 @@
 <%-- <link href="<c:url value="/Kelsey/css/index3.css"/>" rel="stylesheet"> --%>
 <link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/member.css'/>">
-
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member Index</title>

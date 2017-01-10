@@ -22,7 +22,8 @@
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/member.css'/>">
 <link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
-
+<!-- 加favicon -->
+<link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Edit Member Success</title>
