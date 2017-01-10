@@ -145,6 +145,7 @@
 	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
 
 	<%-- <script type="text/javascript" src="<c:url value="/Kelsey/js/nav-group.js"/>"></script> --%>
+
 	<%@ include file="/chatRoom.jsp" %>
 
 </body>
