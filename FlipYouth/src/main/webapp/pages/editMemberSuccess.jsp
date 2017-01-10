@@ -32,7 +32,7 @@
 								
 						<div class="hero">
 						<c:if test="${loginOK != null }">
-							<img class="header_right_img" src="data:image/jpg;base64,${user_photo}" >
+							<img class="header_right_img" src="data:image/jpg;base64,${editSuccessImage.image}" >
 							<div class="memberContentIndexPage">
 									<blockquote class="blockquote_k">
 		<!-- 							<p>翻桌唷 -- 會員專區</p> -->

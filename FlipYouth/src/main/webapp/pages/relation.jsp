@@ -22,6 +22,7 @@
 
 
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
+<link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
 
 
 <%@ page import="model.MemberBean"%>
@@ -43,104 +44,46 @@ session.setAttribute("user_photo", user_photo);
 
 <%-- 					利用一個type="hidden" 隱藏需要抓取${loginOK.mbrSN}的標籤,並利用此標籤送出查詢 --%>
 								<input type="hidden" value="${loginOK.mbrSN}" id="mbrSN"/>
-								
-								
 						<div class="hero">
+						
+						<c:if test="${loginOK != null }">
+							<img class="header_right_img" src="data:image/jpg;base64,${user_photo}" >
+							<div class="memberContentIndexPage">
+									<blockquote class="blockquote_k">
+		<!-- 							<p>翻桌唷 -- 會員專區</p> -->
+										<span class="memberContentIndex_usr_name">使用者：${loginOK.nickName}</span><br>
+									</blockquote>
+							</div>
+							
+						</c:if>
+						
 								 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
 									<h1>
 											好&nbsp友&nbsp列&nbsp表&nbsp&nbsp<strong>Flip Youth</strong>
 									</h1>
 						</div>
-						
+		<!-- ********	導入導覽列   **************************************-->
+	<jsp:include page="/nav.jsp"></jsp:include>			
+								
+
 												
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="row">
-						
-					<div class="col-md-12">
-					</div>
-				</div>
 
-
-				<div class="row">
-					<div class="col-md-12">
-					<img  class="img-rounded memberAvatar" alt="Bootstrap Image Preview"
-							src="data:image/png;base64,${user_photo}"  />
-					<div class="memberContent">
-						<blockquote class="blockquote_k">
-							<p>翻桌唷 -- 會員專區</p>
-							<span class="usr_name">使用者：${loginOK.nickName}</span><br>
-						</blockquote>
-					</div>
-						
-					</div>
-				</div>
-				
-				
-				
 
 
 				<!-- ********** 左邊下拉列表   開始  **********************************************-->
 				<div class="row">
-<!-- 					<div class="col-md-6"> -->
-					
-<!-- 						<div class="panel-group" id="panel-734557"> -->
-<!-- 							<div class="panel panel-default"> -->
-<!-- 								<div class="panel-heading"> -->
-<!-- 									<a class="panel-title collapsed" data-toggle="collapse" -->
-<!-- 										data-parent="#panel-734557" href="#panel-element-705642">Collapsible -->
-<!-- 										Group Item #1</a> -->
-<!-- 								</div> -->
-<!-- 								<div id="panel-element-705642" class="panel-collapse collapse"> -->
-<!-- 									<div class="panel-body">Anim pariatur cliche...</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="panel panel-default"> -->
-<!-- 								<div class="panel-heading"> -->
-<!-- 									<a class="panel-title collapsed" data-toggle="collapse" -->
-<!-- 										data-parent="#panel-734557" href="#panel-element-572918">Collapsible -->
-<!-- 										Group Item #2</a> -->
-<!-- 								</div> -->
-<!-- 								<div id="panel-element-572918" class="panel-collapse collapse"> -->
-<!-- 									<div class="panel-body">Anim pariatur cliche...</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-						
-<!-- 					</div> -->
 					<!-- ********** 搜尋會員   開始  **********************************************-->
 					<div class="col-md-12">
 						<nav class="navbar navbar-default" role="navigation">
 						<div class="navbar-header">
 
-							<button type="button" class="navbar-toggle"
-								data-toggle="collapse"
-								data-target="#bs-example-navbar-collapse-1">
-								<span class="sr-only">Toggle navigation</span><span
-									class="icon-bar"></span><span class="icon-bar"></span><span
-									class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="#">Brand</a>
+							<a class="navbar-brand" href="#">搜尋會員</a>
 						</div>
 						<div class="collapse navbar-collapse"
 							id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li ><a href="<c:url value="index3.jsp"/>">回首頁</a></li>
-								<li ><a href="<c:url value="/showBlockadeMember.controller"/>">封鎖名單</a></li>
-								<li><a href="<c:url value="/searchRelation.controller"/>">好友列表</a></li>
-								<li class="dropdown"><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-									<ul class="dropdown-menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-										<li class="divider"></li>
-										<li><a href="#">One more separated link</a></li>
-									</ul></li>
-							</ul>
 								<div class="form-group">
 									<input type="text" class="form-control" placeholder="請輸入會員名稱" id="nickName" />
 								</div>
@@ -191,7 +134,7 @@ session.setAttribute("user_photo", user_photo);
 								<div class="boxContainer">
 									<figure onclick="clickFriend('${searchRelationMap.searchRelationFriendSN[status.index] }')"> 
 										<img src="data:image/jpg;base64,${searchRelationMap.searchRelationImage[status.index]}"
-										alt="Thumb" width=120	height=auto />
+										alt="Thumb" width=150	height=auto />
 										<figcaption>
 										<div name="FriendImage" class="${friend}Tag">${friend}</div>
 										</figcation>
@@ -263,6 +206,11 @@ session.setAttribute("user_photo", user_photo);
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 
+
+	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
 
 <script type="text/javascript" src="<c:url value="/Kelsey/js/relation.js"/>"></script>
 <%@ include file="/chatRoom.jsp" %>

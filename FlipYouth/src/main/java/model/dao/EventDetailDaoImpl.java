@@ -87,4 +87,12 @@ public class EventDetailDaoImpl implements EventDetailDao{
 		return eventDetailBeans;
 	}
 	/////輸入eventSN 取出EventDetailBean/////	
+	
+	//////從EventDTDAO幹來 用來取EventDetailBean//////
+	public EventDetailBean select(EventBean eventSN, MemberBean mbrSN) {	
+		EventDetailBean bean = null;
+		bean = getSession().get(EventDetailBean.class, new EventDetailPK(eventSN, mbrSN));
+		return bean;
+	}
+	//////從EventDTDAO幹來 用來取EventDetailBean//////
 }
