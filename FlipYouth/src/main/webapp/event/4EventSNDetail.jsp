@@ -129,10 +129,12 @@ border: 1px solid;
 		</div>
 <!-- /////////////// -->
 
-<div class="container" style="text-align:center">
+<div class="col-md-12">
+	<div class="container" style="text-align:center">
 			<h2>
 				&nbsp;揪團明細&nbsp;
 			</h2>
+			</div>
 <table class="table">
 	<tbody>
 	
