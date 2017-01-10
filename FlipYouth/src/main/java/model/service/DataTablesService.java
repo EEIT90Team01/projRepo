@@ -85,7 +85,7 @@ public class DataTablesService {
 	
 
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
-			int draw, int start, int length) {
+			int draw, int start, int length) throws IOException {
 		Integer total = 0, totalAfterFilter = 0;
 
 		StringBuffer hql = new StringBuffer().append("FROM ").append(table + "Bean");
@@ -165,7 +165,7 @@ public class DataTablesService {
 	}
 	//回傳給datatables
 	@Transactional(readOnly = true)
-	JsonArray ajaxQueryHandler(String hql, String table, int start, int length) {
+	JsonArray ajaxQueryHandler(String hql, String table, int start, int length) throws IOException {
 		JsonArray jArray = new JsonArray();
 
 		switch (table) {
@@ -226,9 +226,8 @@ public class DataTablesService {
 
 				JsonObject jObj = gson.toJsonTree(mbr).getAsJsonObject();
 				jObj.add("DT_RowId", gson.toJsonTree("r_" + mbr.getMbrSN()));
-//				if (mbr.getImage() != null) {
-//					jObj.add("image_Dis", gson.toJsonTree(tempService.getBase64Src(mbr.getImage())));
-//				}
+				jObj.add("image_Dis", gson.toJsonTree(tempService.getTempImg(mbr.getImage())));
+	
 				jObj.remove("image");
 				jArray.add(jObj);
 			}

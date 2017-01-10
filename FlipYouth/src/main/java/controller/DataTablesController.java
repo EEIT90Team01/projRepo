@@ -56,7 +56,7 @@ public class DataTablesController {
 	@ResponseBody
 	public String getDataTables(@RequestParam(name = "draw") String pDraw, @RequestParam(name = "start") String pStart,
 			@RequestParam(name = "length") String pLength, @RequestParam(name = "search[value]") String search,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws IOException {
 		String jsonResult = "";
 		String[] cols = columnService.getCols();
 		String table = columnService.getTableName();
