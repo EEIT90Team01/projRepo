@@ -97,7 +97,13 @@ display: none
 	display: table;
 	position: relative;
 }
-
+.container {
+    width: 1024px;
+    max-width: 100%;
+    margin: auto;
+    display: block;
+     text-align: left; 
+}
 </style>
 <script type="text/javascript">
 	
