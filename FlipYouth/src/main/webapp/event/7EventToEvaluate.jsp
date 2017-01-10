@@ -52,6 +52,7 @@ border: 1px solid;
 -->
 
 </head>
+<%@ include file="/chatRoom.jsp"%>
 <body style="background-color:#FFBD45;">
 <div class="container-fluid">
 	

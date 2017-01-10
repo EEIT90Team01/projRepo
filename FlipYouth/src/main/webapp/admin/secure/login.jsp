@@ -41,7 +41,7 @@ html, body {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-12">
-						<h3 class="text-center">Content Management System Login</h3>
+						<h3 class="text-center">FlipYouth 後台管理系統登入</h3>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-4">
 								<form class="form-horizontal" role="form"

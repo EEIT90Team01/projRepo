@@ -57,6 +57,7 @@ border: 1px solid;
 -->
 
 </head>
+<%@ include file="/chatRoom.jsp"%>
 <div class="hero">
 						
 		<c:if test="${loginOK != null }">

@@ -35,8 +35,8 @@
 <script type="text/javascript" src="<c:url value="/Samuel/js/jquery-ui-1.8.2.custom.min.js"/>"></script>
 
 <script type="text/javascript" src="<c:url value="/Samuel/js/chatboxManager.js"/>"></script>
-
 <script type="text/javascript" src="<c:url value="/Samuel/js/jquery.ui.chatbox.js"/>"></script>
+
 <script type="text/javascript" src="<c:url value="/Samuel/js/chatRoom.js"/>"></script>
 </c:if>
 </html>
