@@ -9,8 +9,7 @@
 
 <title>揪團去</title>
 
-<!--  jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -25,15 +24,11 @@
 	crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-	
+
 <!-- //////////日期時間Plugin//////////// -->
 	<link rel="stylesheet" type="text/css" href="../build/jquery.datetimepicker.min.css" />
 	<script src="../build/jquery.js"></script>
-	<script src="../build/jquery.datetimepicker.full.min.js"></script>
+	
 
 <!-- 	Web fonts -->
 <link rel="stylesheet" type="text/css"
@@ -42,10 +37,7 @@
 <link rel="stylesheet" href="<c:url value='/Kelsey/css/relation.css'/>">
 <link href="<c:url value="/Kelsey/css/nav_motion.css"/>" rel="stylesheet">
 
-	<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
-	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
-	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
-	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
+	
 	
 <style>
 body {
@@ -342,8 +334,19 @@ border: 1px solid;
 
 		<br />
 </div>
-	
+	<!--  jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!-- javascript功能 -->
+<script src="<c:url value="/Kelsey/js/easing/EasePack.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
+	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+	<script src="../build/jquery.datetimepicker.full.min.js"></script>
+	
 <script type="text/javascript">
 
 /////自訂人數上限/////
