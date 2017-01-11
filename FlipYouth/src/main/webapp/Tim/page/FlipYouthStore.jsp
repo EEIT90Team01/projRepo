@@ -246,7 +246,7 @@ display: none
 								<label>顏色</label>
 								<div class="colortitle" style="background-color: #337ab7">出貨中</div>
 								<div class="colortitle"
-									style="padding: 0 23px; font-size: 23px; background-color: green">已到門市</div>
+									style=" font-size: 23px; background-color: green">已到門市</div>
 								<div class="colortitle" style="background-color: red">已取消</div>
 								<div class="colortitle" style="background-color: #B94FFF">已完成</div>
 							</div>

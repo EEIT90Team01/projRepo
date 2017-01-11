@@ -372,6 +372,9 @@ font {
 							<span><font>啟用的篩選</font></span>
 						</div>
 						<ul>
+						<li><font id="left_search"></font><a href=""
+								class="remove-filter" data-toggle="tooltip" title=""
+								data-original-title="Remove"><i class="fa fa-remove"></i></a></li>
 							<li><font id="left_checkbox"></font><a href=""
 								class="remove-filter" data-toggle="tooltip" title=""
 								data-original-title="Remove"><i class="fa fa-remove"></i></a></li>
@@ -388,6 +391,13 @@ font {
 					</div>
 
 					<!-- ======================================================= -->
+					<div class="filter-sidebar">
+						<div class="title">
+							<span><font><font>查詢字串</font></font></span>
+						</div>
+						<input onchange="sendSelect()"
+									type="text" class="form-control" id="search" placeholder="查詢字串">
+					</div>
 					<div class="filter-sidebar">
 						<div class="title">
 							<span><font>語言</font></span>
@@ -493,12 +503,7 @@ font {
 
 
 
-					<div class="filter-sidebar">
-						<div class="title">
-							<span><font><font>確認送出</font></font></span>
-						</div>
-						<button onclick="sendSelect()">送出查詢</button>
-					</div>
+					
 					<span id="span"></span>
 
 
@@ -524,7 +529,7 @@ font {
 
 
 							<div id="select-page" class="col-md-4">
-								<font class="title2">每頁頁數 </font><select style="width: 100px"
+								<font class="title2">每頁比數 </font><select style="width: 100px"
 									onchange="changePageCount()"
 									class="btn-group bootstrap-select selectpicker ">
 									<option value="6"><font>6</font></option>
@@ -695,6 +700,14 @@ font {
 				$('#left_theme').text(
 						"遊戲主題:" + $('#theme').find("option:selected").text());
 			}
+			if(search.trim()!=0){
+				$('#left_search').text("收尋:"+search.trim());
+				
+			}else{
+				$('#left_search').empty();
+				
+			}
+			
 			ajax(search, selectpage, checkbox, GameClass, orderBy, theme, mix,
 					max)
 		}
