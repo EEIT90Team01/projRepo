@@ -78,10 +78,10 @@ session.setAttribute("user_photo", user_photo);
 				<label class="title">手機號碼：</label> ${memberBean.phone}</div>
 			<div class="st1">
 				<label class="title">Email：</label>${memberBean.mbrEmail}</div>
-<!-- 			<div class="st1"> -->
-<!-- 				<label class="title">大頭貼：</label>  -->
-<%-- 				<img src='data:image/jpg;base64,${memberBeanImage.imageBase64}' width=150	height=150/> --%>
-<!-- 			</div> -->
+			<div class="st1">
+				<label class="title">大頭貼：</label> 
+				<img src='data:image/jpg;base64,${memberBeanImage}' width=150	height=150/>
+			</div>
 			
 <!-- 			<div id="searchMemberButtonArea"> -->
 <!-- 					<input type="button" value="加入好友" id="insertFriendButton" class="searchMemberButton" /> -->

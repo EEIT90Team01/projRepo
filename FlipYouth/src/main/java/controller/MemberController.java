@@ -124,7 +124,7 @@ public class MemberController {
 
 	}
 
-	// 搜尋房主資料
+	// 搜尋房主資料(同頁面顯示)
 	@RequestMapping(path = "/searchHost.controller")
 	public @ResponseBody String searchHost(String nickName) {
 
@@ -143,14 +143,14 @@ public class MemberController {
 	}
 	
 	
-	// 搜尋房主資料
+	// 搜尋房主資料(跳轉頁面)
 		@RequestMapping(path = "/searchHostData.controller")
 		public String searchHostData(String nickName , HttpSession session) {
 
 			if (nickName != null || nickName.isEmpty()) {
 				MemberBean bean = memberDAO.selectOne(nickName);
-				String imageBase64 = null;
-				imageBase64 = Base64.getEncoder().encodeToString(bean.getImage());
+				String imageBase64 = Base64.getEncoder().encodeToString(bean.getImage());
+				System.out.println("imageBase64="+imageBase64);
 
 				session.setAttribute("memberBean", bean);
 				session.setAttribute("memberBeanImage", imageBase64);
