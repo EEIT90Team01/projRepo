@@ -366,7 +366,7 @@ public class ShopServices {
 	public String writePictur(String orderSN, String image) throws IOException {
 		System.out.println("orderSN"+orderSN);
 		System.out.println("image"+image);
-		OutputStream out = new FileOutputStream(System.getProperty("catalina.base")+"/webapps/FlipYouth/Tim/image/order/"+orderSN+".png");
+		OutputStream out = new FileOutputStream(System.getProperty("catalina.base")+"/webapps/FlipYouth/Tim/image/order/"+orderSN+".JPEG");
 		byte[] data = org.apache.commons.codec.binary.Base64.decodeBase64(image);
 		for (int i = 0; i < data.length; ++i) {
 			if (data[i] < 0) {
@@ -377,6 +377,6 @@ public class ShopServices {
 		out.flush();
 		out.close();
 		System.out.println("寫入圖檔 完成");
-		return "/Tim/image/order/"+orderSN+".png";
+		return "/Tim/image/order/"+orderSN+".JPEG";
 	}
 }
