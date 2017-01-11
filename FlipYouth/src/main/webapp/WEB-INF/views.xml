@@ -69,7 +69,7 @@
 	</bean>
 	<bean id="homepage"
 		class="org.springframework.web.servlet.view.InternalResourceView">
-		<property name="url" value="/index3.jsp" />
+		<property name="url" value="/index.jsp" />
 	</bean>
 
 <!--========================= 	Samuel 	檔案		========================= -->

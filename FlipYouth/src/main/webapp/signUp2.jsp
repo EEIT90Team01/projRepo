@@ -9,7 +9,7 @@
 <!-- 加favicon -->
 <link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <script type="text/javascript"
-	src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" href="css_Samuel/bootstrap.min.css">
 <style>
 #top-image {
