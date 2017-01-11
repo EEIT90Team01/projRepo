@@ -27,9 +27,9 @@ public class EventDeleteService {
 	public boolean EventDeleteUseOnly(String mbrSN,String eventSN){
 		System.out.println("以下進入EventDeleteService的EventDeleteService方法");
 		Integer a = Integer.parseInt(eventSN);
-		System.out.println(a);
+		System.out.println("eventSN = "+a);
 		Integer b = Integer.parseInt(mbrSN);
-		System.out.println(b);
+		System.out.println("mbrSN = "+b);
 		
 		EventBean eventBean = eventDaoImpl.select(Integer.parseInt(eventSN));
 		System.out.println("eventBean!!!=="+eventBean);
