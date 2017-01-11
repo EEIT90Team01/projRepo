@@ -1,7 +1,10 @@
 
 package model;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,46 +55,58 @@ public class ShopServices {
 	@Autowired
 	@Resource(name = "OrderDao")
 	OrderDao orderDao;
-	
+
 	public String getOrderData(int SN) {
 		List<OrderBean> orderAll = orderDao.selectOrderAll(SN);
 		JSONArray JSON = new JSONArray();
-		StringBuffer SB=new StringBuffer("[");
+		StringBuffer SB = new StringBuffer("[");
 		JSONObject b;
 		for (int i = 0; i < orderAll.size(); i++) {
 			JSONObject a = new JSONObject(orderAll.get(i));
-//			a.remove("image");
+			// a.remove("image");
 			String backcolor = "red";
-			String orderState=a.get("orderState").toString();
-			if("出貨中".equals(orderState)){backcolor = "#337ab7";};
-			if("已到門市".equals(orderState)){backcolor = "green";};
-			if("已取消".equals(orderState)){backcolor = "red";};
-			if("已完成".equals(orderState)){backcolor = "#B94FFF";};
-			
-			String dest="";
-//			String b =a.get("orderDate").toString().split("年|月|日","b");
+			String orderState = a.get("orderState").toString();
+			if ("出貨中".equals(orderState)) {
+				backcolor = "#337ab7";
+			}
+			;
+			if ("已到門市".equals(orderState)) {
+				backcolor = "green";
+			}
+			;
+			if ("已取消".equals(orderState)) {
+				backcolor = "red";
+			}
+			;
+			if ("已完成".equals(orderState)) {
+				backcolor = "#B94FFF";
+			}
+			;
+
+			String dest = "";
+			// String b =a.get("orderDate").toString().split("年|月|日","b");
 			Pattern p = Pattern.compile("年|月");
 			Matcher m = p.matcher(a.get("orderDate").toString());
-			dest = m.replaceAll("-").replace("點", ":").replace("日","").replace("分","");
-			
+			dest = m.replaceAll("-").replace("點", ":").replace("日", "").replace("分", "");
+
 			a.put("start", dest);
 			a.put("end", a.get("shippedDate"));
-//			a.put("title","訂單編號為"+a.get("orderSN")+"購買日期:"+a.get("orderDate"));
-			a.put("title","購買日期:"+a.get("orderDate")+"　　　　訂單狀態 :"+orderState);
+			// a.put("title","訂單編號為"+a.get("orderSN")+"購買日期:"+a.get("orderDate"));
+			a.put("title", "購買日期:" + a.get("orderDate") + "　　　　訂單狀態 :" + orderState);
 			a.put("id", a.get("orderSN"));
 			a.put("color", backcolor);
-		
+
 			SB.append(a);
-			if(orderAll.size()>i+1){
+			if (orderAll.size() > i + 1) {
 				SB.append(",");
-			}else{
+			} else {
 				SB.append("]");
 			}
-			
+
 		}
-//		System.out.println(SB);
-//		System.out.println(new JSONObject(SB));
-//		System.out.println(new JSONObject().);
+		// System.out.println(SB);
+		// System.out.println(new JSONObject(SB));
+		// System.out.println(new JSONObject().);
 		return SB.toString();
 	}
 
@@ -266,7 +281,7 @@ public class ShopServices {
 
 		textPart.setContent(html.toString(), "text/html; charset=UTF-8");
 		Message message = new MimeMessage(session);
-		
+
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(OrderEmail));
 		message.setSubject("FlipYouthStore");
 		Multipart email = new MimeMultipart();
@@ -348,4 +363,20 @@ public class ShopServices {
 		orderDao.update(OB);
 	}
 
+	public String writePictur(String orderSN, String image) throws IOException {
+		System.out.println("orderSN"+orderSN);
+		System.out.println("image"+image);
+		OutputStream out = new FileOutputStream(System.getProperty("catalina.base")+"/webapps/FlipYouth/Tim/image/order/"+orderSN+".png");
+		byte[] data = org.apache.commons.codec.binary.Base64.decodeBase64(image);
+		for (int i = 0; i < data.length; ++i) {
+			if (data[i] < 0) {
+				data[i] += 256;
+			}
+		}
+		out.write(data);
+		out.flush();
+		out.close();
+		System.out.println("寫入圖檔 完成");
+		return "/Tim/image/order/"+orderSN+".png";
+	}
 }

@@ -126,7 +126,7 @@ $(window).resize(function() {
 									}
 								},
 								eventClick : function(event, jsEvent, view) {
-									window.open("data:image/png;base64,"
+									window.open("/FlipYouth"
 											+ event.image, '訂單明細',
 											config = 'height=700,width=700')
 								},
