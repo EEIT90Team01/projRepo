@@ -75,8 +75,6 @@ session.setAttribute("user_photo", user_photo);
 						<div class="st1">
 				<label class="title">暱稱：</label><span>${loginOK.nickName}</span></div>
 			<div class="st1">
-				<label class="title">密碼：</label> ${loginOK.mbrPassword}</div>
-			<div class="st1">
 				<label class="title">地址：</label> ${loginOK.address}</div>
 				
 			<div class="st1">
