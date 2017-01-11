@@ -135,7 +135,8 @@ session.setAttribute("user_photo", user_photo);
 										<div name="FriendImage" class="${friend}Tag">${friend}</div>
 										</figcation>
 									</figure>
-									
+									<p>e-mail：${searchRelationMap.searchRelationFriendEmail[status.index] }</p>
+									<p>phone：${searchRelationMap.searchRelationFriendPhone[status.index] }</p>
 									<div style="display:none;" name="inputDiv"  id="${searchRelationMap.searchRelationFriendSN[status.index] }" class="searchMemberAreaClass">						
 										<input type="button" value="刪除好友"  onclick="deleteFriendImageButton( '${friend}')" /> 
 										<input type="button" value="封鎖會員"  onclick="BlockadeMemberImageButton ('${friend}')" />
