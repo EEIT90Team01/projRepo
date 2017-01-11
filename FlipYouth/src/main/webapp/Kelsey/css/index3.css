@@ -175,6 +175,7 @@ figcaption div:after {
 	width: 0%;
 	height: 2px;
 	background: #2c3e50;
+	
 }
 
 figure img {
@@ -192,6 +193,7 @@ figcaption:hover div {
 	opacity: 1;
 	/*半透明效果*/
 	top: 0;
+	
 }
 
 figcaption:hover div:after {
@@ -201,6 +203,20 @@ figcaption:hover div:after {
 figure:hover img {
 	-webkit-transform: scale3d(1.2, 1.2, 1);
 	transform: scale3d(1.2, 1.2, 1);
+}
+
+.ahref {
+	color:#575d63;
+    text-decoration: none;
+    font-size: xx-large;
+    font-family: "微軟正黑體";
+}
+
+.ahref:hover {
+	color:#575d63;
+    text-decoration: none;
+    font-size: xx-large;
+    font-family: "微軟正黑體";
 }
 
 .container_bottom_img {

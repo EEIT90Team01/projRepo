@@ -379,7 +379,8 @@ display: none
 		function format(d) {
 			display = "";
 			val = checkState(d);
-			var image = "open2('data:image/png;base64," + d.image + "');";
+			console.log("/FlipYouth"+d.image);
+			var image = "open2('/FlipYouth"+d.image+"')";
 			return '<button class="btn btn-danger" onclick="'+image+'">開啟明細</button>'
 					+ '<button id='
 					+ d.orderSN
