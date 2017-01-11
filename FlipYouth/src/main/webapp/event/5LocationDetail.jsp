@@ -185,8 +185,7 @@ border: 1px solid;
 			經度long:
 		</td>
 		<td class="col-md-4">
-			<div id="long"></div>
-			24.1374957
+			${locationDetail.locLong}
 		</td>
 	</tr>
 	<tr class="success">
@@ -194,8 +193,7 @@ border: 1px solid;
 			緯度lat:
 		</td>
 		<td class="col-md-4">
-			<div id="lat"></div>
-			120.6865984
+			${locationDetail.locLat}
 		</td>
 	</tr>
 	</tbody>
