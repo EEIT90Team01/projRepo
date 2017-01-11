@@ -125,12 +125,12 @@
 		</div>
 		<!-- /////////////// -->
 
-<div class="row">
+<div class="row col-md-12">
 		<div class="container" style="text-align:center">
 			<h2>
 				&nbsp;揪團中&nbsp;
 			</h2>
-			
+		</div>
 			<div>
 		<!-- 			////FbBean沒有Address -->
 <%-- 		Address= 					${eventGo.Address}<br/> --%>
