@@ -88,27 +88,27 @@
 		<figure> <img
 			src="https://d13yacurqjgara.cloudfront.net/users/220419/screenshots/1714518/shot-codigo.jpg"
 			alt="Thumb" width="400" height="300" /> <figcaption>
-		<div>Thumbnail Caption</div>
+		<div><a	href="<c:url value='/pages/memberIndex.jsp'/>"class="ahref" >會員中心</a></div>
 		</figcation></figure>
 
 		<figure> <img
 			src="https://d13yacurqjgara.cloudfront.net/users/220419/screenshots/1678299/shot-7.jpg"
 			alt="Thumb" width="400" height="300" /> <figcaption>
-		<div>Thumbnail Caption</div>
+		<div><a href="<c:url value="/events/eventing.controller"/>?mbrSN=${loginOK.mbrSN}" class="ahref">我的揪團</a></div>
 		</figcation></figure>
 
 
 		<figure> <img
 			src="https://d13yacurqjgara.cloudfront.net/users/220419/screenshots/1664639/shot.png"
 			alt="Thumb" width="400" height="300" /> <figcaption>
-		<div>Thumbnail Caption</div>
+		<div><a href="<c:url value='/Tim/page/FlipYouthStore.jsp'/>" class="ahref">翻桌唷&nbsp商城</a></div>
 		</figcation></figure>
 
 
 		<figure> <img
 			src="https://d13yacurqjgara.cloudfront.net/users/220419/screenshots/1644214/debut-shot.jpg"
 			alt="Thumb" width="400" height="300" /> <figcaption>
-		<div>Thumbnail Caption</div>
+		<div><a	href="<c:url value='/searchRelation.controller' />" class="ahref">&nbsp我的好友&nbsp</a></div>
 		</figcation></figure>
 		<img class="container_bottom_img"
 			src="<c:url value="/Kelsey/images/background/work.png"/>">

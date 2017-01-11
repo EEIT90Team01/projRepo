@@ -1,5 +1,6 @@
 package model;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -9,6 +10,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 
 public class MailSenderBean implements Runnable {
 	private String email;
@@ -43,7 +45,7 @@ public class MailSenderBean implements Runnable {
 //			hashCode.append(Integer.toHexString(c));
 //		}
 		
-		String url = new StringBuilder("http://localhost:8080/FlipYouth/checkActivatedCode.controller?id=").append(id)
+		String url = new StringBuilder("http://flipyouth.southeastasia.cloudapp.azure.com/FlipYouth/checkActivatedCode.controller?id=").append(id)
 				.append("&actCode=").append(hashCode.toString()).toString();
 		System.out.println(hashCode.toString());
 		try {
@@ -65,7 +67,12 @@ public class MailSenderBean implements Runnable {
 			mailMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(this.email));
 			mailMessage.setContent("<h1>你好" + id + "!!</h1><br><h3>歡迎您成為FlipYouth的會員。謝謝您的加入，祝翻桌愉快~</h3> <br><a href='" + url + "'>請點擊以激活帳號</a> ",
 					"text/html;charset=UTF-8");
-			mailMessage.setSubject("FlipYouth會員 帳號激活");
+			try {
+				mailMessage.setSubject( MimeUtility.encodeText( "wellcome to FlipYouth "));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			Transport transport = mailSession.getTransport("smtp");
 

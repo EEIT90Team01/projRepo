@@ -43,7 +43,7 @@ public class EventDetail4MbrtoMyEventController {
 		mbrtoMyEventFbBean.setMbrSN(mbrSN);
 		
 		if(eventDeleteService.eventDetail4MbrJoinUse(mbrSN, eventSN)==true){
-			System.out.println("FFFFFFF-----"+"成功");
+			System.out.println("FFFFFFF-----"+"加入成功!!!!!!!!!!!!!!");
 		}
 	///////有會員登錄後要改//////
 //		String mbrSN1 = "1";

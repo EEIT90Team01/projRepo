@@ -34,6 +34,8 @@
 	padding:5px 1px 1px 1px;
 	background:rgb(255, 255, 255);
 	display:none;
+	overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .chat_room_user{
