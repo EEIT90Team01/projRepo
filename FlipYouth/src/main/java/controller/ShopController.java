@@ -52,6 +52,13 @@ import model.dao.MemberDAO;
 @Controller
 @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 public class ShopController {
+//	@Autowired
+//	HttpSession session;
+//	public void setcount(int count){
+//		session.setAttribute("count", count);
+//	}
+	
+	
 	int count = 0;
 	int all = 0;
 	int price =0;

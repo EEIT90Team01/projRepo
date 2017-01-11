@@ -153,15 +153,23 @@ body {
 														alt="Bootstrap Image Preview"
 														src="data:image/png;base64,${eventDetail4Mbr.hostimage} "
 														class="img-circle" />
-							</span> <span> ${eventDetail4Mbr.hostName} </span></td>
+							</span> <span id="hostName" value="${eventDetail4Mbr.hostName}">${eventDetail4Mbr.hostName}</span>
+<!-- 							顯示房主資料 -->
+<!-- 							<div id="hostData" class="searchMemberButton"> -->
+<!-- 							<p id="hostDataEmail"></p> -->
+<!-- 							<p id="hostDataPhone"></p> -->
+<!-- 							</div> -->
+							</td>
 							<td class="col-md-3">
 								<div class="col-md-7">
-<!-- 				連結到碩言的會員資料 -->
-									<a href="<c:url value='/events/myEvent.controller'/>?mbrName=${eventDetail4Mbr.hostName}">
-<!-- 				連結到碩言的會員資料 -->
+<!-- 				連結到Kelsey的會員資料 -->
+									<a href="<c:url value='/searchHostData.controller'/>?nickName=${eventDetail4Mbr.hostName}">
+<!-- 									<a href="#"> -->
+<!-- 									<button type="button" class="btn btn-primary btn-block" onclick="searchHost()"> -->
 									<button type="button" class="btn btn-primary btn-block">
 										&gt;&gt;&gt;房主資料&lt;&lt;&lt;</button>
 									</a>
+<!-- 				連結到Kelsey的會員資料 -->
 								</div>
 							</td>
 							<td class="col-md-3" rowspan="6"><iframe width="350"
@@ -289,5 +297,7 @@ body {
 	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
 	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
 	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
+	
+	<script type="text/javascript" src="<c:url value="/Kelsey/js/relation.js"/>"></script>
 </body>
 </html>

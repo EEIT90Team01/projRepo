@@ -164,13 +164,12 @@ border: 1px solid;
 		</td>
 		<td class="col-md-4">
 			<div style="float:right">
-<!-- 				連結到碩言的會員資料 -->
-				<a href="<c:url value='/events/myEvent.controller'/>?mbrName=${eventSNDetail.hostName}">
-<!-- 				連結到碩言的會員資料 -->
-				<button type="button" class="btn btn-primary btn-block">
-					&gt;&gt;&gt;房主資料&lt;&lt;&lt;
-				</button>
-				</a>
+<!-- 				連結到Kelsey的會員資料 -->
+									<a href="<c:url value='/searchHostData.controller'/>?nickName=${eventSNDetail.hostName}">
+									<button type="button" class="btn btn-primary btn-block">
+										&gt;&gt;&gt;房主資料&lt;&lt;&lt;</button>
+									</a>
+<!-- 				連結到Kelsey的會員資料 -->
 			</div>
 			<img width="50" height="50" alt="Bootstrap Image Preview"
 					src="data:image/png;base64,${eventSNDetail.hostimage} " class="img-circle" />
@@ -189,14 +188,12 @@ border: 1px solid;
 <%-- 			<c:when test="${element.mbrName eq eventSNDetail.hostName}"> --%>
 			<div>
 			<div style="float:right">
-<!-- 				連結到碩言的會員資料 -->
-				<a href="<c:url value='/events/myEvent.controller'/>?mbrName=${element.mbrName}">
-<!-- 				連結到碩言的會員資料 -->
-				<button type="button" class="btn btn-danger btn-block">
-					&gt;&gt;&gt;會員資料&lt;&lt;&lt;
-					<!-- 					碩言會員資料 -->
-				</button>
-				</a>
+<!-- 				連結到Kelsey的會員資料 -->
+									<a href="<c:url value='/searchMbrData.controller'/>?nickName=${element.mbrName}">
+									<button type="button" class="btn btn-danger btn-block">
+										&gt;&gt;&gt;會員資料&lt;&lt;&lt;</button>
+									</a>
+<!-- 				連結到Kelsey的會員資料 -->
 			</div>
 				<img width="50" height="50" alt="Bootstrap Image Preview"
 					src="data:image/png;base64,${element.image} " class="img-circle" />

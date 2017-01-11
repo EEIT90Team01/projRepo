@@ -143,7 +143,7 @@ border: 1px solid;
 			<%-- 				</c:forEach> --%>
 			<!-- 			</div> -->
 			<!-- //////資料庫生成揪團表///// -->
-			<div>
+			<div class="col-md-12">
 				<c:forEach var="element" items="${eventing}" varStatus="theCount">
 				<c:if test="${element.EventBean.eventState=='1'}">
 					<!-- /////第一個TABLE///// -->
@@ -153,8 +153,11 @@ border: 1px solid;
 									<tbody>
 
 										<tr class="danger">
-											<td class="col-md-1" rowspan="3"><span> 第
-													${theCount.count} 團</span></td>
+											<td class="col-md-1" rowspan="3">
+											<span> 
+												
+											</span>
+											</td>
 											<td colspan="3">
 												<div style="float: left" class="col-md-3">
 													<span>揪團流水號:</span> <span> #

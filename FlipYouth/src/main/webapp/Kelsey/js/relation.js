@@ -21,8 +21,7 @@ function searchMember() {
 		"&nickName=" + searchMemberNickname.val() + "&mbrSN="
 				+ $('#mbrSN').val(),
 
-		// 由於AJAX 預設都是 非同步模式 (Asynchronous) 所以必須把 Asynchronous 設為 false (就是同步
-		// Synchronous)
+		// 由於AJAX 預設都是 非同步模式 (Asynchronous) 所以必須把 Asynchronous 設為 false (就是同步 Synchronous)
 		// 解釋就是等AJAX 有了返回值才會執行下面的 JS
 		// jquery的async:false,這個屬性默認是true：異步，false：同步
 		async : true,
@@ -77,6 +76,48 @@ function searchMember() {
 
 // *************************** 搜尋會員方法 結束
 // ***********************************************************************************
+
+//***************************  搜尋房主資料方法(揪團)  開始--沒完成  ***********************************************************************************	
+
+function searchHost() {
+var searchMemberNickname = $('#hostName');
+console.log(searchMemberNickname.text());
+//if (searchMemberNickname.val().length == 0
+//		|| searchMemberNickname.val() == ""
+//		|| searchMemberNickname.val() == null
+//		|| searchMemberNickname.val() == " ") {
+//	// if(isEmpty( searchMemberNickname.val() ) ){
+//	alert("輸入錯誤");
+//	return;
+//}// end of if
+
+console.log("成功進入 searchHost");
+$.ajax({
+	url : "/FlipYouth/searchHost.controller",
+	type : "GET",
+	data :"&nickName="+searchMemberNickname.text(),
+
+	// 由於AJAX 預設都是 非同步模式 (Asynchronous) 所以必須把 Asynchronous 設為 false (就是同步 Synchronous)
+	// 解釋就是等AJAX 有了返回值才會執行下面的 JS
+	// jquery的async:false,這個屬性默認是true：異步，false：同步
+	async : true,
+	success : function(data) {
+
+		$('#hostDataEmail').attr("src",	"data:image/png;base64," + data.memberImageBase64);
+		$('#hostDataEmail').text("e-mail：" + data.mbrEmail);
+		$('#hostDataPhone').text("phone：" + data.phone);
+		$('#hostData').removeClass().addClass('searchMemberButtonshow');
+
+
+	},// end of success
+})
+// end of ajax
+
+};// end of searchMember()
+
+//*************************** 搜尋房主資料方法(揪團) 結束
+//***********************************************************************************
+
 
 // *************************** 加入好友方法 開始
 // ***********************************************************************************
