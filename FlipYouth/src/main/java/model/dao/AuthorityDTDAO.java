@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -22,7 +23,7 @@ public class AuthorityDTDAO {
 	public AuthorityBean select(Integer authId) {
 		AuthorityBean bean = null;
 
-		bean = (AuthorityBean) getSession().get(AuthorityBean.class, authId);
+		bean = (AuthorityBean) getSession().load(AuthorityBean.class, authId);
 
 		return bean;
 	}
@@ -45,11 +46,21 @@ public class AuthorityDTDAO {
 	public List<AuthorityBean> ajaxQuery(String hql, int start, int length) {
 
 		List<AuthorityBean> beans = null;
-		beans = getSession().createQuery(hql, AuthorityBean.class).setFirstResult(start).setMaxResults(length)
+		List<Integer> pks = getSession().createQuery("select authId "+hql, Integer.class).setFirstResult(start).setMaxResults(length)
 				.getResultList();
+		beans = this.select(pks);
 		return beans;
 	}
 
+	public List<AuthorityBean> select(List<Integer> pks) {
+		
+		List<AuthorityBean> beans = new ArrayList<AuthorityBean>();
+		for (Integer pk:pks){
+			beans.add(this.select(pk));
+		}
+		return beans;
+	}
+	
 	public int ajaxCount(String hql) {
 
 		Query query = getSession().createQuery("select count(*) " + hql);

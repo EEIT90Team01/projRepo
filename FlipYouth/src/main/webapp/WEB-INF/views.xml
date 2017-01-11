@@ -41,6 +41,16 @@
 		<property name="url" value="/pages/showBlockadeMember.jsp" />
 	</bean>
 	
+	<bean id="hostData"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/pages/hostData.jsp" />
+	</bean>
+	
+	<bean id="mbrData"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/pages/mbrData.jsp" />
+	</bean>
+	
 	<bean id="index"
 		class="org.springframework.web.servlet.view.InternalResourceView">
 		<property name="url" value="/index.jsp" />
@@ -64,7 +74,7 @@
 	</bean>
 	<bean id="homepage"
 		class="org.springframework.web.servlet.view.InternalResourceView">
-		<property name="url" value="/index3.jsp" />
+		<property name="url" value="/index.jsp" />
 	</bean>
 
 <!--========================= 	Samuel 	檔案		========================= -->

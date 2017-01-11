@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class BackEndLogDTDAO {
 	public BackEndLogBean select(String admId, Date executeTime) {
 		
 		BackEndLogBean bean = null;
-		bean = getSession().get(BackEndLogBean.class, new BackEndLogBeanPK(admId, executeTime));
+		bean = getSession().load(BackEndLogBean.class, new BackEndLogBeanPK(admId, executeTime));
 		return bean;
 	}
 
@@ -34,29 +35,22 @@ public class BackEndLogDTDAO {
 		getSession().saveOrUpdate(bean);
 		return bean;
 	}
-
-//	public BackEndLogBean update(BackEndLogBean bean) {
-//
-//		getSession().saveOrUpdate(bean);
-//		return bean;
-//	}
-//	public int ajaxDelete(String[] toDelete) {
-//		int result = 0;
-//		BackEndLogBean bean;
-//		for (String pk : toDelete) {
-//			bean = new BackEndLogBean();
-//			bean.setAdmId(pk.split("_")[0]);
-//			bean.setExecuteTime(DateValidator.getInstance().validate((pk.split("_")[1]), "yyyy-MM-dd HH:mm:ss.SSS"));
-//			getSession().delete(bean);
-//			result++;
-//		}
-//		return result;
-//	}
 	
 	public List<BackEndLogBean> ajaxQuery(String hql, int start, int length) {
-		
+
 		List<BackEndLogBean> beans = null;
-		beans = getSession().createQuery(hql, BackEndLogBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+		List<Object[]> pks = getSession().createQuery("select admId, executeTime "+hql, Object[].class).setFirstResult(start).setMaxResults(length)
+				.getResultList();
+		beans = this.select(pks);
+		return beans;
+	}
+
+	public List<BackEndLogBean> select(List<Object[]> pks) {
+		
+		List<BackEndLogBean> beans = new ArrayList<BackEndLogBean>();
+		for (Object[] pk:pks){
+			beans.add(this.select((String)pk[0], (Date)pk[1]));
+		}
 		return beans;
 	}
 	

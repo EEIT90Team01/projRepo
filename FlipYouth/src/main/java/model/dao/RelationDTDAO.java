@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -32,29 +33,22 @@ public class RelationDTDAO {
 		bean = (RelationBean) query.getSingleResult();
 		return bean;
 	}
-
-//	public RelationBean cu(RelationBean bean) {
-//		
-//		getSession().saveOrUpdate(bean);
-//		return bean;
-//	}
-//	public int ajaxDelete(String[] toDelete) {
-//		int result = 0;
-//		RelationBean bean;
-//		for (String pk : toDelete) {
-//			bean = new RelationBean();
-//			bean.setMbrSN(memberDtdao.select(integerValidator.validate(pk.split("_")[0])));
-//			bean.setTargetMbrSN(memberDtdao.select(integerValidator.validate(pk.split("_")[1])));
-//			getSession().delete(bean);
-//			result++;
-//		}
-//		return result;
-//	}
 	
 	public List<RelationBean> ajaxQuery(String hql, int start, int length) {
-		
+
 		List<RelationBean> beans = null;
-		beans = getSession().createQuery(hql, RelationBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+		List<Integer[]> pks = getSession().createQuery("select mbrSN, targetMbrSN "+hql, Integer[].class).setFirstResult(start).setMaxResults(length)
+				.getResultList();
+		beans = this.select(pks);
+		return beans;
+	}
+
+	public List<RelationBean> select(List<Integer[]> pks) {
+		
+		List<RelationBean> beans = new ArrayList<RelationBean>();
+		for (Integer[] pk:pks){
+			beans.add(this.select(pk[0], pk[1]));
+		}
 		return beans;
 	}
 	

@@ -52,6 +52,13 @@ import model.dao.MemberDAO;
 @Controller
 @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 public class ShopController {
+//	@Autowired
+//	HttpSession session;
+//	public void setcount(int count){
+//		session.setAttribute("count", count);
+//	}
+	
+	
 	int count = 0;
 	int all = 0;
 	int price =0;
@@ -214,6 +221,7 @@ public class ShopController {
 		}
 
 		String image = req.getParameter("image").substring(22);
+		
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				try {
@@ -231,11 +239,14 @@ public class ShopController {
 
 		car = (Map<String, OrderDetailBean>) session.getAttribute("cars");
 		OrderBean hi = (OrderBean) session.getAttribute("order");
-
+		
+		String imgpath = shopServices.writePictur(Math.abs(image.hashCode())+"",image);
+		
 		aOrderBean = shopServices.newOrderAndDetail(
-				new OrderBean(image, email, hi.getAddress(), hi.getName(), hi.getTel(), hi.getPhone()),
+				new OrderBean(imgpath, email, hi.getAddress(), hi.getName(), hi.getTel(), hi.getPhone()),
 				((MemberBean) session.getAttribute("loginOK")).getMbrSN() + "", hi.getOrderAmount() + "", car);
 		session.setAttribute("order", aOrderBean);
+		System.out.println("aOrderBeanaOrderBeanaOrderBean"+aOrderBean.getImage());
 		return "orderOver";
 	}
 

@@ -63,8 +63,8 @@
 	</bean>
 	<tx:annotation-driven transaction-manager="txMgr" />
 	
-	<task:scheduler id="taskScheduler" pool-size="42"/>
-	<task:annotation-driven scheduler="taskScheduler"/>
+	<!-- <task:scheduler id="taskScheduler" pool-size="42"/>
+	<task:annotation-driven scheduler="taskScheduler"/> -->
 
 	<context:annotation-config />
 	<context:component-scan base-package="model" />

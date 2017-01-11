@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -26,7 +27,7 @@ public class CommentDTDAO {
 	public CommentBean select(Integer cmtSN) {
 		
 		CommentBean bean = null;
-		bean = getSession().get(CommentBean.class, cmtSN);
+		bean = getSession().load(CommentBean.class, cmtSN);
 		return bean;
 	}
 
@@ -47,12 +48,23 @@ public class CommentDTDAO {
 			result++;
 		}
 		return result;
-	}
+	}	
 	
 	public List<CommentBean> ajaxQuery(String hql, int start, int length) {
-		
+
 		List<CommentBean> beans = null;
-		beans = getSession().createQuery(hql, CommentBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+		List<Integer> pks = getSession().createQuery("select cmtSN "+hql, Integer.class).setFirstResult(start).setMaxResults(length)
+				.getResultList();
+		beans = this.select(pks);
+		return beans;
+	}
+
+	public List<CommentBean> select(List<Integer> pks) {
+		
+		List<CommentBean> beans = new ArrayList<CommentBean>();
+		for (Integer pk:pks){
+			beans.add(this.select(pk));
+		}
 		return beans;
 	}
 	

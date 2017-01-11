@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -10,39 +11,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.bean.AdministratorBean;
-@Repository(value="administratorDtdao")
+
+@Repository(value = "administratorDtdao")
 public class AdministratorDTDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	public Session getSession(){
+
+	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
+
 	public AdministratorBean select(String admId) {
-		
+
 		AdministratorBean bean = null;
-		bean = getSession().get(AdministratorBean.class, admId);
+		bean = getSession().load(AdministratorBean.class, admId);
 		return bean;
 	}
 
-//	@Override
-//	public List<Object> select() {
-//		
-//		List<AdministratorBean> beans = null;
-//		beans = (List<AdministratorBean>) getSession().createQuery("from AdministratorBean", AdministratorBean.class).getResultList();
-//		return beans;
-//	}
-
 	public AdministratorBean cu(AdministratorBean bean) {
-		
+
 		getSession().saveOrUpdate(bean);
 		return bean;
 	}
+
 	public int ajaxDelete(String[] toDelete) {
 		int result = 0;
 		for (String pk : toDelete) {
-			if ("admin".equals(pk)){
+			if ("admin".equals(pk)) {
 				continue;
 			}
 			getSession().delete(new AdministratorBean(pk));
@@ -50,18 +45,28 @@ public class AdministratorDTDAO {
 		}
 		return result;
 	}
-	
+
 	public List<AdministratorBean> ajaxQuery(String hql, int start, int length) {
 		
 		List<AdministratorBean> beans = null;
-		beans = getSession().createQuery(hql, AdministratorBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+		List<String> pks = getSession().createQuery("select admId "+hql, String.class).setFirstResult(start).setMaxResults(length).getResultList();
+		beans = this.select(pks);
 		return beans;
 	}
-	
-	public int ajaxCount(String hql){
+
+	public List<AdministratorBean> select(List<String> pks) {
 		
-		Query query = getSession().createQuery("select count(*) "+hql);
-		int result = ((Long)query.getSingleResult()).intValue();
+		List<AdministratorBean> beans = new ArrayList<AdministratorBean>();
+		for (String pk:pks){
+			beans.add(this.select(pk));
+		}
+		return beans;
+	}
+
+	public int ajaxCount(String hql) {
+
+		Query query = getSession().createQuery("select count(*) " + hql);
+		int result = ((Long) query.getSingleResult()).intValue();
 		return result;
 	}
 }

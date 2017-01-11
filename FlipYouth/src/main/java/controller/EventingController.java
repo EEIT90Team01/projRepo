@@ -38,6 +38,7 @@ public class EventingController {
 
 	@RequestMapping(path = { "/events/eventing.controller" })
 	public String eventingProcess(String mbrSN ,HttpSession session) {
+		
 		System.out.println("上個網頁接的mbrSN = "+ mbrSN +"----------------------");
 		List<EventBean> list = EventDaoImpl.select();
 		List<Map> listImage = new ArrayList<>();
@@ -58,8 +59,11 @@ public class EventingController {
 //		}//抓幾人參與
 		//System.out.println("list="+list);
 //		System.out.println(list.get(0).getBeginTime());/// 印出開始時間
+		session.removeAttribute("eventing");
+		System.out.println("session = "+session);
 		session.setAttribute("eventing", listImage);
 		session.setAttribute("mbrSN", mbrSN);
+		System.out.println("抓到比數 = "+((List<Map>)session.getAttribute("eventing")).size());
 		return "Eventing.index";
 	}
 }

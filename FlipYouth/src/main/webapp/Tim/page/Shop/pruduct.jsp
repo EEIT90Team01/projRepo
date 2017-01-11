@@ -291,7 +291,7 @@ iframe {
 											<div class="col-md-1"></div>
 											<div class="col-md-10">
 												<textarea  id="comment" class="form-control" style="margin:15px 0;resize: none;" placeholder="請輸入留言訊息"></textarea>
-										    	<div style="text-align:right;">
+										    	<div style="text-align:center;">
 											    	<button type="submit" id="button" class="btn"
 													onclick="sendComment(${loginOK.mbrSN},${pruduct.gameSN})">送出</button>
 												</div>

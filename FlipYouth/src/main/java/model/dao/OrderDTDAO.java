@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -22,7 +23,7 @@ public class OrderDTDAO {
 	public OrderBean select(Integer orderSN) {
 		
 		OrderBean bean = null;
-		bean = getSession().get(OrderBean.class, orderSN);
+		bean = getSession().load(OrderBean.class, orderSN);
 		return bean;
 	}
 
@@ -44,10 +45,20 @@ public class OrderDTDAO {
 	}
 	
 	public List<OrderBean> ajaxQuery(String hql, int start, int length) {
-		System.out.println("==============");
-		System.out.println(hql);
+
 		List<OrderBean> beans = null;
-		beans = getSession().createQuery(hql, OrderBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+		List<Integer> pks = getSession().createQuery("select orderSN "+hql, Integer.class).setFirstResult(start).setMaxResults(length)
+				.getResultList();
+		beans = this.select(pks);
+		return beans;
+	}
+
+	public List<OrderBean> select(List<Integer> pks) {
+		
+		List<OrderBean> beans = new ArrayList<OrderBean>();
+		for (Integer pk:pks){
+			beans.add(this.select(pk));
+		}
 		return beans;
 	}
 	

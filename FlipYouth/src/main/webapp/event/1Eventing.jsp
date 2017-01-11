@@ -143,8 +143,8 @@ border: 1px solid;
 			<%-- 				</c:forEach> --%>
 			<!-- 			</div> -->
 			<!-- //////資料庫生成揪團表///// -->
-			<div>
-				<c:forEach var="element" items="${eventing}" varStatus="theCount">
+			<div class="col-md-12">
+				<c:forEach var="element" items="${eventing}">
 				<c:if test="${element.EventBean.eventState=='1'}">
 					<!-- /////第一個TABLE///// -->
 						<div class="row">
@@ -153,8 +153,11 @@ border: 1px solid;
 									<tbody>
 
 										<tr class="danger">
-											<td class="col-md-1" rowspan="3"><span> 第
-													${theCount.count} 團</span></td>
+											<td class="col-md-1" rowspan="3">
+											<span> 
+												
+											</span>
+											</td>
 											<td colspan="3">
 												<div style="float: left" class="col-md-3">
 													<span>揪團流水號:</span> <span> #
@@ -261,10 +264,11 @@ border: 1px solid;
 		</div>
 		<!-- /////bottom//// -->
 		<div class="row">
-			<div class="col-md-4"
-				onclick="window.location.href='<c:url value='/event/2EventGo.jsp' />'">
+			<div class="col-md-4">
+				<a href="<c:url value="/events/eventgo2.controller"/>?mbrSN=${loginOK.mbrSN}">
 				<button type="button" class="btn btn-primary btn-block">
 					創建揪團啦</button>
+				</a>
 			</div>
 			<div class="col-md-4">
 <!--TODO 這裡有會員登入的話要把11改掉 1Eventing.jsp EventGoController.java!!!!!!!!!!!!!! -->
@@ -289,6 +293,6 @@ border: 1px solid;
 	<script src="<c:url value="/Kelsey/js/plugins/CSSPlugin.min.js"/>"></script>
 	<script src="<c:url value="/Kelsey/js/TweenMax.min.js"/>"></script>
 	<script src="<c:url value="/Kelsey/js/nav_motion.js"/>"></script>
-	
+	<c:remove var="eventing" />
 </body>
 </html>

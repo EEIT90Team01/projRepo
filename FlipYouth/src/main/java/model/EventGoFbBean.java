@@ -7,6 +7,8 @@ public class EventGoFbBean implements Serializable {
 
 	// 會員資料
 	private Integer userSN;
+	private String locLat;
+	private String locLong;
 	// 用戶輸入資料
 	private String userAddAddress;
 	private java.util.Date startDateTime;
@@ -65,6 +67,18 @@ public class EventGoFbBean implements Serializable {
 	}
 	public void setUserInputAddress(String userInputAddress) {
 		this.userInputAddress = userInputAddress;
+	}
+	public String getLocLat() {
+		return locLat;
+	}
+	public void setLocLat(String locLat) {
+		this.locLat = locLat;
+	}
+	public String getLocLong() {
+		return locLong;
+	}
+	public void setLocLong(String locLong) {
+		this.locLong = locLong;
 	}
 	
 }

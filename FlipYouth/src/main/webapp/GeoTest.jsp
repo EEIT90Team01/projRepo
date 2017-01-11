@@ -9,42 +9,28 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <script>
             
-        	var i;
-            var split;
-            function trans() {
-                i = 0;
-                $("#target").val("");
-                var content = $("#hiddenUserInputAddress").val();
-                split = content.split("\n");
-                delayedLoop();
-            }
-            function delayedLoop() {
-                addressToLatLng(split[i]);
-                if (++i == split.length) {return;}
-                window.setTimeout(delayedLoop, 1500);
-            }
-            function addressToLatLng(addr) {
-                var geocoder = new google.maps.Geocoder();
-                geocoder.geocode({"address": addr},
-                function (results, status) {
-					addr = "";
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        var content = $("#target").val();
-                        $("#target").val(results[0].geometry.location.lat() + "," + results[0].geometry.location.lng());
-                        $("#targetlat").val(results[0].geometry.location.lat());
-                        $("#targetlong").val(results[0].geometry.location.lng());
-                    } else {
-                        var content = $("#target").val();
-                        $("#target").val("Null");
-                        $("#targetlat").val("Null");
-                        $("#targetlong").val("Null");
-                    }
-                });
-            }
+        function addressToLatLng(addr) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode(
+            		{"address": addr},
+            		function (results, status) {
+            			if (status == google.maps.GeocoderStatus.OK) {
+            				$("#targetlat").val(results[0].geometry.location.lat());
+            				$("#targetlng").val(results[0].geometry.location.lng());
+            				
+            		}else{
+            			$("#targetlat").val("查無經緯度");
+        				$("#targetlng").val("查無經緯度");
+            		}
+            		});
+        }
+            		
         </script>
     </head>
     
     <body>
+    	<p></p>
+    
 		<p>1. 請輸入地址，一行輸入一個地址</p>
 		<p>
 			<textarea rows="9" name="S1" cols="67" id="hiddenUserInputAddress">台北市信義區市府路1號</textarea>

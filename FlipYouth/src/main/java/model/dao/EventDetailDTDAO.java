@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -32,14 +33,14 @@ public class EventDetailDTDAO {
 	public EventDetailBean select(EventBean eventSN, MemberBean mbrSN) {
 		
 		EventDetailBean bean = null;
-		bean = getSession().get(EventDetailBean.class, new EventDetailPK(eventSN, mbrSN));
+		bean = getSession().load(EventDetailBean.class, new EventDetailPK(eventSN, mbrSN));
 		return bean;
 	}
 	
 	public EventDetailBean select(EventDetailPK eventDetailPK) {
 		
 		EventDetailBean bean = null;
-		bean = getSession().get(EventDetailBean.class, eventDetailPK);
+		bean = getSession().load(EventDetailBean.class, eventDetailPK);
 		return bean;
 	}
 
@@ -64,9 +65,20 @@ public class EventDetailDTDAO {
 	}
 	
 	public List<EventDetailBean> ajaxQuery(String hql, int start, int length) {
-		
+
 		List<EventDetailBean> beans = null;
-		beans = getSession().createQuery(hql, EventDetailBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+		List<Object[]> pks = getSession().createQuery("select eventSN, mbrSN "+hql, Object[].class).setFirstResult(start).setMaxResults(length)
+				.getResultList();
+		beans = this.select(pks);
+		return beans;
+	}
+
+	public List<EventDetailBean> select(List<Object[]> pks) {
+		
+		List<EventDetailBean> beans = new ArrayList<EventDetailBean>();
+		for (Object[] pk:pks){
+			beans.add(this.select((EventBean)pk[0], (MemberBean)pk[1]));
+		}
 		return beans;
 	}
 	
