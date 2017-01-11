@@ -26,7 +26,7 @@
 <link rel="icon" type="image/png" href="<c:url value="/favicon.ico"/>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Host Data</title>
+<title>Member Data</title>
 
 </head>
 <body>
@@ -61,7 +61,7 @@ session.setAttribute("user_photo", user_photo);
 						
 								 <img class="header_left_img" src="<c:url value="/Kelsey/images/light_green/logo_06-02.png"/>" />
 									<h1>
-											房&nbsp主&nbsp資&nbsp料&nbsp&nbsp<strong>Flip Youth</strong>
+											團&nbsp員&nbsp資&nbsp料&nbsp&nbsp<strong>Flip Youth</strong>
 									</h1>
 						</div>
 						
@@ -71,14 +71,13 @@ session.setAttribute("user_photo", user_photo);
 
 		<fieldset>
 
-			<legend  class= "legend_k">房主資料</legend>
+			<legend  class= "legend_k">團員資料</legend>
 						<div class="st1">
 				<label class="title">暱稱：</label><span>${memberBean.nickName}</span></div>
 			<div class="st1">
 				<label class="title">手機號碼：</label> ${memberBean.phone}</div>
 			<div class="st1">
 				<label class="title">Email：</label>${memberBean.mbrEmail}</div>
-			
 <!-- 			<div class="st1"> -->
 <!-- 				<label class="title">大頭貼：</label>  -->
 <%-- 				<img src='data:image/jpg;base64,${memberBeanImage.imageBase64}' width=150	height=150/> --%>

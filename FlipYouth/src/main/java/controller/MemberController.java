@@ -160,6 +160,25 @@ public class MemberController {
 				return null;
 			}
 		}
+		
+		
+		// 搜尋會員資料
+				@RequestMapping(path = "/searchMbrData.controller")
+				public String searchMbrData(String nickName , HttpSession session) {
+
+					if (nickName != null || nickName.isEmpty()) {
+						MemberBean bean = memberDAO.selectOne(nickName);
+						String imageBase64 = null;
+						imageBase64 = Base64.getEncoder().encodeToString(bean.getImage());
+
+						session.setAttribute("memberBean", bean);
+						session.setAttribute("memberBeanImage", imageBase64);
+						
+						return "mbrData";
+					} else {
+						return null;
+					}
+				}
 
 	// @RequestMapping(path = "/showPicture.controller")
 	// public byte[] showPicture(@RequestParam(name = "mbrSN") Integer mbrSN) {
