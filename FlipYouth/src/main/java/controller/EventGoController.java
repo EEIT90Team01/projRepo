@@ -49,11 +49,20 @@ public class EventGoController {
 		binder.registerCustomEditor(Integer.class, new CustomNumberEditor(Integer.class, true));
 	}
 
+	@RequestMapping(path = { "/events/eventgo2.controller" })
+	public String getMbrSNfromEventingJSP(String mbrSN,HttpSession session){
+		System.out.println("EventGoController有接到mbrSN = "+mbrSN);
+		session.setAttribute("mbrSN", mbrSN);
+		return "EventGo.index";
+	}
+	
 	@RequestMapping(path = { "/events/eventgo.controller" })
 	public String ProcessName(
 //			 @RequestParam(name="userInputAddress") String userInputAddress,
-			EventGoFbBean eventGoFbBean, BindingResult bindingResult, Model model, HttpServletRequest req ,HttpSession session) {
+			EventGoFbBean eventGoFbBean, BindingResult bindingResult, Model model, HttpServletRequest req ,HttpSession session,String mbrSN) {
 		// 接收資料
+		eventGoFbBean.setUserSN(Integer.parseInt(mbrSN));
+		System.out.println("mbrSN============="+eventGoFbBean.getUserSN());
 		// 驗證資料
 		/////////// 測試抓到JSP name的值///////////
 		Enumeration<String> e1 = req.getParameterNames();
@@ -67,7 +76,7 @@ public class EventGoController {
 
 		String userAddAddress = eventGoFbBean.getUserAddAddress();
 	///////TODO暫時用會員11來做/////1Eventing.jsp EventGoController.java
-		eventGoFbBean.setUserSN(1);
+//		eventGoFbBean.setUserSN(1);
 	///////TODO暫時用會員11來做/////1Eventing.jsp EventGoController.java
 		if (userAddAddress == null || userAddAddress.length() == 0 || "elseMap".equals(userAddAddress)) {
 			errors.put("userAddAddress", "地址為必填(Address cannot be empty)!");

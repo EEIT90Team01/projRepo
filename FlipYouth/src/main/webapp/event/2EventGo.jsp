@@ -131,6 +131,7 @@ border: 1px solid;
 		</div>
 		
 <form action="<c:url value="/events/eventgo.controller" />" >
+	<input id="mbrSN" type="hidden" name="mbrSN" value="${mbrSN}" />
 		<div class="row">
 		<div class="col-md-12">
 			<table class="table table-striped table-hover">
@@ -168,7 +169,9 @@ border: 1px solid;
 										${errors.userAddAddress}
 									</span>
 							</div>
-							<input id="hiddenUserInputAddress" type="hidden" name="userInputAddress"  />							
+							<input id="hiddenUserInputAddress" type="hidden" name="userInputAddress"  />
+							<input id="targetlat" type="hidden" name="locLat"  />
+							<input id="targetlng" type="hidden" name="locLong"  />							
 						</td>
 						<td id="ggmap" class="col-md-2">
 						<iframe id="ggmapDefault" width="200" height="200" frameborder="0" style="border:0"
@@ -447,6 +450,7 @@ function userDownLimSubmit(){
  			var a = $('#selectedMap option:selected').text();//.text之前是物件 後面變值
 			$theHiddenInput.val(a);//塞回物件 建立value=a
 			////
+			addressToLatLng($('#hiddenUserInputAddress').val());
 		}
 //////選地址顯示在MAP上////////
 /////////自定位址顯示在MAP上///////////
@@ -464,8 +468,26 @@ function userDownLimSubmit(){
 			$('#selectedMap option:selected').val('null');
 			$('#selectedMap').append($('<option></option>').val('elseMap').text('其他(自行輸入)'));
 			$('#userInputAddrShow').empty();
+			addressToLatLng($('#hiddenUserInputAddress').val());
 		}
 /////////自定位址顯示在MAP上///////////
+//////////抓經緯度/////////////////
+	var addr;
+	function addressToLatLng(addr) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode(
+            		{"address": addr},
+            		function (results, status) {
+            			if (status == google.maps.GeocoderStatus.OK) {
+            				$("#targetlat").val(results[0].geometry.location.lat());
+            				$("#targetlng").val(results[0].geometry.location.lng());
+            		}else{
+            			$("#targetlat").val("查無經緯度");
+        				$("#targetlng").val("查無經緯度");
+            		}
+            		});
+     }
+//////////抓經緯度/////////////////
 //////////日期時間Plugin datetimepicker////////////
 	jQuery(function(){
  		jQuery('#date_timepicker_start').datetimepicker({
