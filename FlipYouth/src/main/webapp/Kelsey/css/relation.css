@@ -200,7 +200,7 @@ h1 strong {
 
 
 
-/* 控制按鈕是否出現 relstion.js  searchMember()*/
+/* 控制按鈕是否出現 relstion.js  searchMember() searchHost()*/
 .searchMemberButton{
 	display:none;
 }

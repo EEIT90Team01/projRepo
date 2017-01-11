@@ -27,13 +27,14 @@ public class EventDeleteService {
 	public boolean EventDeleteUseOnly(String mbrSN,String eventSN){
 		System.out.println("以下進入EventDeleteService的EventDeleteService方法");
 		Integer a = Integer.parseInt(eventSN);
-		System.out.println(a);
+		System.out.println("eventSN = "+a);
 		Integer b = Integer.parseInt(mbrSN);
-		System.out.println(b);
+		System.out.println("mbrSN = "+b);
 		
 		EventBean eventBean = eventDaoImpl.select(Integer.parseInt(eventSN));
-		System.out.println();
+		System.out.println("eventBean!!!=="+eventBean);
 		MemberBean memberBean = eventDaoImpl.selectmbr(Integer.parseInt(mbrSN));
+		System.out.println("eventBean!!!=="+memberBean);
 		EventDetailPK eventDetailPK = new EventDetailPK(eventBean, memberBean);
 		boolean c = eventDetailDaoImpl.delete(eventDetailPK);
 		System.out.println("是否刪除eventDetail table c = "+c);
@@ -42,13 +43,14 @@ public class EventDeleteService {
 		if(eBCheck.getEventSN()==a&&eBCheck.getHostMbrSN().getMbrSN()==b){
 			boolean d = eventDaoImpl.delete(a);
 			System.out.println("是否刪除event table d = "+d);
+			Integer locSN = eBCheck.getLocSN();
+			boolean e = locationDaoImpl.delete(locSN);
+			System.out.println("是否刪除location table e = "+e);
 		}else{
-			System.out.println("mbrSN ="+mbrSN+" 不是房主");
+			System.out.println("mbrSN ="+mbrSN+" 不是房主 所以不刪event & location DATA");
 		}
 		
-		Integer locSN = eBCheck.getLocSN();
-		boolean e = locationDaoImpl.delete(locSN);
-		System.out.println("是否刪除location table e = "+e);
+
 		
 		return true;
 	}

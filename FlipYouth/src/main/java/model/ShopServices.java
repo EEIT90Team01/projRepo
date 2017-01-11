@@ -266,8 +266,9 @@ public class ShopServices {
 
 		textPart.setContent(html.toString(), "text/html; charset=UTF-8");
 		Message message = new MimeMessage(session);
+		
 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(OrderEmail));
-		message.setSubject("FlipYouth訂單明細");
+		message.setSubject("FlipYouthStore");
 		Multipart email = new MimeMultipart();
 		email.addBodyPart(textPart);
 		email.addBodyPart(picturePart);
