@@ -195,7 +195,7 @@ border: 1px solid;
 		</td>
 		<td class="col-md-4">
 			<div id="lat"></div>
-			120.68659930000001
+			120.6865984
 		</td>
 	</tr>
 	</tbody>
