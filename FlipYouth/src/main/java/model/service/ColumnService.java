@@ -34,14 +34,14 @@ public class ColumnService {
 		colsMap.put("Administrator", new String[]{"admId","admPassword","admEmail","authId_Dis"});
 		colsMap.put("Authority", new String[]{"authId","authName"});
 		colsMap.put("BackEndLog", new String[]{"admId","executeTime","belNotes","sqlCommand"});
-		colsMap.put("Shop", new String[]{"GameSN","GameName","Introduction","PlayingTime","PlayerNumber","SmallImage","StockQuantity","Gameclass","Ages","StrGameTheme","StrGameMechanics","StrLanguage","Price","Discount","Freight"});//,"BigImageDis","div1Dis"
+		colsMap.put("Shop", new String[]{"GameSN","GameName","Introduction","PlayingTime","PlayerNumber","SmallImage_Dis","StockQuantity","Gameclass","Ages","StrGameTheme","StrGameMechanics","StrLanguage","Price","Discount","Freight"});//,"BigImageDis","div1Dis"
 		colsMap.put("Order", new String[]{"orderSN","mbrSN","orderAmount","shippedDate","orderDate","productDelivery","freight","paymentMethod","orderState","email","address","name","tel","phone","image"});
 		colsMap.put("OrderDetail", new String[]{"orderSN","gameSN_Dis","Quantity"});
 		colsMap.put("Member", new String[]{"mbrSN","mbrId","gender","mbrName","createTime","phone","address","mbrEmail","mbrState","energy","nickName","image"});
 		colsMap.put("Relation", new String[]{"mbrSN_Dis","targetMbrSN_Dis","notes","relation_Dis","createTime"});
 		colsMap.put("Comment", new String[]{"cmtSN","gameSN","mbrSN_Dis","cmtTime","text"});
-		colsMap.put("Event", new String[]{"eventSN","hostMbrSN_Dis","locSN","minMember","beginTime","endTime","eventState","maxMember","deadline"});
-		colsMap.put("EventDetail", new String[]{"eventSN","mbrSN"});
+		colsMap.put("Event", new String[]{"eventSN","hostMbrSN_Dis","locSN","minMember","beginTime","endTime","eventState_Dis","maxMember","deadline"});
+		colsMap.put("EventDetail", new String[]{"eventSN","mbrSN_Dis"});
 		colsMap.put("Location", new String[]{"locSN","locName","locLong","locLat","locPhone"});
 		colStringsMap.put("Administrator", new String[]{"管理員帳號","密碼","Email","管理員權限"});
 		colStringsMap.put("Authority", new String[]{"權限編號","權限名稱"});

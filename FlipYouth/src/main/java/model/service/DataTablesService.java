@@ -82,7 +82,6 @@ public class DataTablesService {
 	private EventDetailDTDAO eventDetailDtdao;
 	@Autowired
 	private LocationDTDAO locationDtdao;
-	
 
 	public String ajaxQueryService(String table, String[] cols, String search, List<Integer> col, List<String> dir,
 			int draw, int start, int length) throws IOException {
@@ -125,13 +124,15 @@ public class DataTablesService {
 		return gson.toJson(jObj);
 	}
 
-	public boolean checkExistHandler(String table, String column, String value){
-		return (ajaxCountHandler("From "+table+"Bean where (" + column + " = '" + value + "')",table)>0);
+	public boolean checkExistHandler(String table, String column, String value) {
+		return (ajaxCountHandler("From " + table + "Bean where (" + column + " = '" + value + "')", table) > 0);
 	}
-	public boolean checkExistHandler(String table, String column, String column2, String value, String value2){
-		return (ajaxCountHandler("From "+table+"Bean where (" + column + " = '" + value + "' and "+column2+" = '"+value2+"')",table)>0);
+
+	public boolean checkExistHandler(String table, String column, String column2, String value, String value2) {
+		return (ajaxCountHandler("From " + table + "Bean where (" + column + " = '" + value + "' and " + column2
+				+ " = '" + value2 + "')", table) > 0);
 	}
-	
+
 	@Transactional(readOnly = true)
 	int ajaxCountHandler(String hql, String table) {
 		switch (table) {
@@ -163,7 +164,8 @@ public class DataTablesService {
 			return 0;
 		}
 	}
-	//回傳給datatables
+
+	// 回傳給datatables
 	@Transactional(readOnly = true)
 	JsonArray ajaxQueryHandler(String hql, String table, int start, int length) throws IOException {
 		JsonArray jArray = new JsonArray();
@@ -172,13 +174,13 @@ public class DataTablesService {
 		case "Authority":
 			List<AuthorityBean> auths = authorityDtdao.ajaxQuery(hql.toString(), start, length);
 			for (AuthorityBean auth : auths) {
-			
+
 				JsonObject jObj = new JsonObject();
-				
-				jObj.addProperty("DT_RowId", "r_" + auth.getAuthId());	
+
+				jObj.addProperty("DT_RowId", "r_" + auth.getAuthId());
 				jObj.addProperty("authId", auth.getAuthId());
 				jObj.addProperty("authName", auth.getAuthName());
-				
+
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -187,7 +189,7 @@ public class DataTablesService {
 			for (AdministratorBean admin : admins) {
 
 				JsonObject jObj = new JsonObject();
-				
+
 				jObj.addProperty("DT_RowId", "r_" + admin.getAdmId());
 				jObj.addProperty("admId", admin.getAdmId());
 				try {
@@ -199,22 +201,22 @@ public class DataTablesService {
 				AuthorityBean tempAuth = admin.getAuthId();
 				jObj.addProperty("authId_Dis", tempAuth.getAuthName());
 				jObj.addProperty("authId", tempAuth.getAuthId());
-				
+
 				jArray.add(jObj);
 			}
 			return jArray;
 		case "BackEndLog":
 			List<BackEndLogBean> bels = backEndLogDtdao.ajaxQuery(hql.toString(), start, length);
 			for (BackEndLogBean bel : bels) {
-		
+
 				JsonObject jObj = new JsonObject();
-				
-				jObj.addProperty("DT_RowId", "r_" + bel.getAdmId() + "_" + bel.getExecuteTime());				
+
+				jObj.addProperty("DT_RowId", "r_" + bel.getAdmId() + "_" + bel.getExecuteTime());
 				jObj.addProperty("admId", bel.getAdmId());
 				jObj.add("executeTime", gson.toJsonTree(bel.getExecuteTime()));
 				jObj.addProperty("belNotes", bel.getBelNotes());
 				jObj.addProperty("sqlCommand", bel.getSqlCommand());
-				
+
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -223,7 +225,7 @@ public class DataTablesService {
 			for (ShopBean shop : shops) {
 
 				JsonObject jObj = new JsonObject();
-				
+
 				jObj.addProperty("DT_RowId", "r_" + shop.getGameSN());
 				jObj.addProperty("GameSN", shop.getGameSN());
 				jObj.addProperty("GameName", shop.getGameName());
@@ -239,9 +241,12 @@ public class DataTablesService {
 				jObj.addProperty("Price", shop.getPrice());
 				jObj.addProperty("Discount", shop.getDiscount());
 				jObj.addProperty("Freight", shop.getFreight());
-				jObj.add("SmallImage", gson.toJsonTree(
-						"<img width='160px' src='/FlipYouth/Tim" + shop.getSmallImage() + "?" + System.currentTimeMillis() + "' />"));
-			
+				// jObj.add("SmallImage", gson.toJsonTree("<img width='160px'
+				// src='/FlipYouth/Tim" + shop.getSmallImage()
+				// + "?" + System.currentTimeMillis() + "' />"));
+				jObj.addProperty("SmallImage_Dis",
+						"<img width='160px' src='/FlipYouth/Tim" + shop.getSmallImage() +"?"+System.currentTimeMillis()+"' />");
+				jObj.addProperty("SmallImage", shop.getSmallImage());
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -250,7 +255,7 @@ public class DataTablesService {
 			for (MemberBean mbr : mbrs) {
 
 				JsonObject jObj = new JsonObject();
-				
+
 				jObj.addProperty("DT_RowId", "r_" + mbr.getMbrSN());
 				jObj.addProperty("mbrSN", mbr.getMbrSN());
 				jObj.addProperty("nickName", mbr.getNickName());
@@ -263,23 +268,24 @@ public class DataTablesService {
 				jObj.addProperty("mbrEmail", mbr.getMbrEmail());
 				jObj.addProperty("image", tempService.byteArrayToTempImg(mbr.getImage(), 160, 0));
 				jObj.addProperty("mbrState", mbr.getMbrState());
-				jObj.addProperty("energy", mbr.getEnergy());				
+				jObj.addProperty("energy", mbr.getEnergy());
 
 				System.out.println(gson.toJson(jObj));
 				jArray.add(jObj);
 			}
-			return jArray;		
+			return jArray;
 		case "Order":
 			List<OrderBean> ords = orderDtdao.ajaxQuery(hql.toString(), start, length);
 			for (OrderBean ord : ords) {
 
 				JsonObject jObj = new JsonObject();
-				
+
 				jObj.addProperty("DT_RowId", "r_" + ord.getOrderSN());
 				jObj.addProperty("orderSN", ord.getOrderSN());
-				jObj.add("mbrSN", gson.toJsonTree(ord.getMbrSN()+" ( id = "+memberDtdao.select(ord.getMbrSN()).getMbrId()+" )"));
+				jObj.add("mbrSN", gson.toJsonTree(
+						ord.getMbrSN() + " ( id = " + memberDtdao.select(ord.getMbrSN()).getMbrId() + " )"));
 				jObj.addProperty("orderAmount", ord.getOrderAmount());
-				jObj.add("shippedDate",  gson.toJsonTree(ord.getShippedDate()));
+				jObj.add("shippedDate", gson.toJsonTree(ord.getShippedDate()));
 				jObj.addProperty("orderDate", ord.getOrderDate());
 				jObj.addProperty("productDelivery", ord.getProductDelivery());
 				jObj.addProperty("freight", ord.getFreight());
@@ -289,9 +295,11 @@ public class DataTablesService {
 				jObj.addProperty("address", ord.getAddress());
 				jObj.addProperty("name", ord.getName());
 				jObj.addProperty("tel", ord.getTel());
-				jObj.addProperty("phone", ord.getPhone());				
-				jObj.add("image", gson.toJsonTree(tempService.base64ToTempImg(ord.getImage(), 0, 0)));		
-				
+				jObj.addProperty("phone", ord.getPhone());
+				// jObj.add("image",
+				// gson.toJsonTree(tempService.base64ToTempImg(ord.getImage(),
+				// 0, 0)));
+				jObj.addProperty("image", "<img width='160px' src='/FlipYouth" + ord.getImage() +"?"+ System.currentTimeMillis() +"' />");
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -300,13 +308,14 @@ public class DataTablesService {
 			for (OrderDetailBean ordtail : ordtails) {
 
 				JsonObject jObj = new JsonObject();
-				
+
 				Integer orderSN = ordtail.getPK().getOrderSN().getOrderSN();
 				Integer gameSN = ordtail.getPK().getGameSN().getGameSN();
-				jObj.add("DT_RowId", gson.toJsonTree("r_" + orderSN +"_"+gameSN));
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + orderSN + "_" + gameSN));
 				jObj.addProperty("orderSN", orderSN);
 				jObj.addProperty("gameSN", gameSN);
-				jObj.add("gameSN_Dis", gson.toJsonTree(gameSN+" ( name = "+shopDtdao.select(gameSN).getGameName()+" )"));
+				jObj.add("gameSN_Dis",
+						gson.toJsonTree(gameSN + " ( name = " + shopDtdao.select(gameSN).getGameName() + " )"));
 				jObj.addProperty("Quantity", ordtail.getQuantity());
 				jArray.add(jObj);
 			}
@@ -316,26 +325,26 @@ public class DataTablesService {
 			for (RelationBean rel : rels) {
 
 				JsonObject jObj = new JsonObject();
-				
+
 				MemberBean temp = rel.getMbrSN();
 				Integer mbrSN = temp.getMbrSN();
 				String mbrSN_Dis = temp.getMbrId();
 				temp = rel.getTargetMbrSN();
 				Integer targetMbrSN = temp.getMbrSN();
 				String targetMbrSN_Dis = temp.getMbrId();
-				jObj.add("DT_RowId", gson.toJsonTree("r_" + mbrSN +"_"+targetMbrSN));
+				jObj.add("DT_RowId", gson.toJsonTree("r_" + mbrSN + "_" + targetMbrSN));
 				jObj.addProperty("mbrSN", mbrSN);
-				jObj.add("mbrSN_Dis", gson.toJsonTree(mbrSN+" ( id = "+mbrSN_Dis+" )"));
+				jObj.add("mbrSN_Dis", gson.toJsonTree(mbrSN + " ( id = " + mbrSN_Dis + " )"));
 				jObj.addProperty("targetMbrSN", targetMbrSN);
-				jObj.add("targetMbrSN_Dis", gson.toJsonTree(targetMbrSN+" ( id = "+targetMbrSN_Dis+" )"));
-				jObj.addProperty("notes",rel.getNotes());
-				if (rel.getRelation()==1){
+				jObj.add("targetMbrSN_Dis", gson.toJsonTree(targetMbrSN + " ( id = " + targetMbrSN_Dis + " )"));
+				jObj.addProperty("notes", rel.getNotes());
+				if (rel.getRelation() == 1) {
 					jObj.addProperty("relation_Dis", "好友");
-				} else if (rel.getRelation()==2){
+				} else if (rel.getRelation() == 2) {
 					jObj.addProperty("relation_Dis", "拉黑");
 				}
 				jObj.add("createTime", gson.toJsonTree(rel.getCreateTime()));
-				
+
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -344,7 +353,7 @@ public class DataTablesService {
 			for (CommentBean com : coms) {
 
 				JsonObject jObj = new JsonObject();
-				
+
 				jObj.addProperty("DT_RowId", "r_" + com.getCmtSN());
 				jObj.addProperty("cmtSN", com.getCmtSN());
 				jObj.addProperty("gameSN", com.getGameSN());
@@ -352,10 +361,10 @@ public class DataTablesService {
 				jObj.addProperty("gameSN", com.getGameSN());
 				MemberBean temp = com.getMbrSN();
 				jObj.addProperty("mbrSN", temp.getMbrSN());
-				jObj.addProperty("mbrSN_Dis", temp.getMbrSN()+"( id ="+temp.getMbrId()+" )");
+				jObj.addProperty("mbrSN_Dis", temp.getMbrSN() + "( id =" + temp.getMbrId() + " )");
 				jObj.add("cmtTime", gson.toJsonTree(com.getCmtTime()));
 				jObj.addProperty("text", com.getText());
-			
+
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -364,39 +373,40 @@ public class DataTablesService {
 			for (EventBean evt : evts) {
 
 				JsonObject jObj = new JsonObject();
-				
+
 				jObj.addProperty("DT_RowId", "r_" + evt.getEventSN());
+				jObj.addProperty("eventSN", evt.getEventSN());
 				MemberBean temp = evt.getHostMbrSN();
 				jObj.addProperty("hostMbrSN", temp.getMbrSN());
-				jObj.addProperty("hostMbrSN_Dis", temp.getMbrSN()+"( id = "+temp.getMbrId()+" )");
+				jObj.addProperty("hostMbrSN_Dis", temp.getMbrSN() + "( id = " + temp.getMbrId() + " )");
 				jObj.addProperty("locSN", evt.getLocSN());
 				jObj.addProperty("minMember", evt.getMinMember());
 				jObj.add("beginTime", gson.toJsonTree(evt.getBeginTime()));
 				jObj.add("endTime", gson.toJsonTree(evt.getEndTime()));
 				jObj.addProperty("eventState", evt.getEventState());
-				if (evt.getEventState()==0){
+				if (evt.getEventState() == 0) {
 					jObj.addProperty("eventState_Dis", "已結束");
-				} else if (evt.getEventState()==1){
+				} else if (evt.getEventState() == 1) {
 					jObj.addProperty("eventState_Dis", "揪團中");
-				}				
+				}
 				jObj.addProperty("maxMember", evt.getMaxMember());
 				jObj.add("deadline", gson.toJsonTree(evt.getDeadline()));
-				
+
 				jArray.add(jObj);
 			}
 			return jArray;
-		case "EventDetail"://TODO
-			//System.out.println(hql);
+		case "EventDetail":
 			List<EventDetailBean> evtdtails = eventDetailDtdao.ajaxQuery(hql.toString(), start, length);
 			for (EventDetailBean evtdtail : evtdtails) {
 
-				JsonObject jObj = gson.toJsonTree(evtdtail).getAsJsonObject();
-				System.out.println(gson.toJson(jObj));
+				JsonObject jObj = new JsonObject();
+
 				Integer eventSN = evtdtail.getEventDetailPK().getEventSN().getEventSN();
-				Integer mbrSN = evtdtail.getEventDetailPK().getMbrSN().getMbrSN();
-				jObj.add("DT_RowId", gson.toJsonTree("r_" + eventSN +"_"+mbrSN));
-				jObj.add("eventSN", gson.toJsonTree(eventSN));
-				jObj.add("mbrSN", gson.toJsonTree(mbrSN));
+				MemberBean temp = evtdtail.getEventDetailPK().getMbrSN();
+				jObj.addProperty("DT_RowId", "r_" + eventSN + "_" + temp.getMbrSN());
+				jObj.addProperty("eventSN", eventSN);
+				jObj.addProperty("mbrSN", temp.getMbrSN());
+				jObj.addProperty("mbrSN_Dis", temp.getMbrSN() + "( id =" + temp.getMbrId() + " )");
 				System.out.println(gson.toJson(jObj));
 				jArray.add(jObj);
 			}
@@ -404,10 +414,16 @@ public class DataTablesService {
 		case "Location":
 			List<LocationBean> locs = locationDtdao.ajaxQuery(hql.toString(), start, length);
 			for (LocationBean loc : locs) {
-				JsonObject jObj = gson.toJsonTree(loc).getAsJsonObject();
-				System.out.println(gson.toJson(jObj));
-				jObj.add("DT_RowId", gson.toJsonTree("r_" +loc.getLocSN()));
-				System.out.println(gson.toJson(jObj));
+
+				JsonObject jObj = new JsonObject();
+
+				jObj.addProperty("DT_RowId", "r_" + loc.getLocSN());
+				jObj.addProperty("locSN", loc.getLocSN());
+				jObj.addProperty("locName", loc.getLocName());
+				jObj.addProperty("locLong", loc.getLocLong());
+				jObj.addProperty("locLat", loc.getLocLat());
+				jObj.addProperty("locPhone", loc.getLocPhone());
+
 				jArray.add(jObj);
 			}
 			return jArray;
@@ -434,10 +450,6 @@ public class DataTablesService {
 			count = administratorDtdao.ajaxDelete(toDelete);
 			sql.append(" where admId in (");
 			break;
-//		case "BackEndLog":
-//			count = backEndLogDtdao.ajaxDelete(toDelete);
-//			sql.append(" where composite id admId_executeTime in (");
-//			break;
 		case "Shop":
 			count = shopDtdao.ajaxDelete(toDelete);
 			sql.append(" where GameSN in (");
@@ -619,9 +631,9 @@ public class DataTablesService {
 
 		return result;
 	}
-	
+
 	@Transactional
-	public String ajaxOrderCuHandler(Map<String, String> cuParam) {
+	public String ajaxOrderCuHandler(Map<String, String> cuParam, MultipartFile file) throws IOException {
 		String result = "";
 		JsonObject jObj = new JsonObject();
 		Integer orderSN = integerValidator.validate(cuParam.get("orderSN"));
@@ -646,13 +658,32 @@ public class DataTablesService {
 		bean.setTel(cuParam.get("tel"));
 		bean.setPhone(cuParam.get("phone"));
 		orderDtdao.cu(bean);
+		// 真正IO
+		if (file != null) {
+			if (!forUpdate) {
+				String ext = file.getOriginalFilename();
+				String filepath = "/Tim/image/" + bean.hashCode() + ext.substring(ext.lastIndexOf("."));
+				cuParam.put("filepath", filepath);
+			}
+			String gamepath = tempService.getRootPath() + cuParam.get("filepath").replace("/", File.separator);
+			File outFile = new File(gamepath);
+			outFile.createNewFile();
+			FileOutputStream fos = new FileOutputStream(outFile);
+			InputStream fis = file.getInputStream();
+			IOUtils.copy(fis, fos);
+			IOUtils.closeQuietly(fis);
+			IOUtils.closeQuietly(fos);
+			bean.setImage(cuParam.get("filepath"));
+			orderDtdao.cu(bean);
+		}
+
 		jObj.add("cuSuccess", gson.toJsonTree("操作成功"));
 		result = gson.toJson(jObj);
 		backEndLogDtdao.create(new BackEndLogBean(cuParam.get("adminBel"), new Date(), cuParam.get("belInput"),
 				((forUpdate) ? ("update ") : ("insert into ")) + " Order1 : " + bean.toString()));
 		return result;
 	}
-	
+
 	@Transactional
 	public String ajaxOrderDetailCuHandler(Map<String, String> cuParam) {
 		String result = "";
@@ -675,7 +706,7 @@ public class DataTablesService {
 				((forUpdate) ? ("update ") : ("insert into ")) + " OrderDetail : " + bean.toString()));
 		return result;
 	}
-	
+
 	@Transactional
 	public String ajaxCommentCuHandler(Map<String, String> cuParam) {
 		String result = "";
@@ -699,7 +730,7 @@ public class DataTablesService {
 				((forUpdate) ? ("update ") : ("insert into ")) + " Comment : " + bean.toString()));
 		return result;
 	}
-	
+
 	@Transactional
 	public String ajaxEventCuHandler(Map<String, String> cuParam) {
 		String result = "";
@@ -727,7 +758,7 @@ public class DataTablesService {
 				((forUpdate) ? ("update ") : ("insert into ")) + " Event : " + bean.toString()));
 		return result;
 	}
-	
+
 	@Transactional
 	public String ajaxEventDetailCuHandler(Map<String, String> cuParam) {
 		String result = "";
@@ -749,7 +780,7 @@ public class DataTablesService {
 				((forUpdate) ? ("update ") : ("insert into ")) + " EventDetail : " + bean.toString()));
 		return result;
 	}
-	
+
 	@Transactional
 	public String ajaxLocationCuHandler(Map<String, String> cuParam) {
 		String result = "";

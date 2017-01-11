@@ -37,17 +37,18 @@ public class RelationDTDAO {
 	public List<RelationBean> ajaxQuery(String hql, int start, int length) {
 
 		List<RelationBean> beans = null;
-		List<Integer[]> pks = getSession().createQuery("select mbrSN, targetMbrSN "+hql, Integer[].class).setFirstResult(start).setMaxResults(length)
+		hql=hql.replace("Bean", "");
+		List<Object[]> pks = getSession().createNativeQuery("select mbrSN, targetMbrSN "+hql).setFirstResult(start).setMaxResults(length)
 				.getResultList();
 		beans = this.select(pks);
 		return beans;
 	}
 
-	public List<RelationBean> select(List<Integer[]> pks) {
+	public List<RelationBean> select(List<Object[]> pks) {
 		
 		List<RelationBean> beans = new ArrayList<RelationBean>();
-		for (Integer[] pk:pks){
-			beans.add(this.select(pk[0], pk[1]));
+		for (Object[] pk:pks){
+			beans.add(this.select((Integer)pk[0], (Integer)pk[1]));
 		}
 		return beans;
 	}

@@ -67,7 +67,8 @@ public class EventDetailDTDAO {
 	public List<EventDetailBean> ajaxQuery(String hql, int start, int length) {
 
 		List<EventDetailBean> beans = null;
-		List<Object[]> pks = getSession().createQuery("select eventSN, mbrSN "+hql, Object[].class).setFirstResult(start).setMaxResults(length)
+		hql=hql.replace("Bean", "");
+		List<Object[]> pks = getSession().createNativeQuery("select eventSN, mbrSN "+hql).setFirstResult(start).setMaxResults(length)
 				.getResultList();
 		beans = this.select(pks);
 		return beans;
@@ -77,8 +78,9 @@ public class EventDetailDTDAO {
 		
 		List<EventDetailBean> beans = new ArrayList<EventDetailBean>();
 		for (Object[] pk:pks){
-			beans.add(this.select((EventBean)pk[0], (MemberBean)pk[1]));
+			beans.add(this.select(eventDtdao.select((Integer)pk[0]), memberDtdao.select((Integer)pk[1])));
 		}
+
 		return beans;
 	}
 	

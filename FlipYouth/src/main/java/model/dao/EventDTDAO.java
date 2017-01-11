@@ -47,7 +47,7 @@ public class EventDTDAO {
 	public List<EventBean> ajaxQuery(String hql, int start, int length) {
 
 		List<EventBean> beans = null;
-		List<Integer> pks = getSession().createQuery("select authId "+hql, Integer.class).setFirstResult(start).setMaxResults(length)
+		List<Integer> pks = getSession().createQuery("select eventSN "+hql, Integer.class).setFirstResult(start).setMaxResults(length)
 				.getResultList();
 		beans = this.select(pks);
 		return beans;

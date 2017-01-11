@@ -39,7 +39,8 @@ public class BackEndLogDTDAO {
 	public List<BackEndLogBean> ajaxQuery(String hql, int start, int length) {
 
 		List<BackEndLogBean> beans = null;
-		List<Object[]> pks = getSession().createQuery("select admId, executeTime "+hql, Object[].class).setFirstResult(start).setMaxResults(length)
+		hql=hql.replace("Bean", "");
+		List<Object[]> pks = getSession().createNativeQuery("select admId, executeTime "+hql).setFirstResult(start).setMaxResults(length)
 				.getResultList();
 		beans = this.select(pks);
 		return beans;

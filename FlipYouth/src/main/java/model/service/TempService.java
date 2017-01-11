@@ -40,10 +40,7 @@ public class TempService {
 
 	@PostConstruct
 	public void init() {
-		System.out.println(context.getRealPath(File.separator));
-		System.out.println(context.getContextPath());
-		this.rootPath = (System.getProperty("catalina.base") + "/webapps" + context.getContextPath()).replace("/",
-				File.separator);
+		this.rootPath = context.getRealPath(File.separator);
 	}
 
 	public String byteArrayToTempImgOnlySrc(byte[] image, int width, int height) throws IOException {

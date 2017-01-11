@@ -47,7 +47,7 @@ public class LocationDTDAO {
 	public List<LocationBean> ajaxQuery(String hql, int start, int length) {
 
 		List<LocationBean> beans = null;
-		List<Integer> pks = getSession().createQuery("select authId "+hql, Integer.class).setFirstResult(start).setMaxResults(length)
+		List<Integer> pks = getSession().createQuery("select locSN "+hql, Integer.class).setFirstResult(start).setMaxResults(length)
 				.getResultList();
 		beans = this.select(pks);
 		return beans;

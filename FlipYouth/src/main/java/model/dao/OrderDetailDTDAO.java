@@ -67,7 +67,8 @@ public class OrderDetailDTDAO {
 	public List<OrderDetailBean> ajaxQuery(String hql, int start, int length) {
 
 		List<OrderDetailBean> beans = null;
-		List<Object[]> pks = getSession().createQuery("select orderSN, gameSN "+hql, Object[].class).setFirstResult(start).setMaxResults(length)
+		hql=hql.replace("Bean", "");
+		List<Object[]> pks = getSession().createNativeQuery("select orderSN, gameSN "+hql).setFirstResult(start).setMaxResults(length)
 				.getResultList();
 		beans = this.select(pks);
 		return beans;
@@ -77,8 +78,9 @@ public class OrderDetailDTDAO {
 		
 		List<OrderDetailBean> beans = new ArrayList<OrderDetailBean>();
 		for (Object[] pk:pks){
-			beans.add(this.select((OrderBean)pk[0], (ShopBean)pk[1]));
+			beans.add(this.select(orderDtdao.select((Integer)pk[0]), shopDtdao.select((Integer)pk[1])));
 		}
+		
 		return beans;
 	}
 	
