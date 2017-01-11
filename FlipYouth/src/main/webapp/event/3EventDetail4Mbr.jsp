@@ -166,7 +166,6 @@ body {
 									<a href="<c:url value='/searchHostData.controller'/>?nickName=${eventDetail4Mbr.hostName}">
 									<button type="button" class="btn btn-primary btn-block">
 <!-- 									<button type="button" class="btn btn-primary btn-block" onclick="searchHost()"> -->
-<!-- 									<button type="button" class="btn btn-primary btn-block"> -->
 										&gt;&gt;&gt;房主資料&lt;&lt;&lt;</button>
 										</a>
 									

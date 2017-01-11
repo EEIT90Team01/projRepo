@@ -46,6 +46,11 @@
 		<property name="url" value="/pages/hostData.jsp" />
 	</bean>
 	
+	<bean id="mbrData"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/pages/mbrData.jsp" />
+	</bean>
+	
 	<bean id="index"
 		class="org.springframework.web.servlet.view.InternalResourceView">
 		<property name="url" value="/index.jsp" />
