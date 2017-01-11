@@ -52,9 +52,10 @@ public class RelationController {
 		// list 有順序且可重复
 		List<RelationBean> list = null;// 使用者的好朋友們
 		List<String> nicknameList = new ArrayList<>();// 裝轉使用者好朋友們nickname 的 "list")
-		List<Integer> mbrSNList = new ArrayList<>();// 裝轉使用者好朋友們nickname 的 "list")
-		List<String> imageList = new ArrayList<>();// 裝轉成base64 Image的
-													// "list"(使用者好朋友們的image)
+		List<Integer> mbrSNList = new ArrayList<>();// 裝轉使用者好朋友們mbrSN 的 "list")
+		List<String> mbrEmailList = new ArrayList<>();// 裝轉使用者好朋友們mbrEmail 的 "list")
+		List<String> phoneList = new ArrayList<>();// 裝轉使用者好朋友們phone 的 "list")
+		List<String> imageList = new ArrayList<>();// 裝轉成base64 Image的"list"(使用者好朋友們的image)
 
 		MemberBean memberBean = (MemberBean) session.getAttribute("loginOK");
 
@@ -72,6 +73,10 @@ public class RelationController {
 				System.out.println("List<RelationBean> (使用者所有的好友暱稱)= " + list.get(i).getTargetMbrSN().getNickName());
 				// mbrSNList放入所有好友的編號
 				mbrSNList.add(list.get(i).getTargetMbrSN().getMbrSN());
+				// mbrSNList放入所有好友的e-mail
+				mbrEmailList.add(list.get(i).getTargetMbrSN().getMbrEmail());
+				// mbrSNList放入所有好友的phone
+				phoneList.add(list.get(i).getTargetMbrSN().getPhone());
 				
 				// 將所有好友圖片轉成base64 放入imageList
 				imageBase64 = Base64.getEncoder().encodeToString(list.get(i).getTargetMbrSN().getImage());
@@ -84,6 +89,8 @@ public class RelationController {
 			Map<String, List<?>> searchRelationMap = new HashMap<String, List<?>>();
 			searchRelationMap.put("searchRelationFriend", nicknameList);
 			searchRelationMap.put("searchRelationFriendSN", mbrSNList);
+			searchRelationMap.put("searchRelationFriendEmail", mbrEmailList);
+			searchRelationMap.put("searchRelationFriendPhone", phoneList);
 			searchRelationMap.put("searchRelationImage", imageList);
 
 			// 將所有好友關聯放進 session

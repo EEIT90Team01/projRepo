@@ -55,7 +55,7 @@ public class MyEventCotroller {
 			tempMap.put("EventDetailBean", edb);
 			tempMap.put("EventBean",edb.getEventDetailPK().getEventSN());
 			tempMap.put("MemberBean", edb.getEventDetailPK().getMbrSN());
-			tempMap.put("image", Base64.getEncoder().encodeToString(edb.getEventDetailPK().getMbrSN().getImage()));
+			tempMap.put("image", Base64.getEncoder().encodeToString(edb.getEventDetailPK().getEventSN().getHostMbrSN().getImage()));
 			Integer locSN = edb.getEventDetailPK().getEventSN().getLocSN();
 			String locName = locationDaoImpl.select(locSN).getLocName();
 			tempMap.put("locName", locName);
@@ -69,10 +69,26 @@ public class MyEventCotroller {
 	@RequestMapping(path = { "/events/myEvent2.controller" }) //接6MyEvent.jsp的退除此團 以及 刪除紀錄用
 	public String myEventdelete(String mbrSN,String eventSN,HttpSession session){
 		
-		eventDeleteService.myEventDeleteUse(mbrSN, eventSN);
-		session.setAttribute("eventSN", "null");
-		session.setAttribute("mbrSN", mbrSN);
-		System.out.println("session = "+session.getAttribute(eventSN)+" & "+session.getAttribute(mbrSN));
+		eventDeleteService.EventDeleteUseOnly(mbrSN, eventSN);
+		System.out.println("MyEventCotroller's 上個網頁接的mbrSN = "+mbrSN);
+		
+		
+		List<EventDetailBean> eventDetailBeans = eventDetailDaoImpl.select(mbrSN);
+		System.out.println("eventDetailBean"+eventDetailBeans);
+		List<Map> myEventData = new ArrayList<>();
+		for (EventDetailBean edb:eventDetailBeans){
+			Map<String, Object> tempMap = new HashMap<String, Object>();
+			tempMap.put("EventDetailBean", edb);
+			tempMap.put("EventBean",edb.getEventDetailPK().getEventSN());
+			tempMap.put("MemberBean", edb.getEventDetailPK().getMbrSN());
+			tempMap.put("image", Base64.getEncoder().encodeToString(edb.getEventDetailPK().getEventSN().getHostMbrSN().getImage()));
+			Integer locSN = edb.getEventDetailPK().getEventSN().getLocSN();
+			String locName = locationDaoImpl.select(locSN).getLocName();
+			tempMap.put("locName", locName);
+			myEventData.add(tempMap);
+		}
+		session.setAttribute("myEventData", myEventData);
+		
 		return "MyEvent.index";
 	}
 }

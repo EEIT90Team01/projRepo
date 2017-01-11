@@ -24,12 +24,15 @@ public class EventDeleteService {
 	@Resource(name="eventDetailDao")
 	EventDetailDaoImpl eventDetailDaoImpl;
 	
-	public boolean myEventDeleteUse(String mbrSN,String eventSN){	
+	public boolean EventDeleteUseOnly(String mbrSN,String eventSN){
+		System.out.println("以下進入EventDeleteService的EventDeleteService方法");
 		Integer a = Integer.parseInt(eventSN);
 		System.out.println(a);
 		Integer b = Integer.parseInt(mbrSN);
 		System.out.println(b);
+		
 		EventBean eventBean = eventDaoImpl.select(Integer.parseInt(eventSN));
+		System.out.println();
 		MemberBean memberBean = eventDaoImpl.selectmbr(Integer.parseInt(mbrSN));
 		EventDetailPK eventDetailPK = new EventDetailPK(eventBean, memberBean);
 		boolean c = eventDetailDaoImpl.delete(eventDetailPK);
@@ -49,6 +52,7 @@ public class EventDeleteService {
 		
 		return true;
 	}
+	
 	public boolean eventDetail4MbrJoinUse(String mbrSN,String eventSN){
 		
 		EventBean eventBean = eventDaoImpl.select(Integer.parseInt(eventSN));

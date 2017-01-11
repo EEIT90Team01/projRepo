@@ -189,7 +189,7 @@ function changeData(){
 							<!-- 							</div> -->
 						</div>
 						<div class="form-group col-md-6">
-							<input checked id="putMemberDataCount"
+							<input id="putMemberDataCount"
 								onclick="putMemberData('${loginOK.mbrName}','${loginOK.phone}','${loginOK.phone}','${loginOK.mbrEmail}','${loginOK.address}')"
 								type="checkbox"><label> 同會員資料 </label>
 						</div>
