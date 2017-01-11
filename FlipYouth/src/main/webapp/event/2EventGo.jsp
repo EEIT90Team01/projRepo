@@ -349,7 +349,7 @@ border: 1px solid;
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 	<script src="../build/jquery.datetimepicker.full.min.js"></script>
-	
+	<script src="http://maps.google.com/maps/api/js?key=AIzaSyCGJ1ulbWXOsbaH2_m77VzpX-CKiC0ZRmw"></script>
 <script type="text/javascript">
 
 /////自訂人數上限/////
@@ -471,23 +471,7 @@ function userDownLimSubmit(){
 			addressToLatLng($('#hiddenUserInputAddress').val());
 		}
 /////////自定位址顯示在MAP上///////////
-//////////抓經緯度/////////////////
-	var addr;
-	function addressToLatLng(addr) {
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode(
-            		{"address": addr},
-            		function (results, status) {
-            			if (status == google.maps.GeocoderStatus.OK) {
-            				$("#targetlat").val(results[0].geometry.location.lat());
-            				$("#targetlng").val(results[0].geometry.location.lng());
-            		}else{
-            			$("#targetlat").val("查無經緯度");
-        				$("#targetlng").val("查無經緯度");
-            		}
-            		});
-     }
-//////////抓經緯度/////////////////
+
 //////////日期時間Plugin datetimepicker////////////
 	jQuery(function(){
  		jQuery('#date_timepicker_start').datetimepicker({
@@ -582,8 +566,25 @@ if(Date.parse(closetime).valueOf() > Date.parse(endtime).valueOf()){
 // 	}
 // }
 /////清除表單/////
-
+//////////抓經緯度/////////////////
+function addressToLatLng(addr) {
+		console.log(addr);
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode(
+        		{"address": addr},
+        		function (results, status) {
+        			if (status == google.maps.GeocoderStatus.OK) {
+        				$("#targetlat").val(results[0].geometry.location.lat());
+        				$("#targetlng").val(results[0].geometry.location.lng());
+        		}else{
+        			$("#targetlat").val("查無經緯度");
+    				$("#targetlng").val("查無經緯度");
+        		}
+        		});
+ }
+//////////抓經緯度/////////////////
 </script>
+
 <!-- javascript功能 -->
 <!--****** 	導入footer  *****************************-->
 <jsp:include page="/footer.jsp"></jsp:include>

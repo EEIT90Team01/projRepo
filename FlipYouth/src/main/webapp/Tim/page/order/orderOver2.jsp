@@ -313,7 +313,7 @@ Meiryo, "·L³n¥¿¶ÂÅé", "Microsoft JhengHei"}
 					img = Canvas2Image.convertToJPEG(canvas, canvas.width,
 							canvas.height);
 					dataURL = canvas.toDataURL(img);
-					// 											window.open(dataURL);
+// 																window.open(dataURL);
 					//						console.log(img);
 					//						console.log(dataURL);
 					// 					sessionStorage.setItem("image", dataURL);
