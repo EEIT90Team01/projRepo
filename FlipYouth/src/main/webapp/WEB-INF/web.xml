@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<display-name>FlipYouth</display-name>
+
 	<welcome-file-list>
-		<welcome-file>index3.jsp</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
@@ -87,14 +87,16 @@
   	</servlet-mapping>
   	
   	<!-- 強制轉https -->
-<!--   	<security-constraint> -->
-<!--   		<web-resource-collection> -->
-<!--   			<web-resource-name>FlipYouth</web-resource-name> -->
-<!--   			<url-pattern>/*</url-pattern> -->
-<!--   		</web-resource-collection> -->
-<!--   		<user-data-constraint> -->
-<!--   			<transport-guarantee>CONFIDENTIAL</transport-guarantee> -->
-<!--   		</user-data-constraint> -->
-<!--   	</security-constraint> -->
+
+  	<!-- <security-constraint>
+  		<web-resource-collection>
+  			<web-resource-name>FlipYouth</web-resource-name>
+  			<url-pattern>/*</url-pattern>
+  		</web-resource-collection>
+  		<user-data-constraint>
+  			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+  		</user-data-constraint>
+  	</security-constraint> -->
+
   	
 </web-app>

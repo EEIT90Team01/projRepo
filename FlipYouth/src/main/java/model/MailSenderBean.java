@@ -45,7 +45,7 @@ public class MailSenderBean implements Runnable {
 //			hashCode.append(Integer.toHexString(c));
 //		}
 		
-		String url = new StringBuilder("http://localhost:8080/FlipYouth/checkActivatedCode.controller?id=").append(id)
+		String url = new StringBuilder("http://flipyouth.southeastasia.cloudapp.azure.com/FlipYouth/checkActivatedCode.controller?id=").append(id)
 				.append("&actCode=").append(hashCode.toString()).toString();
 		System.out.println(hashCode.toString());
 		try {
@@ -68,7 +68,7 @@ public class MailSenderBean implements Runnable {
 			mailMessage.setContent("<h1>你好" + id + "!!</h1><br><h3>歡迎您成為FlipYouth的會員。謝謝您的加入，祝翻桌愉快~</h3> <br><a href='" + url + "'>請點擊以激活帳號</a> ",
 					"text/html;charset=UTF-8");
 			try {
-				mailMessage.setSubject( MimeUtility.encodeText( "FlipYouth會員 帳號激活"));
+				mailMessage.setSubject( MimeUtility.encodeText( "wellcome to FlipYouth "));
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
