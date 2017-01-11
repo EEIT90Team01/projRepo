@@ -39,9 +39,8 @@
 			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="MemberSelect"><img src="<c:url value='/Kelsey/images/basic_gray/settings.png'/>" >&nbsp&nbspMember<strong class="caret"></strong></a>
 				<div class="MemberDIV">
 				<ul id="MemberUL" class="MemberOpenSelect">
-					<li ><a	href="<c:url value='/pages/memberIndex.jsp'/>" >
-					&nbsp&nbsp會員中心&nbsp</a></li>
-					<li ><a href="<c:url value='/pages/editMember.jsp'/>" >&nbsp&nbsp修改個人資料&nbsp</a></li>
+					<li ><a	href="<c:url value='/pages/memberIndex.jsp'/>" >&nbsp我的個人資料&nbsp</a></li>
+					<li ><a href="<c:url value='/pages/editMember.jsp'/>" >&nbsp修改個人資料&nbsp</a></li>
 				</ul>
 				</div>
 			</li>
@@ -51,7 +50,7 @@
 					src="<c:url value='/Kelsey/images/basic_gray/shopping-cart.png'/>">&nbsp&nbspShop<strong class="caret"></strong></a>
 				<div class="ShopDIV">
 				<ul id="ShopUL" class="ShopOpenSelect">
-					<li ><a href="<c:url value='/Tim/page/FlipYouthStore.jsp'/>"> &nbsp&nbsp翻桌唷&nbsp商城&nbsp	</a></li>
+					<li ><a href="<c:url value='/Tim/page/FlipYouthStore.jsp'/>"> &nbsp翻桌唷&nbsp商城&nbsp	</a></li>
 				</ul>
 				</div>
 			</li>
@@ -59,7 +58,7 @@
 			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="TeamSelect"><img src="<c:url value='/Kelsey/images/basic_gray/megaphone.png'/>" >&nbsp&nbspTeam<strong class="caret"></strong></a>
 				<div class="TeamDIV">
 				<ul id="TeamUL" class="TeamOpenSelect">
-					<li ><a href="<c:url value="/events/eventing.controller"/>?mbrSN=${loginOK.mbrSN}">&nbsp&nbsp我的揪團&nbsp</a></li>
+					<li ><a href="<c:url value="/events/eventing.controller"/>?mbrSN=${loginOK.mbrSN}">&nbsp我的揪團&nbsp</a></li>
 				</ul>
 				</div>
 			</li>
@@ -67,9 +66,8 @@
 			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" id="FriendSelect"><img src="<c:url value='/Kelsey/images/basic_gray/stick-man.png'/>" >&nbsp&nbspFriend<strong class="caret"></strong></a>
 				<div class="FriendSelectDIV">
 				<ul id="FriendSelectUL" class="openSelect">
-					<li ><a	href="<c:url value='/searchRelation.controller' />">&nbsp&nbsp我的好友&nbsp</a></li>
-					<li ><a href="<c:url value="/showBlockadeMember.controller"/>">封鎖名單</a></li>
-					<li><a href="<c:url value="/searchRelation.controller"/>">好友列表</a></li>
+					<li ><a	href="<c:url value='/searchRelation.controller' />">&nbsp我的好友&nbsp</a></li>
+					<li ><a href="<c:url value="/showBlockadeMember.controller"/>">&nbsp封鎖名單&nbsp</a></li>
 				</ul>
 				</div>
 			</li>

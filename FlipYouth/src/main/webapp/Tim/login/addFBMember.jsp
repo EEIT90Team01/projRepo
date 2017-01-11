@@ -122,7 +122,7 @@ a {
 
 	<video poster="" id="bgvid" playsinline autoplay muted loop> <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
 	<!-- <source src="http://thenewcode.com/assets/videos/polina.webm" type="video/webm"> -->
-	<source src="/FlipYouth/Tim/video/Underground-Traffic.mp4"
+	<source src="/FlipYouth/Tim/video/Boat-Lapse.mp4"
 		type="video/mp4"></video>
 	<!-- start Login box -->
 	<div class="container" id="login-block">

@@ -40,7 +40,7 @@ public class EventDetailDaoImpl implements EventDetailDao{
 
 	@Override
 	public EventDetailBean insert(EventDetailBean bean) {
-		getSession().saveOrUpdate(bean);
+		getSession().save(bean);
 		return bean;
 	}
 
