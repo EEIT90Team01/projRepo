@@ -36,7 +36,7 @@
 				<fieldset style="padding-top: 25px;">
 
 					<div class="form-group">
-						<label style="color:white;" class="col-md-2 control-label">暱稱：</label>
+						<label style="color:white;" class="col-md-3 control-label">暱稱：</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
@@ -49,7 +49,7 @@
 					<!-- Text input-->
 
 					<div class="form-group">
-						<label style="color:white;" class="col-md-2 control-label">帳號：</label>
+						<label style="color:white;" class="col-md-3 control-label">帳號：</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-cog"></i></span> 
@@ -61,7 +61,7 @@
 
 					<!-- Text input-->
 					<div class="form-group">
-						<label style="color:white;" class="col-md-2 control-label">密碼：</label>
+						<label style="color:white;" class="col-md-3 control-label">密碼：</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> 
@@ -75,7 +75,7 @@
 					<!-- Text input-->
 
 					<div class="form-group">
-						<label style="color:white;" class="col-md-2 control-label">E-Mail</label>
+						<label style="color:white;" class="col-md-3 control-label">E-Mail</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i

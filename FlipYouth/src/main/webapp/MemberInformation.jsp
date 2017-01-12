@@ -104,7 +104,7 @@
 
 
 					<div class="form-group">
-						<label style="color:white;" class="col-md-2 control-label">姓名：</label>
+						<label style="color:white;" class="col-md-3 control-label">姓名：</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
@@ -115,7 +115,7 @@
 
 					<!-- Text input-->
 					<div class="form-group">
-						<label style="color:white;" class="col-md-2 control-label">性別：</label>
+						<label style="color:white;" class="col-md-3 control-label">性別：</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="radio" id="gender"> 
 							<label  style="color:white;"><input type="radio"  name="gender" value="男"
@@ -127,7 +127,7 @@
 
 
 					<div class="form-group">
-						<label style="color:white;" class="col-md-2 control-label">電話：</label>
+						<label style="color:white;" class="col-md-3 control-label">電話：</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> 
@@ -137,7 +137,7 @@
 					</div>
 					
 					<div class="form-group">
-						<label style="color:white;" class="col-md-2 control-label">地址：</label>
+						<label style="color:white;" class="col-md-3 control-label">地址：</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
