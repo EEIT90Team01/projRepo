@@ -92,7 +92,7 @@
 				<h3 style="margin-top:0;margin-bottom:0;text-align:center;color:white;font-family:fantasy;">Sign Up</h3>
 				<fieldset style="padding-top: 25px;">
 					<div class="col-md-3"></div>
-					<div class="fileinput fileinput-new" data-provides="fileinput"> 
+					<div style="text-align:center;" class="fileinput fileinput-new " data-provides="fileinput"> 
 						<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
 						<div style="text-align:center;" >
 							<span style="margin:0 auto" class="btn btn-default btn-file"><span class="fileinput-new">Select image</span>
