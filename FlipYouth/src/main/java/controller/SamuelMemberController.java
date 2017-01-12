@@ -111,9 +111,10 @@ public class SamuelMemberController {
 			@RequestParam(name = "phone") String phone,
 			@RequestParam(name = "image") MultipartFile image,
 			@RequestParam(name = "action") String action,
+			@RequestParam(name = "address") String address,
 			Model model, HttpSession session) throws IOException{
 			
-		mbrName = mbrName.trim();gender = gender.trim();phone = phone.trim();     //去除空白
+		mbrName = mbrName.trim();gender = gender.trim();phone = phone.trim();address = address.trim();     //去除空白
 		
 		MemberBean sessionBean = (MemberBean)session.getAttribute("insert");
 		
@@ -153,6 +154,7 @@ public class SamuelMemberController {
 			sessionBean.setEnergy(10);
 			sessionBean.setRptCounter(0);
 			sessionBean.setCreateTime(date);
+			sessionBean.setAddress(address);
 			sessionBean.setImage(image.getBytes());
 			sessionBean.setActivatedCode(activatedCode);
 			MemberBean result = mis.insert(sessionBean);

@@ -118,16 +118,16 @@
 						<label style="color:white;" class="col-md-2 control-label">性別：</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="radio" id="gender"> 
-							<label><input type="radio" name="gender" value="1"
-								CHECKED>男</label> <label><input type="radio"
-								name="gender" value="0">女</label>
+							<label  style="color:white;"><input type="radio"  name="gender" value="男"
+								CHECKED>男</label> <label  style="color:white;"><input type="radio"
+								name="gender" value="女">女</label>
 							</div>
 						</div>
 					</div>
 
 
 					<div class="form-group">
-						<label style="color:white;" class="col-md-2 control-label">行動電話：</label>
+						<label style="color:white;" class="col-md-2 control-label">電話：</label>
 						<div class="col-md-9 inputGroupContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> 
@@ -135,6 +135,17 @@
 							</div>						
 						</div>
 					</div>
+					
+					<div class="form-group">
+						<label style="color:white;" class="col-md-2 control-label">地址：</label>
+						<div class="col-md-9 inputGroupContainer">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
+								<input name="address" id="address" placeholder="ex:台北市大安區復興南路一段390號" class="form-control" type="text">
+							</div>						
+						</div>
+					</div>
+					
 					<div class="form-group">
 						<label class="col-md-8 control-label"></label>
 						<div class="col-md-1"  ></div>

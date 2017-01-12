@@ -74,7 +74,7 @@
 								}
 								$(e).css({"maxWidth":$(box).width(),"margin-bottom":"5px"});
 								$(e).fadeIn();
-								self.elem.uiChatboxLog.scrollTop(200);
+								self.elem.uiChatboxLog.scrollTop(350);
 							},
 							addMsgS : function(peer, msg, mbrSNImage){		//append 改成prepend，為了歷史對話記錄用的
 									console.log("成功進入覆寫的addMsgS");	
