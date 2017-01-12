@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import model.MemberBean;
 
-@WebFilter({ "/pages/memberIndex.jsp","/pages/showBlockadeMember.jsp","/searchRelation.controller", "/writeOrder.controller", "/Tim/page/order/*" ,"/pages/editMember.jsp","/Tim/login/login.jsp"})
+@WebFilter({ "/showBlockadeMember.controller","/pages/memberIndex.jsp","/pages/showBlockadeMember.jsp","/searchRelation.controller", "/writeOrder.controller", "/Tim/page/order/*" ,"/pages/editMember.jsp","/Tim/login/login.jsp"})
 public class Filter implements javax.servlet.Filter {
 
 	@Override

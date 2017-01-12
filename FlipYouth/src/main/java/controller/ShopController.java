@@ -437,6 +437,9 @@ public class ShopController {
 		session.setAttribute("count", 0);
 		session.removeAttribute("loginOK");
 		car.clear();
+		session.setAttribute("cars", car);
+		price=0;
+		all=0;
 		count = 0;
 		return "index";
 	}
