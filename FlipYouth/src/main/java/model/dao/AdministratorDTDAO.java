@@ -69,4 +69,11 @@ public class AdministratorDTDAO {
 		int result = ((Long) query.getSingleResult()).intValue();
 		return result;
 	}
+
+	public AdministratorBean check(String admId) {
+		
+		AdministratorBean bean = null;
+		bean = getSession().get(AdministratorBean.class, admId);
+		return bean;
+	}
 }

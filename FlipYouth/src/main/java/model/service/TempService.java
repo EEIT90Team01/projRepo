@@ -51,7 +51,7 @@ public class TempService {
 		} else if (Arrays.equals(PNGMAGNUM, Arrays.copyOfRange(image, 0, 8))) {
 			ext = ".png";
 		} else if (Arrays.equals(JPEGMAGNUM, Arrays.copyOfRange(image, 0, 2))) {
-			ext = ".jpeg";
+			ext = ".jpg";
 		}
 		String relPath = "/image/" + DigestUtils.md5DigestAsHex(image) + ext;
 		String filePath = getRootPath() + relPath;

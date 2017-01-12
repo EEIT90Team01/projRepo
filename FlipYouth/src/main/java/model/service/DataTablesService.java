@@ -266,7 +266,6 @@ public class DataTablesService {
 				jObj.addProperty("phone", mbr.getPhone());
 				jObj.addProperty("address", mbr.getAddress());
 				jObj.addProperty("mbrEmail", mbr.getMbrEmail());
-				jObj.addProperty("image", tempService.byteArrayToTempImg(mbr.getImage(), 160, 0));
 				jObj.addProperty("mbrState", mbr.getMbrState());
 				jObj.addProperty("energy", mbr.getEnergy());
 
@@ -299,7 +298,8 @@ public class DataTablesService {
 				// jObj.add("image",
 				// gson.toJsonTree(tempService.base64ToTempImg(ord.getImage(),
 				// 0, 0)));
-				jObj.addProperty("image", "<img width='160px' src='/FlipYouth" + ord.getImage() +"?"+ System.currentTimeMillis() +"' />");
+				jObj.addProperty("image_Dis", "<img width='160px' src='/FlipYouth" + ord.getImage() +"?"+ System.currentTimeMillis() +"' />");
+				jObj.addProperty("image", ord.getImage());
 				jArray.add(jObj);
 			}
 			return jArray;

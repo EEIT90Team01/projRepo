@@ -57,14 +57,14 @@ public class AdminLoginService {
 	}
 
 	@Autowired
-	private AdministratorDTDAO administratorDao;
+	private AdministratorDTDAO administratorDtdao;
 	
 	@Transactional(readOnly=true)
 	public AdministratorBean login(String admId, String admPassword) {
 		
 		AdministratorBean bean = null;
-		bean = administratorDao.select(admId);
-		if (bean != null) {
+		bean = administratorDtdao.check(admId);
+		if (bean != null && bean.getAdmId()!=null) {
 			if (admPassword != null && !admPassword.isEmpty()) {
 				
 				byte[] pass = bean.getAdmPassword();
