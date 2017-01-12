@@ -97,7 +97,7 @@ public class EventGoController {
 				errors.put("userAddUpLimit", "上限人數僅能為數字!");
 			}
 			if (bindingResult.getFieldError("userAddDownLimit") != null) {
-				errors.put("userAddDownLimit", "上限人數僅能為數字!");
+				errors.put("userAddDownLimit", "下限人數僅能為數字!");
 			}
 		}
 		System.out.println("controller's errors=" + errors);
