@@ -44,8 +44,10 @@ public class MailSenderBean implements Runnable {
 //		for (byte c : activatedCode) {
 //			hashCode.append(Integer.toHexString(c));
 //		}
+
 //		String url = new StringBuilder("http://localhost:8080/FlipYouth/checkActivatedCode.controller?id=").append(id)
 //				.append("&actCode=").append(hashCode.toString()).toString();
+
 		String url = new StringBuilder("https://flipyouth.southeastasia.cloudapp.azure.com/FlipYouth/checkActivatedCode.controller?id=").append(id)
 				.append("&actCode=").append(hashCode.toString()).toString();
 		System.out.println(hashCode.toString());

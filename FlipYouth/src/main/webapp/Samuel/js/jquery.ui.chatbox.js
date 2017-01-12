@@ -64,7 +64,9 @@
 								$(e).prepend(picDiv);
 								
 								if(peer === userNickName){
+
 									var msgDiv = "<div style='margin-left:15px;' class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
+
 									$(e).append(msgDiv);
 									$(e).addClass("message-box right-img");
 								}else{
@@ -89,6 +91,7 @@
 									$(e).prepend(picDiv);
 									
 									if(peer === userNickName){
+
 										var msgDiv = "<div style='margin-left:15px;' class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
 										$(e).append(msgDiv);
 										$(e).addClass("message-box right-img");
@@ -117,6 +120,7 @@
 								$(e).append(picDiv);
 								
 								if(peer === userNickName){
+
 									var msgDiv = "<div style='margin-left:15px;' class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
 									$(e).append(msgDiv);
 									$(e).addClass("message-box right-img");
@@ -187,6 +191,7 @@
 								$(e).append(picDiv);
 								
 								if(peer === userNickName){
+
 									var msgDiv = "<div style='margin-left:15px;' class='message'><span>"+peer+"</span><p>"+msg+"</p></div>"
 									$(e).append(msgDiv);
 									$(e).addClass("message-box right-img");
