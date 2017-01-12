@@ -150,7 +150,7 @@ border: 1px solid;
 <%-- 		<c:remove var="myEventData"></c:remove> --%>
 <!-- /////////////// -->
 	<div>
-		<c:forEach items="${myEventData}" var="element" varStatus="theCount">
+		<c:forEach items="${myEventData}" var="element">
 		<c:if test="${element.EventBean.eventState=='1'}">
 <%-- 		${element.EventDetailBean.eventDetailPK.mbrSN.mbrSN} --%>
 		<!-- /////TABLE///// -->
@@ -161,7 +161,7 @@ border: 1px solid;
 
 						<tr class="info">
 							<td class="col-md-1" rowspan="3">
-								<span> 第 ${theCount.count} 團 </span>
+<%-- 								<span> 第 ${theCount.count} 團 </span> --%>
 							</td>
 							<td colspan="3">
 								<div style="float: left" class="col-md-3">
