@@ -3,7 +3,7 @@ var userSN = $('#websocketUserSN').val();
 var userNickName = $('#websocketUserNickName').val();
 
 
-//var webSocket = new WebSocket("ws://localhost/FlipYouth/privateChatServer/"+userNickName);
+//var webSocket = new WebSocket("ws://localhost:8080/FlipYouth/privateChatServer/"+userNickName);
 var webSocket = new WebSocket("wss://flipyouth.southeastasia.cloudapp.azure.com/FlipYouth/privateChatServer/"+userNickName);
 
 		webSocket.onmessage = function(data) {processMessage(data)};
