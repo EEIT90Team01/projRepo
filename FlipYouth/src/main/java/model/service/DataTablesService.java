@@ -268,6 +268,7 @@ public class DataTablesService {
 				jObj.addProperty("mbrEmail", mbr.getMbrEmail());
 				jObj.addProperty("mbrState", mbr.getMbrState());
 				jObj.addProperty("energy", mbr.getEnergy());
+				jObj.add("image", gson.toJsonTree(tempService.byteArrayToTempImg(mbr.getImage(), 160, 0)));
 
 				System.out.println(gson.toJson(jObj));
 				jArray.add(jObj);
