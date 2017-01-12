@@ -84,10 +84,6 @@ session.setAttribute("user_photo", user_photo);
 					id="nickName" value="${loginOK.nickName}"  required /><span id="idspName"><span>${errors.nickName}</span>
 			</div>
 			<div class="st1">
-				<label class="title">密碼：</label> <input type="password"
-					name="mbrPassword" id="mbrPassword" required /><span id="idspPwd"><span>${errors.nickName}</span>
-			</div>
-			<div class="st1">
 				<label class="title">地址：</label> <input type="text" name="address"
 					id="address" value="${loginOK.address}"  required/>
 			</div>
@@ -107,7 +103,10 @@ session.setAttribute("user_photo", user_photo);
 					id="member_photo" accept="image/jpeg,image/png"
 					value=" ${loginOK.image}" /><br>
 					<!-- 	*alt屬性   alt="your image" 為  照片沒有顯示出來時會出現的字 -->
-			
+			</div>
+			<div class="st1">
+				<label class="title">密碼：</label> <input type="password"
+					name="mbrPassword" id="mbrPassword" required /><span id="idspPwd"><span>${errors.nickName}</span>
 			</div>
 				
 			</div>

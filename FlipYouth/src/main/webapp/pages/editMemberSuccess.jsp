@@ -59,8 +59,6 @@
 						<div class="st1">
 				<label class="title">暱稱：</label><span>${editSuccess.nickName}</span></div>
 			<div class="st1">
-				<label class="title">密碼：</label> ${editSuccess.mbrPassword}</div>
-			<div class="st1">
 				<label class="title">地址：</label> ${editSuccess.address}</div>
 				
 			<div class="st1">

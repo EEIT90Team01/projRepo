@@ -1,5 +1,7 @@
 package controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +21,17 @@ public class LocationDetailController {
 	LocationDetailService locationDetailService;
 	
 	@RequestMapping(path = { "/events/locationDetail.controller" }) //接3EventDetail4Host.jsp
-	public String locationDetailProcess(String locName,Model model,LocationDetailFbBean locationDetailFbBean){
+	public String locationDetailProcess(String locLat,String locLong,String locName,Model model,LocationDetailFbBean locationDetailFbBean,HttpSession session){
 		System.out.println("上個網頁接的locName = "+locName);
 		locationDetailFbBean.setLocName(locName);
+		locationDetailFbBean.setLocLat(locLat);
+		System.out.println("上個網頁接的locLat = "+locLat);
+		locationDetailFbBean.setLocLong(locLong);
+		System.out.println("上個網頁接的locLong = "+locLong);
 		
 		model.addAttribute("locationDetail", locationDetailFbBean);
-		
+		session.setAttribute("locLat", locLat);
+		session.setAttribute("locLong", locLong);
 		return "LocationDetail.index";
 	}
 }

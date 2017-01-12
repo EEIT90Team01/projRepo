@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -22,7 +23,7 @@ public class ShopDTDAO {
 	public ShopBean select(Integer GameSN) {
 		
 		ShopBean bean = null;
-		bean = getSession().get(ShopBean.class, GameSN);
+		bean = getSession().load(ShopBean.class, GameSN);
 		return bean;
 	}
 
@@ -43,10 +44,22 @@ public class ShopDTDAO {
 		}
 		return result;
 	}
-	
+		
 	public List<ShopBean> ajaxQuery(String hql, int start, int length) {
+
 		List<ShopBean> beans = null;
-		beans = getSession().createQuery(hql, ShopBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+		List<Integer> pks = getSession().createQuery("select GameSN "+hql, Integer.class).setFirstResult(start).setMaxResults(length)
+				.getResultList();
+		beans = this.select(pks);
+		return beans;
+	}
+
+	public List<ShopBean> select(List<Integer> pks) {
+		
+		List<ShopBean> beans = new ArrayList<ShopBean>();
+		for (Integer pk:pks){
+			beans.add(this.select(pk));
+		}
 		return beans;
 	}
 	

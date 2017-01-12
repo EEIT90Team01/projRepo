@@ -63,7 +63,7 @@ public class EventService {
 	public LocationBean eventGoInsertLocationTable(EventGoFbBean eventGoFbBean){
 		String userInputAddress = eventGoFbBean.getUserInputAddress();
 		Integer locSN=null;
-		LocationBean locationBean=new LocationBean(locSN, userInputAddress, null, null, null);
+		LocationBean locationBean=new LocationBean(locSN, userInputAddress, eventGoFbBean.getLocLong(), eventGoFbBean.getLocLat(), null);
 		locationDaoImpl.insert(locationBean);
 		return locationBean;
 	}

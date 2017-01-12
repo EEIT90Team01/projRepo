@@ -246,7 +246,7 @@ display: none
 								<label>顏色</label>
 								<div class="colortitle" style="background-color: #337ab7">出貨中</div>
 								<div class="colortitle"
-									style="padding: 0 23px; font-size: 23px; background-color: green">已到門市</div>
+									style=" font-size: 23px; background-color: green">已到門市</div>
 								<div class="colortitle" style="background-color: red">已取消</div>
 								<div class="colortitle" style="background-color: #B94FFF">已完成</div>
 							</div>
@@ -379,7 +379,8 @@ display: none
 		function format(d) {
 			display = "";
 			val = checkState(d);
-			var image = "open2('data:image/png;base64," + d.image + "');";
+			console.log("/FlipYouth"+d.image);
+			var image = "open2('/FlipYouth"+d.image+"')";
 			return '<button class="btn btn-danger" onclick="'+image+'">開啟明細</button>'
 					+ '<button id='
 					+ d.orderSN

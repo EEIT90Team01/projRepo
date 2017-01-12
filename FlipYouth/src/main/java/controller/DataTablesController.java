@@ -332,6 +332,14 @@ public class DataTablesController {
 				result = dataTablesService.ajaxMemberCuHandler(cuParam, file);
 				break;
 			case "Order":
+				if (file != null) {
+					if (!"image".equals(file.getContentType().split("/")[0])) {
+						errMap.put("imageE", "檔案類型不符");
+					}
+					if (file.getSize() > 20 * 1024 * 1024) {
+						errMap.put("imageE", "檔案太大");
+					}
+				}
 				if (forUpdate && integerValidator.validate(cuParam.get("orderSN")) == null) {
 					errMap.put("orderSNE", "不可為空且需為整數");
 				} else if (!forUpdate
@@ -386,7 +394,7 @@ public class DataTablesController {
 				if (errMap.size() != 0) {
 					return gson.toJson(errMap);
 				}
-				result = dataTablesService.ajaxOrderCuHandler(cuParam);
+				result = dataTablesService.ajaxOrderCuHandler(cuParam, file);
 				break;
 			case "OrderDetail":
 				if (forUpdate && integerValidator.validate(cuParam.get("orderSN")) == null) {

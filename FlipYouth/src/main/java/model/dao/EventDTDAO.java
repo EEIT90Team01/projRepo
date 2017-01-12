@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -22,7 +23,7 @@ public class EventDTDAO {
 	public EventBean select(Integer eventSN) {
 		
 		EventBean bean = null;
-		bean = getSession().get(EventBean.class, eventSN);
+		bean = getSession().load(EventBean.class, eventSN);
 		return bean;
 	}
 
@@ -44,8 +45,20 @@ public class EventDTDAO {
 	}
 	
 	public List<EventBean> ajaxQuery(String hql, int start, int length) {
+
 		List<EventBean> beans = null;
-		beans = getSession().createQuery(hql, EventBean.class).setFirstResult(start).setMaxResults(length).getResultList();
+		List<Integer> pks = getSession().createQuery("select eventSN "+hql, Integer.class).setFirstResult(start).setMaxResults(length)
+				.getResultList();
+		beans = this.select(pks);
+		return beans;
+	}
+
+	public List<EventBean> select(List<Integer> pks) {
+		
+		List<EventBean> beans = new ArrayList<EventBean>();
+		for (Integer pk:pks){
+			beans.add(this.select(pk));
+		}
 		return beans;
 	}
 	

@@ -222,7 +222,7 @@
 						</td>
 						<td class="col-md-3">
 							<div>
-							<a href="<c:url value="/events/locationDetail.controller"/>?locName=${eventGo.userInputAddress}">
+							<a href="<c:url value="/events/locationDetail.controller"/>?locName=${eventGo.userInputAddress}&locLat=${eventGo.locLat}&locLong=${eventGo.locLong}">
 								<button type="button" class="btn btn-primary btn-block">
 									&gt;&gt;&gt;位置明細&lt;&lt;&lt;
 								</button>
