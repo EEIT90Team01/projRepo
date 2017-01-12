@@ -103,7 +103,7 @@
 					<h4 class="modal-title" id="cuModalTitle">增修資料</h4>
 				</div>
 				<div class="modal-body">
-					<form action="/FlipYouth/admin/cu.controller" method="POST" enctype="multipart/form-data">
+					<form action="/FlipYouth/admin/cu.controller" method="POST" autocomplete="off" enctype="multipart/form-data">
 						
 						<!-- <div class="form-group">
 							<label for="exampleInputFile">File input</label> <input

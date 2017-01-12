@@ -35,7 +35,7 @@ public class ColumnService {
 		colsMap.put("Authority", new String[]{"authId","authName"});
 		colsMap.put("BackEndLog", new String[]{"admId","executeTime","belNotes","sqlCommand"});
 		colsMap.put("Shop", new String[]{"GameSN","GameName","Introduction","PlayingTime","PlayerNumber","SmallImage_Dis","StockQuantity","Gameclass","Ages","StrGameTheme","StrGameMechanics","StrLanguage","Price","Discount","Freight"});//,"BigImageDis","div1Dis"
-		colsMap.put("Order", new String[]{"orderSN","mbrSN","orderAmount","shippedDate","orderDate","productDelivery","freight","paymentMethod","orderState","email","address","name","tel","phone","image"});
+		colsMap.put("Order", new String[]{"orderSN","mbrSN","orderAmount","shippedDate","orderDate","productDelivery","freight","paymentMethod","orderState","email","address","name","tel","phone","image_Dis"});
 		colsMap.put("OrderDetail", new String[]{"orderSN","gameSN_Dis","Quantity"});
 		colsMap.put("Member", new String[]{"mbrSN","mbrId","gender","mbrName","createTime","phone","address","mbrEmail","mbrState","energy","nickName","image"});
 		colsMap.put("Relation", new String[]{"mbrSN_Dis","targetMbrSN_Dis","notes","relation_Dis","createTime"});
