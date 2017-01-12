@@ -88,7 +88,7 @@
   	
   	<!-- 強制轉https -->
 
-  	<!-- <security-constraint>
+  	<security-constraint>
   		<web-resource-collection>
   			<web-resource-name>FlipYouth</web-resource-name>
   			<url-pattern>/*</url-pattern>
@@ -96,7 +96,7 @@
   		<user-data-constraint>
   			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
   		</user-data-constraint>
-  	</security-constraint> -->
+  	</security-constraint>
 
   	
 </web-app>
